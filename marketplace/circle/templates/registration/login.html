@@ -1,4 +1,4 @@
-<!-- templates/circle/login.html -->
+<!-- templates/registration/login.html -->
 
 {% extends 'circle/base.html' %}
 
@@ -12,7 +12,7 @@
 
 {% block body %}
 
-    <form action="">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
     </form>

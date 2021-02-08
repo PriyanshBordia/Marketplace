@@ -18,7 +18,8 @@
                     Hi! <span id="username">{{ user.username }}</span>, <br>
                     Welcome Back :)
                 </div>
-                <a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'travel' %}" role="button">Travel</a>
+                <a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'search' %}" role="button">Search</a>
+                <a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'addArticle_template' %}" role="button">Add Article</a>
             </div>
         </div>
     {% else %}
@@ -27,7 +28,7 @@
                 <span><img src="https://img.icons8.com/clouds/200/000000/meeting.png" /></span>
                 <div class="home-head h2 mt-2 mr-auto ml-0">
                     <span id="username">Welcome</span>, <br>
-                    Log In to travel around the globe.
+                    Log In to enter the marketplace.
                 </div>
                 <a class="form-home-button btn btn-outline-info mt-3" href="{% url 'login' %}" role="button">Log in</a>
             </div>

@@ -1,6 +1,9 @@
 from django.db import models
 from django.db.models.fields import CharField
 from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator, MaxLengthValidator
+
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 class Article(models.Model):
@@ -13,11 +16,14 @@ class Article(models.Model):
 
     price = models.FloatField(validators=[MinValueValidator(0.1)], blank=False, null=False)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+
     def __str__(self):
         return f"{self.name}"
      
     # class Meta:
     #     proxy = True
+
 
 class Person(models.Model):
 
@@ -30,3 +36,6 @@ class Person(models.Model):
     sex = models.CharField(max_length=1, choices=options, blank=False, null=False, default='X')
     email = models.EmailField(blank=False, null=False)
     ph_no = models.BigIntegerField(blank=False, null=False)
+
+    def __str__(self):
+        return f"{self.first} {self.last}  {self.age}  {self.sex}"

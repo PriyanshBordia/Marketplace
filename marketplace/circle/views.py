@@ -13,5 +13,21 @@ from .models import Article
 def home(request):
     return render(request, "circle/home.html", context={})
 
+
 def article(request):
     return render(request, "circle/home.html")
+
+
+def search(request):
+
+    article = Article.objects.all()
+
+    return render(request, "circle/result.html", context={'articles': articles})
+
+
+def user(request):
+    pass
+
+
+def update(request):
+    pass
