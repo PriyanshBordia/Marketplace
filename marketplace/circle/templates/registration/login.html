@@ -1,0 +1,20 @@
+<!-- templates/circle/login.html -->
+
+{% extends 'circle/base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block head %}
+    <!--  -->
+{% endblock %}
+
+{% block body %}
+
+    <form action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+    
+{% endblock %}
