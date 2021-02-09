@@ -30,32 +30,37 @@ class Person(models.Model):
 
     options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
-    id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user")
+    id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user", primary_key=True)
+
+    username = models.CharField(max_length=64, blank=False, null=False, unique=True)
 
     first = models.CharField(max_length=64, blank=False, null=False)
     last = models.CharField(max_length=64, blank=True, null=False)
 
     age = models.IntegerField(blank=False, null=False)
     sex = models.CharField(max_length=1, choices=options, blank=False, null=False, default='X')
+    
     email = models.EmailField(blank=False, null=False)
     ph_no = models.BigIntegerField(blank=False, null=False)
 
-    bought = models.ManyToManyField(Article, related_name="purchased")
-    rented = models.ManyToManyField(Article)
-    sold = models.ManyToManyField(Article, related_name="")
+    bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
+    rented = models.ManyToManyField(Article, blank=True, related_name="rented")
+    sold = models.ManyToManyField(Article, blank=True, related_name="sold")
 
-    bookmarked = models.ManyToManyField(Article)
+    bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
 
     def __str__(self):
         return f"{self.first} {self.last}  {self.age}  {self.sex}"
 
 class Message(models.Model):
 
-    sender = models.ForeignKey(Person)
-    receiver = models.ForeignKey(Person)
+    sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="send")
 
-    text = models.CharField(min_length=1, max_length=255, blank=True, null=False)
+    receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
+
+    text = models.CharField(max_length=255, blank=True, null=False)
 
     timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
-    
+    def __str__(self):
+        return f"{self.sender} {self.receiver} {self.timestamp}"

@@ -1,0 +1,1 @@
+web: gunicorn circle.wsgi:application --log-file -

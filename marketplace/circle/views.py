@@ -15,14 +15,18 @@ def home(request):
 
 
 def article(request):
-    return render(request, "circle/home.html")
+    return render(request, "circle/user.html")
 
 
 def search(request):
+    return render(request, "circle/search.html", context={})
+
+
+def result(request):
 
     articles = Article.objects.all()
-
     return render(request, "circle/result.html", context={'articles': articles})
+
 
 
 def user(request):
@@ -30,4 +34,4 @@ def user(request):
 
 
 def update(request):
-    pass
+    return render(request, "circle/user.html", context={})

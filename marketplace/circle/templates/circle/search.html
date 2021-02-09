@@ -14,9 +14,16 @@
     
     <div class="container container-fluid">
         <div class="search-container">
-            <form method="post" class="form-group">
-                <input type="text" placeholder="Type keywords for what you want to find.!"/>
-                <button class="btn btn-outline-info btn-lg">Find.!</button>
+            <br>
+            <form class="form-group" action="{% url 'result' %}" method="post">
+                
+                {% csrf_token %}
+
+                <input class="form-control" type="text" placeholder="Type keywords for what you want to find.!"/>
+                <br>                
+                <button class="form-control btn btn-outline-warning mt-5" type="reset">Reset</button>
+                <br>
+                <button class="form-control btn btn-outline-success mt-5" type="submit">Find.!</button>
             </form>
         </div>
     </div>
