@@ -7,14 +7,22 @@
 {% endblock %}
 
 {% block head %}
-    <!--  -->
+    <!-- Icon -->
 {% endblock %}
 
 {% block body %}
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-    </form>
-    
+    <div class="container container-fluid">
+        <div class="login-container justify-content-center">
+            <h3>Log In</h3>
+            <form method="post">
+                
+                {% csrf_token %}
+                
+                {{ form.as_p }}
+                
+            </form>
+        </div>
+    </div>
+     
 {% endblock %}

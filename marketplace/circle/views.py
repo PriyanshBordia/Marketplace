@@ -20,13 +20,13 @@ def article(request):
 
 def search(request):
 
-    article = Article.objects.all()
+    articles = Article.objects.all()
 
     return render(request, "circle/result.html", context={'articles': articles})
 
 
 def user(request):
-    pass
+    return render(request, "circle/user.html", context={})
 
 
 def update(request):
