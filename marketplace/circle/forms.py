@@ -1,4 +1,8 @@
 from django.forms import forms
 
-class addItem():
-    pass
+from .models import Article
+
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ('name', 'description', 'price', 'image')

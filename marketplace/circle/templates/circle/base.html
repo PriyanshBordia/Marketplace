@@ -33,6 +33,13 @@
 
     {% block head %}{% endblock %}
 
+    <style>
+        body
+        {
+            background-color: #001831;
+            color: whitesmoke;
+        }
+    </style>
     <!-- Icon -->
     <link rel="icons" href="https://img.icons8.com/bubbles/100/000000/shop--v2.png">
     <title> | Marketplace {% block title %}{% endblock %}</title>
@@ -83,18 +90,39 @@
         </div>
     </nav>
 
-    <p>
-        <span class="h-6 flex items-center sm:h-7">
-            <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd" />
-            </svg>
-        </span>
-        Hello
-    </p>
-
     {% block body %}{% endblock %}
+
+    <hr class="mt-5">
+    
+    <section class="comments">
+        <script src="https://utteranc.es/client.js" repo="PriyanshBordia/The-MilkyWay-Airlines" issue-term="title"
+            label="utterances" theme="github-light" crossorigin="anonymous" async></script>
+    </section>
+    
+    <hr style="max-width:700px;">
+    
+    <div id="social-handles" class="justify-content-center">
+        <a href="https://priyanshbordia.github.io/" class="ml-3" target="_blank" title="Priyansh Bordia"><i
+                class="fas fa-link"></i></a>
+        <a href="https://github.com/PriyanshBordia" class="ml-3" target="_blank" title="PriyanshBordia"><i
+                class="fab fa-github fa"></i></a>
+        <a href="mailto:priyanshbordia2@gmail.com" class="ml-3" target="_blank" title="Priyansh Bordia"><i
+                class="fab fa-envelope fa"></i></a>
+        <a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" class="ml-3" target="_blank" title="Priyansh B."><i
+                class="fab fa-linkedin fa"></i></a>
+        <a href="https://twitter.com/PriyanshBordia1" class="ml-3" target="_blank" title="PriyanshBordia1"><i
+                class="fab fa-twitter fa"></i></a>
+        <a href="https://www.instagram.com/priyansh.bordia/" class="ml-3" target="_blank" title="priyansh.bordia"><i
+                class="fab fa-instagram fa"></i></a>
+        <a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" class="ml-3" target="_blank"
+            title="Priyansh Bordia"><i class="fab fa-youtube fa-"></i></a>
+    </div>
+    
+    <hr style="max-width:700px;">
+    
+    <footer class="button">
+        &copy; 2021 Marketplace, Inc.
+    </footer>
 
 </body>
 </html>
