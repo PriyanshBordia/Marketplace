@@ -34,7 +34,7 @@
     {% block head %}{% endblock %}
 
     <!-- Icon -->
-    <!-- <link rel="icons" href="https://img.icons8.com/bubbles/50/000000/shop--v2.png"> -->
+    <link rel="icons" href="https://img.icons8.com/bubbles/100/000000/shop--v2.png">
     <title> | Marketplace {% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -60,27 +60,39 @@
                         aria-haspopup="true" aria-expanded="false">
                         Dropdown
                     </a>
-                        {% if user.is_authenticated %}
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'user' %}">Profile</a>
-                                <a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        {% endif %}
-                    </div>
+                    <!-- {% if user.is_authenticated %} -->
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'user' %}">Profile</a>
+                            <a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    <!-- {% endif %} -->
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <li class="nav-item mr-sm-2 ml-auto">
+                    <a class="nav-link mr-3" href="{% url 'password_reset' %}">Reset</a>
+                </li>
+                <li class="nav-item mr-sm-2 ml-auto">
+                    <a class="nav-link mr-3" href="{% url 'signup' %}">Register</a>
                 </li>
             </ul>
-            <a class="nav-item nav-link mr-3" href="{% url 'password_reset' %}">Reset</a>
-            <a class="nav-item nav-link mr-3" href="{% url 'signup' %}">Reg</a>
-            <form class="form-inline my-2 my-lg-0">
+            <!-- <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            <!-- </form> -->
         </div>
     </nav>
+
+    <p>
+        <span class="h-6 flex items-center sm:h-7">
+            <svg class="flex-shrink-0 h-5 w-5 text-cyan-500" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+            </svg>
+        </span>
+        Hello
+    </p>
 
     {% block body %}{% endblock %}
 

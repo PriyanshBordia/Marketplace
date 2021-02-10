@@ -52,6 +52,7 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.first} {self.last}  {self.age}  {self.sex}"
 
+
 class Message(models.Model):
 
     sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="send")
