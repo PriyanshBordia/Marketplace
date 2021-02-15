@@ -1,0 +1,142 @@
+$form-width: 700px;
+$form-btn-size-sm: 2.5in;
+$form-btn-size-md: 3in;
+$form-btn-size-lg: 3.5in;
+$form-btn-size-xl: 5in;
+$font-lg: 24;
+$font-md: 20;
+$font-sm: 18;
+$sm: 576px;
+$lg: 768px;
+$xl: 1200px;
+
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-brand
+{
+   font-size: 30px !important;
+}
+
+.nav-item
+{
+    font-size: 20px !important;
+}
+
+a
+{
+    text-decoration: none !important;
+}
+
+h1
+{
+    color : #428bca;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+h1:hover
+{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    color: #7dce94;
+}
+
+h2, .home-head, .h2
+{
+    color: #ff0000e1;
+    font-weight: 400;
+}
+
+h3
+{
+    color: cadetblue;
+}
+
+h4
+{
+    color: rgb(141, 130, 238);
+    font-weight: lighter;
+}
+
+h5
+{
+    color: #c2dde6;
+    font-weight: lighter;
+}
+
+/*Social Media handles*/
+#social-handles
+{
+    max-width: 700px;
+    margin: auto;
+    padding: 5px;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+#social-handles a
+{
+    color: gray;
+}
+
+#social-handles a:hover
+{
+    color: #447EA6;
+    text-decoration: none !important;
+}
+
+
+.alert
+{
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Error Message */
+.error-message, .success-message {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  padding: 30px;
+  font-size: 20;
+}
+
+.error-message-type, .success-message-type {
+  max-width: 700px;
+  margin: auto;
+  font-size: 24;
+}
+
+.error-message-a, .success-message-a {
+  color: white;
+  text-decoration: none !important;
+}
+
+/*Footer*/
+footer
+{
+	margin: 20px;
+    padding: 10px;
+    color: grey;         /* Gray */
+    text-decoration: none !important;
+    text-align: center;
+    font-size: 20px;
+}
+
+/*Hower Over Effect*/
+.button
+{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button:hover
+{
+    background-color: white;
+    color: rgb(120,81,169);
+}
