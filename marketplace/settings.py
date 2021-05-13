@@ -29,11 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
 
-ADMINS = []
+# ADMINS
+# ADMINS = [env('ADMINS')]
+ADMINS = [('Priyansh Bordia', 'priyanshbordia2@gmail.com')]
 
 # Application definition
 
@@ -87,7 +89,25 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+
+    'development': {
+        'ENGINE': env('DEV_DB_ENGINE'),
+        'NAME': env('DEV_DB_NAME'),
+        'USER': env('DEV_DB_USER'),
+        'PASSWORD': env('DEV_DB_PASSWORD'),
+        'HOST': env('DEV_DB_HOST'),
+        'PORT': env('DEV_DB_PORT'),
+    },
+
+    'production': {
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+    },
 }
 
 
@@ -151,6 +171,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = 'The MilkyWay Airlines Team <no-reply@milkyway.io>'
