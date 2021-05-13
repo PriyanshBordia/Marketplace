@@ -60,40 +60,34 @@ h1, h2, h3 {
     margin-top: 0;
 }
 
-h1
-{
+h1 {
     color : #428bca;
     margin-bottom: 10px;
     font-weight: lighter;
 }
 
-h1:hover
-{
+h1:hover {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     background-color: white;
     color: #7dce94;
 }
 
-h2, .home-head, .h2
-{
+h2, .home-head, .h2 {
     color: #ff0000e1;
     font-weight: 400;
 }
 
-h3
-{
+h3 {
     color: cadetblue;
 }
 
-h4
-{
+h4 {
     color: rgb(141, 130, 238);
     font-weight: lighter;
 }
 
-h5
-{
+h5 {
     color: #c2dde6;
     font-weight: lighter;
 }
