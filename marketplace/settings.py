@@ -92,7 +92,7 @@ DATABASES = {
     },
 
     'development': {
-        'ENGINE': env('DEV_DB_ENGINE'),
+        'ENGINE': env('DEV_ENGINE'),
         'NAME': env('DEV_DB_NAME'),
         'USER': env('DEV_DB_USER'),
         'PASSWORD': env('DEV_DB_PASSWORD'),
@@ -101,7 +101,7 @@ DATABASES = {
     },
 
     'production': {
-        'ENGINE': env('DB_ENGINE'),
+        'ENGINE': env('ENGINE'),
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
