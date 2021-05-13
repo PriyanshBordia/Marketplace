@@ -33,16 +33,9 @@
 
     {% block head %}{% endblock %}
 
-    <style>
-        body
-        {
-            background-color: #001831;
-            color: whitesmoke;
-        }
-    </style>
     <!-- Icon -->
-    <link rel="icons" href="https://img.icons8.com/bubbles/100/000000/shop--v2.png">
-    <title> | Marketplace {% block title %}{% endblock %}</title>
+    <link rel="icon" href="https://img.icons8.com/bubbles/100/000000/shop--v2.png" />
+    <title> {% block title %}{% endblock %} | Marketplace</title>
 </head>
 <body>
     
@@ -94,35 +87,43 @@
 
     <hr class="mt-5">
     
+    <!-- Comments and Suggestions -->
     <section class="comments">
         <script src="https://utteranc.es/client.js" repo="PriyanshBordia/The-MilkyWay-Airlines" issue-term="title"
-            label="utterances" theme="github-light" crossorigin="anonymous" async></script>
+            label="utterances" theme="dark-blue" crossorigin="anonymous" async></script>
     </section>
     
     <hr style="max-width:700px;">
-    
-    <div id="social-handles" class="justify-content-center">
-        <a href="https://priyanshbordia.github.io/" class="ml-3" target="_blank" title="Priyansh Bordia"><i
-                class="fas fa-link"></i></a>
-        <a href="https://github.com/PriyanshBordia" class="ml-3" target="_blank" title="PriyanshBordia"><i
-                class="fab fa-github fa"></i></a>
-        <a href="mailto:priyanshbordia2@gmail.com" class="ml-3" target="_blank" title="Priyansh Bordia"><i
-                class="fab fa-envelope fa"></i></a>
-        <a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" class="ml-3" target="_blank" title="Priyansh B."><i
-                class="fab fa-linkedin fa"></i></a>
-        <a href="https://twitter.com/PriyanshBordia1" class="ml-3" target="_blank" title="PriyanshBordia1"><i
-                class="fab fa-twitter fa"></i></a>
-        <a href="https://www.instagram.com/priyansh.bordia/" class="ml-3" target="_blank" title="priyansh.bordia"><i
-                class="fab fa-instagram fa"></i></a>
-        <a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" class="ml-3" target="_blank"
-            title="Priyansh Bordia"><i class="fab fa-youtube fa-"></i></a>
-    </div>
-    
-    <hr style="max-width:700px;">
-    
-    <footer class="button">
-        &copy; 2021 Marketplace, Inc.
-    </footer>
 
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__grid__handles">
+                <a href="https://github.com/PriyanshBordia" target="_blank" title="PriyanshBordia"><i class="fab fa-github"
+                        onmouseover="play()"></i></a>
+                <a href="mailto:priyanshbordia2@gmail.com" target="_blank" title="Priyansh Bordia"><i
+                        class="fas fa-envelope" onmouseover="play()"></i></a>
+                <a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" target="_blank" title="Priyansh B."><i
+                        class="fab fa-linkedin" onmouseover="play()"></i></a>
+                <a href="https://twitter.com/BordiaPriyansh" target="_blank" title="BordiaPriyansh"><i
+                        class="fab fa-twitter" onmouseover="play()"></i></a>
+                <a href="https://www.instagram.com/priyansh.bordia/" target="_blank" title="priyansh.bordia"><i
+                        class="fab fa-instagram" onmouseover="play()"></i></a>
+                <!-- <a href="#" target="_blank" title="priyansh.bordia"><i class="fa fa-snapchat-ghost" onmouseover="play()"></i></a> -->
+                <!-- <a href="#" class="ml-3" target="_blank" title="BitBucket"><i class="fab fa-bitbucket" onmouseover="play()"></i></a> -->
+                <!-- <a href="#" class="ml-3" target="_blank" title="GitLab"><i class="fab fa-gitlab" onmouseover="play()"></i></a> -->
+                <!-- <a href="#" class="ml-3" target="_blank" title="Slack"><i class="fab fa-slack" onmouseover="play()"></i></a> -->
+                <!-- <a href="#" class="ml-3" target="_blank" title=""><i class = "fab fa-discord" onmouseover="play()"></i></a> -->
+                <a href="https://t.me/priyanshbordia" target="_blank" title="Priyansh Bordia"><i class="fab fa-telegram"
+                        onmouseover="play()"></i></a>
+                <a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" target="_blank"
+                    title="Priyansh Bordia"><i class="fab fa-youtube" onmouseover="play()"></i></a>
+            </div>
+            <div class="footer__grid__text">
+                <span class="has-hover">Created by Priyansh Bordia &copy; 2021</span>
+            </div>
+        </div>
+    </footer>
+    
 </body>
 </html>
