@@ -28,7 +28,6 @@ def result(request):
     return render(request, "circle/result.html", context={'articles': articles})
 
 
-
 def user(request):
     return render(request, "circle/user.html", context={})
 

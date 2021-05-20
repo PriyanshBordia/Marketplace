@@ -6,13 +6,10 @@ from django.apps import AppConfig
 from django.db import connections
 from django.db.backends.signals import connection_created
 from django.db.migrations.writer import MigrationWriter
-from django.db.models import CharField, OrderBy, TextField
-from django.db.models.functions import Collate
-from django.db.models.indexes import IndexExpression
+from django.db.models import CharField, TextField
 from django.test.signals import setting_changed
 from django.utils.translation import gettext_lazy as _
 
-from .indexes import OpClass
 from .lookups import SearchLookup, TrigramSimilar, Unaccent
 from .serializers import RangeSerializer
 from .signals import register_type_handlers
@@ -66,4 +63,3 @@ class PostgresConfig(AppConfig):
         CharField.register_lookup(TrigramSimilar)
         TextField.register_lookup(TrigramSimilar)
         MigrationWriter.register_serializer(RANGE_TYPES, RangeSerializer)
-        IndexExpression.register_wrappers(OrderBy, OpClass, Collate)

@@ -30,10 +30,8 @@ class XFrameOptionsMiddleware(MiddlewareMixin):
         if getattr(response, 'xframe_options_exempt', False):
             return response
 
-        response.headers['X-Frame-Options'] = self.get_xframe_options_value(
-            request,
-            response,
-        )
+        response['X-Frame-Options'] = self.get_xframe_options_value(request,
+                                                                    response)
         return response
 
     def get_xframe_options_value(self, request, response):

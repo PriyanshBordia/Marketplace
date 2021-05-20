@@ -109,13 +109,13 @@ class BaseManager:
             **cls._get_queryset_methods(queryset_class),
         })
 
-    def contribute_to_class(self, cls, name):
+    def contribute_to_class(self, model, name):
         self.name = self.name or name
-        self.model = cls
+        self.model = model
 
-        setattr(cls, name, ManagerDescriptor(self))
+        setattr(model, name, ManagerDescriptor(self))
 
-        cls._meta.add_manager(self)
+        model._meta.add_manager(self)
 
     def _set_creation_counter(self):
         """
@@ -185,8 +185,9 @@ class ManagerDescriptor:
 
         if cls._meta.swapped:
             raise AttributeError(
-                "Manager isn't available; '%s' has been swapped for '%s'" % (
-                    cls._meta.label,
+                "Manager isn't available; '%s.%s' has been swapped for '%s'" % (
+                    cls._meta.app_label,
+                    cls._meta.object_name,
                     cls._meta.swapped,
                 )
             )

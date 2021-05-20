@@ -19,8 +19,7 @@ def resolve_relation(model, app_label=None, model_name=None):
                 )
             return app_label, model_name
         if '.' in model:
-            app_label, model_name = model.split('.', 1)
-            return app_label, model_name.lower()
+            return tuple(model.lower().split('.', 1))
         if app_label is None:
             raise TypeError(
                 'app_label must be provided to resolve unscoped model '

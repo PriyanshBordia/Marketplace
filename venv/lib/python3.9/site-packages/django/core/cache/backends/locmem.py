@@ -59,7 +59,6 @@ class LocMemCache(BaseCache):
 
     def touch(self, key, timeout=DEFAULT_TIMEOUT, version=None):
         key = self.make_key(key, version=version)
-        self.validate_key(key)
         with self._lock:
             if self._has_expired(key):
                 return False

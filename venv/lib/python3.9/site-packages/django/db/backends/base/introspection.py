@@ -4,11 +4,7 @@ from collections import namedtuple
 TableInfo = namedtuple('TableInfo', ['name', 'type'])
 
 # Structure returned by the DB-API cursor.description interface (PEP 249)
-FieldInfo = namedtuple(
-    'FieldInfo',
-    'name type_code display_size internal_size precision scale null_ok '
-    'default collation'
-)
+FieldInfo = namedtuple('FieldInfo', 'name type_code display_size internal_size precision scale null_ok default')
 
 
 class BaseDatabaseIntrospection:

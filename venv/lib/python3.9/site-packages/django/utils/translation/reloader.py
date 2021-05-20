@@ -3,7 +3,11 @@ from pathlib import Path
 from asgiref.local import Local
 
 from django.apps import apps
-from django.utils.autoreload import is_django_module
+
+
+def _is_django_module(module):
+    """Return True if the given module is nested under Django."""
+    return module.__name__.startswith('django.')
 
 
 def watch_for_translation_changes(sender, **kwargs):
@@ -15,7 +19,7 @@ def watch_for_translation_changes(sender, **kwargs):
         directories.extend(
             Path(config.path) / 'locale'
             for config in apps.get_app_configs()
-            if not is_django_module(config.module)
+            if not _is_django_module(config.module)
         )
         directories.extend(Path(p) for p in settings.LOCALE_PATHS)
         for path in directories:

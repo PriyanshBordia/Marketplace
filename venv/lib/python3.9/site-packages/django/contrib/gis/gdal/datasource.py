@@ -34,7 +34,6 @@
               val = field.value
 """
 from ctypes import byref
-from pathlib import Path
 
 from django.contrib.gis.gdal.base import GDALBase
 from django.contrib.gis.gdal.driver import Driver
@@ -63,7 +62,7 @@ class DataSource(GDALBase):
 
         Driver.ensure_registered()
 
-        if isinstance(ds_input, (str, Path)):
+        if isinstance(ds_input, str):
             # The data source driver is a void pointer.
             ds_driver = Driver.ptr_type()
             try:

@@ -28,8 +28,6 @@ class DatabaseIntrospection(BaseDatabaseIntrospection):
         2950: 'UUIDField',
         3802: 'JSONField',
     }
-    # A hook for subclasses.
-    index_default_access_method = 'btree'
 
     ignored_tables = []
 
@@ -69,11 +67,9 @@ class DatabaseIntrospection(BaseDatabaseIntrospection):
             SELECT
                 a.attname AS column_name,
                 NOT (a.attnotnull OR (t.typtype = 'd' AND t.typnotnull)) AS is_nullable,
-                pg_get_expr(ad.adbin, ad.adrelid) AS column_default,
-                CASE WHEN collname = 'default' THEN NULL ELSE collname END AS collation
+                pg_get_expr(ad.adbin, ad.adrelid) AS column_default
             FROM pg_attribute a
             LEFT JOIN pg_attrdef ad ON a.attrelid = ad.adrelid AND a.attnum = ad.adnum
-            LEFT JOIN pg_collation co ON a.attcollation = co.oid
             JOIN pg_type t ON a.atttypid = t.oid
             JOIN pg_class c ON a.attrelid = c.oid
             JOIN pg_namespace n ON c.relnamespace = n.oid
@@ -193,7 +189,7 @@ class DatabaseIntrospection(BaseDatabaseIntrospection):
                             pg_get_indexdef(idx.indexrelid)
                     END AS exprdef,
                     CASE am.amname
-                        WHEN %s THEN
+                        WHEN 'btree' THEN
                             CASE (option & 1)
                                 WHEN 1 THEN 'DESC' ELSE 'ASC'
                             END
@@ -210,15 +206,10 @@ class DatabaseIntrospection(BaseDatabaseIntrospection):
                 WHERE c.relname = %s AND pg_catalog.pg_table_is_visible(c.oid)
             ) s2
             GROUP BY indexname, indisunique, indisprimary, amname, exprdef, attoptions;
-        """, [self.index_default_access_method, table_name])
+        """, [table_name])
         for index, columns, unique, primary, orders, type_, definition, options in cursor.fetchall():
             if index not in constraints:
-                basic_index = (
-                    type_ == self.index_default_access_method and
-                    # '_btree' references
-                    # django.contrib.postgres.indexes.BTreeIndex.suffix.
-                    not index.endswith('_btree') and options is None
-                )
+                basic_index = type_ == 'btree' and not index.endswith('_btree') and options is None
                 constraints[index] = {
                     "columns": columns if columns != [None] else [],
                     "orders": orders if orders != [None] else [],

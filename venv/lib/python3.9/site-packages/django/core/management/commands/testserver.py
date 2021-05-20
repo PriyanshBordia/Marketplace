@@ -6,7 +6,7 @@ from django.db import connection
 class Command(BaseCommand):
     help = 'Runs a development server with data from the given fixture(s).'
 
-    requires_system_checks = []
+    requires_system_checks = False
 
     def add_arguments(self, parser):
         parser.add_argument(

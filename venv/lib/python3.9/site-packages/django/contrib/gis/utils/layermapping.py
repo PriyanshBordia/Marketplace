@@ -8,7 +8,6 @@
 """
 import sys
 from decimal import Decimal, InvalidOperation as DecimalInvalidOperation
-from pathlib import Path
 
 from django.contrib.gis.db.models import GeometryField
 from django.contrib.gis.gdal import (
@@ -94,7 +93,7 @@ class LayerMapping:
         argument usage.
         """
         # Getting the DataSource and the associated Layer.
-        if isinstance(data, (str, Path)):
+        if isinstance(data, str):
             self.ds = DataSource(data, encoding=encoding)
         else:
             self.ds = data

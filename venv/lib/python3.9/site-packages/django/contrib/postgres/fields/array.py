@@ -4,7 +4,7 @@ from django.contrib.postgres import lookups
 from django.contrib.postgres.forms import SimpleArrayField
 from django.contrib.postgres.validators import ArrayMaxLengthValidator
 from django.core import checks, exceptions
-from django.db.models import Field, Func, IntegerField, Transform, Value
+from django.db.models import Field, IntegerField, Transform
 from django.db.models.fields.mixins import CheckFieldDefaultMixin
 from django.db.models.lookups import Exact, In
 from django.utils.translation import gettext_lazy as _
@@ -198,22 +198,7 @@ class ArrayField(CheckFieldDefaultMixin, Field):
         })
 
 
-class ArrayRHSMixin:
-    def __init__(self, lhs, rhs):
-        if isinstance(rhs, (tuple, list)):
-            expressions = []
-            for value in rhs:
-                if not hasattr(value, 'resolve_expression'):
-                    field = lhs.output_field
-                    value = Value(field.base_field.get_prep_value(value))
-                expressions.append(value)
-            rhs = Func(
-                *expressions,
-                function='ARRAY',
-                template='%(function)s[%(expressions)s]',
-            )
-        super().__init__(lhs, rhs)
-
+class ArrayCastRHSMixin:
     def process_rhs(self, compiler, connection):
         rhs, rhs_params = super().process_rhs(compiler, connection)
         cast_type = self.lhs.output_field.cast_db_type(connection)
@@ -221,22 +206,22 @@ class ArrayRHSMixin:
 
 
 @ArrayField.register_lookup
-class ArrayContains(ArrayRHSMixin, lookups.DataContains):
+class ArrayContains(ArrayCastRHSMixin, lookups.DataContains):
     pass
 
 
 @ArrayField.register_lookup
-class ArrayContainedBy(ArrayRHSMixin, lookups.ContainedBy):
+class ArrayContainedBy(ArrayCastRHSMixin, lookups.ContainedBy):
     pass
 
 
 @ArrayField.register_lookup
-class ArrayExact(ArrayRHSMixin, Exact):
+class ArrayExact(ArrayCastRHSMixin, Exact):
     pass
 
 
 @ArrayField.register_lookup
-class ArrayOverlap(ArrayRHSMixin, lookups.Overlap):
+class ArrayOverlap(ArrayCastRHSMixin, lookups.Overlap):
     pass
 
 

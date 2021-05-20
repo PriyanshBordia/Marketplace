@@ -107,12 +107,9 @@ else:
             return True
     else:
         def lock(f, flags):
-            try:
-                fcntl.flock(_fd(f), flags)
-                return True
-            except BlockingIOError:
-                return False
+            ret = fcntl.flock(_fd(f), flags)
+            return ret == 0
 
         def unlock(f):
-            fcntl.flock(_fd(f), fcntl.LOCK_UN)
-            return True
+            ret = fcntl.flock(_fd(f), fcntl.LOCK_UN)
+            return ret == 0

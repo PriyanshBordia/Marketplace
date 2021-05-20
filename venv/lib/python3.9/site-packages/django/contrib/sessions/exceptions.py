@@ -1,4 +1,4 @@
-from django.core.exceptions import BadRequest, SuspiciousOperation
+from django.core.exceptions import SuspiciousOperation
 
 
 class InvalidSessionKey(SuspiciousOperation):
@@ -8,9 +8,4 @@ class InvalidSessionKey(SuspiciousOperation):
 
 class SuspiciousSession(SuspiciousOperation):
     """The session may be tampered with"""
-    pass
-
-
-class SessionInterrupted(BadRequest):
-    """The session was interrupted."""
     pass

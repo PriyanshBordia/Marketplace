@@ -70,7 +70,8 @@ class GenericForeignKey(FieldCacheMixin):
 
     def __str__(self):
         model = self.model
-        return '%s.%s' % (model._meta.label, self.name)
+        app = model._meta.app_label
+        return '%s.%s.%s' % (app, model._meta.object_name, self.name)
 
     def check(self, **kwargs):
         return [
@@ -342,8 +343,9 @@ class GenericRelation(ForeignObject):
                 return [
                     checks.Error(
                         "The GenericRelation defines a relation with the model "
-                        "'%s', but that model does not have a GenericForeignKey."
-                        % target._meta.label,
+                        "'%s.%s', but that model does not have a GenericForeignKey." % (
+                            target._meta.app_label, target._meta.object_name
+                        ),
                         obj=self,
                         id='contenttypes.E004',
                     )
