@@ -2,7 +2,7 @@ asgiref==3.3.1
 autopep8==1.5.5
 certifi==2020.12.5
 chardet==4.0.0
-Django==3.1.8
+Django==3.1.9
 django-appconf==1.0.4
 django-bootstrap3==15.0.0
 django-cleanup==5.1.0
