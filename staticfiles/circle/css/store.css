@@ -1,0 +1,55 @@
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-brand {
+  font-size: 30px !important;
+}
+
+.nav-item {
+  font-size: 20px !important;
+}
+
+/*Social Media handles*/
+#social-handles {
+  max-width: 700px;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+#social-handles a {
+  color: gray;
+}
+
+#social-handles a:hover {
+  color: #447EA6;
+  text-decoration: none !important;
+}
+
+/* Error Message */
+/*Footer*/
+footer {
+  margin: 20px;
+  padding: 10px;
+  color: grey;
+  /* Gray */
+  text-decoration: none !important;
+  text-align: center;
+  font-size: 20px;
+}
+
+/*Hower Over Effect*/
+.button {
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: white;
+  color: #7851a9;
+}
+/*# sourceMappingURL=store.css.map */
