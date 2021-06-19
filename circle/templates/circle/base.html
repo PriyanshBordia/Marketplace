@@ -42,7 +42,7 @@
 <body>
     
     <!--TODO: Add NavBar with: App Name, LogIn, LogOut, Register, etc-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#" style="color: darkred; font-size: 30px;">Marketplace</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,14 +62,14 @@
                         aria-haspopup="true" aria-expanded="false">
                         Dropdown
                     </a>
-                    <!-- {% if user.is_authenticated %} -->
+                    {% if user.is_authenticated %}
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'user' %}">Profile</a>
                             <a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>
-                    <!-- {% endif %} -->
+                    {% endif %}
                 </li>
                 <li class="nav-item mr-sm-2 ml-auto">
                     <a class="nav-link mr-3" href="{% url 'password_reset' %}">Reset</a>
@@ -95,7 +95,7 @@
             label="utterances" theme="dark-blue" crossorigin="anonymous" async></script>
     </section>
     
-    <hr style="max-width:700px;">
+    <hr style="max-width:900px;">
 
     <!-- Footer Section -->
     <footer class="footer">
