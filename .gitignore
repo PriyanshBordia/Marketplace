@@ -86,6 +86,6 @@ lint/tmp/
 
 .vscode
 
-.DS_Store
-
 venv/
+
+.DS_Store
