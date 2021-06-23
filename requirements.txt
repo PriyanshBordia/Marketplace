@@ -19,4 +19,3 @@ sqlparse==0.4.1
 termcolor==1.1.0
 Werkzeug==1.0.1
 whitenoise==5.2.0
-yamllint==1.26.0.2
