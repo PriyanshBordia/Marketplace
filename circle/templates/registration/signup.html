@@ -7,12 +7,40 @@
 {% endblock %}
 
 {% block head %}
+	<!-- Icon -->
+	{% load static %}
+	<!-- <link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" /> -->
+	<style>
 
+label {
+  color: beige;
+  font-size: 24px;
+}
+
+.helptext li, li a {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  /* color: $LightestSlate; */
+  text-align: center;
+  font-size: 22px;
+  font-weight: lighter;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.helptext:hover, li:hover, li a:hover {
+  background-color: whitesmoke;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
+}
+
+	</style>
 {% endblock %}
 
 {% block body %}
-
-    <div class="container container-fluid text-center  mt-4 ml-auto mr-auto">
+    <div class="container container-fluid text-center mt-4 ml-auto mr-auto">
         <div class="register-action-container justify-content-center">
             <h2 class="register-action-head mt-4">You register and will be a part of our family.</h2>
             <form method="post" class="form-group">
@@ -28,5 +56,4 @@
             </form>
         </div>
     </div>
-
 {% endblock %}

@@ -8,11 +8,12 @@
 
 {% block head %}
     <!-- Icon -->
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" />
 {% endblock %}
 
 {% block body %}
-
-    <div class="container container-fluid">
+    <div class="container container-fluid text-center mt-4 ml-auto mr-auto">
         <div class="login-container justify-content-center">
             <h3>Log In</h3>
             <form method="post">
@@ -25,5 +26,4 @@
             </form>
         </div>
     </div>
-     
 {% endblock %}

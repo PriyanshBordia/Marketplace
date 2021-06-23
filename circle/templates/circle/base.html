@@ -44,45 +44,42 @@
     
     <!--TODO: Add NavBar with: App Name, LogIn, LogOut, Register, etc-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#" style="color: darkred; font-size: 30px;">Marketplace</a>
+        <a class="navbar-brand" href="{% url 'home' %}" style="color: darkred; font-size: 2rem;">Marketplace</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
     
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.3rem;">
+			<form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+            <ul class="navbar-nav mr-2">
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-				{% if user.is_authenticated %}
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-							Profile
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'user' %}">Profile</a>
-							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-						</div>
-					</li>
-				{% endif %}
-                <li class="nav-item mr-sm-2 ml-auto">
-                    <a class="nav-link mr-3" href="{% url 'password_reset' %}">Reset</a>
-                </li>
-                <li class="nav-item mr-sm-2 ml-auto">
-                    <a class="nav-link mr-3" href="{% url 'signup' %}">Register</a>
+                    <a class="nav-link" href="{% url 'home' %}">Link</a>
+                </li> -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						Profile
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{% url 'user' %}">User Details</a>
+						<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
+						<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+					</div>
+				</li>
+				<!-- {% if user.is_authenticated %} -->
+				<!-- {% endif %} -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Register</a>
                 </li>
             </ul>
-            <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-            <!-- </form> -->
+            
         </div>
     </nav>
 
@@ -95,38 +92,5 @@
         <script src="https://utteranc.es/client.js" repo="PriyanshBordia/The-MilkyWay-Airlines" issue-term="title"
             label="utterances" theme="dark-blue" crossorigin="anonymous" async></script>
     </section>
-    
-    <hr style="max-width:900px;">
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="footer__grid">
-            <div class="footer__grid__handles">
-                <a href="https://github.com/PriyanshBordia" target="_blank" title="PriyanshBordia"><i class="fab fa-github"
-                        onmouseover="play()"></i></a>
-                <a href="mailto:priyanshbordia2@gmail.com" target="_blank" title="Priyansh Bordia"><i
-                        class="fas fa-envelope" onmouseover="play()"></i></a>
-                <a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" target="_blank" title="Priyansh B."><i
-                        class="fab fa-linkedin" onmouseover="play()"></i></a>
-                <a href="https://twitter.com/BordiaPriyansh" target="_blank" title="BordiaPriyansh"><i
-                        class="fab fa-twitter" onmouseover="play()"></i></a>
-                <a href="https://www.instagram.com/priyansh.bordia/" target="_blank" title="priyansh.bordia"><i
-                        class="fab fa-instagram" onmouseover="play()"></i></a>
-                <!-- <a href="#" target="_blank" title="priyansh.bordia"><i class="fa fa-snapchat-ghost" onmouseover="play()"></i></a> -->
-                <!-- <a href="#" class="ml-3" target="_blank" title="BitBucket"><i class="fab fa-bitbucket" onmouseover="play()"></i></a> -->
-                <!-- <a href="#" class="ml-3" target="_blank" title="GitLab"><i class="fab fa-gitlab" onmouseover="play()"></i></a> -->
-                <!-- <a href="#" class="ml-3" target="_blank" title="Slack"><i class="fab fa-slack" onmouseover="play()"></i></a> -->
-                <!-- <a href="#" class="ml-3" target="_blank" title=""><i class = "fab fa-discord" onmouseover="play()"></i></a> -->
-                <a href="https://t.me/priyanshbordia" target="_blank" title="Priyansh Bordia"><i class="fab fa-telegram"
-                        onmouseover="play()"></i></a>
-                <a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" target="_blank"
-                    title="Priyansh Bordia"><i class="fab fa-youtube" onmouseover="play()"></i></a>
-            </div>
-            <div class="footer__grid__text">
-                <span class="has-hover">Created by Priyansh Bordia &copy; 2021</span>
-            </div>
-        </div>
-    </footer>
-    
 </body>
 </html>
