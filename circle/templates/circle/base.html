@@ -34,7 +34,8 @@
     {% block head %}{% endblock %}
 
     <!-- Icon -->
-    <link rel="icon" href="https://img.icons8.com/clouds/100/000000/new-letter.png" />
+    <!-- <link rel="icon" href="https://img.icons8.com/clouds/100/000000/new-letter.png" /> -->
+	<link rel="icon" href="https://img.icons8.com/bubbles/50/000000/stormtrooper.png" />
 	<!-- <link rel="icon" href="https://img.icons8.com/clouds/100/000000/shop-local.png" /> -->
 	<!-- <link rel="icon" href="https://img.icons8.com/clouds/64/000000/online-shop-shopping-bag.png" /> -->
     <title> {% block title %}{% endblock %} | Marketplace</title>
@@ -57,20 +58,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    {% if user.is_authenticated %}
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'user' %}">Profile</a>
-                            <a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        </div>
-                    {% endif %}
-                </li>
+				{% if user.is_authenticated %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Profile
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'user' %}">Profile</a>
+							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+						</div>
+					</li>
+				{% endif %}
                 <li class="nav-item mr-sm-2 ml-auto">
                     <a class="nav-link mr-3" href="{% url 'password_reset' %}">Reset</a>
                 </li>
