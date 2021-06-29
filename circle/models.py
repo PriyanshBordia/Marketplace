@@ -11,72 +11,84 @@ from datetime import datetime
 
 class Article(models.Model):
 
-    name = models.CharField(max_length=64, blank=False, null=False)
+	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Title")
 
-    description = models.CharField(max_length=255, blank=True, null=False)
+	description = models.CharField(max_length=255, blank=True, null=False)
 
-    image = models.ImageField(blank=True, null=False)
+	image = models.ImageField(blank=True, null=False)
 
-    price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
+	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
 
-    # sold = models
-    def __str__(self):
-        return f"{self.name}"
-     
-    # class Meta:
-    #     proxy = True
+	def __str__(self):
+			return f"{self.name}"
+
+	# class Meta:
+		# proxy = True
 
 
 class Person(models.Model):
 
-    options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
+	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
 
-    username = models.CharField(max_length=64, blank=False, null=False, unique=True)
-    bio = models.CharField(max_length=500, blank=True, null=False)
+	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
+	bio = models.CharField(max_length=500, blank=True, null=False)
 
-    first = models.CharField(max_length=64, blank=False, null=False)
-    last = models.CharField(max_length=64, blank=True, null=False)
+	first = models.CharField(max_length=64, blank=False, null=False)
+	last = models.CharField(max_length=64, blank=True, null=False)
 
-    age = models.IntegerField(blank=False, null=False)
-    sex = models.CharField(max_length=1, choices=options, blank=False, null=False, default='X')
-    
-    email = models.EmailField(blank=False, null=False)
-    ph_no = models.BigIntegerField(blank=False, null=False)
+	age = models.IntegerField(blank=False, null=False)
+	sex = models.CharField(max_length=1, choices=options, blank=False, null=False, default='X')
 
-    bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
-    rented = models.ManyToManyField(Article, blank=True, related_name="rented")
-    sold = models.ManyToManyField(Article, blank=True, related_name="sold")
+	email = models.EmailField(blank=False, null=False, unique=True)
+	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
-    bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
+	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
+	bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
 
-    def __str__(self):
-        return f"{self.first} {self.last}  {self.age}  {self.sex}"
+	# sold = models.ManyToManyField(Article, blank=True, related_name="sold")
+	
+	cart = models.ManyToManyField(Article, blank=True, related_name="cart")
 
+	bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
+	following = models.ManyToManyField('self', blank=True, related_name="following")
 
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
+	allowsMessage = models.BooleanField(null=False, default=True)
+
+	def __str__(self):
+		return f"{self.first} {self.last}  {self.age}  {self.sex}"
+	
+	class Meta:
+		db_table = "person"
+		verbose_name = "circle_person"
+		# get_latest_by = "id"
+		# ordering = ['id']
 
 
 class Message(models.Model):
 
-    sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="send")
+	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="send")
 
-    receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
+	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
 
-    text = models.CharField(max_length=255, blank=True, null=False)
+	text = models.CharField(validators=[MinLengthValidator(1), MaxLengthValidator(255)], max_length=255, blank=False, null=False)
 
-    timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
-    def __str__(self):
-        return f"{self.sender} {self.receiver} {self.timestamp}"
+	def __format__(self):
+		return f"{self.sender} -> {self.receiver}"
+
+	def __str__(self):
+		return f"{self.timestamp}"
 
 
-# id = models.AutoField(primary_key=True)
+	# @receiver(post_save, sender=User)
+	# def create_user_profile(sender, instance, created, **kwargs):
+	#     if created:
+	#         Profile.objects.create(user=instance)
+
+	# @receiver(post_save, sender=User)
+	# def save_user_profile(sender, instance, **kwargs):
+	#     instance.profile.save()
