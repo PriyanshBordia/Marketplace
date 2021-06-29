@@ -22,8 +22,9 @@ class Article(models.Model):
 	def __str__(self):
 			return f"{self.name}"
 
-	# class Meta:
-		# proxy = True
+	class Meta:
+		db_table = 'article'
+		verbose_name = 'circle_article'
 
 
 class Person(models.Model):
@@ -47,7 +48,7 @@ class Person(models.Model):
 	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
 	bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
 
-	# sold = models.ManyToManyField(Article, blank=True, related_name="sold")
+	sold = models.ManyToManyField(Article, blank=True, related_name="sold")
 	
 	cart = models.ManyToManyField(Article, blank=True, related_name="cart")
 
@@ -63,8 +64,8 @@ class Person(models.Model):
 	class Meta:
 		db_table = "person"
 		verbose_name = "circle_person"
-		# get_latest_by = "id"
-		# ordering = ['id']
+		get_latest_by = "id"
+		ordering = ['id']
 
 
 class Message(models.Model):
