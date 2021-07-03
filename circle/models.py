@@ -9,22 +9,33 @@ from datetime import datetime
 
 # Create your models here.
 
+
+class Tag(models.Model):
+
+	name = models.CharField(max_length=64, blank=True, null=False)
+
+	def __str__(self):
+		return f"{self.name}"
+
+
 class Article(models.Model):
 
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Title")
 
-	description = models.CharField(max_length=255, blank=True, null=False)
+	description = models.TextField(max_length=255, blank=True, null=False)
 
 	image = models.ImageField(blank=True, null=False)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
 
-	def __str__(self):
-			return f"{self.name}"
+	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
-	class Meta:
-		db_table = 'article'
-		verbose_name = 'circle_article'
+	def __str__(self):
+			return f"{self.title} {self.price}"
+
+	# class Meta:
+	# 	db_table = 'article'
+	# 	verbose_name = 'circle_article'
 
 
 class Person(models.Model):
@@ -34,7 +45,7 @@ class Person(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
-	bio = models.CharField(max_length=500, blank=True, null=False)
+	bio = models.TextField(max_length=500, blank=True, null=False)
 
 	first = models.CharField(max_length=64, blank=False, null=False)
 	last = models.CharField(max_length=64, blank=True, null=False)
@@ -61,12 +72,11 @@ class Person(models.Model):
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
 	
-	class Meta:
-		db_table = "person"
-		verbose_name = "circle_person"
-		get_latest_by = "id"
-		ordering = ['id']
-
+	# class Meta:
+	# 	db_table = "person"
+	# 	verbose_name = "Person"
+	# 	get_latest_by = "id"
+	# 	ordering = ['id']	
 
 class Message(models.Model):
 
@@ -84,12 +94,6 @@ class Message(models.Model):
 	def __str__(self):
 		return f"{self.timestamp}"
 
-
-	# @receiver(post_save, sender=User)
-	# def create_user_profile(sender, instance, created, **kwargs):
-	#     if created:
-	#         Profile.objects.create(user=instance)
-
-	# @receiver(post_save, sender=User)
-	# def save_user_profile(sender, instance, **kwargs):
-	#     instance.profile.save()
+	# class Meta:
+	# 	# db_table = "person"
+	# 	verbose_name = "Messages"
