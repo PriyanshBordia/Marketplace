@@ -91,23 +91,23 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
 
-    'development': {
-        'ENGINE': env('DEV_ENGINE'),
-        'NAME': env('DEV_DB_NAME'),
-        'USER': env('DEV_DB_USER'),
-        'PASSWORD': env('DEV_DB_PASSWORD'),
-        'HOST': env('DEV_DB_HOST'),
-        'PORT': env('DEV_DB_PORT'),
-    },
+    # 'development': {
+    #     'ENGINE': env('DEV_ENGINE'),
+    #     'NAME': env('DEV_DB_NAME'),
+    #     'USER': env('DEV_DB_USER'),
+    #     'PASSWORD': env('DEV_DB_PASSWORD'),
+    #     'HOST': env('DEV_DB_HOST'),
+    #     'PORT': env('DEV_DB_PORT'),
+    # },
 
-    'production': {
-        'ENGINE': env('ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
-    },
+    # 'production': {
+    #     'ENGINE': env('ENGINE'),
+    #     'NAME': env('DB_NAME'),
+    #     'USER': env('DB_USER'),
+    #     'PASSWORD': env('DB_PASSWORD'),
+    #     'HOST': env('DB_HOST'),
+    #     'PORT': env('DB_PORT'),
+    # },
 }
 
 

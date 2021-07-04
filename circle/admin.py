@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import Article, Person, Message, Tag
+
 # Register your models here.
 
 
