@@ -1,4 +1,3 @@
-from django.http.request import RAISE_ERROR
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth import login, logout
@@ -10,7 +9,7 @@ from .models import Article, Person, Message, Tag
 
 # Create your views here.
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def home(request):
     return render(request, "circle/home.html", context={})
 
@@ -81,6 +80,8 @@ def addPerson(request):
 
 	person = Person(username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
 
+	person.save()
+
 	return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
 
@@ -94,6 +95,10 @@ def persons(request):
 	return render(request, "circle/persons.html", context={"persons": persons})
 
 
+def newArticle(request):
+	return render(request, "circle/newArticle.html", context={})
+
+	
 def addArticle(request):
 	try:
 		title = str(request.POST.get("title"))
@@ -188,3 +193,9 @@ def update(request):
 
 def message(request, sender_id, reciever_id):
     return render(request, "circle/home.html", context={})
+
+def login(request):
+	pass
+
+def logout(request):
+	pass

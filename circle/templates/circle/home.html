@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-
+	{% load static %}
     {% if user.is_authenticated %}
         <div class="container container-fluid text-center mt-4 pt-3">
             <div class="form-home-container justify-content-center">
@@ -19,7 +19,7 @@
                     Welcome Back :)
                 </div>
                 <a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'search' %}" role="button">Search</a>
-                <a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'addArticle_template' %}" role="button">Add Article</a>
+				<a class="form-home-button btn btn-outline-info btn-lg mt-3" href="{% url 'newArticle' %}" role="button">Add Article</a>
             </div>
         </div>
     {% else %}

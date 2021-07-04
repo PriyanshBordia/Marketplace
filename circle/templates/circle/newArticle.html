@@ -1,0 +1,34 @@
+<!-- "template/circle/newArticle.html" -->
+
+{% extends "circle/base.html" %}
+
+{% block title %}
+	New Article
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+	<div class="container container-fluid">
+		<div class="justify-content-center">
+			<br>
+			<form class="form-group" action="{% url 'home' %}" method="post">
+	
+				{% csrf_token %}
+	
+				<input class="form-group mt-2" type="image" name="image" alt="Article Image" style="float:left" width="100" height="100">
+				
+				<input class="form-control mt-2" type="text" autocomplete=off autofocus placeholder="Title" name="title">
+
+				<input class="form-control mt-2" type="text" autocomplete=off autofocus placeholder="Description" name="description" size="100">
+
+				<input class="form-control mt-2" type="number" autocomplete=off autofocus placeholder="Price" name="price">
+
+				<button class="form-control btn btn-outline-warning btn-md mt-5" type="reset">Reset</button>
+				<button class="form-control btn btn-outline-success btn-md mt-5" type="submit">Add.!</button>
+			</form>
+		</div>
+	<!-- </div> -->
+{% endblock %}
