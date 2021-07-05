@@ -25,7 +25,7 @@ class Article(models.Model):
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
 
-	# tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
+	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
 	def __str__(self):
 		return f"{self.title} {self.price}"
@@ -43,9 +43,9 @@ class Person(models.Model):
 	first = models.CharField(max_length=64, blank=False, null=False)
 	last = models.CharField(max_length=64, blank=True, null=False)
 
-	age = models.IntegerField(blank=False, null=False)
+	age = models.IntegerField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
 	sex = models.CharField(max_length=1, choices=options, blank=False, null=False, default='X')
-
+	
 	email = models.EmailField(blank=False, null=False, unique=True)
 	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
@@ -72,7 +72,7 @@ class Message(models.Model):
 
 	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
 
-	text = models.TextField(max_length=255, blank=False, null=False)
+	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
