@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-from .models import Article, Person #, Message
+from .models import Article, Person, Message, Tag
 
 # Create your views here.
 

@@ -28,7 +28,7 @@ class Article(models.Model):
 	# tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
 	def __str__(self):
-			return f"{self.title} {self.price}"
+		return f"{self.title} {self.price}"
 
 
 class Person(models.Model):
