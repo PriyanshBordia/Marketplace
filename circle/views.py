@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-from .models import Article, Person, Message, Tag
+from .models import Article, Person #, Message
 
 # Create your views here.
 
@@ -86,7 +86,7 @@ def addPerson(request):
 
 
 def person(request, person_id):
-	person = Person.object.get(id=p_id)
+	person = Person.object.get(id=person_id)
 	return render(request, "circle/person.html", context={"person": person})
 
 
@@ -191,7 +191,7 @@ def update(request):
     return render(request, "circle/user.html", context={})
 
 
-def message(request, sender_id, reciever_id):
+def message(request, sender_id, receiver_id):
     return render(request, "circle/home.html", context={})
 
 def login(request):

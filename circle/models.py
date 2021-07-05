@@ -17,7 +17,7 @@ class Tag(models.Model):
 
 class Article(models.Model):
 
-	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Title")
+	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
 	description = models.TextField(max_length=255, blank=True, null=False)
 
@@ -25,14 +25,10 @@ class Article(models.Model):
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
 
-	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
+	# tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
 	def __str__(self):
 			return f"{self.title} {self.price}"
-
-	# class Meta:
-	# 	db_table = 'article'
-	# 	verbose_name = 'circle_article'
 
 
 class Person(models.Model):
@@ -69,11 +65,6 @@ class Person(models.Model):
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
 	
-	# class Meta:
-	# 	db_table = "person"
-	# 	verbose_name = "Person"
-	# 	get_latest_by = "id"
-	# 	ordering = ['id']	
 
 class Message(models.Model):
 
@@ -81,7 +72,7 @@ class Message(models.Model):
 
 	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
 
-	text = models.CharField(validators=[MinLengthValidator(1), MaxLengthValidator(255)], max_length=255, blank=False, null=False)
+	text = models.TextField(max_length=255, blank=False, null=False)
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
@@ -90,7 +81,3 @@ class Message(models.Model):
 
 	def __str__(self):
 		return f"{self.timestamp}"
-
-	# class Meta:
-	# 	# db_table = "person"
-	# 	verbose_name = "Messages"
