@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-# from .models import Article, Person, Message, Tag
+from .models import Article, Person, Message, Tag
 
 # Create your views here.
 
@@ -157,12 +157,12 @@ def addArticle(request):
 
 def article(request, article_id):
 	article = Article.objects.get(pk=article_id)
-	return render(request, "circle/user.html", context={"article": article})
+	return render(request, "circle/article.html", context={"article": article})
 
 
 def articles(request):
 	articles = Article.objects.all()
-	return render(request, "circle/user.html", context={"articles": articles})
+	return render(request, "circle/articles.html", context={"articles": articles})
 
 
 def search(request):

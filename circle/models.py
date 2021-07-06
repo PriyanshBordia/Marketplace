@@ -19,11 +19,11 @@ class Article(models.Model):
 
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
-	description = models.TextField(max_length=255, blank=True, null=False)
+	description = models.TextField(max_length=255, blank=False, null=False)
 
-	image = models.ImageField(blank=True, null=False)
+	image = models.ImageField(upload_to="images/", blank=True, null=False)
 
-	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False, default=1)
+	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
