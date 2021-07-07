@@ -187,6 +187,10 @@ def user(request):
     return render(request, "circle/user.html", context={})
 
 
+def users(request):
+    return render(request, "circle/users.html", context={})
+
+
 def update(request):
     return render(request, "circle/user.html", context={})
 
