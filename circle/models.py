@@ -9,7 +9,15 @@ from datetime import datetime
 
 class Tag(models.Model):
 
-	name = models.CharField(max_length=64, blank=True, null=False)
+	name = models.CharField(max_length=64, blank=False, null=False)
+
+	# domain = models.CharField(max_length=64, blank=False, null=False)
+
+	description = models.TextField(max_length=255, blank=False, null=False)
+	
+
+	def is_valid_tag(self):
+		return len(self.name) > 0
 
 	def __str__(self):
 		return f"{self.name}"
@@ -19,9 +27,9 @@ class Article(models.Model):
 
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
-	description = models.TextField(max_length=255, blank=False, null=False)
+	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="images/", blank=True, null=False)
+	image = models.ImageField(upload_to="images/", blank=False, null=False)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
