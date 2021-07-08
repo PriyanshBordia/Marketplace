@@ -26,7 +26,6 @@ class ModelsTestCase(TestCase):
 		a1 = Article.objects.create(title="Article 2", bio="")
 		a3 = Article.objects.create(title="Article 3", bio="")
 
-
 	def test_is_valid_article(self):
 		self.a1.is_valid_article()
 

@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = True #env('DEBUG', default=True)
 
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
 
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
 	'django_extensions',
-	'django_truncate',
     'accounts',
 ]
 
@@ -153,7 +152,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, '/static'),
+    os.path.join(BASE_DIR, '/static'),
     os.path.join(BASE_DIR, 'circle/static'),
 )
 

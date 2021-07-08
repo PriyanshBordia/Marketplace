@@ -11,12 +11,10 @@ class Tag(models.Model):
 
 	name = models.CharField(max_length=64, blank=False, null=False)
 
-	# domain = models.CharField(max_length=64, blank=False, null=False)
+	domain = models.CharField(max_length=64, blank=False, null=False, default="General")
+	description = models.TextField(max_length=255, blank=False, null=False, default="A Tag")
 
-	description = models.TextField(max_length=255, blank=False, null=False)
-	
-
-	def is_valid_tag(self):
+	def isValidTag(self):
 		return len(self.name) > 0
 
 	def __str__(self):
@@ -34,6 +32,9 @@ class Article(models.Model):
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
+
+	def isValidArticle(self):
+		return len(self.title) > 0 and self.price > 0
 
 	def __str__(self):
 		return f"{self.title} {self.price}"
@@ -70,6 +71,10 @@ class Person(models.Model):
 
 	allowsMessage = models.BooleanField(null=False, default=True)
 
+	def isValidPerson(self):
+		return self.rented != self.sold
+
+		
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
 	
@@ -83,6 +88,9 @@ class Message(models.Model):
 	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	
+	def isValidMessage(self):
+		return len(self.text) > 0 and (self.timestamp <= datetime.now)
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"
