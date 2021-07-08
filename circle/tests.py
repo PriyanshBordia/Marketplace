@@ -1,10 +1,19 @@
-from django.test import TestCase, Client, client
+from django.test import TestCase
 from django.urls import reverse, resolve
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
 
 from .models import Article, Person, Message, Tag
 from .views import addArticle, article, articles, home, addPerson, newArticle, person, persons, result, search, user, users, update, message
 
 # Create your tests here.
+
+class BrowserTest(StaticLiveServerTestCase):
+
+	def setUp(self) -> None:
+		super().setUp()
+
+		self.browser = webdriver.Safari()
 
 class ModelsTestCase(TestCase):
 
@@ -19,7 +28,7 @@ class ModelsTestCase(TestCase):
 
 
 	def test_is_valid_article(self):
-		a1.is_valid_article()
+		self.a1.is_valid_article()
 
 
 class UrlsTestCase(TestCase):
@@ -47,7 +56,7 @@ class ViewsTestCase(TestCase):
 
 	def setUp(self) -> None:
 		super().setUp()
-		self.client = Client()
+		# self.client = Client()
 		self.response = self.client.get(reverse('home'))
 
 	# def view_response(self):
