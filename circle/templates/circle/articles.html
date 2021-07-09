@@ -14,14 +14,19 @@
 {% block body %}
 	<div class="container container-fluid">
 		<div class="justify-content-center">
-			{% for article in articles %}
-				<h4>{{ article.id }}</h4>
-				<h3>{{ article.title }}</h3>
-				<p>{{ article.description }}</p>
-				<p>{{ article.image.url }}</p>
-				<img src="{{ article.image.url }}" alt="Article Image"  style="width: 200px; height: 200px;" />
-				<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
-			{% endfor %}
+			<div class="row">
+				{% for article in articles %}
+					<div class="col-md-4">
+						<h4>{{ article.id }}</h4>
+						<h3>{{ article.title }}</h3>
+						<p>{{ article.description }}</p>
+						<p>{{ article.image.url }}</p>
+						<img src="{{ article.image.url }}" alt="Article Image" style="width: 200px; height: 200px;" />
+						<br>
+						<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

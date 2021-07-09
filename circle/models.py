@@ -27,7 +27,7 @@ class Article(models.Model):
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="images/", blank=False, null=False)
+	image = models.ImageField(upload_to="circle/images/", blank=False, null=False)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
