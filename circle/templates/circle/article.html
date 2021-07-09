@@ -3,7 +3,7 @@
 {% extends 'circle/base.html' %}
 
 {% block title %}
-	Article {{ article.id }}
+	UA{{ article.id }}ID
 {% endblock %}
 
 {% block head %}
@@ -11,5 +11,11 @@
 {% endblock %}
 
 {% block body %}
-	
+	<div class="container container-fluid mt-3">
+		<div class="justify-content-center">
+			<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
+			<h3>{{ article.title }}</h3>
+			<p>{{ article.description }}</p>
+		</div>
+	</div>
 {% endblock %}

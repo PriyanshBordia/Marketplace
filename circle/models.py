@@ -1,9 +1,11 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator, MaxLengthValidator
+from django.utils.text import slugify
+from django.core.validators import MinValueValidator, MinLengthValidator
+
+from datetime import datetime
 
 from django.contrib.auth.models import User
 
-from datetime import datetime
 
 # Create your models here.
 
@@ -12,7 +14,14 @@ class Tag(models.Model):
 	name = models.CharField(max_length=64, blank=False, null=False)
 
 	domain = models.CharField(max_length=64, blank=False, null=False, default="General")
-	description = models.TextField(max_length=255, blank=False, null=False, default="A Tag")
+
+	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
+
+	# slug = models.SlugField()
+
+	# def save(self, *args, **kwargs):
+	# 	super.save(args, kwargs)
+
 
 	def isValidTag(self):
 		return len(self.name) > 0
@@ -27,11 +36,33 @@ class Article(models.Model):
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="circle/images/", blank=False, null=False)
+	image = models.ImageField(upload_to="images/", blank=False, null=False)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
+
+	# slug = models.SlugField()
+
+	def __get_image_name__(self):
+		date = datetime.now(datetime.timezone.utc)
+		year = str(date.year)
+		month = date.month
+		day = date.day
+
+		if month <= 9:
+			month = '0' + str(month)
+		if day <= 9:
+			day = '0' + str(day)
+
+		self.image_name = 'Image_' + date.strftime("%Y-%m-%d_at_%H.%M.%S")
+
+		# str(year) + '-' + str(month) + '-' + str(day) + 
+
+	# def save(self, *args, **kwargs):
+	# 	self.slug = slugify(self.tittle)
+	# 	self.image_name = self.get_image_name();
+	# 	super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0

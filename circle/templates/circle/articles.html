@@ -1,8 +1,6 @@
 <!-- templates/circle/articles.html -->
 {% extends 'circle/base.html' %}
 
-{% load static %}
-
 {% block title %}
 	Articles
 {% endblock %}
@@ -14,19 +12,20 @@
 {% block body %}
 	<div class="container container-fluid">
 		<div class="justify-content-center">
-			<div class="row">
+			<!-- <div class="row"> -->
 				{% for article in articles %}
-					<div class="col-md-4">
+					<!-- <div class="col-md-4"> -->
 						<h4>{{ article.id }}</h4>
 						<h3>{{ article.title }}</h3>
 						<p>{{ article.description }}</p>
+						<p>{{ article.image }}</p>
 						<p>{{ article.image.url }}</p>
-						<img src="{{ article.image.url }}" alt="Article Image" style="width: 200px; height: 200px;" />
+						<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
 						<br>
 						<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
-					</div>
+					<!-- </div> -->
 				{% endfor %}
-			</div>
+			<!-- </div> -->
 		</div>
 	</div>
 {% endblock %}

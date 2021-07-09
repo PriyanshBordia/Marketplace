@@ -7,17 +7,19 @@
 {% endblock %}
 
 {% block head %}
-    <style>
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
-    </style>
+	{% load static %}
+    <!-- <style> -->
+        <!-- /* @tailwind base; -->
+        <!-- @tailwind components; -->
+        <!-- @tailwind utilities; */ -->
+    <!-- </style> -->
 {% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="card text-white bg-dark mt-3 mb-3" style="max-width: 18rem;">
+
                 <div class="card-header">Header</div>
                 <div class="card-body">
                     <h5 class="card-title">Dark card title</h5>
@@ -34,17 +36,21 @@
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
-            </div>
-            <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
-                        This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-            </div>
-
+            </div>		
+			{% for article in articles %}
+				<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+					<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID">
+					<div class="card-body">
+						<h5 class="card-title">{{ article.title }}</h5>
+						<p class="card-text">
+							{{ article.description }}
+						</p>
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+				</div>
+			{% empty %}
+				<div class="alert alert-danger mt-2" role="alert">No Results Matching your query.!!</div>
+			{% endfor %}
         </div>
     </div>
 {% endblock %}

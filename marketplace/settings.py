@@ -158,8 +158,8 @@ STATICFILES_DIRS = (
 
 
 # Media Files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'circle/static/media/')
+MEDIA_URL =  '/media/'
 
 #login redirection to homepage
 LOGIN_REDIRECT_URL = 'home'

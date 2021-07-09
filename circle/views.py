@@ -76,6 +76,15 @@ def addPerson(request):
 
 	ph_no = (9378214503 + (user_id * 10) % request.user.id)
 
+	try:
+		ph_no = str(request.POST.get("ph_no"))
+	except KeyError:
+		return render(request, "circle/error.html", context={"message": "Enter an e-mail address.!!", "type": "KeyError"})
+	except ValueError:
+		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error"})
+	except TypeError:
+		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error"})
+
 	username = email.split('@')[0]
 
 	person = Person(username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
@@ -110,7 +119,7 @@ def addArticle(request):
 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error"})
 
 	try:
-		description =  str(request.get('description'))
+		description =  str(request.POST.get('description'))
 	except KeyError:
 		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error"})
 	except ValueError:
@@ -120,7 +129,7 @@ def addArticle(request):
 
 	
 	try:
-		image = request.get('image')
+		image = str(request.POST.get('image'))
 	except KeyError:
 		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error"})
 	except ValueError:
@@ -130,7 +139,7 @@ def addArticle(request):
 
 
 	try:
-		price = float(request.get('price'))
+		price = float(request.POST.get('price'))
 	except KeyError:
 		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error"})
 	except ValueError:
@@ -140,7 +149,7 @@ def addArticle(request):
 
 
 	try:
-		tags = list(request.get('tags'))
+		tags = list(request.POST.get('tags'))
 	except KeyError:
 		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error"})
 	except ValueError:
@@ -166,6 +175,10 @@ def articles(request):
 
 
 def search(request):
+	return render(request, "circle/search.html", context={})
+
+
+def result(request):
 	try:
 		search = str(request.POST.get("search"))
 	except KeyError:
@@ -175,12 +188,9 @@ def search(request):
 	except TypeError:
 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", })
 
-	return render(request, "circle/search.html", context={})
+	articles = Article.objects.filter(title=search)
 
-
-def result(request):
-    articles = Article.objects.all()
-    return render(request, "circle/result.html", context={'articles': articles})
+	return render(request, "circle/result.html", context={'articles': articles})
 
 
 def user(request):
