@@ -35,9 +35,9 @@
 
     <!-- Icon -->
     <!-- <link rel="icon" href="https://img.icons8.com/clouds/100/000000/new-letter.png" /> -->
-	<link rel="icon" href="https://img.icons8.com/bubbles/50/000000/stormtrooper.png" />
 	<!-- <link rel="icon" href="https://img.icons8.com/clouds/100/000000/shop-local.png" /> -->
 	<!-- <link rel="icon" href="https://img.icons8.com/clouds/64/000000/online-shop-shopping-bag.png" /> -->
+	<link rel="icon" href="https://img.icons8.com/bubbles/100/000000/stormtrooper.png" />
     <title> {% block title %}{% endblock %} | Marketplace</title>
 </head>
 <body>
@@ -51,8 +51,9 @@
         </button>
     
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.3rem;">
-			<form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form class="form-inline my-2 my-lg-0 mr-auto ml-auto" action="{% url 'result' %}" method="post">
+				{% csrf_token %}
+				<input class="form-control mr-sm-2" type="search" name="search" autocomplete="off" autofocus placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
             <ul class="navbar-nav mr-2">

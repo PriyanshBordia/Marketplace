@@ -19,7 +19,7 @@
                 
                 {% csrf_token %}
 
-                <input class="form-control" type="text" placeholder="Type keywords for what you want to find.!"/>
+                <input class="form-control" name="search" autocomplete="off" autofocus placeholder="Type keywords for what you want to find.!" aria-label="Search" type="text">
                 <br>                
                 <button class="form-control btn-md btn-outline-warning mt-5" type="reset">Reset</button>
                 <button class="form-control btn-md btn-outline-success mt-5" type="submit">Search.!</button>

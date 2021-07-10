@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from sentry_sdk.integrations.django import DjangoIntegration
+import sentry_sdk
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -81,6 +83,67 @@ TEMPLATES = [
 WSGI_APPLICATION = 'marketplace.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+# Logging
+# https://docs.djangoproject.com/en/3.2/topics/logging/
+LOGGING = {
+	'version': 1,
+	'disable_existing_loggers': False,
+	'formatters': {
+		'verbose': {
+			'format': ('%(asctime)s-%(module)s-%(levelname)s :: %(message)s'),
+			# "datefmt": "%Y-%m-%d %H:%M:%S",
+		},
+		'simple': {
+			'format': '%(levelname)s :: %(message)s'
+		}
+	},
+
+	'handlers': {
+		'file': {
+			'level': 'DEBUG',
+			'class': 'logging.FileHandler',
+			'filename': '/logs/debug.log',
+		},
+		# 'console': {
+		# 	'level': 'DEBUG',
+		# 	'class': 'logging.StreamHandler',
+		# 	'formatter': 'verbose'
+		# },
+	},
+	'loggers': {
+		'django': {
+			'handlers': ['file'],
+			'propagate': True,
+			'level': 'DEBUG'
+		},
+	},
+	"root": {
+		"level": "INFO", 
+		"handlers": ["file"]
+	},
+}
+
+# LOGGING = {
+#     "handlers": {
+#         "file": {
+#             "level": "INFO",
+#             "class": "logging.FileHandler",
+#             "filename": "/var/log/django.log",
+#             "formatter": "app",
+#         },
+#     },
+#     "formatters": {
+#         "app": {
+#             "format": (
+#                 u"%(asctime)s [%(levelname)-8s] "
+#                 "(%(module)s.%(funcName)s) %(message)s"
+#             ),
+#             "datefmt": "%Y-%m-%d %H:%M:%S",
+#         },
+#     },
+# }
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -175,3 +238,10 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = 'The MilkyWay Airlines Team <no-reply@milkyway.io>'
+
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    integrations=[DjangoIntegration()],
+    environment="prod"
+)

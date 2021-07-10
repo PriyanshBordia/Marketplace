@@ -38,6 +38,8 @@ class Article(models.Model):
 
 	image = models.ImageField(upload_to="images/", blank=False, null=False)
 
+	# pub_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
+
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")

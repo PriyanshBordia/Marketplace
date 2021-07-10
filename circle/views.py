@@ -5,13 +5,25 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
+from termcolor import cprint
+
 from .models import Article, Person, Message, Tag
+
+
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__file__)
 
 # Create your views here.
 
 # @login_required(login_url='login')
 def home(request):
-    return render(request, "circle/home.html", context={})
+	logger.debug("This logs a debug message.")
+	logger.info("This logs an info message.")
+	logger.warn("This logs a warning message.")
+	logger.error("This logs an error message.")
+	return render(request, "circle/home.html", context={})
 
 
 def addPerson(request):
@@ -156,7 +168,7 @@ def addArticle(request):
 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error"})
 	except TypeError:
 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error"})
-	
+
 	article = Article(title=title, description=description, image=image, price=price, tags=tags)
 
 	article.save()
@@ -188,7 +200,16 @@ def result(request):
 	except TypeError:
 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", })
 
+	cprint(search, 'white')
+
+	if len(search) > 0:
+		logger.error('Something went wrong!')
+
 	articles = Article.objects.filter(title=search)
+
+	print()
+	cprint(articles.query, 'magenta')
+	print()
 
 	return render(request, "circle/result.html", context={'articles': articles})
 
