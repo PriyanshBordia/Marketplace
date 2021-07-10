@@ -10,14 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from sentry_sdk.integrations.django import DjangoIntegration
-import sentry_sdk
+import os
 import environ
+from pathlib import Path
+
+# import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 env = environ.Env()
 environ.Env.read_env()
-
-import os
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles', 
 	'django_extensions',
+	'humanize',
     'accounts',
 ]
 
@@ -87,63 +89,46 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Logging
 # https://docs.djangoproject.com/en/3.2/topics/logging/
+
 LOGGING = {
 	'version': 1,
 	'disable_existing_loggers': False,
 	'formatters': {
 		'verbose': {
-			'format': ('%(asctime)s-%(module)s-%(levelname)s :: %(message)s'),
-			# "datefmt": "%Y-%m-%d %H:%M:%S",
+			'format': ("%(asctime)s [%(levelname)-8s] '(%(module)s.%(funcName)s)' :: %(message)s")
 		},
 		'simple': {
 			'format': '%(levelname)s :: %(message)s'
 		}
 	},
-
 	'handlers': {
 		'file': {
 			'level': 'DEBUG',
 			'class': 'logging.FileHandler',
-			'filename': '/logs/debug.log',
+			'filename': 'logs/debug.log',
+			'formatter': 'verbose'
 		},
-		# 'console': {
-		# 	'level': 'DEBUG',
-		# 	'class': 'logging.StreamHandler',
-		# 	'formatter': 'verbose'
-		# },
+		'console': {
+			'level': 'DEBUG',
+			'class': 'logging.StreamHandler',
+			'formatter': 'verbose'
+		},
 	},
 	'loggers': {
 		'django': {
-			'handlers': ['file'],
+			'handlers': ["file"],
+			'level': 'DEBUG',
 			'propagate': True,
-			'level': 'DEBUG'
 		},
 	},
 	"root": {
-		"level": "INFO", 
+		"level": "DEBUG", 
 		"handlers": ["file"]
 	},
 }
 
-# LOGGING = {
-#     "handlers": {
-#         "file": {
-#             "level": "INFO",
-#             "class": "logging.FileHandler",
-#             "filename": "/var/log/django.log",
-#             "formatter": "app",
-#         },
-#     },
-#     "formatters": {
-#         "app": {
-#             "format": (
-#                 u"%(asctime)s [%(levelname)-8s] "
-#                 "(%(module)s.%(funcName)s) %(message)s"
-#             ),
-#             "datefmt": "%Y-%m-%d %H:%M:%S",
-#         },
-#     },
-# }
+# "datefmt": "%Y-%m-%d %H:%M:%S",
+
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -240,8 +225,8 @@ EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = 'The MilkyWay Airlines Team <no-reply@milkyway.io>'
 
 
-sentry_sdk.init(
-    dsn=os.environ.get("SENTRY_DSN"),
-    integrations=[DjangoIntegration()],
-    environment="prod"
-)
+# sentry_sdk.init(
+#     dsn=os.environ.get("SENTRY_DSN"),
+#     integrations=[DjangoIntegration()],
+#     environment="prod"
+# )

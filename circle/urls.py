@@ -17,4 +17,5 @@ urlpatterns = [
     path('users', views.users, name='users'),
     path('update', views.update, name='update'),
     path('message', views.message, name='message'),
+	path('error', views.error, name='error'),
 ]

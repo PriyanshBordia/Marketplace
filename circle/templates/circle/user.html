@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-    MPUID{{ user.id }}
+    MPU{{ user.id }}ID
 {% endblock %}
 
 {% block head %}
@@ -11,13 +11,10 @@
 {% endblock %}
 
 {% block body %}
-	<input class="form-control" type="tel" autocomplete=off autofocus placeholder="Pn_no" name="price">
+	<div class="conatiner container-fluid">
+		<div class="justify-content-center">
+			<h1>User Page</h1>
+			<input class="form-control" type="tel" autocomplete=off autofocus placeholder="Pn_no" name="price">
+		</div>
+	</div>
 {% endblock %}
-
-<!-- 
-
-<i class="fa fa-bell" aria-hidden="true"></i>
-<i class="fa fa-bookmark" aria-hidden="true"></i>
-<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-<i class="fa fa-trash" aria-hidden="true"></i>
-<i class="fa fa-pencil" aria-hidden="true"></i> -->

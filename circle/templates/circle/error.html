@@ -11,6 +11,18 @@
 {% endblock %}
 
 {% block body %}
-
-
+	<div class="container container-fluid">
+		<div class="error-message justify-content-center mt-4 ml-auto mr-auto mb-2">
+			<img src="https://img.icons8.com/bubbles/200/000000/error.png" />
+			<div class="alert alert-danger error-message-type">
+				{{ type }}
+			</div>
+			<div class="alert alert-warning mt-2" role="alert">
+				{{ message }}
+			</div>
+			<div class="error-message-a mt-3 ml-auto mr-auto mb-2">
+				<a class="btn btn-outline-danger btn-lg mt-3" href="{% url 'search' %}" role="button">Go. Back</a>
+			</div>
+		</div>
+	</div>
 {% endblock %}
