@@ -91,11 +91,13 @@ class Person(models.Model):
 	email = models.EmailField(blank=False, null=False, unique=True)
 	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
+
 	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
 	bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
 
 	sold = models.ManyToManyField(Article, blank=True, related_name="sold")
-	
+	display = models.ManyToManyField(Article, blank=True, related_name="display")
+
 	cart = models.ManyToManyField(Article, blank=True, related_name="cart")
 
 	bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
@@ -124,6 +126,19 @@ class Message(models.Model):
 	
 	def isValidMessage(self):
 		return len(self.text) > 0 and (self.timestamp <= datetime.now)
+
+	def __format__(self):
+		return f"{self.sender} -> {self.receiver}"
+
+	def __str__(self):
+		return f"{self.timestamp}"
+
+
+class Chat(models.Model):
+	
+	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
+	
+	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"

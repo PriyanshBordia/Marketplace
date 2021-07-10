@@ -1,0 +1,32 @@
+<!-- "template/circle/wishlist.html" -->
+
+{% extends "circle/base.html" %}
+
+{% block title %}
+	Wishlist {{ articles|length }}
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+	<div class="container container-fluid">
+		<div class="justify-content-center">
+			<div class="row">
+				{% for article in articles %}
+					<div class="col-md-4">
+						<h4>{{ article.id }}</h4>
+						<h3>{{ article.title }}</h3>
+						<p>{{ article.description }}</p>
+						<p>{{ article.image }}</p>
+						<p>{{ article.image.url }}</p>
+						<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
+						<br>
+						<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

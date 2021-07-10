@@ -12,17 +12,19 @@
 
 {% block body %}
     
-    <div class="container container-fluid">
-        <div class="search-container">
+    <div class="container container-fluid text-center">
+        <div class="search-container justify-content-center">
+			<img src="https://img.icons8.com/bubbles/300/000000/stormtrooper.png">
+
             <br>
-            <form class="form-group" action="{% url 'result' %}" method="post">
+            <form class="" action="{% url 'result' %}" method="post">
                 
                 {% csrf_token %}
 
                 <input class="form-control" name="search" autocomplete="off" autofocus placeholder="Type keywords for what you want to find.!" aria-label="Search" type="text">
                 <br>                
-                <button class="form-control btn-md btn-outline-warning mt-5" type="reset">Reset</button>
-                <button class="form-control btn-md btn-outline-success mt-5" type="submit">Search.!</button>
+                <button class="form-control btn btn-md btn-warning mt-5" type="reset">Reset</button>
+                <button class="form-control btn btn-md btn-success mt-5" type="submit">Search.!</button>
             </form>
         </div>
     </div>

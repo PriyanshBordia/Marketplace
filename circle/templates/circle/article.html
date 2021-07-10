@@ -16,6 +16,14 @@
 			<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
 			<h3>{{ article.title }}</h3>
 			<p>{{ article.description }}</p>
+
+			<a href="{% url 'article' article.id %}" class="">
+				<button class="btn btn-outline-info" style="float: right;">Rent</button>
+			</a>
+
+			<a href="{% url 'article' article.id %}" class="">
+				<button class="btn btn-outline-info" style="float: right;">Buy</button>
+			</a>
 		</div>
 	</div>
 {% endblock %}

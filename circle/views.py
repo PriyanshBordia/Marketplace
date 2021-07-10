@@ -222,6 +222,35 @@ def user(request):
 def users(request):
     return render(request, "circle/users.html", context={})
 
+def rent(request, article_id):
+
+	user_id = request.user.id
+
+	article = Article.objects.get(pk=article_id)
+
+	person = Person.objects.get(user_id=user_id)
+
+	if article in person.bought:
+		return HttpResponse('Already Bought.!')
+
+	if article in person.cart:
+		return HttpResponse('Already in Cart.!')
+
+	if article in person.rented:
+		return HttpResponse('Already Rented.!')
+
+def wishlist(request):
+	pass
+
+def cart(request):
+	pass
+
+def chat(request, chat_id):
+	pass
+
+def chats(request):
+	chats = Chat.objects.all()
+    return render(request, "circle/chats.html", context={"chats": chats})
 
 def update(request):
     return render(request, "circle/user.html", context={})
