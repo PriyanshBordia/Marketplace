@@ -216,18 +216,6 @@ def result(request):
 	return render(request, "circle/result.html", context={'articles': articles})
 
 
-def user(request):
-    return render(request, "circle/user.html", context={})
-
-
-def users(request):
-    return render(request, "circle/users.html", context={})
-
-
-def friends(request):
-    return render(request, "circle/friends.html", context={})
-
-
 def rented(request, article_id):
 
 	user_id = request.user.id
@@ -246,15 +234,75 @@ def rented(request, article_id):
 		return HttpResponse('Already Rented.!')
 
 
+def rent(request, article_id):
+	user_id = request.user.id
+
+	person = Person.objects.filter(user=user_id)[0]
+
+	article = Article.objects.get(pk=article_id)
+
+	if person is not None and article is not None:
+		if article not in person.rented.all():
+			person.rented.add(article)	
+			person.save()
+			return HttpResponse('Article Added.!')
+		else:
+			return HttpResponse('Already Present.!')
+
+
+
+def bookmark(request, article_id):
+	user_id = request.user.id
+
+	person = Person.objects.filter(user=user_id)[0]
+	cprint(person, 'white')
+	article = Article.objects.get(pk=article_id)
+	cprint(article, 'red')
+
+	if person is not None and article is not None:
+		person.bookmarked.add(article)
+		person.save()
+
+	return HttpResponse('Article Bookmarked')
+
+
+def buy(request, article_id):
+	user_id = request.user.id
+
+	person = Person.objects.filter(user=user_id)[0]
+
+	article = Article.objects.get(pk=article_id)
+
+	if person is not None and article is not None:
+		if article not in person.carted.all():
+			person.carted.add(article)
+			person.save()
+			return HttpResponse('Article Added.!')
+		else:
+			return HttpResponse('Already Present.!')
+
+	# return HttpResponse('Article Added to Cart.!')
+
+
 def wishlist(request):
-	person_id = 1
-	wishlist = Person.objects.get(pk=person_id).wishlist
-	return render(request, "circle/wishlist.html", context={"wishlist": wishlist})
+	user_id = request.user.id
+
+	person = Person.objects.filter(user=user_id)[0]
+	
+	if person is not None:
+		articles = person.bookmarked.all()
+
+	return render(request, "circle/wishlist.html", context={"articles": articles})
 
 
 def cart(request):
-	person_id = 1
-	articles = Person.objects.get(pk=person_id).cart
+	user_id = request.user.id
+
+	person = Person.objects.get(user=user_id)[0]
+	
+	if person is not None:
+		articles = person.carted.all()
+
 	return render(request, "circle/cart.html", context={"articles": articles})
 
 
@@ -309,17 +357,13 @@ def error(request):
 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
 
 
-def rent(request, article_id):
-	user_id = request.user.id
-
-	person = Person.objects.filter(user=user_id)
-
-	article = Article.objects.get(pk=article_id)
-
-	if person is not None and article is not None:
-		person.rented.add(article)
-
-	return HttpResponse('Article Added')
+def user(request):
+    return render(request, "circle/user.html", context={})
 
 
+def users(request):
+    return render(request, "circle/users.html", context={})
 
+
+def friends(request):
+    return render(request, "circle/friends.html", context={})

@@ -14,7 +14,6 @@
 	<div class="container container-fluid">
 		<div class="chat justify-content-center">
 			<!-- <div class="chat__container"> -->
-				<p>{{ chat|length }}</p>
 				{% for chat in chats %}
 					<div class="chat__grid">
 						<p>{{ chat.id }} </p>
@@ -28,7 +27,7 @@
 						</div>
 					</div>
 				{% empty %}
-					<div class="alert alert-info" role="alert">
+					<div class="alert alert-info mt-3" role="alert">
 						No chats to view.!!
 					</div>	
 				{% endfor %}

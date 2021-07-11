@@ -14,16 +14,23 @@
 	<div class="container container-fluid mt-3">
 		<div class="justify-content-center">
 			<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
+
 			<h3>{{ article.title }}</h3>
+
 			<p>{{ article.description }}</p>
 
-			<a href="{% url 'rent' article.id %}">
-				<button class="btn btn-outline-info" style="float: right;">Rent</button>
+			<a href="{% url 'bookmark' article.id %}">
+				<button class="btn btn-outline-info">Bookmark</button>
 			</a>
 
-			<a href="{% url 'cart' article.id %}">
-				<button class="btn btn-outline-info" style="float: right;">Buy</button>
+			<a href="{% url 'rent' article.id %}">
+				<button class="btn btn-outline-info">Rent</button>
 			</a>
+
+			<a href="{% url 'buy' article.id %}">
+				<button class="btn btn-outline-info">Buy</button>
+			</a>
+			<br>
 		</div>
 	</div>
 {% endblock %}

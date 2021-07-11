@@ -12,7 +12,6 @@ environ==1.0
 gunicorn==20.1.0
 html5lib==1.1
 humanize==3.10.0
-mssql-django==1.0rc1
 pathspec==0.8.1
 Pillow==8.3.0
 psycopg2-binary==2.9.1

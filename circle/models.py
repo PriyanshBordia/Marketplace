@@ -93,18 +93,17 @@ class Person(models.Model):
 
 
 	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
-	bought = models.ManyToManyField(Article, blank=True, related_name="purchased")
+	purchased = models.ManyToManyField(Article, blank=True, related_name="purchased")
 
 	sold = models.ManyToManyField(Article, blank=True, related_name="sold")
 	display = models.ManyToManyField(Article, blank=True, related_name="display")
 
-	cart = models.ManyToManyField(Article, blank=True, related_name="cart")
-
 	bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
+	carted = models.ManyToManyField(Article, blank=True, related_name="carted")
 
 	friends = models.ManyToManyField('self', blank=True, related_name="friends")
 
-	allowsMessage = models.BooleanField(null=False, default=True)
+	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
 	def isValidPerson(self):
 		return self.rented != self.sold
@@ -140,7 +139,7 @@ class Chat(models.Model):
 	
 	# timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
-	slug = models.SlugField()
+	# slug = models.SlugField()
 
 	def __format__(self):
 		return f"{self.sender} <-> {self.receiver}"
