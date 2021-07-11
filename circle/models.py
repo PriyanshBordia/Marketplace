@@ -102,7 +102,7 @@ class Person(models.Model):
 
 	bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
 
-	following = models.ManyToManyField('self', blank=True, related_name="following")
+	friends = models.ManyToManyField('self', blank=True, related_name="friends")
 
 	allowsMessage = models.BooleanField(null=False, default=True)
 
@@ -138,10 +138,12 @@ class Chat(models.Model):
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
-	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	# timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+
+	slug = models.SlugField()
 
 	def __format__(self):
-		return f"{self.sender} -> {self.receiver}"
+		return f"{self.sender} <-> {self.receiver}"
 
 	def __str__(self):
 		return f"{self.timestamp}"

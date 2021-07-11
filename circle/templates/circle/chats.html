@@ -1,0 +1,32 @@
+<!-- "template/circle/chats.html" -->
+
+{% extends "circle/base.html" %}
+
+{% block title %}
+	Chats 
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+	<div class="container container-fluid">
+		<div class="chat justify-content-center">
+			<div class="chat__container">
+				{% for chat in chats %}
+					<div class="chat__grid">
+						<p>{{ chat.id }} </p>
+
+						<div class="chat__messages__grid">
+							{% for message in {{ chat.messages }} %}
+								<div class="chat__messages__grid__message">
+									{{ message }}
+								</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

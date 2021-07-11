@@ -223,7 +223,12 @@ def user(request):
 def users(request):
     return render(request, "circle/users.html", context={})
 
-def rent(request, article_id):
+
+def friends(request):
+    return render(request, "circle/friends.html", context={})
+
+
+def rented(request, article_id):
 
 	user_id = request.user.id
 
@@ -266,7 +271,6 @@ def update(request):
 
 
 def message(request, sender_id, receiver_id):
-
 
 	try:
 		chat_id = float(request.POST.get('chat_id'))
