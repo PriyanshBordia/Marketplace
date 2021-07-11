@@ -116,10 +116,6 @@ class Person(models.Model):
 
 class Message(models.Model):
 
-	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="send")
-
-	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receive")
-
 	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
@@ -136,6 +132,10 @@ class Message(models.Model):
 
 class Chat(models.Model):
 	
+	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender")
+
+	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver")
+
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)

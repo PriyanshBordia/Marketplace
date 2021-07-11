@@ -6,9 +6,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
+from datetime import datetime
 from termcolor import cprint
 
-from .models import Article, Person, Message, Tag
+from .models import Article, Person, Message, Tag, Chat
 
 
 import logging
@@ -100,9 +101,9 @@ def addPerson(request):
 
 	username = email.split('@')[0]
 
-	person = Person(username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
-
-	person.save()
+	# person = 
+	Person.objects.create(username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
+	# person.save()
 
 	return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
@@ -243,21 +244,57 @@ def wishlist(request):
 	pass
 
 def cart(request):
-	pass
+
+	person_id = 1
+	person = Person.objects.get(pk=person_id)
+	articles = person.cart
+	return render(request, "circle/cart.html", context={"articles": articles})
+
 
 def chat(request, chat_id):
-	pass
+	chat = Chat.objects.get(pk=chat_id)
+	return render(request, "circle/chat.html", context={"chat": chat})
+
 
 def chats(request):
 	chats = Chat.objects.all()
-    return render(request, "circle/chats.html", context={"chats": chats})
+	return render(request, "circle/chats.html", context={"chats": chats})
+
 
 def update(request):
     return render(request, "circle/user.html", context={})
 
 
 def message(request, sender_id, receiver_id):
-    return render(request, "circle/home.html", context={})
+
+
+	try:
+		chat_id = float(request.POST.get('chat_id'))
+	except KeyError:
+		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
+	except ValueError:
+		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
+	except TypeError:
+		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+
+
+	try:
+		text = list(request.POST.get('text'))
+	except KeyError:
+		return render(request, "circle/error.html", context={"message": "Enter text.!!", "type": "Key Error", "link": "articles"})
+	except ValueError:
+		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
+	except TypeError:
+		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+
+	message = Message.objects.create(text=text, timestamp=datetime.now())
+
+	chat = Chat.objects.get(pk=chat_id)
+	chat.messages.add(message)
+
+	chat.save()
+
+	return HttpResponseRedirect(reverse("chat", args=(chat_id, )))
 
 
 def login(request):
