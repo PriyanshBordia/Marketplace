@@ -245,14 +245,16 @@ def rented(request, article_id):
 	if article in person.rented:
 		return HttpResponse('Already Rented.!')
 
+
 def wishlist(request):
-	pass
+	person_id = 1
+	wishlist = Person.objects.get(pk=person_id).wishlist
+	return render(request, "circle/wishlist.html", context={"wishlist": wishlist})
+
 
 def cart(request):
-
 	person_id = 1
-	person = Person.objects.get(pk=person_id)
-	articles = person.cart
+	articles = Person.objects.get(pk=person_id).cart
 	return render(request, "circle/cart.html", context={"articles": articles})
 
 
@@ -262,7 +264,9 @@ def chat(request, chat_id):
 
 
 def chats(request):
+	# person_id = 1
 	chats = Chat.objects.all()
+	cprint(chats, 'white')
 	return render(request, "circle/chats.html", context={"chats": chats})
 
 
@@ -301,13 +305,21 @@ def message(request, sender_id, receiver_id):
 	return HttpResponseRedirect(reverse("chat", args=(chat_id, )))
 
 
-def login(request):
-    return render(request, "circle/home.html", context={})
-
-
-def logout(request):
-    return render(request, "circle/home.html", context={})
-
-
 def error(request):
 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+
+
+def rent(request, article_id):
+	user_id = request.user.id
+
+	person = Person.objects.filter(user=user_id)
+
+	article = Article.objects.get(pk=article_id)
+
+	if person is not None and article is not None:
+		person.rented.add(article)
+
+	return HttpResponse('Article Added')
+
+
+

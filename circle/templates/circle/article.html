@@ -17,11 +17,11 @@
 			<h3>{{ article.title }}</h3>
 			<p>{{ article.description }}</p>
 
-			<a href="{% url 'article' article.id %}" class="">
+			<a href="{% url 'rent' article.id %}">
 				<button class="btn btn-outline-info" style="float: right;">Rent</button>
 			</a>
 
-			<a href="{% url 'article' article.id %}" class="">
+			<a href="{% url 'cart' article.id %}">
 				<button class="btn btn-outline-info" style="float: right;">Buy</button>
 			</a>
 		</div>

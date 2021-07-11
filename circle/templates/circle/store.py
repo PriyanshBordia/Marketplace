@@ -16,3 +16,10 @@
 # 	db_table = 'article'
 # 	verbose_name = 'circle_article'
 
+
+# def login(request):
+    # return render(request, "circle/home.html", context={})
+
+
+# def logout(request):
+    # return render(request, "circle/home.html", context={})

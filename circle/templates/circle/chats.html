@@ -7,26 +7,32 @@
 {% endblock %}
 
 {% block head %}
-
+	{% load static %}
 {% endblock %}
 
 {% block body %}
 	<div class="container container-fluid">
 		<div class="chat justify-content-center">
-			<div class="chat__container">
+			<!-- <div class="chat__container"> -->
+				<p>{{ chat|length }}</p>
 				{% for chat in chats %}
 					<div class="chat__grid">
 						<p>{{ chat.id }} </p>
 
 						<div class="chat__messages__grid">
-							{% for message in {{ chat.messages }} %}
+							{% for message in chat.messages %}
 								<div class="chat__messages__grid__message">
 									{{ message }}
 								</div>
+							{% endfor %}
 						</div>
 					</div>
+				{% empty %}
+					<div class="alert alert-info" role="alert">
+						No chats to view.!!
+					</div>	
 				{% endfor %}
-			</div>
+			<!-- </div> -->
 		</div>
 	</div>
 {% endblock %}
