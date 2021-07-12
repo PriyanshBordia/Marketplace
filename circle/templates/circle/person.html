@@ -1,0 +1,90 @@
+<!-- "template/circle/person.html" -->
+
+{% extends "circle/base.html" %}
+
+{% block title %}
+	MPP{{ person.id }}ID
+{% endblock %}
+
+{% block head %}
+	{% load static %}
+	<style>
+		.p {
+			max-width: 700px;
+			margin: auto;
+			text-align: center;
+			align-items: center;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="p">
+		<!-- <span><img src="https://img.icons8.com/bubbles/200/000000/user-male.png" /></span> -->
+		<!-- {% if person.id == request.user.id %}
+			<div class="conatainer container-fluid">
+				<div class="justify-content-center">
+					<form class="form-group" action="{% url 'update' %}" method="post">
+			
+						{% csrf_token %}
+			
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+								placeholder="First Name" name="first" value="{{ person.first_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<span><input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+									placeholder="Last Name" name="last" value="{{ person.last_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="email" autocomplete="off" autofocus
+								placeholder="E-mail" aria-describedby="emailHelp" name="email" value="{{ person.email }}">
+						</div>
+						<button class="btn btn-outline-primary mt-4" type="submit" name="button">Update Details</button>
+					</form>
+				</div>
+			</div> -->
+		<!-- {% else %} -->
+			<p>{{ person.id }}</p>
+			<h4><strong>First Name : </strong> {{ person.first }} </h4>
+			<h4><strong>Last Name : </strong> {{ person.last }} </h4>
+			<h4><strong>Bio : </strong> {{ person.bio }} </h4>
+
+			<h4><strong>Gender : </strong> {{ person.sex }} </h4>
+			<h4><strong>Age : </strong> {{ person.age }} </h4>
+			<h4><strong>E-mail : </strong> {{ person.email }} </h4>
+			<h4><strong>Ph.No : </strong> {{ person.ph_no }} </h4>
+
+		<!-- {% endif %} -->
+
+		{% for article in person.rented %}
+			<h4>{{ article.id }}</h4>
+		{% empty %}
+			<div class="alert alert-success" role="alert">Nothing Rented.</div>
+		{% endfor %}
+
+		{% for article in person.bookmarked %}
+			<h4>{{ article.id }}</h4>
+		{% empty %}
+			<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
+		{% endfor %}
+
+		{% for article in person.purchased %}
+			<h4>{{ article.id }}</h4>
+		{% empty %}
+			<div class="alert alert-success" role="alert">Nothing Purchased.</div>
+		{% endfor %}
+
+		{% for article in person.display %}
+			<h4>{{ article.id }}</h4>
+		{% empty %}
+			<div class="alert alert-success" role="alert">Nothing on Display.</div>
+		{% endfor %}
+
+		{% for article in person.sold %}
+			<h4>{{ article.id }}</h4>
+		{% empty %}
+			<div class="alert alert-success" role="alert">Nothing Sold.</div>
+		{% endfor %}
+	</div>
+{% endblock %}

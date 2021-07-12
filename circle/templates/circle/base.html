@@ -68,7 +68,7 @@
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
 						<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
-						<a class="dropdown-item" href="{% url 'user' %}">User Details</a>
+						<a class="dropdown-item" href="{% url 'person' request.user.id %}">User Details</a>
 						<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
 						<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
 					</div>

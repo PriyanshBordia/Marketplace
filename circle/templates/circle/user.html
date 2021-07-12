@@ -7,14 +7,59 @@
 {% endblock %}
 
 {% block head %}
-
+	<style>
+		#user {
+			max-width: 900px;
+			margin: auto;
+			text-align: center;
+			align-items: center;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
-	<div class="conatiner container-fluid">
-		<div class="justify-content-center">
-			<h1>User Page</h1>
-			<input class="form-control" type="tel" autocomplete=off autofocus placeholder="Pn_no" name="price">
+	<div id="user">
+		<br><br>
+		<div>
+			<span style="float: left;"><img src="https://img.icons8.com/bubbles/200/000000/user-male.png" /></span>
+			<span style="float: right;"><img src="https://img.icons8.com/bubbles/200/000000/user-female.png" /></span>
 		</div>
-	</div>
+	
+		<span>
+			<h2>User Details </h2>
+		</span>
+		<span>
+			<h3>MPU{{ user.id }}ID</h3>
+		</span>
+
+		<br>
+	
+		{% if user.id == request.user.id %}
+			<div class="conatainer container-fluid">
+				<div class="justify-content-center">
+					<form class="form-group" action="{% url 'update' %}" method="post">
+		
+						{% csrf_token %}
+		
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+								placeholder="First Name" name="first" value="{{ user.first_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<span><input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+									placeholder="Last Name" name="last" value="{{ user.last_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="email" autocomplete="off" autofocus
+								placeholder="E-mail" aria-describedby="emailHelp" name="email" value="{{ user.email }}">
+						</div>
+						<button class="btn btn-outline-primary mt-4" type="submit" name="button">Update Details</button>
+					</form>
+				</div>
+			</div>
+		{% else %}
+			<h4><strong>First Name : </strong>{{ user.first_name }}</h4>
+			<h4><strong>Last Name : </strong>{{ user.last_name }}</h4>
+			<h4><strong>E-mail : </strong> {{ user.email }}</h4>
+		{% endif %}
 {% endblock %}

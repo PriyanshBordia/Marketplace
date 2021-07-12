@@ -45,3 +45,37 @@ Created by Priyansh Bordia &copy; 2021 Marketplace, Inc.
 		<a href="#" class="btn btn-primary">Go somewhere</a>
 	</div>
 </div>
+
+
+
+
+<br>
+<hr>
+<h3>Passengers Details</h3>
+<br>
+{% if relatives %}
+<table class="center">
+	<thead>
+		<tr>
+			<th>UPIDMA</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Details</th>
+		<tr>
+	</thead>
+	<tbody>
+		{% for relative in relatives %}
+		<tr>
+			<td>{{ relative.id }}</td>
+			<td>{{ relative.first }}</td>
+			<td>{{ relative.last }}</td>
+			<td><a class="btn btn-outline-warning mt-2 mb-2 ml-2 mr-2" href="{% url 'passenger' relative.id %}"
+					role="button">Show</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<div class="alert alert-success" role="alert">No Passengers Onboard.</div>
+{% endif %}
+</div>

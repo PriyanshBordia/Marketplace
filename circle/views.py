@@ -112,13 +112,16 @@ def addPerson(request):
 	return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
 
-def person(request, person_id):
-	person = Person.object.get(id=person_id)
+def person(request, user_id):
+	person = Person.objects.filter(user=user_id)
+	cprint(person.query, 'white')
+	person.first()
 	return render(request, "circle/person.html", context={"person": person})
 
 
 def persons(request):
-	persons = Person.object.all().order_by(id)
+	persons = Person.objects.all().order_by('id')
+	# cprint(persons.query, 'magenta')
 	return render(request, "circle/persons.html", context={"persons": persons})
 
 
@@ -322,7 +325,48 @@ def chats(request):
 
 
 def update(request):
-    return render(request, "circle/user.html", context={})
+	user_id = request.user.id
+
+	try:
+		first = str(request.POST.get("first"))
+	except KeyError:
+		return render(request, "flights/error.html", context={"message":  "Enter a First Name!!", "type": "Key Error!!"})
+	except ValueError:
+		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+	except TypeError:
+		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+	try:
+		last = str(request.POST.get("last"))
+	except KeyError:
+		return render(request, "flights/error.html", context={"message":  "Enter a Last Name!!", "type": "Key Error!!"})
+	except ValueError:
+		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+	except TypeError:
+		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+	try:
+		email = str(request.POST.get("email"))
+	except KeyError:
+		return render(request, "flights/error.html", context={"message": "Enter a e-mail address!!", "type": "KeyError!!"})
+	except ValueError:
+		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+	except TypeError:
+		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+	user = User.objects.get(pk=user_id)
+
+	user.first_name = first
+	user.last_name = last
+	user.email = email
+	user.save()
+
+	try:
+		user = User.objects.get(pk=user_id)
+	except user.DoesNotExist:
+		return render(request, "flights/error.html", context={"message": "User Doesn't Exist!", "type": "Value DoesNotExist.!!", })
+
+	return render(request, "circle/user.html", context={"user": user})
 
 
 def message(request, sender_id, receiver_id):
@@ -360,12 +404,14 @@ def error(request):
 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
 
 
-def user(request):
-    return render(request, "circle/user.html", context={})
+def user(request, user_id):
+	user = User.objects.get(pk=user_id)
+	return render(request, "circle/user.html", context={"user": user})
 
 
 def users(request):
-    return render(request, "circle/users.html", context={})
+	users = User.objects.all()
+	return render(request, "circle/users.html", context={"users": users})
 
 
 def friends(request):

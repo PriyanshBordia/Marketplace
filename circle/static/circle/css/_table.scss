@@ -1,0 +1,29 @@
+table, tr, th, td
+{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+    border: 2px solid #bd8c7d;
+    overflow: scroll;
+}
+
+th
+{
+    color: $SimplerLimeGreen;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+tbody tr:hover
+{
+    background: $LightestNavy;
+}
+
+td
+{
+    color: $LightSlate;
+    font-size: 1.5;
+    font-weight: 1.5;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

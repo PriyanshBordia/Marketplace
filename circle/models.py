@@ -17,11 +17,10 @@ class Tag(models.Model):
 
 	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
 
-	# slug = models.SlugField()
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	# def save(self, *args, **kwargs):
 	# 	super.save(args, kwargs)
-
 
 	def isValidTag(self):
 		return len(self.name) > 0
@@ -36,15 +35,15 @@ class Article(models.Model):
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="images/", blank=False, null=False)
+	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
 
-	# pub_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	# pub_ts = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
-	# slug = models.SlugField()
+	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def __get_image_name__(self):
 		date = datetime.now(datetime.timezone.utc)
@@ -78,6 +77,7 @@ class Person(models.Model):
 	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
+	# profile = models.ImageField(upload_to="images/persons", blank=True, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
 	bio = models.TextField(max_length=500, blank=True, null=False)
@@ -105,6 +105,8 @@ class Person(models.Model):
 
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
+	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
 	def isValidPerson(self):
 		return self.rented != self.sold
 
@@ -119,6 +121,8 @@ class Message(models.Model):
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 	
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
 	def isValidMessage(self):
 		return len(self.text) > 0 and (self.timestamp <= datetime.now)
 
@@ -137,9 +141,9 @@ class Chat(models.Model):
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
-	# timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	created_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
-	# slug = models.SlugField()
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def __format__(self):
 		return f"{self.sender} <-> {self.receiver}"
