@@ -27,6 +27,7 @@ urlpatterns = [
     path('users', views.users, name='users'),
     path('friends', views.friends, name='friends'),
 	path('error', views.error, name='error'),
+   	# path('verification', views.verification, name='verification'),
    	# path('rent/<int:article_id>', views.rent, name='rent'),
    	# path('bookmark/<int:article_id>', views.bookmark, name='bookmark'),
 ]

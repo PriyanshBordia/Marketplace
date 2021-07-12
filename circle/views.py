@@ -1,13 +1,17 @@
+import random
 from django.urls import reverse
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
+# from django.views.decorators import method_decorators
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from datetime import datetime
 from termcolor import cprint
+
+from django.conf import settings
 
 from .models import Article, Person, Message, Tag, Chat
 
@@ -237,7 +241,7 @@ def rented(request, article_id):
 def rent(request, article_id):
 	user_id = request.user.id
 
-	person = Person.objects.filter(user=user_id)[0]
+	person = Person.objects.filter(user=user_id).first()
 
 	article = Article.objects.get(pk=article_id)
 
@@ -250,11 +254,10 @@ def rent(request, article_id):
 			return HttpResponse('Already Present.!')
 
 
-
 def bookmark(request, article_id):
 	user_id = request.user.id
 
-	person = Person.objects.filter(user=user_id)[0]
+	person = Person.objects.filter(user=user_id).first()
 	cprint(person, 'white')
 	article = Article.objects.get(pk=article_id)
 	cprint(article, 'red')
@@ -269,7 +272,7 @@ def bookmark(request, article_id):
 def buy(request, article_id):
 	user_id = request.user.id
 
-	person = Person.objects.filter(user=user_id)[0]
+	person = Person.objects.filter(user=user_id).first()
 
 	article = Article.objects.get(pk=article_id)
 
@@ -287,7 +290,7 @@ def buy(request, article_id):
 def wishlist(request):
 	user_id = request.user.id
 
-	person = Person.objects.filter(user=user_id)[0]
+	person = Person.objects.filter(user=user_id).first()
 	
 	if person is not None:
 		articles = person.bookmarked.all()
@@ -298,7 +301,7 @@ def wishlist(request):
 def cart(request):
 	user_id = request.user.id
 
-	person = Person.objects.get(user=user_id)[0]
+	person = Person.objects.get(user=user_id).first()
 	
 	if person is not None:
 		articles = person.carted.all()
@@ -367,3 +370,41 @@ def users(request):
 
 def friends(request):
     return render(request, "circle/friends.html", context={})
+
+
+"""
+
+import http.client
+
+def verification(request):
+
+	ph_no = 9316300064
+	request.session['ph_no'] = ph_no
+
+	otp = str(random.randint(100000, 999999))
+
+	cprint(otp, 'white')
+
+	connection = http.client.HTTPSConnection("api.msg91.com")
+
+	authkey = settings.authkey
+
+	code = 91
+	sender = "Marketplace Team"
+	# payload = "{\"Value1\":\"Param1\",\"Value2\":\"Param2\",\"Value3\":\"Param3\"}"
+
+	headers = {'content-type': "application/json"}
+
+	connection.request("GET", "http://control.msg91.com/api/sendotp.php", params = {"otp": otp, "mobile": ph_no, "sender": sender, "message": message, "country": code, "authkey": authkey, "otp_length": 6}, headers=headers)
+
+	res = connection.getresponse()
+	data = res.read()
+
+	print(data)
+
+	print(data.decode("utf-8"))
+
+	return render(request, "circle/test.html", context={"message": "OTP sent.!!"})
+
+
+"""
