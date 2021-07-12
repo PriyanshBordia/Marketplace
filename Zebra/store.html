@@ -79,3 +79,61 @@ Created by Priyansh Bordia &copy; 2021 Marketplace, Inc.
 <div class="alert alert-success" role="alert">No Passengers Onboard.</div>
 {% endif %}
 </div>
+
+<span><img src="https://img.icons8.com/bubbles/200/000000/user-male.png" /></span>
+{% if person.id == request.user.id %}
+			<div class="conatainer container-fluid">
+				<div class="justify-content-center">
+					<form class="form-group" action="{% url 'update' %}" method="post">
+			
+						{% csrf_token %}
+			
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+								placeholder="First Name" name="first" value="{{ person.first_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<span><input class="form-control col-md-4 ml-auto mr-auto" type="text" autocomplete="off" autofocus
+									placeholder="Last Name" name="last" value="{{ person.last_name }}"></span>
+						</div>
+						<div class="form-group form-text h4">
+							<input class="form-control col-md-4 ml-auto mr-auto" type="email" autocomplete="off" autofocus
+								placeholder="E-mail" aria-describedby="emailHelp" name="email" value="{{ person.email }}">
+						</div>
+						<button class="btn btn-outline-primary mt-4" type="submit" name="button">Update Details</button>
+					</form>
+				</div>
+			</div>
+{% else %}
+
+	<!-- 
+			{% for article in person.rented %}
+				<h4>{{ article.id }}</h4>
+			{% empty %}
+				<div class="alert alert-success" role="alert">Nothing Rented.</div>
+			{% endfor %}
+	
+			{% for article in person.bookmarked %}
+				<h4>{{ article.id }}</h4>
+			{% empty %}
+				<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
+			{% endfor %}
+	
+			{% for article in person.purchased %}
+				<h4>{{ article.id }}</h4>
+			{% empty %}
+				<div class="alert alert-success" role="alert">Nothing Purchased.</div>
+			{% endfor %}
+	
+			{% for article in person.display %}
+				<h4>{{ article.id }}</h4>
+			{% empty %}
+				<div class="alert alert-success" role="alert">Nothing on Display.</div>
+			{% endfor %}
+	
+			{% for article in person.sold %}
+				<h4>{{ article.id }}</h4>
+			{% empty %}
+				<div class="alert alert-success" role="alert">Nothing Sold.</div>
+			{% endfor %}
+			 -->

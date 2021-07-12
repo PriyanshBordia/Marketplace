@@ -106,16 +106,20 @@ def addPerson(request):
 	username = email.split('@')[0]
 
 	# person = 
-	Person.objects.create(username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
+	Person.objects.create(user=user_id, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
 	# person.save()
 
 	return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
 
 def person(request, user_id):
-	person = Person.objects.filter(user=user_id)
-	cprint(person.query, 'white')
-	person.first()
+	user = User.objects.get(pk=user_id)
+	person = Person.objects.filter(user=user).first()
+	# cprint(person.bookmarked, 'magenta')
+	# if person is None:
+		# cprint("yes", 'red')
+	# cprint(person.query, 'white')
+	# person.first()
 	return render(request, "circle/person.html", context={"person": person})
 
 
