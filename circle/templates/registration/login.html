@@ -7,22 +7,26 @@
 {% endblock %}
 
 {% block head %}
-    <!-- Icon -->
 	{% load static %}
-	<link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" />
+    <!-- Icon -->
+	<!-- <link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" /> -->
 {% endblock %}
 
 {% block body %}
     <div class="container container-fluid text-center mt-4 ml-auto mr-auto">
         <div class="login-container justify-content-center">
+			<span><img src="https://img.icons8.com/clouds/200/000000/login-rounded-right.png" /></span>
+			<br>
+			<h2 class="login-action-head mt-3">Log In to fly high.!</h2>
+			<hr>
             <h3>Log In</h3>
-            <form method="post">
+            <form method="POST">
                 
                 {% csrf_token %}
                 
                 {{ form.as_p }}
-                
-                <a class="form-home-button btn btn-outline-info mt-3" href="{% url 'search' %}" role="button">Log in</a>
+				<input class="form-control login-action-button btn btn-outline-info mt-2 ml-5" type="submit" value="Log In">
+                <!-- <a class="form-home-button btn btn-outline-info mt-3" href="{% url 'search' %}" role="button">Log in</a> -->
             </form>
         </div>
     </div>

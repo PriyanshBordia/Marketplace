@@ -7,15 +7,18 @@
 {% endblock %}
 
 {% block head %}
-	<!-- Icon -->
 	{% load static %}
-	<link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" />
+	<!-- Icon -->
+	<!-- <link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" /> -->
 {% endblock %}
 
 {% block body %}
-    <div class="container container-fluid text-center mt-4 ml-auto mr-auto">
+    <div class="container container-fluid text-center mt-3 ml-auto mr-auto">
         <div class="register-action-container justify-content-center">
-            <h2 class="register-action-head mt-4">You register and will be a part of our family.</h2>
+			<span><img src="https://img.icons8.com/bubbles/150/000000/enter-2.png" /></span>
+			<br>
+			<h2 class="register-action-head mt-3">You register and will be a part of our family.</h2>
+			<hr>
             <form method="post" class="form-group">
                 <div class="mt-3 mb-2 pt-3">
 
@@ -23,8 +26,7 @@
 
                     {{ form.as_p }}
 
-                    <input class="form-control register-action-button btn btn-outline-warning mt-3" type="submit"
-                        value="Register">
+                    <input class="form-control register-action-button btn btn-outline-warning mt-3" type="submit" value="Register">
                 </div>
             </form>
         </div>

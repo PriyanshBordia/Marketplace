@@ -57,29 +57,49 @@
                 <!-- <li class="nav-item active">
                     <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                 </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'friends' %}">Friends</a>
-                </li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
-						Profile
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-						<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
-						<a class="dropdown-item" href="{% url 'person' request.user.id %}">User Details</a>
-						<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
-						<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-					</div>
-				</li>
-				<!-- {% if user.is_authenticated %} -->
-				<!-- {% endif %} -->
+				{% if user.is_superuser %}
+					<li class="nav-item">
+						<a class="nav-item nav-link mr-3" href="{% url 'persons' %}">
+							Persons
+							<!-- <img src="https://img.icons8.com/bubbles/50/000000/group.png" /> -->
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link mr-3" href="{% url 'users' %}">
+							Users
+							<!-- <img src="https://img.icons8.com/bubbles/50/000000/check-male.png" /> -->
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-item nav-link mr-3" href="{% url 'articles' %}" role="button">Articles</a>
+					</li>
+				{% endif %}
+				{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'friends' %}">Friends</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Profile
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
+							<a class="dropdown-item" href="{% url 'person' request.user.id %}">User Details</a>
+							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
+							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+						</div>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}">Log In</a>
+					</li>
+				{% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'signup' %}">Register</a>
                 </li>
             </ul>
-            
         </div>
     </nav>
 
@@ -88,10 +108,10 @@
     <hr class="mt-5">
     
     <!-- Comments and Suggestions -->
-    <!-- <section class="comments">
+    <section class="comments">
         <script src="https://utteranc.es/client.js" repo="PriyanshBordia/Marketplace" issue-term="title"
             label="utterances" theme="dark-blue" crossorigin="anonymous" async>
 		</script>
-    </section> -->
+    </section>
 </body>
 </html>

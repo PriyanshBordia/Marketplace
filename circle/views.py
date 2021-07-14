@@ -2,10 +2,8 @@ import random
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import redirect, render
-from django.contrib.auth import login, logout
+# from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
-# from django.contrib.auth.decorators import login_required
-# from django.views.decorators import method_decorators
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from datetime import datetime
@@ -23,7 +21,6 @@ logger = logging.getLogger(__file__)
 
 # Create your views here.
 
-# @login_required(login_url='login')
 def home(request):
 	# logger.debug("This logs a debug message.")
 	# logger.info("This logs an info message.")
@@ -260,6 +257,8 @@ def rent(request, article_id):
 		else:
 			return HttpResponse('Already Present.!')
 
+	return HttpResponseRedirect(reverse("article", args=(article_id, )))
+
 
 def bookmark(request, article_id):
 	user_id = request.user.id
@@ -273,7 +272,7 @@ def bookmark(request, article_id):
 		person.bookmarked.add(article)
 		person.save()
 
-	return HttpResponse('Article Bookmarked')
+	return HttpResponseRedirect(reverse("article", args=(article_id, )))
 
 
 def buy(request, article_id):
@@ -287,11 +286,11 @@ def buy(request, article_id):
 		if article not in person.carted.all():
 			person.carted.add(article)
 			person.save()
-			return HttpResponse('Article Added.!')
+			return HttpResponse()
 		else:
 			return HttpResponse('Already Present.!')
 
-	# return HttpResponse('Article Added to Cart.!')
+	return HttpResponseRedirect(reverse("article", args=(article_id, )))
 
 
 def wishlist(request):
@@ -301,8 +300,9 @@ def wishlist(request):
 	
 	if person is not None:
 		articles = person.bookmarked.all()
-
-	return render(request, "circle/wishlist.html", context={"articles": articles})
+		return render(request, "circle/wishlist.html", context={"articles": articles})
+	else:
+		return render(request, "circle/error.html", context={})
 
 
 def cart(request):
