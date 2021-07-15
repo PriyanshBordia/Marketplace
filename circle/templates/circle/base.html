@@ -58,34 +58,44 @@
                     <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
                 </li> -->
 				{% if user.is_superuser %}
-					<li class="nav-item">
-						<a class="nav-item nav-link mr-3" href="{% url 'persons' %}">
-							Persons
-							<!-- <img src="https://img.icons8.com/bubbles/50/000000/group.png" /> -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Super
 						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-item nav-link mr-3" href="{% url 'users' %}">
-							Users
-							<!-- <img src="https://img.icons8.com/bubbles/50/000000/check-male.png" /> -->
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-item nav-link mr-3" href="{% url 'articles' %}" role="button">Articles</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'persons' %}">Persons</a>
+							<a class="dropdown-item" href="{% url 'users' %}">Users</a>
+							<a class="dropdown-item" href="{% url 'articles' %}">Articles</a>
+						</div>
 					</li>
 				{% endif %}
 				{% if user.is_authenticated %}
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'friends' %}">Friends</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Connections
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'friends' %}">Friends</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
+						</div>
 					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Transactions
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Rented</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Bought</a>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">
 							Profile
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
 							<a class="dropdown-item" href="{% url 'person' request.user.id %}">User Details</a>
 							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
 							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>

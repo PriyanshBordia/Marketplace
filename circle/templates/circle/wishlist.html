@@ -11,25 +11,41 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<div class="justify-content-center">
-			<!-- <div class="row"> -->
+			<div class="row">
 				{% for article in articles %}
-					<!-- <div class="col-md-4"> -->
-						<h4>{{ article.id }}</h4>
-						<h3>{{ article.title }}</h3>
-						<p>{{ article.description }}</p>
-						<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
-						<br>
-						<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
-						<a href="{% url 'buy' article.id %}"><button class="btn btn-outline-info">Buy</button></a>
-					<!-- </div> -->
+					<div class="col-md-4">
+						<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID"
+								style="max-width: 24rem; max-height: 20rem;">
+							<div class="card-body">
+								<h5 class="card-title">{{ article.title }}</h5>
+								<a href="{% url 'article' article.id %}" class="">
+									<button class="btn btn-outline-info" style="float: right;">View</button>
+								</a>
+								<a href="{% url 'buy' article.id %}" class="">
+									<button class="btn btn-outline-success mr-3" style="float: right;">Buy</button>
+								</a>
+								<a href="{% url 'buy' article.id %}" class="">
+									<button class="btn btn-outline-warning mr-3" style="float: right;">Rent</button>
+								</a>
+								<!-- <span>
+									<p class="card-text">
+										{{ article.description }}
+									</p>
+								</span> -->
+								<p class="card-text"><small class="text-muted">{{ article.pub_ts }}</small></p>
+							</div>
+						</div>
+					</div>
+					</div>
 				{% empty %}
 					<div class="alert alert-info mt-3" role="alert">
 						Nothing to view.!!
 					</div>
 				{% endfor %}
-			<!-- </div> -->
+			</div>
 		</div>
 	</div>
 {% endblock %}

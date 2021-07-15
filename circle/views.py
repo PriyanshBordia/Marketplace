@@ -298,11 +298,13 @@ def wishlist(request):
 
 	person = Person.objects.filter(user=user_id).first()
 	
+	cprint(person, 'blue')
+
 	if person is not None:
-		articles = person.bookmarked.all()
+		articles = person.bookmarked.all
 		return render(request, "circle/wishlist.html", context={"articles": articles})
 	else:
-		return render(request, "circle/error.html", context={})
+		return render(request, "circle/error.html", context={"message": "No person registered.!!", "type": "Data Error!!", })
 
 
 def cart(request):

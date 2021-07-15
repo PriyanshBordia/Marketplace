@@ -9,7 +9,7 @@
 {% block head %}
 	<!-- {% load static %} -->
 	<style>
-		.p {
+		.person {
 			max-width: 700px;
 			margin: auto;
 			text-align: center;
@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="p mt-3">
+	<div class="person mt-3">
 		<h4><strong>First Name : </strong> {{ person.first }} </h4>
 		<h4><strong>Last Name : </strong> {{ person.last }} </h4>
 		<h4><strong>Bio : </strong> {{ person.bio }} </h4>
@@ -28,35 +28,41 @@
 		<h4><strong>Age : </strong> {{ person.age }} </h4>
 		<h4><strong>E-mail : </strong> {{ person.email }} </h4>
 		<h4><strong>Ph.No : </strong> {{ person.ph_no }} </h4>
+	</div>
 
-		{% for article in person.rented.all %}
-			<h4>{{ article.id }}</h4>
-		{% empty %}
-			<div class="alert alert-success" role="alert">Nothing Rented.</div>
-		{% endfor %}
-		<hr>
-		{% for article in person.bookmarked.all %}
-			<h4>{{ article.id }}</h4>
-		{% empty %}
-			<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
-		{% endfor %}
-		<hr>
-		{% for article in person.purchased.all %}
-			<h4>{{ article.id }}</h4>
-		{% empty %}
-			<div class="alert alert-success" role="alert">Nothing Purchased.</div>
-		{% endfor %}
-		<hr>
-		{% for article in person.display.all %}
-			<h4>{{ article.id }}</h4>
-		{% empty %}
-			<div class="alert alert-success" role="alert">Nothing on Display.</div>
-		{% endfor %}
-		<hr>
-		{% for article in person.sold.all %}
-			<h4>{{ article.id }}</h4>
-		{% empty %}
-			<div class="alert alert-success" role="alert">Nothing Sold.</div>
-		{% endfor %}
+		<div class=" container-fluid">
+			<div class="justify-content-center">
+				<div class="row">
+					{% for article in person.rented.all %}
+						<h4>{{ article.id }}</h4>
+					{% empty %}
+						<div class="alert alert-success" role="alert">Nothing Rented.</div>
+					{% endfor %}
+					<hr>
+					{% for article in person.bookmarked.all %}
+						<h4>{{ article.id }}</h4>
+					{% empty %}
+						<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
+					{% endfor %}
+					<hr>
+					{% for article in person.purchased.all %}
+						<h4>{{ article.id }}</h4>
+					{% empty %}
+						<div class="alert alert-success" role="alert">Nothing Purchased.</div>
+					{% endfor %}
+					<hr>
+					{% for article in person.display.all %}
+						<h4>{{ article.id }}</h4>
+					{% empty %}
+						<div class="alert alert-success" role="alert">Nothing on Display.</div>
+					{% endfor %}
+					<hr>
+					{% for article in person.sold.all %}
+						<h4>{{ article.id }}</h4>
+					{% empty %}
+						<div class="alert alert-success" role="alert">Nothing Sold.</div>
+					{% endfor %}
+			</div>
+		</div>
 	</div>
 {% endblock %}
