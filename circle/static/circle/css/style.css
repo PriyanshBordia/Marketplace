@@ -377,21 +377,37 @@ td {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.error-message, .success-message {
+/* Error Message */
+.error {
+  margin: 2rem auto 1.5rem auto;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.error__grid__img {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.error__grid__type, .error__grid .success-message-type {
+  max-width: 700px;
+  margin: auto;
+  font-size: 2rem;
+}
+
+.error__grid__message, .error__grid .success-message {
   max-width: 700px;
   margin: auto;
   text-align: center;
   padding: 30px;
-  font-size: 20;
+  font-size: 1.4rem;
 }
 
-.error-message-type, .success-message-type {
-  max-width: 700px;
-  margin: auto;
-  font-size: 24;
-}
-
-.error-message-a, .success-message-a {
+.error__grid__a, .error__grid .success-message-a {
+  margin: 2rem auto 1rem auto;
   color: white;
   text-decoration: none !important;
 }

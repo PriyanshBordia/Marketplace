@@ -138,6 +138,10 @@ svg {
   padding-left: 1.5rem;
 }
 
+#username {
+  color: #c2dde6;
+}
+
 h1, h2, h3 {
   margin-top: 0;
 }
@@ -157,7 +161,7 @@ h1:hover {
 }
 
 h2, .home-head, .h2 {
-  color: #ff0000e1;
+  color: #F6AF44;
   font-weight: 400;
 }
 
@@ -166,7 +170,7 @@ h3 {
 }
 
 h4 {
-  color: #8d82ee;
+  color: #bd8c7d;
   font-weight: lighter;
 }
 
@@ -345,6 +349,32 @@ hr {
   -webkit-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
   -webkit-transition: all 150ms ease-in-out;
+}
+
+table, tr, th, td {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  border: 2px solid #bd8c7d;
+  overflow: scroll;
+}
+
+th {
+  color: #7dce94;
+  font-size: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+tbody tr:hover {
+  background: #233554;
+}
+
+td {
+  color: #a8b2d1;
+  font-size: 1.5;
+  font-weight: 1.5;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .error-message, .success-message {

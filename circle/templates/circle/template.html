@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block head %}
+	{% load static %}
 
 {% endblock %}
 
@@ -38,11 +39,15 @@
 
 	<tbody>
 		{% for x in xy %}
-		<tr>
-			<td>
+			<tr>
+				<td>
 
-			</td>
-		</tr>
+				</td>
+			</tr>
+		{% empty %}
+			<div class="alert alert-info mt-3" role="alert">
+				z
+			</div>
 		{% endfor %}
 	</tbody>
 	<tfoot>
