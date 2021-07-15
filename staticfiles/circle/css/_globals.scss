@@ -57,6 +57,10 @@ svg {
     padding-left: 1.5rem;
 }
 
+#username {
+	color: $LightSaberBlue;
+}
+
 h1, h2, h3 {
     margin-top: 0;
 }
@@ -75,7 +79,7 @@ h1:hover {
 }
 
 h2, .home-head, .h2 {
-    color: #ff0000e1;
+    color: $Casablanca;
     font-weight: 400;
 }
 
@@ -84,7 +88,7 @@ h3 {
 }
 
 h4 {
-    color: rgb(141, 130, 238);
+    color: $RoseGold;
     font-weight: lighter;
 }
 
