@@ -34,7 +34,7 @@ class Article(models.Model):
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
+	image = models.ImageField(upload_to="images/articles", blank=False, null=False, default="")
 
 	# pub_ts = models.DateTimeField(blank=False, null=False, default=datetime.now)
 

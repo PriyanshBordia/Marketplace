@@ -9,10 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from datetime import datetime
 from termcolor import cprint
 
-from django.conf import settings
-
 from .models import Article, Person, Message, Tag, Chat
-
+from .forms import ArticleForm, PersonForm, TagForm
 
 # import logging
 
@@ -28,6 +26,10 @@ def home(request):
 	# logger.error("This logs an error message.")
 	return render(request, "circle/home.html", context={})
 
+
+def newPerson(request):
+	form = PersonForm()
+	return render(request, "circle/newPerson.html", context={"form": form})
 
 def addPerson(request):
 
@@ -127,7 +129,8 @@ def persons(request):
 
 
 def newArticle(request):
-	return render(request, "circle/newArticle.html", context={})
+	form = ArticleForm()
+	return render(request, "circle/newArticle.html", context={"form": form})
 
 	
 def addArticle(request):

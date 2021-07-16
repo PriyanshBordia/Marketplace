@@ -46,9 +46,6 @@ ADMINS = [('Priyansh Bordia', 'priyanshbordia2@gmail.com')]
 
 # Application definition
 
-# TIME_ZONE = 'Europe/London'
-# USE_TZ = True
-
 INSTALLED_APPS = [
     'circle.apps.CircleConfig',
     'django.contrib.admin',
@@ -59,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', 
 	'django_extensions',
 	'humanize',
+	'bootstrap4',
+	'fontawesome_5',
     'accounts',
 ]
 
@@ -72,6 +71,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
    	'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+WHITENOISE_AUTOREFRESH = True
 
 ROOT_URLCONF = 'marketplace.urls'
 
@@ -95,6 +96,15 @@ WSGI_APPLICATION = 'marketplace.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+"""
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}
+"""
 
 # Logging
 # https://docs.djangoproject.com/en/3.2/topics/logging/

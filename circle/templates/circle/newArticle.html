@@ -7,28 +7,42 @@
 {% endblock %}
 
 {% block head %}
-
+	{% load static %}
 {% endblock %}
 
 {% block body %}
-	<div class="container container-fluid">
-		<div class="justify-content-center">
-			<br>
-			<form class="form-group" action="{% url 'home' %}" method="post">
-	
-				{% csrf_token %}
-	
-				<input class="form-group mt-2" type="image" name="image" alt="Article Image" style="float:left" width="100" height="100">
-				
-				<input class="form-control mt-2" type="text" autocomplete=off autofocus placeholder="Title" name="title">
+	<div class="container-fluid text-center">
+		<div class="align-items-center justify-content-center">
+			<div class="row">
+				<div class="col-md-3">
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+				</div>
+				<div class="col-md-9">
+					<form action="{% url 'home' %}" method="post">
+						<div class="form-group">
+							
+							{% csrf_token %}
+							
+							<!-- <div class="form-inline"> -->
+								<!-- <div class="form-control"> -->
+									{{ form.title }}
+								<!-- </div> -->
+								<!-- <div class="custom-select"> -->
+									{{ form.tags }}
+								<!-- </div> -->
+							<!-- </div> -->
 
-				<input class="form-control mt-2" type="text" autocomplete=off autofocus placeholder="Description" name="description" size="100">
-
-				<input class="form-control mt-2" type="number" autocomplete=off autofocus placeholder="Price" name="price">
-
-				<button class="form-control btn btn-outline-warning btn-md mt-5" type="reset">Reset</button>
-				<button class="form-control btn btn-outline-success btn-md mt-5" type="submit">Add.!</button>
-			</form>
+							<div class="form-inline mt-3">
+								<button class="col-md-5 form-control btn btn-outline-warning btn-md" type="reset">Reset</button>
+								<div class="col-md-2"></div>
+								<button class="col-md-5 form-control btn btn-outline-success btn-md" type="submit">Add.!</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-	<!-- </div> -->
+	</div>
 {% endblock %}
