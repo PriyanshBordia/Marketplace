@@ -11,14 +11,19 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-import environ
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from pathlib import Path
 
 # import sentry_sdk
 # from sentry_sdk.integrations.django import DjangoIntegration
 
-env = environ.Env()
-environ.Env.read_env()
+# import environ
+# env = environ.Env()
+# environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,15 +33,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.getenv(('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG', default=False)
+DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS'), '127.0.0.1']
 
 # ADMINS
-# ADMINS = [env('ADMINS')]
+# ADMINS = [os.getenv(('ADMINS')]
 ADMINS = [('Priyansh Bordia', 'priyanshbordia2@gmail.com')]
 
 # Application definition
@@ -65,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   	'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'marketplace.urls'
@@ -141,21 +147,21 @@ DATABASES = {
     },
 
     'development': {
-        'ENGINE': env('DEV_ENGINE'),
-        'NAME': env('DEV_DB_NAME'),
-        'USER': env('DEV_DB_USER'),
-        'PASSWORD': env('DEV_DB_PASSWORD'),
-        'HOST': env('DEV_DB_HOST'),
-        'PORT': env('DEV_DB_PORT'),
+        'ENGINE': os.getenv('DEV_ENGINE'),
+        'NAME': os.getenv('DEV_DB_NAME'),
+        'USER': os.getenv('DEV_DB_USER'),
+        'PASSWORD': os.getenv('DEV_DB_PASSWORD'),
+        'HOST': os.getenv('DEV_DB_HOST'),
+        'PORT': os.getenv('DEV_DB_PORT'),
     },
 
     'production': {
-        'ENGINE': env('ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'ENGINE': os.getenv('ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     },
 }
 
@@ -219,10 +225,10 @@ LOGOUT_REDIRECT_URL = 'home'
 #Send reset pass e-mails
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
 DEFAULT_FROM_EMAIL = 'The MilkyWay Airlines Team <no-reply@milkyway.io>'
 
 

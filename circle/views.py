@@ -213,9 +213,6 @@ def result(request):
 	print()
 	cprint(search, 'white')
 
-	if len(search) == 0:
-		logger.error('Search went wrong.!')
-
 	articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
 
 	cprint(articles.query, 'magenta')
