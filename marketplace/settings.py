@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #env('DEBUG', default=False)
+DEBUG = env('DEBUG', default=False)
 
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
 
@@ -200,14 +200,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, '/static'),
-    os.path.join(BASE_DIR, 'circle/static'),
-)
+# STATICFILES_DIRS = (
+#     # os.path.join(BASE_DIR, '/static'),
+#     os.path.join(BASE_DIR, 'circle/static'),
+# )
 
 
 # Media Files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'circle/static/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL =  '/media/'
 
 #login redirection to homepage
