@@ -14,10 +14,10 @@ from django.conf import settings
 from .models import Article, Person, Message, Tag, Chat
 
 
-import logging
+# import logging
 
 # Get an instance of a logger
-logger = logging.getLogger(__file__)
+# logger = logging.getLogger(__file__)
 
 # Create your views here.
 

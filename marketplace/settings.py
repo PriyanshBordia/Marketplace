@@ -94,44 +94,42 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # Logging
 # https://docs.djangoproject.com/en/3.2/topics/logging/
 
-LOGGING = {
-	'version': 1,
-	'disable_existing_loggers': False,
-	'formatters': {
-		'verbose': {
-			'format': ("%(asctime)s [%(levelname)-8s] '(%(module)s.%(funcName)s)' :: %(message)s")
-		},
-		'simple': {
-			'format': '%(levelname)s :: %(message)s'
-		}
-	},
-	'handlers': {
-		'file': {
-			'level': 'DEBUG',
-			'class': 'logging.FileHandler',
-			'filename': 'logs/debug.log',
-			'formatter': 'verbose'
-		},
-		'console': {
-			'level': 'DEBUG',
-			'class': 'logging.StreamHandler',
-			'formatter': 'verbose'
-		},
-	},
-	'loggers': {
-		'django': {
-			'handlers': ["file"],
-			'level': 'DEBUG',
-			'propagate': True,
-		},
-	},
-	"root": {
-		"level": "DEBUG", 
-		"handlers": ["file"]
-	},
-}
-
-# "datefmt": "%Y-%m-%d %H:%M:%S",
+# LOGGING = {
+# 	'version': 1,
+# 	'disable_existing_loggers': False,
+# 	'formatters': {
+# 		'verbose': {
+# 			'format': ("%(asctime)s [%(levelname)-8s] '(%(module)s.%(funcName)s)' :: %(message)s")
+# 		},
+# 		'simple': {
+# 			'format': '%(levelname)s :: %(message)s'
+# 		}
+# 	},
+# 	'handlers': {
+# 		'file': {
+# 			'level': 'DEBUG',
+# 			'class': 'logging.FileHandler',
+# 			'filename': 'logs/debug.log',
+# 			'formatter': 'verbose'
+# 		},
+# 		'console': {
+# 			'level': 'DEBUG',
+# 			'class': 'logging.StreamHandler',
+# 			'formatter': 'verbose'
+# 		},
+# 	},
+# 	'loggers': {
+# 		'django': {
+# 			'handlers': ["file"],
+# 			'level': 'DEBUG',
+# 			'propagate': True,
+# 		},
+# 	},
+# 	"root": {
+# 		"level": "DEBUG", 
+# 		"handlers": ["file"]
+# 	},
+# }
 
 
 # Database
