@@ -17,7 +17,7 @@ class Tag(models.Model):
 
 	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	# def save(self, *args, **kwargs):
 	# 	super.save(args, kwargs)
@@ -121,7 +121,7 @@ class Message(models.Model):
 
 	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
 	
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def isValidMessage(self):
 		return len(self.text) > 0 and (self.timestamp <= datetime.now)
@@ -141,9 +141,9 @@ class Chat(models.Model):
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
-	created_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	# created_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def __format__(self):
 		return f"{self.sender} <-> {self.receiver}"

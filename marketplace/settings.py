@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #env('DEBUG', default=True)
+DEBUG = True #env('DEBUG', default=False)
 
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
 
@@ -40,6 +40,9 @@ ALLOWED_HOSTS = [env('ALLOWED_HOSTS'), '127.0.0.1']
 ADMINS = [('Priyansh Bordia', 'priyanshbordia2@gmail.com')]
 
 # Application definition
+
+# TIME_ZONE = 'Europe/London'
+# USE_TZ = True
 
 INSTALLED_APPS = [
     'circle.apps.CircleConfig',
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', 
 	'django_extensions',
 	'humanize',
+  	'datetimeutc',
     'accounts',
 ]
 
