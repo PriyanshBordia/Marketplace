@@ -111,9 +111,14 @@ def addPerson(request):
 	return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
 
-def person(request, user_id):
+def person(request, slug):
+	
+	user_id = request.user.id
+	
 	user = User.objects.get(pk=user_id)
-	person = Person.objects.filter(user=user).first()
+
+	person = Person.objects.filter(user=user, slug=slug).first()
+	
 	# cprint(person.bookmarked, 'magenta')
 	# if person is None:
 		# cprint("yes", 'red')

@@ -16,10 +16,11 @@ class Tag(models.Model):
 
 	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
 
-	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True,  default="hu9h48r9")
 
-	# def save(self, *args, **kwargs):
-	# 	super.save(args, kwargs)
+	def save(self, *args, **kwargs):
+		super.save(args, kwargs)
+
 
 	def isValidTag(self):
 		return len(self.name) > 0
@@ -36,16 +37,16 @@ class Article(models.Model):
 
 	image = models.ImageField(upload_to="images/articles", blank=False, null=False, default="")
 
-	# pub_ts = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	pub_ts = models.DateTimeField(auto_now=True, blank=False, null=False)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
-	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98ruhid")
 
 	def __get_image_name__(self):
-		date = datetime.now(datetime.timezone.utc)
+		date = self.pub_ts 						#datetime.now(datetime.timezone.utc)
 		year = str(date.year)
 		month = date.month
 		day = date.day
@@ -56,13 +57,11 @@ class Article(models.Model):
 			day = '0' + str(day)
 
 		self.image_name = 'Image_' + date.strftime("%Y-%m-%d_at_%H.%M.%S")
-
-		# str(year) + '-' + str(month) + '-' + str(day) + 
-
-	# def save(self, *args, **kwargs):
-	# 	self.slug = slugify(self.tittle)
-	# 	self.image_name = self.get_image_name();
-	# 	super(Article, self).save(*args, **kwargs)
+		
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.tittle)
+		self.image_name = self.get_image_name();
+		super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0
@@ -76,7 +75,7 @@ class Person(models.Model):
 	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
-	# profile = models.ImageField(upload_to="images/persons", blank=True, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
+	profile = models.ImageField(upload_to="images/persons", blank=True, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
 	bio = models.TextField(max_length=500, blank=True, null=False)
@@ -104,7 +103,7 @@ class Person(models.Model):
 
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
-	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True,  default="hu9h48reh9")
 
 	def isValidPerson(self):
 		return self.rented != self.sold
@@ -118,9 +117,9 @@ class Message(models.Model):
 
 	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
 
-	timestamp = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	timestamp = models.DateTimeField(auto_now_add=True, blank=False, null=False)
 	
-	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98r")
 
 	def isValidMessage(self):
 		return len(self.text) > 0 and (self.timestamp <= datetime.now)
@@ -140,9 +139,9 @@ class Chat(models.Model):
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
-	# created_date = models.DateTimeField(blank=False, null=False, default=datetime.now)
+	created_date = models.DateTimeField(auto_now_add=True, blank=False, null=False)
 
-	# slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98r")
 
 	def __format__(self):
 		return f"{self.sender} <-> {self.receiver}"
