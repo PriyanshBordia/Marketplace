@@ -66,7 +66,7 @@ class Person(models.Model):
 	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
-	profile = models.ImageField(upload_to="images/persons", blank=True, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
+	profile = models.ImageField(upload_to="images/persons", blank=False, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
 	bio = models.TextField(max_length=500, blank=True, null=False)

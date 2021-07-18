@@ -16,34 +16,49 @@ from .views import addArticle, article, articles, home, addPerson, newArticle, n
 # 		self.browser = webdriver.Safari()
 
 
-# class ModelsTestCase(TestCase):
+class ModelsTestCase(TestCase):
 
-# 	def setUp(self) -> None:
+	def __init__(self, methodName: str) -> None:
+		super().__init__(methodName=methodName)
 
-# 		# Base Class setUp
-# 		super().setUp()
+	def setUp(self) -> None:
 
-# 		a1 = Article.objects.create(title="Article 1", bio="")
-# 		a1 = Article.objects.create(title="Article 2", bio="")
-# 		a3 = Article.objects.create(title="Article 3", bio="")
+		# Base Class setUp
+		super().setUp()
 
-# 	def test_is_valid_article(self):
-# 		self.a1.is_valid_article()
+		a1 = Article.objects.create(title="Article 1", bio="a1 bio")
+		a1 = Article.objects.create(title="Article 2", bio="a2 bio")
+		a3 = Article.objects.create(title="Article 3", bio="a bio")
+
+		
+	def test_is_valid_article(self):
+		self.a1.is_valid_article()
 
 
 class UrlsTestCase(TestCase):
 
 	def __init__(self, methodName: str) -> None:
 		super().__init__(methodName=methodName)
-		self.view_functions_list = [addPerson,newArticle, addArticle]
+		self.view_functions_list = [addPerson,addArticle]
 	
+	def setUp(self) -> None:
+		return super().setUp()
+
 	def test_url_home(self):
 		url = reverse('home')
 		self.assertEquals(resolve(url).func, home)
-		
-	def test_url_newPerson(self):
-		url = reverse('newPerson')
-		self.assertEquals(resolve(url).func, newPerson)
+
+	def test_url_newArticle(self):
+		url = reverse('newArticle')
+		self.assertEquals(resolve(url).func, newArticle)
+
+	def test_url_persons(self):
+		url = reverse('persons')
+		self.assertEquals(resolve(url).func, persons)
+
+	def test_url_articles(self):
+		url = reverse('articles')
+		self.assertEquals(resolve(url).func, articles)
 
 	def test_url_persons(self):
 		url = reverse('persons')
@@ -109,10 +124,27 @@ class ViewsTestCase(TestCase):
 
 	def setUp(self) -> None:
 		super().setUp()
-		self.response = self.client.get(reverse('home'))
 
-	def test_view_status_code(self):
+	def test_view_status_code_home(self):
+		self.response = self.client.get(reverse('home'))
 		self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used(self):
+	def test_view_template_used_home(self):
+		self.response = self.client.get(reverse('home'))
 		self.assertTemplateUsed(self.response, "circle/home.html")
+
+	def test_view_status_code_articles(self):
+		self.response = self.client.get(reverse('articles'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_articles(self):
+		self.response = self.client.get(reverse('articles'))
+		self.assertTemplateUsed(self.response, "circle/articles.html")
+
+	def test_view_status_code_persons(self):
+		self.response = self.client.get(reverse('persons'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_persons(self):
+		self.response = self.client.get(reverse('persons'))
+		self.assertTemplateUsed(self.response, "circle/persons.html")

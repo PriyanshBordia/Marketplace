@@ -115,7 +115,7 @@ body.no-scroll {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  max-width: 100px;
+  max-width: 6.25rem;
   margin: auto;
   position: absolute;
   top: 50%;
@@ -133,7 +133,8 @@ svg {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 50rem;
+  margin-top: 2.8rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
@@ -148,7 +149,7 @@ h1, h2, h3 {
 
 h1 {
   color: #428bca;
-  margin-bottom: 10px;
+  margin-bottom: .8rem;
   font-weight: lighter;
 }
 
@@ -204,7 +205,7 @@ hr {
 
 .alert {
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .row {
@@ -349,6 +350,20 @@ hr {
   -webkit-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
   -webkit-transition: all 150ms ease-in-out;
+}
+
+.person.__grid {
+  margin-top: 2rem;
+}
+
+.person.__grid.__img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+.person.__grid.__first, .person.__grid.__last {
+  font-size: 1.4rem;
 }
 
 table, tr, th, td {

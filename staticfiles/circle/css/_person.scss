@@ -1,0 +1,19 @@
+.person {
+
+	&.__grid {
+
+		margin-top: 2rem;
+
+		&.__img {
+
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+		}
+
+		&.__first, &.__last {
+
+			font-size: 1.4rem;
+		}
+	}
+}

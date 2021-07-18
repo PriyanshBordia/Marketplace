@@ -1,0 +1,46 @@
+.person {
+
+	&__grid {
+
+		margin-top: 1.5rem;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 1rem;
+
+		&__img {
+
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			text-align: center;
+			align-items: center;
+		}
+
+		&__name {
+
+			margin-top: 1rem;
+			padding-right: 1rem;
+			font-size: 2rem;
+			color: $LightSlate;
+		}
+
+		&__username {
+
+			font-size: 1rem;
+			font-weight: 300;
+			color: $NeonGreen;
+		}
+
+		&__bio {
+
+		}
+
+		&__age,  {
+
+		}
+	}
+
+	&__rented, &__bookmarked {
+		margin: 3rem;
+	}
+}

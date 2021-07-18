@@ -8,26 +8,34 @@
 
 {% block head %}
 	{% load static %}
-	<!-- Icon -->
-	<!-- <link rel="stylesheet" href="{% static 'circle/css/auth.css' %}" /> -->
+	{% load fontawesome_5 %}
+	
+<!-- {# Load the tag library #} -->
+	{% load bootstrap4 %}
+	
+<!-- {# Load CSS and JavaScript #} -->
+<!-- {% bootstrap_css %} -->
+<!-- {% bootstrap_javascript jquery='full' %} -->
+	
+<!-- {# Display django.contrib.messages as Bootstrap alerts #} -->
+	{% bootstrap_messages %}
+
 {% endblock %}
 
 {% block body %}
-    <div class="container container-fluid text-center mt-3 ml-auto mr-auto">
-        <div class="register-action-container justify-content-center">
+    <div class="container container-fluid text-center">
+        <div class="justify-content-center">
 			<span><img src="https://img.icons8.com/bubbles/150/000000/enter-2.png" /></span>
 			<br>
-			<h2 class="register-action-head mt-3">You register and will be a part of our family.</h2>
+			<h2 class="mt-3">You register and will be a part of our family.</h2>
 			<hr>
-            <form method="post" class="form-group">
-                <div class="mt-3 mb-2 pt-3">
+            <form class="form-group" method="post">
 
-                    {% csrf_token %}
+                {% csrf_token %}
 
-                    {{ form.as_p }}
+                {% bootstrap_form form layout='horizontal' %}
 
-                    <input class="form-control register-action-button btn btn-outline-warning mt-3" type="submit" value="Register">
-                </div>
+				{% bootstrap_button "Register" button_class="form-control btn btn-outline-warning" button_type="submit" %}
             </form>
         </div>
     </div>

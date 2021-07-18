@@ -115,7 +115,7 @@ body.no-scroll {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  max-width: 100px;
+  max-width: 6.25rem;
   margin: auto;
   position: absolute;
   top: 50%;
@@ -133,7 +133,8 @@ svg {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 50rem;
+  margin-top: 2.8rem;
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
@@ -148,35 +149,46 @@ h1, h2, h3 {
 
 h1 {
   color: #428bca;
-  margin-bottom: 10px;
+  margin-bottom: .8rem;
   font-weight: lighter;
 }
 
 h1:hover {
+  margin-top: 1.4rem;
+  color: #d1bfa7;
   -webkit-transition-duration: 0.4s;
   /* Safari */
   transition-duration: 0.4s;
-  background-color: white;
-  color: #7dce94;
 }
 
 h2, .home-head, .h2 {
+  margin-top: 1rem;
   color: #F6AF44;
   font-weight: 400;
 }
 
 h3 {
+  margin-top: .8rem;
   color: cadetblue;
+  font-weight: 450;
 }
 
 h4 {
+  margin-top: .6rem;
   color: #bd8c7d;
-  font-weight: lighter;
+  font-weight: 500;
 }
 
 h5 {
-  color: #c2dde6;
-  font-weight: lighter;
+  margin-top: .4rem;
+  color: #f6f5f3;
+  font-weight: 600;
+}
+
+h6 {
+  margin-top: .2rem;
+  color: #f6f5f3;
+  font-weight: 650;
 }
 
 a {
@@ -204,7 +216,7 @@ hr {
 
 .alert {
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .row {
@@ -349,6 +361,40 @@ hr {
   -webkit-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
   -webkit-transition: all 150ms ease-in-out;
+}
+
+.person__grid {
+  margin-top: 1.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 1rem;
+}
+
+.person__grid__img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.person__grid__name {
+  margin-top: 1rem;
+  padding-right: 1rem;
+  font-size: 2rem;
+  color: #a8b2d1;
+}
+
+.person__grid__username {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #64ffda;
+}
+
+.person__rented, .person__bookmarked {
+  margin: 3rem;
 }
 
 table, tr, th, td {

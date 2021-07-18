@@ -7,26 +7,33 @@
 {% endblock %}
 
 {% block head %}
-
+	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
 {% endblock %}
 
 {% block body %}
-    
     <div class="container container-fluid text-center">
-        <div class="search-container justify-content-center">
-			<img src="https://img.icons8.com/bubbles/300/000000/stormtrooper.png">
-
-            <br>
-            <form class="" action="{% url 'result' %}" method="post">
+        <div class="justify-content-center">
+			<span><img src="https://img.icons8.com/bubbles/200/000000/stormtrooper.png" /></span>
+			<br>
+			<h2>Search .!</h2>
+            <form class="form-group" action="{% url 'result' %}" method="post">
                 
                 {% csrf_token %}
 
-                <input class="form-control" name="search" autocomplete="off" autofocus placeholder="Type keywords for what you want to find.!" aria-label="Search" type="text">
-                <br>                
-                <button class="form-control btn btn-md btn-warning mt-5" type="reset">Reset</button>
-                <button class="form-control btn btn-md btn-success mt-5" type="submit">Search.!</button>
+				<div class="row">
+					<input class="form-control" name="search" autocomplete="off" autofocus placeholder="Type keywords for what you want to find.!" aria-label="Search" type="text">
+				</div>
+				<div class="row">
+					<div class="col-md-6 ml-auto mr-auto">
+						<button class="form-control form-control-lg btn btn-outline-warning" type="reset">Reset</button>
+					</div>
+					<div class="col-md-6 ml-auto mr-auto">
+						<button class="form-control form-control-lg btn btn-outline-success" type="submit">Search.!</button>
+					</div>
+				</div>
             </form>
         </div>
     </div>
-
 {% endblock %}

@@ -2,8 +2,9 @@ import random
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import redirect, render
-# from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from datetime import datetime
@@ -27,9 +28,11 @@ def home(request):
 	return render(request, "circle/home.html", context={})
 
 
+@login_required
 def newPerson(request):
 	form = PersonForm()
 	return render(request, "circle/newPerson.html", context={"form": form})
+
 
 def addPerson(request):
 
@@ -117,7 +120,7 @@ def person(request, slug):
 	
 	user = User.objects.get(pk=user_id)
 
-	person = Person.objects.filter(user=user, slug=slug).first()
+	person = Person.objects.filter(user=user).first()
 	
 	# cprint(person.bookmarked, 'magenta')
 	# if person is None:

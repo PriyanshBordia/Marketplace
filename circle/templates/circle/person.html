@@ -7,61 +7,73 @@
 {% endblock %}
 
 {% block head %}
-	<!-- {% load static %} -->
-	<style>
-		.person {
-			max-width: 700px;
-			margin: auto;
-			text-align: center;
-			align-items: center;
-		}
-	</style>
+	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
 {% endblock %}
 
 {% block body %}
-	<div class="person mt-3">
-		<h4><strong>First Name : </strong> {{ person.first }} </h4>
-		<h4><strong>Last Name : </strong> {{ person.last }} </h4>
-		<h4><strong>Bio : </strong> {{ person.bio }} </h4>
-
-		<!-- <h4><strong>Gender : </strong> {{ person.sex }} </h4> -->
-		<h4><strong>Age : </strong> {{ person.age }} </h4>
-		<h4><strong>E-mail : </strong> {{ person.email }} </h4>
-		<h4><strong>Ph.No : </strong> {{ person.ph_no }} </h4>
-	</div>
-
-		<div class=" container-fluid">
-			<div class="justify-content-center">
-				<div class="row">
-					{% for article in person.rented.all %}
-						<h4>{{ article.id }}</h4>
-					{% empty %}
-						<div class="alert alert-success" role="alert">Nothing Rented.</div>
-					{% endfor %}
-					<hr>
-					{% for article in person.bookmarked.all %}
-						<h4>{{ article.id }}</h4>
-					{% empty %}
-						<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
-					{% endfor %}
-					<hr>
-					{% for article in person.purchased.all %}
-						<h4>{{ article.id }}</h4>
-					{% empty %}
-						<div class="alert alert-success" role="alert">Nothing Purchased.</div>
-					{% endfor %}
-					<hr>
-					{% for article in person.display.all %}
-						<h4>{{ article.id }}</h4>
-					{% empty %}
-						<div class="alert alert-success" role="alert">Nothing on Display.</div>
-					{% endfor %}
-					<hr>
-					{% for article in person.sold.all %}
-						<h4>{{ article.id }}</h4>
-					{% empty %}
-						<div class="alert alert-success" role="alert">Nothing Sold.</div>
-					{% endfor %}
+	<div class="person container-fluid">
+		<div class="justify-content-center">
+			<div class="row">
+				<!-- <div class="person"> -->
+					<div class="col-md-3">
+						<div class="person__grid">
+							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
+							<p class="person__grid__username">{{ person.username }} </p>
+							<p class="person__grid__gender">{{ person.age }} {{ person.sex }}</p>
+							<!-- <p class="person__grid__age"> -->
+								<!-- {{ person.age }} -->
+							<!-- </p> -->
+							<p class="person__grid__bio">{{ person.bio }}</p>
+							<p class="person__grid__email">{{ person.email }} </p>
+							<p class="person__grid__phno">{{ person.ph_no }} </p>
+							<p>{{ person.slug }}</p>
+						</div>
+					</div>
+					<div class="col-md-9">
+						{% for article in person.rented.all %}
+							<div class="person__rented">
+								<h4>{{ article.id }}</h4>
+							</div>
+						{% empty %}
+							<div class="alert alert-success" role="alert">Nothing Rented.</div>
+						{% endfor %}
+						<hr>
+						{% for article in person.bookmarked.all %}
+							<div class="person__bookmarked">
+								<h4>{{ article.id }}</h4>
+							</div>
+						{% empty %}
+							<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
+						{% endfor %}
+						<hr>
+						{% for article in person.purchased.all %}
+							<div class="person__purchase">
+								<h4>{{ article.id }}</h4>
+							</div>
+						{% empty %}
+							<div class="alert alert-success" role="alert">Nothing Purchased.</div>
+						{% endfor %}
+						<hr>
+						{% for article in person.display.all %}
+							<div class="person__display">
+								<h4>{{ article.id }}</h4>
+							</div>
+						{% empty %}
+							<div class="alert alert-success" role="alert">Nothing on Display.</div>
+						{% endfor %}
+						<hr>
+						{% for article in person.sold.all %}
+							<div class="person__sold">
+								<h4>{{ article.id }}</h4>
+							</div>
+						{% empty %}
+							<div class="alert alert-success" role="alert">Nothing Sold.</div>
+						{% endfor %}
+					</div>
+				<!-- </div> -->
 			</div>
 		</div>
 	</div>

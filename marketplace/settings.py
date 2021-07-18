@@ -36,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv(('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', default=False)
+DEBUG = True #os.getenv('DEBUG', default=False)
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS'), '127.0.0.1']
 
@@ -198,7 +198,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 # Set for test to not send warnings
 
@@ -211,13 +211,13 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
-#     # os.path.join(BASE_DIR, '/static'),
+#     os.path.join(BASE_DIR, '/static'),
 #     os.path.join(BASE_DIR, 'circle/static'),
 # )
 
 
 # Media Files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'circle/media')
 MEDIA_URL =  '/media/'
 
 #login redirection to homepage
