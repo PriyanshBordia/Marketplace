@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 	'humanize',
 	'bootstrap4',
 	'fontawesome_5',
+	'django_autoslug',
     'accounts',
 ]
 
@@ -96,15 +97,6 @@ WSGI_APPLICATION = 'marketplace.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
-"""
-MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
-}
-"""
 
 # Logging
 # https://docs.djangoproject.com/en/3.2/topics/logging/
@@ -206,7 +198,9 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
+
+# Set for test to not send warnings
 
 
 # Static files (CSS, JavaScript, Images)

@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MinLengthValidator
 
-from datetime import datetime
+# from django_autoslug import fields
 
 from django.contrib.auth.models import User
 
@@ -16,7 +16,7 @@ class Tag(models.Model):
 
 	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True,  default="hu9h48r9")
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
 		super.save(args, kwargs)
@@ -37,31 +37,22 @@ class Article(models.Model):
 
 	image = models.ImageField(upload_to="images/articles", blank=False, null=False, default="")
 
-	pub_ts = models.DateTimeField(auto_now=True, blank=False, null=False)
+	pub_ts = models.DateTimeField(auto_now=True)
 
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98ruhid")
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def __get_image_name__(self):
-		date = self.pub_ts 						#datetime.now(datetime.timezone.utc)
-		year = str(date.year)
-		month = date.month
-		day = date.day
-
-		if month <= 9:
-			month = '0' + str(month)
-		if day <= 9:
-			day = '0' + str(day)
-
-		self.image_name = 'Image_' + date.strftime("%Y-%m-%d_at_%H.%M.%S")
+		self.image_name = 'Image_' + self.pub_ts.strftime("%Y-%m-%d_at_%H.%M.%S")
 		
+
 	def save(self, *args, **kwargs):
-		self.slug = slugify(self.tittle)
+		self.slug = slugify(self.title + str(self.id))
 		self.image_name = self.get_image_name();
-		super(Article, self).save(*args, **kwargs)
+		super(Article, self).save(args, kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0
@@ -103,11 +94,14 @@ class Person(models.Model):
 
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True,  default="hu9h48reh9")
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.username)
+		super(Person, self).save(*args, **kwargs)
 
 	def isValidPerson(self):
 		return self.rented != self.sold
-
 		
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
@@ -117,12 +111,12 @@ class Message(models.Model):
 
 	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
 
-	timestamp = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+	timestamp = models.DateTimeField(auto_now_add=True)
 	
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98r")
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def isValidMessage(self):
-		return len(self.text) > 0 and (self.timestamp <= datetime.now)
+		return len(self.text) > 0
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"
@@ -139,9 +133,9 @@ class Chat(models.Model):
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
-	created_date = models.DateTimeField(auto_now_add=True, blank=False, null=False)
+	created_date = models.DateTimeField(auto_now_add=True)
 
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True, default="hu9h48reh98r")
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def __format__(self):
 		return f"{self.sender} <-> {self.receiver}"

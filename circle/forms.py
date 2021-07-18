@@ -3,12 +3,13 @@ from django import forms
 from .models import Article, Person, Tag, Message, Chat
 
 class ArticleForm(forms.ModelForm):
-	def __str__(self) -> str:
-		return super().__str__()
 
 	class Meta:
 		model = Article
 		fields = ('title', 'description', 'image', 'price', 'tags')
+	
+	def __str__(self) -> str:
+		return super().__str__()
 
 
 class PersonForm(forms.ModelForm):
@@ -28,8 +29,7 @@ class TagForm(forms.ModelForm):
 
 	class Meta:
 		model = Tag
-		# fields = ('name', 'domain', 'description')
-		fields = '__all__'
+		fields = ('name', 'domain', 'description')
 
 """
 def clean(self):
