@@ -45,14 +45,13 @@ class Article(models.Model):
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
-	def __get_image_name__(self):
-		self.image_name = 'Image_' + self.pub_ts.strftime("%Y-%m-%d_at_%H.%M.%S")
+	# def __get_image_name__(self):
+		# self.image_name = 'Image_' + self.pub_ts.strftime("%Y-%m-%d_at_%H.%M.%S")
 		
-
-	def save(self, *args, **kwargs):
-		self.slug = slugify(self.title + str(self.id))
-		self.image_name = self.get_image_name();
-		super(Article, self).save(args, kwargs)
+	# def save(self, *args, **kwargs):
+	# 	self.slug = slugify(self.title + str(self.id))
+		# self.image_name = self.get_image_name();
+		# super(Article, self).save(args, kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0

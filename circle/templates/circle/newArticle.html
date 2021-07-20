@@ -3,11 +3,13 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-	New Article
+	Add Article
 {% endblock %}
 
 {% block head %}
 	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
 {% endblock %}
 
 {% block body %}
@@ -20,10 +22,12 @@
 					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
 				</div>
 				<div class="col-md-9">
-					<form action="{% url 'home' %}" method="post">
+					<form action="{% url 'addArticle' %}" method="post">
 						<div class="form-group">
 							
 							{% csrf_token %}
+							
+							{% bootstrap_form form %}
 							
 							<!-- <div class="form-inline"> -->
 								<!-- <div class="form-control"> -->

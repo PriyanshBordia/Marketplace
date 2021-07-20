@@ -1,10 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 from .models import Article, Person, Message, Tag
-from .views import addArticle, article, articles, home, addPerson, newArticle, newPerson, person, persons, friends, rented, wishlist, cart, result, search, user, users, update, message, error
+from .views import home, newArticle, addArticle, article, articles, newPerson, addPerson, person, persons, friends, rented, wishlist, cart, result, search, user, users, update, message, error
+
+from termcolor import cprint
 
 # Create your tests here.
 
@@ -16,23 +20,23 @@ from .views import addArticle, article, articles, home, addPerson, newArticle, n
 # 		self.browser = webdriver.Safari()
 
 
-class ModelsTestCase(TestCase):
+# class ModelsTestCase(TestCase):
 
-	def __init__(self, methodName: str) -> None:
-		super().__init__(methodName=methodName)
+# 	def __init__(self, methodName: str) -> None:
+# 		super().__init__(methodName=methodName)
 
-	def setUp(self) -> None:
+# 	def setUp(self) -> None:
 
-		# Base Class setUp
-		super().setUp()
+# 		# Base Class setUp
+# 		super().setUp()
 
-		a1 = Article.objects.create(title="Article 1", bio="a1 bio")
-		a1 = Article.objects.create(title="Article 2", bio="a2 bio")
-		a3 = Article.objects.create(title="Article 3", bio="a bio")
+# 		a1 = Article.objects.create(title="Article 1", bio="a1 bio")
+# 		a1 = Article.objects.create(title="Article 2", bio="a2 bio")
+# 		a3 = Article.objects.create(title="Article 3", bio="a bio")
 
 		
-	def test_is_valid_article(self):
-		self.a1.is_valid_article()
+# 	def test_is_valid_article(self):
+# 		self.a1.is_valid_article()
 
 
 class UrlsTestCase(TestCase):
@@ -124,6 +128,9 @@ class ViewsTestCase(TestCase):
 
 	def setUp(self) -> None:
 		super().setUp()
+		Article.objects.create(title="Test A1", description="Test A1 bio", image="test", price=990, slug="test-slug")
+		User.objects.create_user('test', 'test@mail.co', 'test')
+		self.client.login(username='test', password='test')
 
 	def test_view_status_code_home(self):
 		self.response = self.client.get(reverse('home'))
@@ -133,6 +140,22 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('home'))
 		self.assertTemplateUsed(self.response, "circle/home.html")
 
+	def test_view_status_code_newArticle(self):
+		self.response = self.client.get(reverse('newArticle'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_newArticle(self):
+		self.response = self.client.get(reverse('newArticle'))
+		self.assertTemplateUsed(self.response, "circle/newArticle.html")
+
+	def test_view_status_code_article(self):
+		self.response = self.client.get(reverse('article', args=(1,)))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_article(self):
+		self.response = self.client.get(reverse('article', args=(1,)))
+		self.assertTemplateUsed(self.response, "circle/article.html")
+
 	def test_view_status_code_articles(self):
 		self.response = self.client.get(reverse('articles'))
 		self.assertEquals(self.response.status_code, 200)
@@ -141,6 +164,14 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('articles'))
 		self.assertTemplateUsed(self.response, "circle/articles.html")
 
+	def test_view_status_code_person(self):
+		self.response = self.client.get(reverse('person', args=(1,)))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_person(self):
+		self.response = self.client.get(reverse('person', args=(1,)))
+		self.assertTemplateUsed(self.response, "circle/person.html")
+
 	def test_view_status_code_persons(self):
 		self.response = self.client.get(reverse('persons'))
 		self.assertEquals(self.response.status_code, 200)
@@ -148,3 +179,11 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_persons(self):
 		self.response = self.client.get(reverse('persons'))
 		self.assertTemplateUsed(self.response, "circle/persons.html")
+
+	def test_view_status_code_friends(self):
+		self.response = self.client.get(reverse('friends'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_friends(self):
+		self.response = self.client.get(reverse('friends'))
+		self.assertTemplateUsed(self.response, "circle/friends.html")

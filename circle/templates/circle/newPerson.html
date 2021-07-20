@@ -8,6 +8,8 @@
 
 {% block head %}
 	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
 {% endblock %}
 
 {% block body %}
@@ -20,7 +22,9 @@
 				<form action="POST">
 					{% csrf_token %}
 
-					{{ form.as_table }}
+					{% bootstrap_form form %}
+
+					{% bootstrap_button "Add Person" button_class="btn btn-success" %}
 				</form>
 			</div>
 			<form>
