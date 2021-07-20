@@ -8,10 +8,12 @@
 
 {% block head %}
 	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container container-fluid text-center">
 		<div class="justify-content-center">
 			<div class="row">
 				{% for article in articles %}
@@ -33,7 +35,7 @@
 						</div>
 					</div>
 				{% empty %}
-					<div class="alert alert-danger mt-2" role="alert">No Results Matching your query.!!</div>
+					<div class="alert alert-danger" role="alert">No Results Matching your query.!!</div>
 				{% endfor %}
 			</div>
 		</div>

@@ -233,7 +233,7 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = 'The MilkyWay Airlines Team <no-reply@milkyway.io>'
+DEFAULT_FROM_EMAIL = 'Team Baazaar <no-reply@baazaar.io>'
 
 
 # sentry_sdk.init(

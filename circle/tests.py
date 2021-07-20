@@ -5,7 +5,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
-from .models import Article, Person, Message, Tag
+from .models import Article, Person, Message, Tag, Chat
 from .views import home, newArticle, addArticle, article, articles, newPerson, addPerson, person, persons, friends, rented, wishlist, cart, result, search, user, users, update, message, error
 
 from termcolor import cprint
@@ -128,9 +128,16 @@ class ViewsTestCase(TestCase):
 
 	def setUp(self) -> None:
 		super().setUp()
+		
+		Tag.objects.create(name="test-tag", domain="testing", description="a tag for testing.!", slug="test-tag")
+
 		Article.objects.create(title="Test A1", description="Test A1 bio", image="test", price=990, slug="test-slug")
-		User.objects.create_user('test', 'test@mail.co', 'test')
+
+		user = User.objects.create_user('test', 'test@mail.co', 'test')
 		self.client.login(username='test', password='test')
+
+		Person.objects.create(user=user, username="test", profile="test", bio="Test A1 bio", first="test", last="test", age=19, sex='X', email="test@mail.io", ph_no=9876543210, slug="test-slug")
+		
 
 	def test_view_status_code_home(self):
 		self.response = self.client.get(reverse('home'))

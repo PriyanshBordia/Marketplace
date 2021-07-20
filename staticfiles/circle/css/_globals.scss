@@ -15,6 +15,7 @@ html, body {
 body {
     margin: 0;
     padding: 0;
+	text-align: center;
     justify-content: center;
     align-items: center;
     line-height: 1.3;
@@ -50,9 +51,9 @@ svg {
 
 .container {
 	max-width: 50rem;
-	margin-top: 2.8rem;
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
+	margin-top: 2rem;
+	text-align: center;
+	align-items: center;
 }
 
 #username {
@@ -64,35 +65,46 @@ h1, h2, h3 {
 }
 
 h1 {
-    color : #428bca;
+    color : $CuriousBlue;
     margin-bottom: .8rem;
     font-weight: lighter;
 }
 
 h1:hover {
+	margin-top: 1.4rem;
+    color: $SoftGold;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
-    background-color: white;
-    color: #7dce94;
 }
 
 h2, .home-head, .h2 {
+	margin-top: 1rem;
     color: $Casablanca;
     font-weight: 400;
 }
 
 h3 {
-    color: cadetblue;
+	margin-top: .8rem;
+    color: $CadetBlue;
+    font-weight: 450;
 }
 
 h4 {
+	margin-top: .6rem;
     color: $RoseGold;
-    font-weight: lighter;
+    font-weight: 500;
 }
 
 h5 {
-    color: #c2dde6;
-    font-weight: lighter;
+	margin-top: .4rem;
+    color: $VanillaGrey;
+    font-weight: 600;
+}
+
+h6 {
+	margin-top: .2rem;
+	color: $VanillaGrey;
+    font-weight: 650;
 }
 
 a {

@@ -226,14 +226,11 @@ def result(request):
 	except TypeError:
 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
 
-	print()
-	cprint(search, 'white')
-
+	# print()
+	# cprint(search, 'white')
 	articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
-
-	cprint(articles.query, 'magenta')
-	print()
-
+	# cprint(articles.query, 'magenta')
+	
 	return render(request, "circle/result.html", context={'articles': articles})
 
 #testing left

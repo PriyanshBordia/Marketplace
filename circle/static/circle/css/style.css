@@ -92,6 +92,7 @@ html, body {
 body {
   margin: 0;
   padding: 0;
+  text-align: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -134,9 +135,11 @@ svg {
 
 .container {
   max-width: 50rem;
-  margin-top: 2.8rem;
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+  margin-top: 2rem;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #username {
@@ -361,6 +364,26 @@ hr {
   -webkit-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
   -webkit-transition: all 150ms ease-in-out;
+}
+
+.auth {
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.auth__grid__img {
+  margin-top: .2rem;
+}
+
+.auth__grid__title {
+  margin-bottom: .8rem;
+}
+
+.auth__grid__text {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .person__grid {

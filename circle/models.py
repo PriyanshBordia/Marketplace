@@ -19,8 +19,8 @@ class Tag(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
 		super.save(args, kwargs)
-
 
 	def isValidTag(self):
 		return len(self.name) > 0
@@ -108,14 +108,17 @@ class Person(models.Model):
 
 class Message(models.Model):
 
-	text = models.TextField(max_length=255, blank=False, null=False, default="Message")
+	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
+	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
+
+	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
 
 	timestamp = models.DateTimeField(auto_now_add=True)
 	
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def isValidMessage(self):
-		return len(self.text) > 0
+		return len(self.text) > 0 and self.sender != self.receiver
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"
@@ -126,18 +129,17 @@ class Message(models.Model):
 
 class Chat(models.Model):
 	
-	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender")
-
-	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver")
-
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 	
 	created_date = models.DateTimeField(auto_now_add=True)
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
+	def isValidChat(self):
+		return len(self.messages) >= 0
+	
 	def __format__(self):
-		return f"{self.sender} <-> {self.receiver}"
+		return f"{self.id} {self.created_date}"
 
 	def __str__(self):
 		return f"{self.timestamp}"

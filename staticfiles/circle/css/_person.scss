@@ -1,19 +1,46 @@
 .person {
 
-	&.__grid {
+	&__grid {
 
-		margin-top: 2rem;
+		margin-top: 1.5rem;
+		margin-right: auto;
+		margin-left: auto;
+		padding: 1rem;
 
-		&.__img {
+		&__img {
 
-			width: 300px;
-			height: 300px;
+			width: 200px;
+			height: 200px;
 			border-radius: 50%;
+			text-align: center;
+			align-items: center;
 		}
 
-		&.__first, &.__last {
+		&__name {
 
-			font-size: 1.4rem;
+			margin-top: 1rem;
+			padding-right: 1rem;
+			font-size: 2rem;
+			color: $LightSlate;
 		}
+
+		&__username {
+
+			font-size: 1rem;
+			font-weight: 300;
+			color: $NeonGreen;
+		}
+
+		&__bio {
+
+		}
+
+		&__age,  {
+
+		}
+	}
+
+	&__rented, &__bookmarked {
+		margin: 3rem;
 	}
 }
