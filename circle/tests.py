@@ -3,14 +3,13 @@ from django.urls import reverse, resolve
 from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+from django.core.management import call_command
 
 from .models import Article, Person, Message, Tag, Chat
 from .views import home, newArticle, addArticle, article, articles, newPerson, addPerson, person, persons, friends, rented, wishlist, cart, result, search, user, users, update, message, error
 
-from termcolor import cprint
-
 # Create your tests here.
+
 
 # class BrowserTest(StaticLiveServerTestCase):
 
@@ -19,7 +18,7 @@ from termcolor import cprint
 
 # 		self.browser = webdriver.Safari()
 
-
+# Test for models
 # class ModelsTestCase(TestCase):
 
 # 	def __init__(self, methodName: str) -> None:
@@ -38,7 +37,7 @@ from termcolor import cprint
 # 	def test_is_valid_article(self):
 # 		self.a1.is_valid_article()
 
-
+# Test for urls
 class UrlsTestCase(TestCase):
 
 	def __init__(self, methodName: str) -> None:
@@ -120,7 +119,7 @@ class UrlsTestCase(TestCase):
 		url = reverse('user', args=[1])
 		self.assertEquals(resolve(url).func, user)
 
-
+# Test for views
 class ViewsTestCase(TestCase):
 
 	def __init__(self, methodName: str) -> None:
@@ -194,3 +193,9 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_friends(self):
 		self.response = self.client.get(reverse('friends'))
 		self.assertTemplateUsed(self.response, "circle/friends.html")
+
+
+# Test for the templates
+class TemplatesTestCase(TestCase):
+    def test_validate_templates(self):
+        call_command("validate_templates")

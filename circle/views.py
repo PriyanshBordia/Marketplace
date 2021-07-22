@@ -1,4 +1,4 @@
-import random
+import os
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -6,6 +6,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+
+from .utils import *
 
 from datetime import datetime
 from termcolor import cprint
@@ -113,7 +115,7 @@ def addPerson(request):
 
 		return HttpResponseRedirect(reverse("person", args=(user_id, )))
 
-	return reverse(newArticle)
+	return HttpResponseRedirect(reverse("newArticle", args=()))
 
 
 @login_required
@@ -138,57 +140,78 @@ def newArticle(request):
 
 @login_required	
 def addArticle(request):
-	try:
-		title = str(request.POST.get("title"))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
 
-	try:
-		description =  str(request.POST.get('description'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+	if request.POST:
 
-	
-	try:
-		image = str(request.POST.get('image'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+		try:
+			title = str(request.POST.get("title"))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
+		try:
+			description =  str(request.POST.get('description'))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-	try:
-		price = float(request.POST.get('price'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+		
+		try:
+			image = str(request.POST.get('image'))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field image.!!", "type": "Value Error", "link": "newArticle"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
 
-	try:
-		tags = list(request.POST.get('tags'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+		try:
+			price = float(request.POST.get('price'))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible Tag DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-	Article.objects.create(title=title, description=description, image=image, price=price, tags=tags)
 
-	return reverse(article, args=(article.id))
+		try:
+			tags = request.POST.get('tags')
+			if tags is not None:
+				tags = list(tags)
+			else:
+				tags = []
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
+
+		article = Article.objects.create(title=title, description=description, image=image, price=price)
+		cprint(article, 'red')
+		# article.save()
+		pub_ts = article.pub_ts
+		cprint(pub_ts, 'white')
+
+		# article.image = set_unique_name(article.image.url, pub_ts)
+		cprint(article.image.url, 'blue')
+
+		for tag in tags:
+			article.tags.add(tag)
+		article.save() 
+
+		return HttpResponseRedirect(reverse("article", args=(article.id, )))
+
+	else:
+		return HttpResponseRedirect(reverse("newArticle", args=()))
 
 
 @login_required

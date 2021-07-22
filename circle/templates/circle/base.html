@@ -37,7 +37,7 @@
 
     <!-- Icon -->
 	<!-- <link rel="icon" href="https://img.icons8.com/bubbles/50/000000/stormtrooper.png"> -->
-	<link rel="icon" href="https://img.icons8.com/bubbles/100/000000/video-star.png" />
+	<link rel="icon" href="https://img.icons8.com/bubbles/50/000000/video-star.png" />
     <title> {% block title %}{% endblock %} | Marketplace </title>
 </head>
 <body>
@@ -53,8 +53,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.3rem;">
 			<form class="form-inline my-2 my-lg-0 mr-auto ml-auto" action="{% url 'result' %}" method="post">
 				{% csrf_token %}
-				<input class="form-control mr-sm-2" type="search" name="search" autocomplete="off" autofocus placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-2" type="submit">Search</button>
 			</form>
             <ul class="navbar-nav mr-2">
                 <!-- <li class="nav-item active">
@@ -100,7 +100,7 @@
 							Profile
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'person' request.user.id %}">User Details</a>
+							<a class="dropdown-item" href="{% url 'person' request.user.id %}">Details</a>
 							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
 							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
 						</div>

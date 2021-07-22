@@ -1,0 +1,15 @@
+.article {
+
+	&__grid {
+
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+
+		&__btn {
+			
+			margin-top: 2rem;
+			width: $btn-size-lg;
+		}
+	}
+}

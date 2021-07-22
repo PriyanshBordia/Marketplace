@@ -228,7 +228,7 @@ hr {
 }
 
 .col-md-6, .col-md-5, .col-md-2 {
-  padding: 0.7rem;
+  padding: 0.5rem;
 }
 
 .flex {
@@ -418,6 +418,21 @@ hr {
 
 .person__rented, .person__bookmarked {
   margin: 3rem;
+}
+
+.article__grid {
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.article__grid__btn {
+  margin-top: 2rem;
+  width: 3.5in;
 }
 
 table, tr, th, td {

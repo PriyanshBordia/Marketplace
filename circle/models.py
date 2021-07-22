@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MinLengthValidator
 
-# from django_autoslug import fields
-
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -20,7 +18,7 @@ class Tag(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
-		super.save(args, kwargs)
+		super(Tag, self).save(*args, **kwargs)
 
 	def isValidTag(self):
 		return len(self.name) > 0
@@ -45,13 +43,10 @@ class Article(models.Model):
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
-	# def __get_image_name__(self):
-		# self.image_name = 'Image_' + self.pub_ts.strftime("%Y-%m-%d_at_%H.%M.%S")
-		
-	# def save(self, *args, **kwargs):
-	# 	self.slug = slugify(self.title + str(self.id))
-		# self.image_name = self.get_image_name();
-		# super(Article, self).save(args, kwargs)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.title + str(self.id) + str(self.pub_ts) + str(self.price))
+		super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0

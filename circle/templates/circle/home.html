@@ -23,9 +23,18 @@
                     Welcome Back :)
                 </div>
 				<br>
-				<a href="{% url 'search' %}" role="button">
-					<button class="form-control form-control-lg btn btn-outline-info">Search</button>
-				</a>
+				<div class="row">
+					<div class="col-md-6">
+						<a href="{% url 'newArticle' %}" role="button">
+							<button class="form-control form-control-lg btn btn-outline-info">New Article</button>
+						</a>
+					</div>
+					<div class="col-md-6">
+						<a href="{% url 'search' %}" role="button">
+							<button class="form-control form-control-lg btn btn-outline-info">Search</button>
+						</a>
+					</div>
+				</div>
     		{% else %}
                 <img src="https://img.icons8.com/bubbles/200/000000/home-page.png" />
 				<br>

@@ -13,19 +13,31 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid text-center">
-		<div class="align-items-center justify-content-center">
-			<div class="col-md-3">
-
-			</div>
-			<div class="col-md-9">
-				<form action="POST">
-					{% csrf_token %}
-
-					{% bootstrap_form form %}
-
-					{% bootstrap_button "Add Person" button_class="btn btn-success" %}
-				</form>
+	<div class="person container-fluid text-center">
+		<div class="person__grid justify-content-center">
+			<div class="row">
+				<div class="col-md-3">
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+				</div>
+				<div class="col-md-9">
+					<form class="form-group" action="{% url 'addPerson' %}" action="POST">
+						{% csrf_token %}
+				
+						
+						{% bootstrap_form form layout='horizontal' %}
+				
+						<div class="form-row">
+							<div class="col-md-6">
+								{% bootstrap_button "Reset" button_class="form-control btn btn-outline-warning" button_type="reset" %}
+							</div>
+							<div class="col-md-6">
+								{% bootstrap_button "Add.!" button_class="form-control btn btn-outline-success" button_type="submit" %}
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 			<form>
 				<div class="form-row">

@@ -19,7 +19,7 @@ class PersonForm(forms.ModelForm):
 
 	class Meta:
 		model = Person
-		fields = ('username', 'bio', 'age', 'sex', 'email', 'ph_no')
+		fields = ('username', 'first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no')
 
 
 class TagForm(forms.ModelForm):
