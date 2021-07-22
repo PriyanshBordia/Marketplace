@@ -4,5 +4,4 @@
 [![GitHub forks](https://img.shields.io/github/forks/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/network)
 [![GitHub stars](https://img.shields.io/github/stars/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/stargazers)
 [![GitHub license](https://img.shields.io/github/license/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/blob/main/LICENSE)
-[![Codacy Security Scan](https://github.com/PriyanshBordia/Marketplace/actions/workflows/codacy-analysis.yml/badge.svg)](https://github.com/PriyanshBordia/Marketplace/actions/workflows/codacy-analysis.yml)
 #### A place to buy and sell goods.!
