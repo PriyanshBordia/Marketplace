@@ -99,12 +99,35 @@ class Person(models.Model):
 		
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
+
+
+class Chat(models.Model):
 	
+	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
+	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
+
+	created_date = models.DateTimeField(auto_now_add=True)
+
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(str(self.sender) + str(self.receiver))
+
+		super(Chat, self).save(*args, **kwargs)
+
+	def isValidChat(self):
+		return len(self.messages) >= 0
+	
+	def __format__(self):
+		return f"{self.id} {self.created_date}"
+
+	def __str__(self):
+		return f"{self.timestamp}"
+
 
 class Message(models.Model):
 
-	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
-	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
+	chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="chat", default=1)
 
 	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
 
@@ -112,29 +135,15 @@ class Message(models.Model):
 	
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
+	def save(self, *args, **kwargs):
+		self.slug = slugify(str(self.text) + str(self.timestamp) + str(self.chat))
+		super(Message, self).save(*args, **kwargs)
+
 	def isValidMessage(self):
-		return len(self.text) > 0 and self.sender != self.receiver
+		return len(self.text) > 0 and self.chat.id > 0
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"
-
-	def __str__(self):
-		return f"{self.timestamp}"
-
-
-class Chat(models.Model):
-	
-	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
-	
-	created_date = models.DateTimeField(auto_now_add=True)
-
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
-
-	def isValidChat(self):
-		return len(self.messages) >= 0
-	
-	def __format__(self):
-		return f"{self.id} {self.created_date}"
 
 	def __str__(self):
 		return f"{self.timestamp}"
