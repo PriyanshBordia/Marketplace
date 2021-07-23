@@ -435,6 +435,42 @@ hr {
   width: 3.5in;
 }
 
+.friend {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.friend__grid {
+  border: .125rem solid;
+}
+
+.friend__grid__img {
+  margin-top: 2rem;
+  max-width: 9rem;
+  max-height: 9rem;
+  border-radius: 50%;
+  border: 2px solid coral;
+}
+
+.friend__grid__name {
+  padding: 1rem;
+  margin: 1rem;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.friend__grid__btn {
+  margin: 1rem;
+  float: right;
+}
+
 table, tr, th, td {
   margin-left: auto;
   margin-right: auto;

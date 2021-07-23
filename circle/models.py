@@ -44,6 +44,9 @@ class Article(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 
+	class Meta:
+		ordering = ['id']
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title + str(self.id) + str(self.pub_ts) + str(self.price))
 		super(Article, self).save(*args, **kwargs)
@@ -90,6 +93,9 @@ class Person(models.Model):
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
+	class Meta:
+		ordering = ['id']
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.username)
 		super(Person, self).save(*args, **kwargs)
@@ -110,6 +116,7 @@ class Chat(models.Model):
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(str(self.sender) + str(self.receiver))
 
@@ -120,6 +127,9 @@ class Chat(models.Model):
 	
 	def __format__(self):
 		return f"{self.id} {self.created_date}"
+
+	class Meta:
+		ordering = ['id']
 
 	def __str__(self):
 		return f"{self.timestamp}"
@@ -144,6 +154,9 @@ class Message(models.Model):
 
 	def __format__(self):
 		return f"{self.sender} -> {self.receiver}"
+
+	class Meta:
+		ordering = ['-timestamp']
 
 	def __str__(self):
 		return f"{self.timestamp}"

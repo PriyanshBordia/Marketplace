@@ -1,7 +1,37 @@
 .friend {
 	
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+
 	&__grid {
 
-		border: .125rem solid $LightGrey;
+		border: .125rem solid ;
+
+		&__img {
+
+			margin-top: 2rem;
+			max-width: 9rem;
+			max-height: 9rem;
+			border-radius: 50%;
+			border: 2px solid coral;
+		}
+
+		&__name {
+
+			padding: 1rem;
+			margin: 1rem;
+			font-size: 1.5rem;
+			font-weight: 300;
+		}
+
+		&__btn {
+
+			margin: 1rem;
+			float: right;
+			// margin-right: 1rem;
+		}
 	}
 }

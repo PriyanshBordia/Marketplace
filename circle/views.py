@@ -121,8 +121,11 @@ def addPerson(request):
 
 @login_required
 def person(request, person_id):
-	person = Person.objects.get(pk=person_id)
-	return render(request, "circle/person.html", context={"person": person})
+	try:
+		person = Person.objects.get(pk=person_id)
+		return render(request, "circle/person.html", context={"person": person})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Key Error.!", "link": "person"})
 
 
 @login_required
@@ -139,10 +142,8 @@ def newArticle(request):
 
 @login_required	
 def addArticle(request):
-
 	if request.GET:
 		return HttpResponseRedirect(reverse("newArticle", args=()))
-
 	else:
 		try:
 			title = str(request.POST.get("title"))
@@ -197,13 +198,13 @@ def addArticle(request):
 			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
 		article = Article.objects.create(title=title, description=description, image=image, price=price)
-		cprint(article, 'red')
+		# cprint(article, 'red')
 		# article.save()
 		pub_ts = article.pub_ts
-		cprint(pub_ts, 'white')
+		# cprint(pub_ts, 'white')
 
 		# article.image = set_unique_name(article.image.url, pub_ts)
-		cprint(article.image.url, 'blue')
+		# cprint(article.image.url, 'blue')
 
 		for tag in tags:
 			article.tags.add(tag)
@@ -211,11 +212,18 @@ def addArticle(request):
 
 		return HttpResponseRedirect(reverse("article", args=(article.id, )))
 
+
 @login_required
 def article(request, article_id):
-	article = Article.objects.get(pk=article_id)
-	tags = Article.objects.get(pk=article_id).tags.all()
-	not_tagged = Tag.objects.exclude(tags=tags).all()
+	try:
+		article = Article.objects.get(pk=article_id)
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "Article does not exist.!!", "type": "Type Error", "link": "search"})
+	tags = article.tags.all()
+	try:
+		not_tagged = Article.objects.exclude(tags=tags)
+	except Tag.DoesNotExist:
+		not_tagged = []
 	return render(request, "circle/article.html", context={"article": article, "not_tagged": not_tagged})
 
 
@@ -228,8 +236,12 @@ def articles(request):
 @login_required
 def friends(request):
 	user_id = request.user.id
-	friends = Person.objects.filter(user_id=user_id)
-	cprint(friends, 'white')
+	person = Person.objects.filter(user_id=user_id)
+	if Person.DoesNotExist:
+		friends = []
+		# return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Type Error", "link": "search"})
+	else:
+		friends = person.friends.all()
 	return render(request, "circle/friends.html", context={"friends": friends})
 
 
@@ -313,15 +325,15 @@ def rent(request, article_id):
 
 	return HttpResponseRedirect(reverse("article", args=(article_id, )))
 
-
+# testing left
 @login_required
 def bookmark(request, article_id):
 	user_id = request.user.id
 
 	person = Person.objects.filter(user=user_id).first()
-	cprint(person, 'white')
+	# cprint(person, 'white')
 	article = Article.objects.get(pk=article_id)
-	cprint(article, 'red')
+	# cprint(article, 'red')
 
 	if person is not None and article is not None:
 		person.bookmarked.add(article)
@@ -329,20 +341,17 @@ def bookmark(request, article_id):
 
 	return HttpResponseRedirect(reverse("article", args=(article_id, )))
 
-
+# testing left
 @login_required
 def wishlist(request):
 	user_id = request.user.id
-
-	person = Person.objects.filter(user=user_id).first()
-	
-	cprint(person, 'blue')
-
-	if person is not None:
+	person = Person.objects.filter(user_id=user_id)
+	if Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+	else:
 		articles = person.bookmarked.all
 		return render(request, "circle/wishlist.html", context={"articles": articles})
-	else:
-		return render(request, "circle/error.html", context={"message": "No person registered.!!", "type": "Data Error!!", })
+		# return render(request, "circle/error.html", context={"message": "No person registered.!!", "type": "Key Error.!!", "link": "search"})
 
 
 @login_required

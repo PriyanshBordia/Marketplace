@@ -51,13 +51,25 @@ class UrlsTestCase(TestCase):
 		url = reverse('home')
 		self.assertEquals(resolve(url).func, home)
 
-	def test_url_newArticle(self):
-		url = reverse('newArticle')
-		self.assertEquals(resolve(url).func, newArticle)
+	def test_url_newPerson(self):
+		url = reverse('newPerson')
+		self.assertEquals(resolve(url).func, newPerson)
+	
+	def test_url_addPerson(self):
+		url = reverse('addPerson')
+		self.assertEquals(resolve(url).func, addPerson)
 
 	def test_url_persons(self):
 		url = reverse('persons')
 		self.assertEquals(resolve(url).func, persons)
+
+	def test_url_newArticle(self):
+		url = reverse('newArticle')
+		self.assertEquals(resolve(url).func, newArticle)
+	
+	def test_url_addArticle(self):
+		url = reverse('addArticle')
+		self.assertEquals(resolve(url).func, addArticle)
 
 	def test_url_articles(self):
 		url = reverse('articles')
@@ -70,6 +82,14 @@ class UrlsTestCase(TestCase):
 	def test_url_friends(self):
 		url = reverse('friends')
 		self.assertEquals(resolve(url).func, friends)
+
+	def test_url_search(self):
+		url = reverse('search')
+		self.assertEquals(resolve(url).func, search)
+
+	def test_url_result(self):
+		url = reverse('result')
+		self.assertEquals(resolve(url).func, result)
 
 	def test_url_rented(self):
 		url = reverse('rented')
@@ -90,14 +110,6 @@ class UrlsTestCase(TestCase):
 	def test_url_users(self):
 		url = reverse('users')
 		self.assertEquals(resolve(url).func, users)
-	
-	def test_url_search(self):
-		url = reverse('search')
-		self.assertEquals(resolve(url).func, search)
-	
-	def test_url_result(self):
-		url = reverse('result')
-		self.assertEquals(resolve(url).func, result)
 	
 	def test_url_update(self):
 		url = reverse('update')
@@ -128,12 +140,13 @@ class ViewsTestCase(TestCase):
 	def setUp(self) -> None:
 		super().setUp()
 		
-		Tag.objects.create(name="test-tag", domain="testing", description="a tag for testing.!", slug="test-tag")
-
-		Article.objects.create(title="Test A1", description="Test A1 bio", image="test", price=990, slug="test-slug")
-
 		user = User.objects.create_user('test', 'test@mail.co', 'test')
 		self.client.login(username='test', password='test')
+
+		t1 = Tag.objects.create(name="test-tag", domain="testing", description="a tag for testing.!", slug="test-tag")
+
+		a1 = Article.objects.create(title="Test A1", description="Test A1 bio", image="test", price=990, slug="test-slug")
+		a1.tags.add(t1)
 
 		Person.objects.create(user=user, username="test", profile="test", bio="Test A1 bio", first="test", last="test", age=19, sex='X', email="test@mail.io", ph_no=9876543210, slug="test-slug")
 		
@@ -193,6 +206,22 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_friends(self):
 		self.response = self.client.get(reverse('friends'))
 		self.assertTemplateUsed(self.response, "circle/friends.html")
+	
+	def test_view_status_code_newPerson(self):
+		self.response = self.client.get(reverse('newPerson'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_newPerson(self):
+		self.response = self.client.get(reverse('newPerson'))
+		self.assertTemplateUsed(self.response, "circle/newPerson.html")
+
+	def test_view_status_code_newArticle(self):
+		self.response = self.client.get(reverse('newArticle'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_newArticle(self):
+		self.response = self.client.get(reverse('newArticle'))
+		self.assertTemplateUsed(self.response, "circle/newArticle.html")
 
 
 # Test for the templates
