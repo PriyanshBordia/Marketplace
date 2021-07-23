@@ -6,7 +6,7 @@ class ArticleForm(forms.ModelForm):
 
 	class Meta:
 		model = Article
-		fields = ('title', 'description', 'image', 'price', 'tags')
+		fields = ('title', 'description', 'image', 'price')
 	
 	def __str__(self) -> str:
 		return super().__str__()
@@ -19,7 +19,7 @@ class PersonForm(forms.ModelForm):
 
 	class Meta:
 		model = Person
-		fields = ('username', 'first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no')
+		fields = ('first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no')
 
 
 class TagForm(forms.ModelForm):

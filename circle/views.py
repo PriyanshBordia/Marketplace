@@ -33,13 +33,16 @@ def home(request):
 @login_required
 def newPerson(request):
 	form = PersonForm()
-	return render(request, "circle/newPerson.html", context={"form": form})
+	tags = Tag.objects.all()
+	return render(request, "circle/newPerson.html", context={"form": form, "tags": tags})
 
 
 @login_required
 def addPerson(request):
-	if request.POST:
+	if request.GET:
+		return HttpResponseRedirect(reverse("search", args=()))
 
+	else:
 		user_id = User.objects.get(pk=request.user.id)
 
 		try:
@@ -111,18 +114,14 @@ def addPerson(request):
 
 		username = email.split('@')[0]
 
-		Person.objects.create(user=user_id, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
+		person = Person.objects.create(user=user_id, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
 
-		return HttpResponseRedirect(reverse("person", args=(user_id, )))
-
-	return HttpResponseRedirect(reverse("newArticle", args=()))
+		return HttpResponseRedirect(reverse("person", args=(person.id, )))
 
 
 @login_required
 def person(request, person_id):
-	user_id = request.user.id or 1	
-	user = User.objects.get(pk=user_id)
-	person = Person.objects.filter(user=user).first()
+	person = Person.objects.get(pk=person_id)
 	return render(request, "circle/person.html", context={"person": person})
 
 
@@ -141,8 +140,10 @@ def newArticle(request):
 @login_required	
 def addArticle(request):
 
-	if request.POST:
+	if request.GET:
+		return HttpResponseRedirect(reverse("newArticle", args=()))
 
+	else:
 		try:
 			title = str(request.POST.get("title"))
 		except KeyError:
@@ -210,14 +211,12 @@ def addArticle(request):
 
 		return HttpResponseRedirect(reverse("article", args=(article.id, )))
 
-	else:
-		return HttpResponseRedirect(reverse("newArticle", args=()))
-
-
 @login_required
 def article(request, article_id):
 	article = Article.objects.get(pk=article_id)
-	return render(request, "circle/article.html", context={"article": article})
+	tags = Article.objects.get(pk=article_id).tags.all()
+	not_tagged = Tag.objects.exclude(tags=tags).all()
+	return render(request, "circle/article.html", context={"article": article, "not_tagged": not_tagged})
 
 
 @login_required
