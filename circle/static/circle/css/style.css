@@ -222,15 +222,6 @@ hr {
   font-size: 1.5rem;
 }
 
-.row {
-  margin: .8rem;
-  padding: 0.5rem;
-}
-
-.col-md-6, .col-md-5, .col-md-2, .col-md-4 {
-  padding: 0.5rem;
-}
-
 .flex {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -420,6 +411,10 @@ hr {
   margin: 3rem;
 }
 
+.persons {
+  margin-top: 2rem;
+}
+
 .article {
   margin-top: 1rem;
   border: 1px solid cornsilk;
@@ -451,6 +446,10 @@ hr {
   color: gray;
   font-size: 1rem;
   font-weight: 100;
+}
+
+.articles {
+  margin-top: 2rem;
 }
 
 .friend__container {
@@ -502,6 +501,85 @@ hr {
 .friend__container__msg__btn {
   margin: 2rem;
   width: 2in;
+}
+
+.chat {
+  margin: 3rem auto 1rem auto;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.chat__container {
+  margin: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2px solid #ccd6f6;
+}
+
+.chat__container__img {
+  margin-top: 2rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.chat__container__header {
+  padding: 1.2rem;
+  background-color: #112240;
+  border: 1px solid cornflowerblue;
+}
+
+.chat__container__grid {
+  margin-top: 1rem;
+  width: calc(100vw - 700px);
+  height: calc(100vh - 400px);
+  border-radius: 0.5rem;
+}
+
+.chat__container__grid__message {
+  padding: .4rem;
+  width: calc(100vw - 700px);
+  height: calc(100vh - 300px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  border: 2px solid skyblue;
+}
+
+.chat__container__grid__message__sender {
+  padding: 1rem;
+  float: right;
+  border: 1px solid coral;
+  border-radius: 20rem;
+}
+
+.chat__container__grid__message__receiver {
+  padding: .8rem;
+  float: left;
+  border: 1px solid coral;
+  border-radius: 20rem;
+}
+
+.chat__container__grid__message small {
+  font-size: .8rem;
+  color: gray;
+  font-weight: 100;
+}
+
+.chat__container__footer {
+  margin-bottom: 0rem;
+}
+
+.chats {
+  margin-top: 2rem;
 }
 
 table, tr, th, td {

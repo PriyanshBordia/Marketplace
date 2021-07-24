@@ -22,6 +22,26 @@ class PersonForm(forms.ModelForm):
 		fields = ('first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no')
 
 
+class MessageForm(forms.ModelForm):
+
+	def __str__(self) -> str:
+		return super().__str__()
+
+	class Meta:
+		model = Message
+		fields = ('text', )
+
+
+class ChatForm(forms.ModelForm):
+
+	def __str__(self) -> str:
+		return super().__str__()
+
+	class Meta:
+		model = Chat
+		fields = ('messages', )
+
+
 class TagForm(forms.ModelForm):
 
 	def __str__(self) -> str:

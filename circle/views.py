@@ -13,7 +13,7 @@ from datetime import datetime
 from termcolor import cprint
 
 from .models import Article, Person, Message, Tag, Chat
-from .forms import ArticleForm, PersonForm, TagForm
+from .forms import ArticleForm, PersonForm, TagForm, MessageForm
 
 # import logging
 
@@ -367,16 +367,44 @@ def cart(request):
 
 
 @login_required
+def addMessage(request, chat_id):
+	if request.POST:
+		try:
+			message = str(request.POST.get("message"))
+			text = Message.objects.create(text=message)
+			if text.isValidMessage():
+				try:
+					chat = Chat.objects.get(pk=chat_id)
+					chat.messages.add(text)
+					chat.save()
+					return HttpResponseRedirect(reverse('chat', args=(chat_id, )))
+				except Chat.DoesNotExist:
+					return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Type Error", "link": "chats"})
+			else:
+				return HttpResponse('Message Cannot be Empty.!')
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter text.!!", "type": "Key Error", "link": "articles"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+	else:
+		return HttpResponseRedirect(reverse('home', args=()))
+	
+		
+@login_required
 def chat(request, chat_id):
-	chat = Chat.objects.get(pk=chat_id)
-	return render(request, "circle/chat.html", context={"chat": chat})
+	try:
+		chat = Chat.objects.get(pk=chat_id)
+		form = MessageForm()
+		return render(request, "circle/chat.html", context={"chat": chat, "form": form})
+	except Chat.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Type Error", "link": "chats"})
 
 
 @login_required
 def chats(request):
-	# person_id = 1
 	chats = Chat.objects.all()
-	cprint(chats, 'white')
 	return render(request, "circle/chats.html", context={"chats": chats})
 
 
@@ -425,18 +453,19 @@ def update(request):
 
 	return render(request, "circle/user.html", context={"user": user})
 
-
+# testing left
 @login_required
 def message(request):
 
-	try:
-		chat_id = float(request.POST.get('chat_id'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+	if request.POST:
+		try:
+			chat_id = float(request.POST.get('chat_id'))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
 
 
 	try:
@@ -461,15 +490,18 @@ def message(request):
 @login_required
 def user(request, user_id):
 	user = User.objects.get(pk=user_id)
-	return render(request, "circle/user.html", context={"user": user})
+	if User.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "User Doesn't Exist!!", "type": "Value DoesNotExist!!", "link": "users"})
+	else:
+		return render(request, "circle/user.html", context={"user": user})
 
 
 @login_required
 def users(request):
-	users = User.objects.all().order_by('id')
+	users = User.objects.all()
 	return render(request, "circle/users.html", context={"users": users})
 
 
 @login_required
 def error(request):
-	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "home"})

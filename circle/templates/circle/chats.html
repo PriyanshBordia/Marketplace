@@ -11,30 +11,29 @@
 {% endblock %}
 
 {% block body %}
-	<div class="chat container container-fluid text-center">
-		<div class="chat__grid justify-content-center">
+	<div class="chats container-fluid text-center">
+		<div class="chats__container justify-content-center">
 			<div class="row">
 				<div class="col-md-3">
-					<img class="chat__grid__img" src="https://img.icons8.com/bubbles/200/000000/chat.png" />
+					<img class="chats__container__grid__img" src="https://img.icons8.com/bubbles/200/000000/chat.png" />
 				</div>
 				<div class="col-md-9">
-					{% for chat in chats %}
-						<div class="chat__grid__container">
-							<p>{{ chat.id }} </p>
-						
-							<div class="chat__messages__grid">
-								{% for message in chat.messages %}
-								<div class="chat__messages__grid__message">
-									{{ message }}
+					<div class="row">
+						{% for chat in chats %}
+							<div class="col-md-6">
+								<div class="chats__container__grid__box">
+									<p>{{ chat }}</p>
+									<a href="{% url 'chat' chat.id %}">
+										<button class="form-control form-control-lg btn btn-outline-info">Chat</button>
+									</a>
 								</div>
-								{% endfor %}
 							</div>
-						</div>
-					{% empty %}
-						<div class="alert alert-info mt-3" role="alert">
-							No chats to view.!!
-						</div>
-					{% endfor %}
+						{% empty %}
+							<div class="alert alert-info mt-3" role="alert">
+								No chats to view.!!
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 			</div>	
 		</div>

@@ -23,6 +23,12 @@ class Tag(models.Model):
 	def isValidTag(self):
 		return len(self.name) > 0
 
+	def __format__(self):
+		return f"{self.id} {self.slug}"
+	
+	class Meta:
+		ordering = ['id']
+
 	def __str__(self):
 		return f"{self.name}"
 
@@ -44,15 +50,18 @@ class Article(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 
-	class Meta:
-		ordering = ['id']
-
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title + str(self.id) + str(self.pub_ts) + str(self.price))
 		super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
 		return len(self.title) > 0 and self.price > 0
+
+	def __format__(self):
+		return f"{self.id} {self.slug}"
+
+	class Meta:
+		ordering = ['id']
 
 	def __str__(self):
 		return f"{self.title} {self.price}"
@@ -93,8 +102,6 @@ class Person(models.Model):
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
-	class Meta:
-		ordering = ['id']
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.username)
@@ -102,9 +109,40 @@ class Person(models.Model):
 
 	def isValidPerson(self):
 		return self.rented != self.sold
-		
+	
+	def __format__(self):
+		return f"{self.id} {self.slug}"
+
+	class Meta:
+		ordering = ['id']
+
 	def __str__(self):
 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
+
+
+class Message(models.Model):
+
+	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
+
+	timestamp = models.DateTimeField(auto_now_add=True)
+	
+	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(str(self.text) + str(self.timestamp))
+		super(Message, self).save(*args, **kwargs)
+
+	def isValidMessage(self):
+		return len(self.text) > 0
+
+	def __format__(self):
+		return f"{self.id} {self.slug}"
+
+	class Meta:
+		ordering = ['timestamp']
+
+	def __str__(self):
+		return f"{self.text} {self.timestamp}"
 
 
 class Chat(models.Model):
@@ -114,49 +152,23 @@ class Chat(models.Model):
 
 	created_date = models.DateTimeField(auto_now_add=True)
 
+	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
+
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(str(self.sender) + str(self.receiver))
-
 		super(Chat, self).save(*args, **kwargs)
 
 	def isValidChat(self):
-		return len(self.messages) >= 0
+		return len(self.messages) >= 0 and (self.sender > 0) and (self.receiver > 0)
 	
 	def __format__(self):
-		return f"{self.id} {self.created_date}"
+		return f"{self.id} {self.slug}"
 
 	class Meta:
 		ordering = ['id']
 
 	def __str__(self):
-		return f"{self.timestamp}"
-
-
-class Message(models.Model):
-
-	chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="chat", default=1)
-
-	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
-
-	timestamp = models.DateTimeField(auto_now_add=True)
-	
-	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
-
-	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.text) + str(self.timestamp) + str(self.chat))
-		super(Message, self).save(*args, **kwargs)
-
-	def isValidMessage(self):
-		return len(self.text) > 0 and self.chat.id > 0
-
-	def __format__(self):
-		return f"{self.sender} -> {self.receiver}"
-
-	class Meta:
-		ordering = ['-timestamp']
-
-	def __str__(self):
-		return f"{self.timestamp}"
+		return f"{self.sender.first} {self.sender.last} <-> {self.receiver.first} {self.receiver.last}"
