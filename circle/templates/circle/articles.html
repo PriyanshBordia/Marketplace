@@ -9,25 +9,28 @@
 	{% load static %}
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
+	{% load humanizelib %}
 {% endblock %}
 
 {% block body %}
-	<div class="container container-fluid">
-		<div class="justify-content-center">
-			<!-- <div class="row"> -->
+	<div class="container-fluid">
+		<div class="article justify-content-center">
+			<div class="row">
 				{% for article in articles %}
-					<!-- <div class="col-md-4"> -->
-						<h4>{{ article.id }}</h4>
-						<h3>{{ article.title }}</h3>
-						<p>{{ article.description }}</p>
-						<p>{{ article.image }}</p>
-						<p>{{ article.image.url }}</p>
-						<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
-						<br>
-						<a href="{% url 'article' article.id %}"><button class="btn btn-outline-info btn-md">View</button></a>
-					<!-- </div> -->
+					<div class="article__grid">
+						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 350px; height: 200px;" />
+						<h4 class="article__grid__title">{{ article.title }}</h4>
+						<div class="row">
+							<small>{{ article.pub_ts|naturaltime }}</small>
+							<div class="article__grid__btn">
+								<a href="{% url 'article' article.id %}">
+									<button class="form-control form-control-md btn btn-outline-info">View</button>
+								</a>
+							</div>
+						</div>
+					</div>
 				{% endfor %}
-			<!-- </div> -->
+			</div>
 		</div>
 	</div>
 {% endblock %}
