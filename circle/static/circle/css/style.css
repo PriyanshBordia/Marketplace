@@ -227,7 +227,7 @@ hr {
   padding: 0.5rem;
 }
 
-.col-md-6, .col-md-5, .col-md-2 {
+.col-md-6, .col-md-5, .col-md-2, .col-md-4 {
   padding: 0.5rem;
 }
 
@@ -533,6 +533,7 @@ td {
 }
 
 .footer {
+  margin-top: 2rem;
   background-color: #112240;
   border-top: 0.125rem solid #a8b2d1;
   border-bottom: 0.125rem solid #a8b2d1;

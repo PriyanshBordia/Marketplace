@@ -1,5 +1,3 @@
-{% load bootstrap4 %}
-{% load fontawesome_5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,12 +34,10 @@
     {% block head %}{% endblock %}
 
     <!-- Icon -->
-	<!-- <link rel="icon" href="https://img.icons8.com/bubbles/50/000000/stormtrooper.png"> -->
 	<link rel="icon" href="https://img.icons8.com/bubbles/50/000000/video-star.png" />
     <title> {% block title %}{% endblock %} | Baazaar </title>
 </head>
-<body>
-    
+<body> 
     <!--TODO: Add NavBar with: App Name, LogIn, LogOut, Register, etc-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'home' %}" style="color: darkred; font-size: 2rem;">Baazaar</a>
@@ -50,25 +46,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.3rem;">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.1rem;">
 			<form class="form-inline my-2 my-lg-0 mr-auto ml-auto" action="{% url 'result' %}" method="post">
+				
 				{% csrf_token %}
+
 				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-2" type="submit">Search</button>
+				<button class="form-control btn btn-outline-warning my-2 my-sm-2" type="submit">Search</button>
 			</form>
             <ul class="navbar-nav mr-2">
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-                </li> -->
 				{% if user.is_superuser %}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Super
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'persons' %}">Persons</a>
 							<a class="dropdown-item" href="{% url 'users' %}">Users</a>
+							<a class="dropdown-item" href="{% url 'persons' %}">Persons</a>
 							<a class="dropdown-item" href="{% url 'articles' %}">Articles</a>
 						</div>
 					</li>
@@ -77,32 +71,21 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">
-							Connections
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'friends' %}">Friends</a>
-							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-							Transactions
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'newArticle' %}">Add Article</a>
-							<a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-							<a class="dropdown-item" href="{% url 'chats' %}">Rented</a>
-							<a class="dropdown-item" href="{% url 'chats' %}">Bought</a>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
 							Profile
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'person' request.user.id %}">Details</a>
+							<a class="dropdown-item" href="{% url 'person' request.user.id %}">Your details</a>
+							<a class="dropdown-item" href="{% url 'friends' %}">Your friends</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Your chats</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{% url 'newArticle' %}">Add Article</a>
+							<a class="dropdown-item" href="{% url 'wishlist' %}">Your wishlist</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Rented</a>
+							<a class="dropdown-item" href="{% url 'chats' %}">Bought</a>
+							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset Password</a>
-							<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
 						</div>
 					</li>
 				{% else %}
@@ -129,28 +112,21 @@
     </section>
 
 	<!-- Footer Section -->
-	<footer class="footer mt-5">
+	<footer class="footer">
 		<div class="footer__grid">
 			<div class="footer__grid__handles">
-				<a href="https://github.com/PriyanshBordia" target="_blank" title="PriyanshBordia"><i class="fab fa-github"
-						onmouseover="play()"></i></a>
-				<a href="mailto:priyanshbordia2@gmail.com" target="_blank" title="Priyansh Bordia"><i
-						class="fas fa-envelope" onmouseover="play()"></i></a>
-				<a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" target="_blank" title="Priyansh B."><i
-						class="fab fa-linkedin" onmouseover="play()"></i></a>
-				<a href="https://twitter.com/BordiaPriyansh" target="_blank" title="BordiaPriyansh"><i
-						class="fab fa-twitter" onmouseover="play()"></i></a>
-				<a href="https://www.instagram.com/priyansh.bordia/" target="_blank" title="priyansh.bordia"><i
-						class="fab fa-instagram" onmouseover="play()"></i></a>
+				<a href="https://github.com/PriyanshBordia" target="_blank" title="PriyanshBordia"><i class="fab fa-github"></i></a>
+				<a href="mailto:priyanshbordia2@gmail.com" target="_blank" title="Priyansh Bordia"><i class="fas fa-envelope"></i></a>
+				<a href="https://www.linkedin.com/in/priyansh-b-81bb8218b/" target="_blank" title="Priyansh B."><i class="fab fa-linkedin" onmouseover="play()"></i></a>
+				<a href="https://twitter.com/BordiaPriyansh" target="_blank" title="BordiaPriyansh"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.instagram.com/priyansh.bordia/" target="_blank" title="priyansh.bordia"><i class="fab fa-instagram"></i></a>
 				<!-- <a href="#" target="_blank" title="priyansh.bordia"><i class="fa fa-snapchat-ghost" onmouseover="play()"></i></a> -->
 				<!-- <a href="#" class="ml-3" target="_blank" title="BitBucket"><i class="fab fa-bitbucket" onmouseover="play()"></i></a> -->
 				<!-- <a href="#" class="ml-3" target="_blank" title="GitLab"><i class="fab fa-gitlab" onmouseover="play()"></i></a> -->
 				<!-- <a href="#" class="ml-3" target="_blank" title="Slack"><i class="fab fa-slack" onmouseover="play()"></i></a> -->
 				<!-- <a href="#" class="ml-3" target="_blank" title=""><i class = "fab fa-discord" onmouseover="play()"></i></a> -->
-				<a href="https://t.me/priyanshbordia" target="_blank" title="Priyansh Bordia"><i class="fab fa-telegram"
-						onmouseover="play()"></i></a>
-				<a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" target="_blank"
-					title="Priyansh Bordia"><i class="fab fa-youtube" onmouseover="play()"></i></a>
+				<a href="https://t.me/priyanshbordia" target="_blank" title="Priyansh Bordia"><i class="fab fa-telegram" ></i></a>
+				<a href="https://www.youtube.com/channel/UCwBlonvBFFd4UGvnnVKVncQ?view_as=subscriber" target="_blank" title="Priyansh Bordia"><i class="fab fa-youtube"></i></a>
 			</div>
 			<div class="footer__grid__text">
 				<span class="has-hover">Created by Priyansh Bordia &copy; 2021 Marketplace, Inc.</span>

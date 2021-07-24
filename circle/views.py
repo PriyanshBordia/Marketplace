@@ -197,18 +197,18 @@ def addArticle(request):
 		except TypeError:
 			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-		article = Article.objects.create(title=title, description=description, image=image, price=price)
+		Article.objects.create(title=title, description=description, image=image, price=price)
 		# cprint(article, 'red')
 		# article.save()
-		pub_ts = article.pub_ts
+		# pub_ts = article.pub_ts
 		# cprint(pub_ts, 'white')
 
 		# article.image = set_unique_name(article.image.url, pub_ts)
 		# cprint(article.image.url, 'blue')
 
-		for tag in tags:
-			article.tags.add(tag)
-		article.save() 
+		# for tag in tags:
+		# 	article.tags.add(tag)
+		# article.save() 
 
 		return HttpResponseRedirect(reverse("article", args=(article.id, )))
 

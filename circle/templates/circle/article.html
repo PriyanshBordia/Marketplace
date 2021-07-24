@@ -11,26 +11,40 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container container-fluid">
-		<div class="justify-content-center">
-			<img src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 500px; height: 300px;" />
+	<div class="article container-fluid text-center">
+		<div class="article__grid justify-content-center">
 
-			<h3>{{ article.title }}</h3>
-
-			<p>{{ article.description }}</p>
-
-			<a href="{% url 'bookmark' article.id %}">
-				<button class="btn btn-outline-info">Bookmark</button>
-			</a>
-
-			<a href="{% url 'rent' article.id %}">
-				<button class="btn btn-outline-info">Rent</button>
-			</a>
-
-			<a href="{% url 'buy' article.id %}">
-				<button class="btn btn-outline-info">Buy</button>
-			</a>
-			<br>
+			<div class="row">
+				<div class="col-md-8">
+					<p>{{ article.image.url }}</p>	
+					<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
+				</div>
+				<div class="col-md-4">
+					<div class="articel__grid__title">
+						<h2>{{ article.title }}</h2>
+					</div>
+					<div class="article__grid__description">
+						<p>{{ article.description }}</p>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<a href="{% url 'bookmark' article.id %}">
+								<button class="form-control form-control-md btn btn-outline-info">Bookmark</button>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="{% url 'rent' article.id %}">
+								<button class="form-control form-control-md btn btn-outline-info">Rent</button>
+							</a>
+						</div>
+						<div class="col-md-4">
+							<a href="{% url 'buy' article.id %}">
+								<button class="form-control form-control-md btn btn-outline-info">Buy</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
