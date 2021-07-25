@@ -1,9 +1,9 @@
-<!-- "template/circle/wishlist.html" -->
+<!-- "template/circle/rented.html" -->
 
 {% extends "circle/base.html" %}
 
 {% block title %}
-	Wishlist {{ articles|length }}
+	Rented {{ articles|length }}
 {% endblock %}
 
 {% block head %}
@@ -14,39 +14,39 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid text-center">
+	<div class="container-fluid">
 		<div class="justify-content-center">
 			<div class="row">
 				{% for article in articles %}
 					<div class="col-md-4">
-						< class="card text-white bg-dark mb-3" style="max-width: 24rem;">
-							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
+						<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 24rem; height: 16rem;">
 							<div class="card-body">
 								<h5 class="card-title">{{ article.title }}</h5>
 								<div class="row">
-									<div class="col-md-3">
+									<div class="col-md-12">
 										<a href="{% url 'article' article.id %}" class="">
 											<button class="btn btn-outline-info">View</button>
 										</a>
-									</div>
-									<div class="col-md-3">
+									<!-- </div> -->
+									<!-- <div class="col-md-3"> -->
 										<a href="{% url 'buy' article.id %}" class="">
 											<button class="btn btn-outline-success">Buy</button>
 										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'rent' article.id %}">
-											<button class="btn btn-outline-warning">Rent</button>
+									<!-- </div> -->
+									<!-- <div class="col-md-3"> -->
+										<a href="{% url 'bookmark' article.id %}">
+											<button class="btn btn-outline-warning">Mark</button>
 										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'remove' article.id 'marked' %}">
+									<!-- </div> -->
+									<!-- <div class="col-md-3"> -->
+										<a href="{% url 'remove' article.id 'rented' %}">
 											<button class="btn btn-outline-danger">Remove</button>
 										</a>
 									</div>
 								</div>
+								<p class="card-text text-left"><small class="text-muted">Last updated {{ article.pub_ts|naturaltime }}</small></p>
 							</div>
-							<p class="card-text text-left"><small class="text-muted">Added {{ article.pub_ts|naturaltime }}</small></p>
 						</div>
 					</div>
 				{% empty %}

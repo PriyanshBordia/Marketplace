@@ -1,40 +1,43 @@
-.article {
+.articles {
 	
 	margin-top: 1rem;
 	border: 1px solid cornsilk;
 
-	&__grid {
+	&__container {
 
-		margin: .8rem auto .8rem auto;
-		// text-align: center;
-		// align-items: center;
-		// justify-content: center;
-		border: 1px solid $LightestSlate;
-		background-color: $LightNavy;
+		&__grid {
 
-		&__img {
+			margin: .8rem auto .8rem auto;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid $LightestSlate;
+			background-color: $LightNavy;
 
-			border: 1px solid cornflowerblue;
-		}
+			&__img {
 
-		&__title {
+				border: 1px solid cornflowerblue;
+			}
 
-			padding: .2rem;
-		}
+			&__title {
 
-		&__btn {
-			
-			margin-top: .5rem;
-			margin-right: .1rem;
-			width: $btn-size-xxs;
-		}
+				padding: .2rem;
+			}
 
-		small {
-			margin: auto;
-			margin-left: 0.1rem;
-			color: gray;
-			font-size: 1rem;
-			font-weight: 100;
+			&__btn {
+				
+				margin-top: .5rem;
+				margin-right: .1rem;
+				width: $btn-size-xxs;
+			}
+
+			small {
+				margin: auto;
+				margin-left: 0.1rem;
+				color: gray;
+				font-size: 1rem;
+				font-weight: 100;
+			}
 		}
 	}
 }

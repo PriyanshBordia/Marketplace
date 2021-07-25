@@ -268,102 +268,95 @@ def result(request):
 
 	return render(request, "circle/result.html", context={'articles': articles})
 
-#testing left
+
 @login_required
-def buy(request, article_id):
-	user_id = request.user.id
-
-	person = Person.objects.filter(user=user_id).first()
-
-	article = Article.objects.get(pk=article_id)
-
-	if person is not None and article is not None:
-		if article not in person.carted.all():
-			person.carted.add(article)
-			person.save()
-			return HttpResponse()
-		else:
-			return HttpResponse('Already Present.!')
-
-	return HttpResponseRedirect(reverse("article", args=(article_id, )))
-
-#testing left
-@login_required
-def rented(request, article_id):
-
-	user_id = request.user.id
-
-	article = Article.objects.get(pk=article_id)
-
-	person = Person.objects.get(user_id=user_id)
-
-	if article in person.bought:
-		return HttpResponse('Already Bought.!')
-
-	if article in person.cart:
-		return HttpResponse('Already in Cart.!')
-
-	if article in person.rented:
-		return HttpResponse('Already Rented.!')
-
-#testing left
-@login_required
-def rent(request, article_id):
-	user_id = request.user.id
-
-	person = Person.objects.filter(user=user_id).first()
-
-	article = Article.objects.get(pk=article_id)
-
-	if person is not None and article is not None:
-		if article not in person.rented.all():
-			person.rented.add(article)	
-			person.save()
-			return HttpResponse('Article Added.!')
-		else:
-			return HttpResponse('Already Present.!')
-
-	return HttpResponseRedirect(reverse("article", args=(article_id, )))
+def bought(request):
+	# purchased
+	pass
 
 # testing left
 @login_required
 def bookmark(request, article_id):
-	user_id = request.user.id
-
-	person = Person.objects.filter(user=user_id).first()
-	# cprint(person, 'white')
-	article = Article.objects.get(pk=article_id)
-	# cprint(article, 'red')
-
-	if person is not None and article is not None:
+	try:
+		user_id = request.user.id
+		article = Article.objects.get(pk=article_id)
+		person = Person.objects.filter(user_id=user_id).first()
+		cprint(person, 'white')
 		person.bookmarked.add(article)
 		person.save()
+		return HttpResponseRedirect(reverse("wishlisted", args=()))
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-	return HttpResponseRedirect(reverse("article", args=(article_id, )))
+
+#testing left
+@login_required
+def rent(request, article_id):
+	try:
+		user_id = request.user.id
+		article = Article.objects.get(pk=article_id)
+		person = Person.objects.filter(user_id=user_id).first()
+		person.rented.add(article)
+		person.save()
+		return HttpResponseRedirect(reverse("rented", args=()))
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
+#testing left
+@login_required
+def buy(request, article_id):
+	try:
+		user_id = request.user.id
+		article = Article.objects.get(pk=article_id)
+		person = Person.objects.filter(user_id=user_id).first()
+		person.carted.add(article)
+		person.save()
+		return HttpResponseRedirect(reverse("carted", args=()))
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 # testing left
 @login_required
-def wishlist(request):
-	user_id = request.user.id
-	person = Person.objects.filter(user_id=user_id)
-	if Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
-	else:
-		articles = person.bookmarked.all
+def wishlisted(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
+		articles = person.bookmarked.all()
 		return render(request, "circle/wishlist.html", context={"articles": articles})
-		# return render(request, "circle/error.html", context={"message": "No person registered.!!", "type": "Key Error.!!", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
+#testing left
+@login_required
+def rented(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
+		articles = person.rented.all()
+		return render(request, "circle/rented.html", context={"articles": articles})
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required
-def cart(request):
-	user_id = request.user.id
-
-	person = Person.objects.get(user=user_id).first()
-	
-	if person is not None:
+def carted(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
 		articles = person.carted.all()
-
-	return render(request, "circle/cart.html", context={"articles": articles})
+		return render(request, "circle/cart.html", context={"articles": articles})
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required
@@ -505,3 +498,30 @@ def users(request):
 @login_required
 def error(request):
 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "home"})
+
+
+@login_required
+def remove(request, article_id, type):
+	try:
+		user_id = request.user.id
+		article = Article.objects.get(pk=article_id)
+		person = Person.objects.filter(user_id=user_id).first()
+		# cprint(person, 'white')
+		if type == 'marked':
+			person.bookmarked.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("wishlisted", args=()))
+		elif type == 'rented':
+			person.rented.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("rented", args=()))
+		elif type == 'carted':
+			person.carted.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("carted", args=()))
+		else:
+			return HttpResponseRedirect(reverse("search", args=()))
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})

@@ -13,18 +13,18 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="article justify-content-center">
+	<div class="articles container-fluid text-center">
+		<div class="articles__container justify-content-center">
 			<div class="row">
 				{% for article in articles %}
-					<div class="article__grid">
-						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 350px; height: 200px;" />
-						<h4 class="article__grid__title">{{ article.title }}</h4>
+					<div class="articles__container__grid">
+						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 350px; height: 200px;" />
+						<h4 class="articles__container__grid__title">{{ article.title }}</h4>
 						<div class="row">
 							<small>{{ article.pub_ts|naturaltime }}</small>
-							<div class="article__grid__btn">
+							<div class="articles__container__grid__btn">
 								<a href="{% url 'article' article.id %}">
-									<button class="form-control form-control-md btn btn-outline-info">View</button>
+									<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
 								</a>
 							</div>
 						</div>

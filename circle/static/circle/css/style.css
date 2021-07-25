@@ -218,8 +218,21 @@ hr {
 }
 
 .alert {
-  text-align: center;
+  margin: 3rem auto 2rem auto;
   font-size: 1.5rem;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row {
+  margin: .8rem auto .8rem auto;
+  padding: 0.5rem;
+}
+
+.col-md-6, .col-md-5, .col-md-2, .col-md-4 {
+  padding: 0.5rem;
 }
 
 .flex {
@@ -415,32 +428,39 @@ hr {
   margin-top: 2rem;
 }
 
-.article {
+.articles {
   margin-top: 1rem;
   border: 1px solid cornsilk;
 }
 
-.article__grid {
+.articles__container__grid {
   margin: .8rem auto .8rem auto;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border: 1px solid #ccd6f6;
   background-color: #112240;
 }
 
-.article__grid__img {
+.articles__container__grid__img {
   border: 1px solid cornflowerblue;
 }
 
-.article__grid__title {
+.articles__container__grid__title {
   padding: .2rem;
 }
 
-.article__grid__btn {
+.articles__container__grid__btn {
   margin-top: .5rem;
   margin-right: .1rem;
   width: 1in;
 }
 
-.article__grid small {
+.articles__container__grid small {
   margin: auto;
   margin-left: 0.1rem;
   color: gray;
@@ -449,7 +469,43 @@ hr {
 }
 
 .articles {
-  margin-top: 2rem;
+  margin-top: 1rem;
+  border: 1px solid cornsilk;
+}
+
+.articles__container__grid {
+  margin: .8rem auto .8rem auto;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 1px solid #ccd6f6;
+  background-color: #112240;
+}
+
+.articles__container__grid__img {
+  border: 1px solid cornflowerblue;
+}
+
+.articles__container__grid__title {
+  padding: .2rem;
+}
+
+.articles__container__grid__btn {
+  margin-top: .5rem;
+  margin-right: .1rem;
+  width: 1in;
+}
+
+.articles__container__grid small {
+  margin: auto;
+  margin-left: 0.1rem;
+  color: gray;
+  font-size: 1rem;
+  font-weight: 100;
 }
 
 .friend__container {
@@ -516,6 +572,7 @@ hr {
 
 .chat__container {
   margin: 1rem;
+  text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -540,6 +597,9 @@ hr {
 
 .chat__container__grid {
   margin-top: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding: .2rem;
   width: calc(100vw - 700px);
   height: calc(100vh - 400px);
   border-radius: 0.5rem;
@@ -575,7 +635,8 @@ hr {
 }
 
 .chat__container__footer {
-  margin-bottom: 0rem;
+  margin: 1rem 1rem 0rem 1rem;
+  background-color: #112240;
 }
 
 .chats {

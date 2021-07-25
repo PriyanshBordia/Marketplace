@@ -1,4 +1,43 @@
 .articles {
+	
+	margin-top: 1rem;
+	border: 1px solid cornsilk;
 
-	margin-top: 2rem;
+	&__container {
+
+		&__grid {
+
+			margin: .8rem auto .8rem auto;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid $LightestSlate;
+			background-color: $LightNavy;
+
+			&__img {
+
+				border: 1px solid cornflowerblue;
+			}
+
+			&__title {
+
+				padding: .2rem;
+			}
+
+			&__btn {
+				
+				margin-top: .5rem;
+				margin-right: .1rem;
+				width: $btn-size-xxs;
+			}
+
+			small {
+				margin: auto;
+				margin-left: 0.1rem;
+				color: gray;
+				font-size: 1rem;
+				font-weight: 100;
+			}
+		}
+	}
 }
