@@ -1,0 +1,81 @@
+.chat {
+
+	margin: 3rem auto 1rem auto;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+
+	&__container {
+
+		margin: 1rem;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid $LightestSlate;
+
+		&__img {
+
+			margin-top: 2rem;
+			align-items: center;
+		}
+
+		&__header {
+
+			padding: 1.2rem;
+			background-color: $LightNavy;
+			border: 1px solid cornflowerblue;
+		}
+
+		&__grid {
+
+			margin-top: 1rem;
+			margin-right: auto;
+			margin-left: auto;
+			padding: .2rem;
+			width: calc(100vw - 700px);
+			height: calc(100vh - 400px);
+			border-radius: 0.5rem;
+			// border: 2px solid $LightestSlate;
+
+			&__message {
+
+				padding: .4rem;
+				width: calc(100vw - 700px);
+				height: calc(100vh - 300px);
+				overflow-x: hidden;
+				overflow-y: scroll;
+				border: 2px solid skyblue;
+
+				&__sender {
+
+					padding: 1rem;
+					float: right;
+					border: 1px solid coral;
+					border-radius: 20rem;
+				}
+
+				&__receiver {
+
+					padding: .8rem;
+					float: left;
+					border: 1px solid coral;
+					border-radius: 20rem;
+				}
+
+				small {
+					// margin: auto;
+					// margin-left: 0.1rem;
+					font-size: .8rem;
+					color: gray;
+					font-weight: 100;
+				}
+			}		
+		}
+
+		&__footer {
+
+			margin: 1rem 1rem 0rem 1rem;
+			background-color: $LightNavy;
+		}
+	}
+}

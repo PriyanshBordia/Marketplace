@@ -1,37 +1,61 @@
 .friend {
-	
-	margin-top: 2rem;
-	margin-bottom: 1rem;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
 
-	&__grid {
+	&__container {
 
-		border: .125rem solid ;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
 
-		&__img {
+		&__grid {
 
-			margin-top: 2rem;
-			max-width: 9rem;
-			max-height: 9rem;
-			border-radius: 50%;
-			border: 2px solid coral;
+			margin: 2rem auto 1rem auto;
+			border: .125rem solid $LightestSlate;
+
+			&:hover {
+
+				background-color: $LightNavy;
+			}
+
+			&__img {
+
+				margin-top: 2rem;
+				max-width: 9rem;
+				max-height: 9rem;
+				border-radius: 50%;
+				border: 2px solid coral;
+			}
+
+			&__name {
+
+				padding: 1rem;
+				margin: 1rem;
+				font-size: 1.5rem;
+				font-weight: 300;
+				border-bottom: 1px solid $LightestSlate;
+			}
+
+			&__btn {
+
+				margin: 1rem;
+				width: $btn-size-xxs;
+			}
 		}
 
-		&__name {
+		&__msg {
 
-			padding: 1rem;
-			margin: 1rem;
-			font-size: 1.5rem;
-			font-weight: 300;
-		}
+			// position: absolute;
+			// left: 50%;
+			// top: 50%;
+			// transform: translate(-50%, -50%);
+			max-width: 50rem;
+			margin: auto;
+			margin-top: 8rem;
 
-		&__btn {
+			&__btn {
 
-			margin: 1rem;
-			float: right;
-			// margin-right: 1rem;
+				margin: 2rem;
+				width: $btn-size-xs;
+			}
 		}
 	}
 }
