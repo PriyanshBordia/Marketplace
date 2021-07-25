@@ -24,14 +24,14 @@
 						<div class="form-control">
 							<select name="tags" id="" class="custom-select">
 								{% for tag in not_tagged %}
-								<option value="{{ tag.id }}">{{ tag.name }}</option>
+									<option value="{{ tag.id }}">{{ tag.name }}</option>
 								{% endfor %}
 							</select>
 						</div>
 					{% endif %}
 				</div>
 				<div class="col-md-9">
-					<form class="form-group" action="{% url 'addArticle' %}" method="post">
+					<form class="form-group" action="{% url 'addArticle' %}" method="post" enctype="multipart/form-data">
 
 						{% csrf_token %}
 						

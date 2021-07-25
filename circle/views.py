@@ -130,7 +130,7 @@ def person(request, person_id):
 
 @login_required
 def persons(request):
-	persons = Person.objects.all().order_by('id')
+	persons = Person.objects.all()
 	return render(request, "circle/persons.html", context={"persons": persons})
 
 
@@ -142,9 +142,23 @@ def newArticle(request):
 
 @login_required	
 def addArticle(request):
+	# if request.method == "POST":
+	# 	cprint('post', 'cyan')
+	# 	form = ArticleForm(request.POST, request.FILES)
+	# 	cprint(form, 'yellow')
+	# 	if form.is_valid():
+	# 		cprint('yes', 'red')
+	# 	form.save()
+	# 	return HttpResponseRedirect(reverse("articles"))
+	# else:
+	# 	form = ArticleForm()
+	# return render(request, "circle/newArticle.html", context={"form": form})
+
 	if request.GET:
 		return HttpResponseRedirect(reverse("newArticle", args=()))
 	else:
+		user_id = request.user.id
+
 		try:
 			title = str(request.POST.get("title"))
 		except KeyError:
@@ -157,27 +171,28 @@ def addArticle(request):
 		try:
 			description =  str(request.POST.get('description'))
 		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+			return render(request, "circle/error.html", context={"message": "Enter description.!!", "type": "Key Error", "link": "newArticle"})
 		except ValueError:
 			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
 		except TypeError:
 			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
 		
-		try:
-			image = str(request.POST.get('image'))
-		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
-		except ValueError:
-			return render(request, "circle/error.html", context={"message": "Invalid Value to given field image.!!", "type": "Value Error", "link": "newArticle"})
-		except TypeError:
-			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
+		# try:
+		image = request.FILES['image']
+		cprint(image, 'red')
+		# except KeyError:
+			# return render(request, "circle/error.html", context={"message": "Upload file.!!", "type": "Key Error", "link": "newArticle"})
+		# except ValueError:
+			# return render(request, "circle/error.html", context={"message": "Invalid Value to given field image.!!", "type": "Value Error", "link": "newArticle"})
+		# except TypeError:
+			# return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
 
 		try:
 			price = float(request.POST.get('price'))
 		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+			return render(request, "circle/error.html", context={"message": "Enter price.!!", "type": "Key Error", "link": "newArticle"})
 		except ValueError:
 			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
 		except TypeError:
@@ -197,9 +212,9 @@ def addArticle(request):
 		except TypeError:
 			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-		Article.objects.create(title=title, description=description, image=image, price=price)
+		article = Article.objects.create(title=title, description=description, image=image, price=price)
 		# cprint(article, 'red')
-		# article.save()
+
 		# pub_ts = article.pub_ts
 		# cprint(pub_ts, 'white')
 
@@ -208,10 +223,14 @@ def addArticle(request):
 
 		# for tag in tags:
 		# 	article.tags.add(tag)
-		# article.save() 
 
-		return HttpResponseRedirect(reverse("article", args=(article.id, )))
-
+		try:
+			person = Person.objects.filter(user_id=user_id).first()
+			person.display.add(article)
+			person.save() 
+			return HttpResponseRedirect(reverse("article", args=(article.id, )))
+		except Person.DoesNotExist:  
+			return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Key Error", "link": "newArticle"})
 
 @login_required
 def article(request, article_id):
@@ -229,20 +248,67 @@ def article(request, article_id):
 
 @login_required
 def articles(request):
-	articles = Article.objects.all().order_by('id', 'pub_ts')
+	articles = Article.objects.all()
 	return render(request, "circle/articles.html", context={"articles": articles})
 
-
+# testing left
 @login_required
 def friends(request):
 	user_id = request.user.id
-	person = Person.objects.filter(user_id=user_id)
-	if Person.DoesNotExist:
-		friends = []
-		# return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Type Error", "link": "search"})
-	else:
+	try:
+		person = Person.objects.filter(user_id=user_id)
 		friends = person.friends.all()
-	return render(request, "circle/friends.html", context={"friends": friends})
+		return render(request, "circle/friends.html", context={"friends": friends})
+	except Person.DoesNotExist:
+		friends = []
+		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Type Error", "link": "search"})
+
+
+#testing left
+@login_required
+def update(request):
+	user_id = request.user.id
+
+	if request.POST:
+		try:
+			first = str(request.POST.get("first"))
+		except KeyError:
+			return render(request, "flights/error.html", context={"message":  "Enter a First Name!!", "type": "Key Error!!"})
+		except ValueError:
+			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+		except TypeError:
+			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+		try:
+			last = str(request.POST.get("last"))
+		except KeyError:
+			return render(request, "flights/error.html", context={"message":  "Enter a Last Name!!", "type": "Key Error!!"})
+		except ValueError:
+			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+		except TypeError:
+			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+		try:
+			email = str(request.POST.get("email"))
+		except KeyError:
+			return render(request, "flights/error.html", context={"message": "Enter a e-mail address!!", "type": "KeyError!!"})
+		except ValueError:
+			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+		except TypeError:
+			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+
+		user = User.objects.get(pk=user_id)
+
+		user.first_name = first
+		user.last_name = last
+		user.email = email
+		user.save()
+		try:
+			user = User.objects.get(pk=user_id)
+		except User.DoesNotExist:
+			return render(request, "circle/error.html", context={"message": "User Doesn't Exist!", "type": "Value DoesNotExist.!!", "link": "search"})
+
+	return render(request, "circle/user.html", context={"user": user})
 
 
 @login_required
@@ -269,10 +335,17 @@ def result(request):
 	return render(request, "circle/result.html", context={'articles': articles})
 
 
+# testing left
 @login_required
-def bought(request):
-	# purchased
-	pass
+def display(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
+		articles = person.display.all()
+		return render(request, "circle/display.html", context={"articles": articles})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
 
 # testing left
 @login_required
@@ -289,7 +362,6 @@ def bookmark(request, article_id):
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
-
 
 #testing left
 @login_required
@@ -315,9 +387,34 @@ def buy(request, article_id):
 		person = Person.objects.filter(user_id=user_id).first()
 		person.carted.add(article)
 		person.save()
+		# user_id = article.user.id
+		person = Person.objects.filter(display=article).first()
+		person.sold.add(article)
+		person.save()
 		return HttpResponseRedirect(reverse("carted", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
+#testing left
+@login_required
+def purchased(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
+		articles = person.purchased.all()
+		return render(request, "circle/wishlist.html", context={"articles": articles})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
+#testing left
+def sold(request):
+	try:
+		user_id = request.user.id
+		person = Person.objects.filter(user_id=user_id).first()
+		articles = person.sold.all()
+		return render(request, "circle/sold.html", context={"articles": articles})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
@@ -353,6 +450,36 @@ def carted(request):
 		person = Person.objects.filter(user_id=user_id).first()
 		articles = person.carted.all()
 		return render(request, "circle/cart.html", context={"articles": articles})
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+
+
+@login_required
+def remove(request, article_id, type):
+	try:
+		user_id = request.user.id
+		article = Article.objects.get(pk=article_id)
+		if type == 'article':
+			article.delete()
+			return HttpResponseRedirect(reverse("articles", args=()))
+
+		person = Person.objects.filter(user_id=user_id).first()			
+		if type == 'marked':
+			person.bookmarked.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("wishlisted", args=()))
+		elif type == 'rented':
+			person.rented.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("rented", args=()))
+		elif type == 'carted':
+			person.carted.remove(article)
+			person.save()
+			return HttpResponseRedirect(reverse("carted", args=()))
+		else:
+			return HttpResponseRedirect(reverse("search", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -401,51 +528,6 @@ def chats(request):
 	return render(request, "circle/chats.html", context={"chats": chats})
 
 
-@login_required
-def update(request):
-	user_id = request.user.id
-
-	try:
-		first = str(request.POST.get("first"))
-	except KeyError:
-		return render(request, "flights/error.html", context={"message":  "Enter a First Name!!", "type": "Key Error!!"})
-	except ValueError:
-		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
-	except TypeError:
-		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
-
-	try:
-		last = str(request.POST.get("last"))
-	except KeyError:
-		return render(request, "flights/error.html", context={"message":  "Enter a Last Name!!", "type": "Key Error!!"})
-	except ValueError:
-		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
-	except TypeError:
-		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
-
-	try:
-		email = str(request.POST.get("email"))
-	except KeyError:
-		return render(request, "flights/error.html", context={"message": "Enter a e-mail address!!", "type": "KeyError!!"})
-	except ValueError:
-		return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
-	except TypeError:
-		return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
-
-	user = User.objects.get(pk=user_id)
-
-	user.first_name = first
-	user.last_name = last
-	user.email = email
-	user.save()
-
-	try:
-		user = User.objects.get(pk=user_id)
-	except user.DoesNotExist:
-		return render(request, "flights/error.html", context={"message": "User Doesn't Exist!", "type": "Value DoesNotExist.!!", })
-
-	return render(request, "circle/user.html", context={"user": user})
-
 # testing left
 @login_required
 def message(request):
@@ -482,11 +564,11 @@ def message(request):
 
 @login_required
 def user(request, user_id):
-	user = User.objects.get(pk=user_id)
-	if User.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "User Doesn't Exist!!", "type": "Value DoesNotExist!!", "link": "users"})
-	else:
+	try:
+		user = User.objects.get(pk=user_id)
 		return render(request, "circle/user.html", context={"user": user})
+	except User.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "User Doesn't Exist!!", "type": "Value DoesNotExist!!", "link": "users"})
 
 
 @login_required
@@ -498,30 +580,3 @@ def users(request):
 @login_required
 def error(request):
 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "home"})
-
-
-@login_required
-def remove(request, article_id, type):
-	try:
-		user_id = request.user.id
-		article = Article.objects.get(pk=article_id)
-		person = Person.objects.filter(user_id=user_id).first()
-		# cprint(person, 'white')
-		if type == 'marked':
-			person.bookmarked.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("wishlisted", args=()))
-		elif type == 'rented':
-			person.rented.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("rented", args=()))
-		elif type == 'carted':
-			person.carted.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("carted", args=()))
-		else:
-			return HttpResponseRedirect(reverse("search", args=()))
-	except Article.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
-	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})

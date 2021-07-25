@@ -35,11 +35,13 @@ class Tag(models.Model):
 
 class Article(models.Model):
 
+	# owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="owner", default=1)
+	
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
-	image = models.ImageField(upload_to="images/articles", blank=False, null=False, default="")
+	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
 
 	pub_ts = models.DateTimeField(auto_now=True)
 
@@ -72,7 +74,7 @@ class Person(models.Model):
 	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
-	profile = models.ImageField(upload_to="images/persons", blank=False, null=False, default="https://img.icons8.com/bubbles/100/000000/stormtrooper.png")
+	profile = models.ImageField(upload_to="images/persons", blank=True, null=False)
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
 	bio = models.TextField(max_length=500, blank=True, null=False)

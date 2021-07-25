@@ -15,8 +15,12 @@
 		<div class="justify-content-center">
 			<div class="row">
 				<div class="col-md-8">
-					<p>{{ article.image.url }}</p>	
-					<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
+					<!-- <p>{{ article.image.url }}</p>	 -->
+					{% if article.image %}
+						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
+					{% else %}
+						<img class="article__grid__img" src="{% static 'images/article/streets.png' %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
+					{% endif %}
 				</div>
 				<div class="col-md-4">
 					<div class="article__grid__title">
@@ -41,6 +45,15 @@
 								<button class="form-control form-control-md btn btn-outline-success">Buy</button>
 							</a>
 						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-6">
+							<a href="{% url 'remove' article.id 'article' %}">
+								<button class="form-control form-control-md btn btn-outline-danger">Delete</button>
+							</a>
+						</div>
+						<div class="col-md-3"></div>
 					</div>
 				</div>
 			</div>

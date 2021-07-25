@@ -22,7 +22,7 @@
 					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
 				</div>
 				<div class="col-md-9">
-					<form class="form-group" action="{% url 'addPerson' %}" action="POST">
+					<form class="form-group" action="{% url 'addPerson' %}" action="POST" enctype="multipart/form-data">
 						{% csrf_token %}
 				
 						
