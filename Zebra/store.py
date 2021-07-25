@@ -1,3 +1,11 @@
+# try:
+		# except KeyError:
+			# return render(request, "circle/error.html", context={"message": "Upload file.!!", "type": "Key Error", "link": "newArticle"})
+		# except ValueError:
+			# return render(request, "circle/error.html", context={"message": "Invalid Value to given field image.!!", "type": "Value Error", "link": "newArticle"})
+		# except TypeError:
+			# return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
+			
 # class Meta:
 # 	db_table = "person"
 # 	verbose_name = "Person"

@@ -6,8 +6,9 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 
 from .models import Article, Person, Message, Tag, Chat
-from .views import home, newArticle, addArticle, article, articles, newPerson, addPerson, person, persons, friends, rented, wishlist, cart, result, search, user, users, update, message, error
+from . import views
 
+from termcolor import cprint
 # Create your tests here.
 
 
@@ -42,94 +43,122 @@ class UrlsTestCase(TestCase):
 
 	def __init__(self, methodName: str) -> None:
 		super().__init__(methodName=methodName)
-		self.view_functions_list = [addPerson,addArticle]
 	
 	def setUp(self) -> None:
 		return super().setUp()
 
 	def test_url_home(self):
 		url = reverse('home')
-		self.assertEquals(resolve(url).func, home)
+		self.assertEquals(resolve(url).func, views.home)
 
 	def test_url_newPerson(self):
 		url = reverse('newPerson')
-		self.assertEquals(resolve(url).func, newPerson)
+		self.assertEquals(resolve(url).func, views.newPerson)
 	
 	def test_url_addPerson(self):
 		url = reverse('addPerson')
-		self.assertEquals(resolve(url).func, addPerson)
-
-	def test_url_persons(self):
-		url = reverse('persons')
-		self.assertEquals(resolve(url).func, persons)
-
-	def test_url_newArticle(self):
-		url = reverse('newArticle')
-		self.assertEquals(resolve(url).func, newArticle)
-	
-	def test_url_addArticle(self):
-		url = reverse('addArticle')
-		self.assertEquals(resolve(url).func, addArticle)
-
-	def test_url_articles(self):
-		url = reverse('articles')
-		self.assertEquals(resolve(url).func, articles)
-
-	def test_url_persons(self):
-		url = reverse('persons')
-		self.assertEquals(resolve(url).func, persons)
-	
-	def test_url_friends(self):
-		url = reverse('friends')
-		self.assertEquals(resolve(url).func, friends)
-
-	def test_url_search(self):
-		url = reverse('search')
-		self.assertEquals(resolve(url).func, search)
-
-	def test_url_result(self):
-		url = reverse('result')
-		self.assertEquals(resolve(url).func, result)
-
-	def test_url_rented(self):
-		url = reverse('rented')
-		self.assertEquals(resolve(url).func, rented)
-
-	def test_url_wishlist(self):
-		url = reverse('wishlist')
-		self.assertEquals(resolve(url).func, wishlist)
-
-	def test_url_cart(self):
-		url = reverse('cart')
-		self.assertEquals(resolve(url).func, cart)
-
-	def test_url_message(self):
-		url = reverse('message')
-		self.assertEquals(resolve(url).func, message)
-	
-	def test_url_users(self):
-		url = reverse('users')
-		self.assertEquals(resolve(url).func, users)
-	
-	def test_url_update(self):
-		url = reverse('update')
-		self.assertEquals(resolve(url).func, update)
-
-	def test_url_error(self):
-		url = reverse('error')
-		self.assertEquals(resolve(url).func, error)
+		self.assertEquals(resolve(url).func, views.addPerson)
 
 	def test_url_person(self):
 		url = reverse('person', args=[1])
-		self.assertEqual(resolve(url).func, person)
+		self.assertEqual(resolve(url).func, views.person)
+
+	def test_url_persons(self):
+		url = reverse('persons')
+		self.assertEquals(resolve(url).func, views.persons)
+
+	def test_url_newArticle(self):
+		url = reverse('newArticle')
+		self.assertEquals(resolve(url).func, views.newArticle)
+	
+	def test_url_addArticle(self):
+		url = reverse('addArticle')
+		self.assertEquals(resolve(url).func, views.addArticle)
 
 	def test_url_article(self):
 		url = reverse('article', args=[1])
-		self.assertEqual(resolve(url).func, article)
+		self.assertEqual(resolve(url).func, views.article)
+		
+	def test_url_articles(self):
+		url = reverse('articles')
+		self.assertEquals(resolve(url).func, views.articles)
+	
+	def test_url_update(self):
+		url = reverse('update')
+		self.assertEquals(resolve(url).func, views.update)
+
+	def test_url_friends(self):
+		url = reverse('friends')
+		self.assertEquals(resolve(url).func, views.friends)
+
+	def test_url_search(self):
+		url = reverse('search')
+		self.assertEquals(resolve(url).func, views.search)
+
+	def test_url_result(self):
+		url = reverse('result')
+		self.assertEquals(resolve(url).func, views.result)
+	
+	def test_url_display(self):
+		url = reverse('display')
+		self.assertEquals(resolve(url).func, views.display)
+
+	def test_url_wishlist(self):
+		url = reverse('wishlist', args=[1,])
+		self.assertEquals(resolve(url).func, views.wishlist)
+
+	def test_url_rent(self):
+		url = reverse('rent', args=[1,])
+		self.assertEquals(resolve(url).func, views.rent)
+
+	def test_url_cart(self):
+		url = reverse('cart', args=[1, ])
+		self.assertEquals(resolve(url).func, views.cart)
+
+	def test_url_purchased(self):
+		url = reverse('purchased')
+		self.assertEquals(resolve(url).func, views.purchased)
+	
+	def test_url_sold(self):
+		url = reverse('sold')
+		self.assertEquals(resolve(url).func, views.sold)
+
+	def test_url_wishlisted(self):
+		url = reverse('wishlisted')
+		self.assertEquals(resolve(url).func, views.wishlisted)
+
+	def test_url_rented(self):
+		url = reverse('rented')
+		self.assertEquals(resolve(url).func, views.rented)
+
+	def test_url_carted(self):
+		url = reverse('carted')
+		self.assertEquals(resolve(url).func, views.carted)
+
+	def test_url_addMessage(self):
+		url = reverse('addMessage', args=[1])
+		self.assertEquals(resolve(url).func, views.addMessage)
+	
+	def test_url_chat(self):
+		url = reverse('chat', args=[1])
+		self.assertEquals(resolve(url).func, views.chat)
+	
+	def test_url_chats(self):
+		url = reverse('chats')
+		self.assertEquals(resolve(url).func, views.chats)
 
 	def test_url_user(self):
 		url = reverse('user', args=[1])
-		self.assertEquals(resolve(url).func, user)
+		self.assertEquals(resolve(url).func, views.user)
+
+	def test_url_users(self):
+		url = reverse('users')
+		self.assertEquals(resolve(url).func, views.users)
+
+	def test_url_error(self):
+		url = reverse('error')
+		self.assertEquals(resolve(url).func, views.error)	
+
 
 # Test for views
 class ViewsTestCase(TestCase):
@@ -143,13 +172,15 @@ class ViewsTestCase(TestCase):
 		user = User.objects.create_user('test', 'test@mail.co', 'test')
 		self.client.login(username='test', password='test')
 
-		t1 = Tag.objects.create(name="test-tag", domain="testing", description="a tag for testing.!", slug="test-tag")
+		t1 = Tag.objects.create(name="test-tag", domain="testing", description="a tag for testing.!")
 
-		a1 = Article.objects.create(title="Test A1", description="Test A1 bio", image="test", price=990, slug="test-slug")
+		a1 = Article.objects.create(title="Test A1", description="Test A1 bio", image="test.png", price=990)
 		a1.tags.add(t1)
+		a1.save()
 
-		Person.objects.create(user=user, username="test", profile="test", bio="Test A1 bio", first="test", last="test", age=19, sex='X', email="test@mail.io", ph_no=9876543210, slug="test-slug")
-		
+		p1 = Person.objects.create(user=user, username="test", profile="test", bio="Test A1 bio", first="test", last="test", age=19, sex='X', email="test@mail.io", ph_no=9876543210, slug="test-slug")
+		p1.display.add(a1)
+		p1.save()
 
 	def test_view_status_code_home(self):
 		self.response = self.client.get(reverse('home'))
@@ -158,6 +189,50 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_home(self):
 		self.response = self.client.get(reverse('home'))
 		self.assertTemplateUsed(self.response, "circle/home.html")
+	
+	def test_view_status_code_addPerson(self):
+		self.response = self.client.get(reverse('addPerson'))
+		self.assertEquals(self.response.status_code, 200)
+		self.response = self.client.post(reverse('addPerson'))
+		self.assertEquals(self.response.status_code, 200)
+
+	# def test_view_template_used_addPerson(self):
+	# 	self.response = self.client.post('addPerson', {'profile':'test.png', 'bio':'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex':'X', 'email':'test@mail.io', 'ph_no': 9876543210})
+	# 	self.assertTemplateUsed(self.response, "circle/person.html")
+
+	def test_view_status_code_newPerson(self):
+		self.response = self.client.get(reverse('newPerson'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_newPerson(self):
+		self.response = self.client.get(reverse('newPerson'))
+		self.assertTemplateUsed(self.response, "circle/newPerson.html")
+
+	def test_view_status_code_person(self):
+		self.response = self.client.get(reverse('person', args=(1,)))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_person(self):
+		self.response = self.client.get(reverse('person', args=(1,)))
+		self.assertTemplateUsed(self.response, "circle/person.html")
+
+	def test_view_status_code_persons(self):
+		self.response = self.client.get(reverse('persons'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_persons(self):
+		self.response = self.client.get(reverse('persons'))
+		self.assertTemplateUsed(self.response, "circle/persons.html")
+
+	def test_view_status_code_addArticle(self):
+		self.response = self.client.get(reverse('addArticle'))
+		self.assertEquals(self.response.status_code, 200)
+		self.response = self.client.post(reverse('addArticle'))
+		self.assertEquals(self.response.status_code, 200)
+
+	# def test_view_template_used_addArticle(self):
+	# 	self.response = self.client.post('addArticle', {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
+	# 	self.assertTemplateUsed(self.response, "circle/article.html")
 
 	def test_view_status_code_newArticle(self):
 		self.response = self.client.get(reverse('newArticle'))
@@ -183,22 +258,6 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('articles'))
 		self.assertTemplateUsed(self.response, "circle/articles.html")
 
-	def test_view_status_code_person(self):
-		self.response = self.client.get(reverse('person', args=(1,)))
-		self.assertEquals(self.response.status_code, 200)
-
-	def test_view_template_used_person(self):
-		self.response = self.client.get(reverse('person', args=(1,)))
-		self.assertTemplateUsed(self.response, "circle/person.html")
-
-	def test_view_status_code_persons(self):
-		self.response = self.client.get(reverse('persons'))
-		self.assertEquals(self.response.status_code, 200)
-
-	def test_view_template_used_persons(self):
-		self.response = self.client.get(reverse('persons'))
-		self.assertTemplateUsed(self.response, "circle/persons.html")
-
 	def test_view_status_code_friends(self):
 		self.response = self.client.get(reverse('friends'))
 		self.assertEquals(self.response.status_code, 200)
@@ -206,22 +265,94 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_friends(self):
 		self.response = self.client.get(reverse('friends'))
 		self.assertTemplateUsed(self.response, "circle/friends.html")
+
+	# def test_view_status_code_update(self):
+	# 	self.response = self.client.post('update', {})
+	# 	self.assertEquals(self.response.status_code, 200)
+
+	# def test_view_template_used_update(self):
+	# 	self.response = self.client.post('update', {})
+	# 	self.assertTemplateUsed(self.response, "circle/person.html")
+
+	def test_view_status_code_search(self):
+		self.response = self.client.get(reverse('search'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_search(self):
+		self.response = self.client.get(reverse('search'))
+		self.assertTemplateUsed(self.response, "circle/search.html")
+		
+	def test_view_status_code_result(self):
+		self.response = self.client.get(reverse('result'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_result(self):
+		self.response = self.client.get(reverse('result'))
+		self.assertTemplateUsed(self.response, "circle/result.html")
 	
-	def test_view_status_code_newPerson(self):
-		self.response = self.client.get(reverse('newPerson'))
+	def test_view_status_code_display(self):
+		self.response = self.client.get(reverse('display'))
 		self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_newPerson(self):
-		self.response = self.client.get(reverse('newPerson'))
-		self.assertTemplateUsed(self.response, "circle/newPerson.html")
+	def test_view_template_used_display(self):
+		self.response = self.client.get(reverse('display'))
+		self.assertTemplateUsed(self.response, "circle/display.html")
+	
+	# def test_view_status_code_wishlist(self):
+	# 	self.response = self.client.post(reverse('wishlist', args=(1,)))
+	# 	self.assertEquals(self.response.status_code, 200)
 
-	def test_view_status_code_newArticle(self):
-		self.response = self.client.get(reverse('newArticle'))
+	# def test_view_template_used_wishlist(self):
+	# 	self.response = self.client.post(reverse('wishlist', args=(1,)))
+	# 	self.assertTemplateUsed(self.response, None)
+	
+	# def test_view_status_code_rent(self):
+	# 	self.response = self.client.post(reverse('rent', args=(1,)))
+	# 	self.assertEquals(self.response.status_code, 200)
+
+	# def test_view_template_used_rent(self):
+	# 	self.response = self.client.post(reverse('rent', args=(1,)))
+	# 	self.assertTemplateUsed(self.response, None)
+
+	# def test_view_status_code_cart(self):
+	# 	self.response = self.client.post(reverse('cart', args=(1,)))
+	# 	self.assertEquals(self.response.status_code, 200)
+
+	# def test_view_template_used_cart(self):
+	# 	self.response = self.client.post(reverse('cart', args=(1,)))
+	# 	self.assertTemplateUsed(self.response, None)
+	
+	def test_view_status_code_wishlisted(self):
+		self.response = self.client.post(reverse('wishlisted'))
 		self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_newArticle(self):
-		self.response = self.client.get(reverse('newArticle'))
-		self.assertTemplateUsed(self.response, "circle/newArticle.html")
+	def test_view_template_used_wishlisted(self):
+		self.response = self.client.get(reverse('wishlisted'))
+		self.assertTemplateUsed(self.response, "circle/wishlist.html")
+
+	def test_view_status_code_rented(self):
+		self.response = self.client.get(reverse('rented'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_rented(self):
+		self.response = self.client.get(reverse('rented'))
+		self.assertTemplateUsed(self.response, "circle/rent.html")
+	
+	def test_view_status_code_carted(self):
+		self.response = self.client.get(reverse('carted'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_carted(self):
+		self.response = self.client.get(reverse('carted'))
+		self.assertTemplateUsed(self.response, "circle/cart.html")
+	
+	def test_view_status_code_error(self):
+		self.response = self.client.get(reverse('error'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_error(self):
+		self.response = self.client.get(reverse('error'))
+		self.assertTemplateUsed(self.response, "circle/error.html")
 
 
 # Test for the templates

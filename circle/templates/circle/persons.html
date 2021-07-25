@@ -7,9 +7,13 @@
 {% endblock %}
 
 {% block head %}
+	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
+	{% load humanizelib %}
 	<style>
 		.persons {
-			max-width: 700px;
+			/* max-width: 700px; */
 			margin: auto;
 			text-align: center;
 			align-items: center;
@@ -18,32 +22,44 @@
 {% endblock %}
 
 {% block body %}
-	<div class="persons">
-		<br><br>
-		<span><img src="https://img.icons8.com/bubbles/200/000000/private-account-male.png" /></span>
-		<span><img src="https://img.icons8.com/bubbles/200/000000/private-account-female.png" /></span>
-		<hr>
-		<h2> Persons </h2>
-		<br>
-		<table class="center">
-			<thead>
-				<tr>
-					<th>MPUID</th>
-					<th>Username</th>
-					<th>Details</th>
-				<tr>
-			</thead>
-			<tbody>
-				{% for person in persons %}
-					<tr>
-						<td>{{ person.id }}</td>
-						<td>{{ person.username }}</td>
-						<td><a class="btn btn-outline-info btn-md mt-2 mb-2 ml-2 mr-2" href="{% url 'person' person.user_id %}" role="button">Show</a></td>
-					</tr>
-				{% empty %}
-					<div class="alert alert-success" role="alert">No Users Onboard.</div>
-				{% endfor %}
-			</tbody>
-		</table>
+	<div class="persons container-fluid text-center">
+		<di class="justify-content-center">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-6">
+							<img src="https://img.icons8.com/bubbles/200/000000/private-account-male.png" />
+						</div>
+						<div class="col-md-6">
+							<img src="https://img.icons8.com/bubbles/200/000000/private-account-female.png" />
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<h2> Persons </h2>
+					<hr>
+					<table class="center">
+						<thead>
+							<tr>
+								<th>MPUID</th>
+								<th>Username</th>
+								<th>Details</th>
+							<tr>
+						</thead>
+						<tbody>
+							{% for person in persons %}
+								<tr>
+									<td>{{ person.id }}</td>
+									<td>{{ person.username }}</td>
+									<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'person' person.id %}" role="button">Show</a></td>
+								</tr>
+							{% empty %}
+								<div class="alert alert-success" role="alert">No Users.</div>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock %}

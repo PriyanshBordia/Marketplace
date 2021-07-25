@@ -19,7 +19,7 @@ class PersonForm(forms.ModelForm):
 
 	class Meta:
 		model = Person
-		fields = ('first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no', 'allowsMessage')
+		fields = ('profile', 'first', 'last', 'bio', 'age', 'sex', 'email', 'ph_no', 'allowsMessage')
 
 
 class MessageForm(forms.ModelForm):

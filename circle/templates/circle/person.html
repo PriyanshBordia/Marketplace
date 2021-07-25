@@ -57,13 +57,32 @@
 							<div class="alert alert-success" role="alert">Nothing Purchased.</div>
 						{% endfor %}
 						<hr>
-						{% for article in person.display.all %}
+						{% if person.display.all|length > 0 %}
 							<div class="person__display">
-								<h4>{{ article.id }}</h4>
+								<table class="center">
+									<thead>
+										<tr>
+											<th>MAUID</th>
+											<th>Title</th>
+											<th>Details</th>
+										<tr>
+									</thead>
+									<tbody>
+										{% for article in person.display.all %}
+											<tr>
+												<td>{{ article.id }}</td>
+												<td>{{ article.title }}</td>
+												<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'article' article.id %}" role="button">Show</a></td>
+											</tr>
+										{% empty %}
+											<div class="alert alert-success" role="alert">No Users.</div>
+										{% endfor %}
+									</tbody>
+								</table>
 							</div>
-						{% empty %}
+						{% else %}
 							<div class="alert alert-success" role="alert">Nothing on Display.</div>
-						{% endfor %}
+						{% endif %}
 						<hr>
 						{% for article in person.sold.all %}
 							<div class="person__sold">
