@@ -1,43 +1,60 @@
-.articles {
+.article {
 	
-	margin-top: 1rem;
-	border: 1px solid cornsilk;
+	margin-top: 2rem;
 
-	&__container {
+	&__grid {
 
-		&__grid {
+		margin: .8rem auto .8rem auto;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		// border: .125rem solid $LightestSlate;
+		background-color: $LightNavy;
 
-			margin: .8rem auto .8rem auto;
-			text-align: center;
-			align-items: center;
-			justify-content: center;
-			border: 1px solid $LightestSlate;
-			background-color: $LightNavy;
+		&__img {
+			
+			margin: 2rem auto 2rem auto;
+			width: 600px; 
+			height: 400px;
+			border: .25rem solid $LightestSlate;
+		}
 
-			&__img {
+		&__title {
 
-				border: 1px solid cornflowerblue;
-			}
+			margin: 1rem auto auto 1.2rem;
+		}
 
-			&__title {
+		&__desc {
 
-				padding: .2rem;
-			}
+			margin: 1rem;
+			padding: 1rem;
+			height: 12rem;
+			overflow-y: auto;
+			background-color: $LightestNavy;
+			border: .125rem solid $LightestSlate;
+		}
 
-			&__btn {
-				
-				margin-top: .5rem;
-				margin-right: .1rem;
-				width: $btn-size-xxs;
-			}
+		&__price {
 
-			small {
-				margin: auto;
-				margin-left: 0.1rem;
-				color: gray;
-				font-size: 1rem;
-				font-weight: 100;
-			}
+			padding: .2rem;
+			background-color: $Navy;
+			border: .125rem solid $LightestSlate;
+			border-radius: 1rem;
+		}
+
+		&__btn {
+			
+			margin-top: .5rem;
+			margin-right: .1rem;
+			width: $btn-size-xxs;
+		}
+
+		small {
+			margin: auto;
+			margin-left: 0.1rem;
+			color: gray;
+			font-size: 1rem;
+			font-weight: 100;
 		}
 	}
 }

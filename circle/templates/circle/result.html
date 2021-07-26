@@ -1,4 +1,4 @@
-<!-- "template/circle/user.html" -->
+<!-- "template/circle/result.html" -->
 
 {% extends "circle/base.html" %}
 
@@ -10,34 +10,48 @@
 	{% load static %}
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
+	{% load humanizelib %}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid text-center">
-		<div class="justify-content-center">
+	<div class="articles">
+		<div class="articles__container">
 			<div class="row">
 				{% for article in articles %}
-					<div class="col-md-4">
-						<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
-							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
-							<div class="card-body">
-								<h5 class="card-title">{{ article.title }}</h5>
-								<a href="{% url 'article' article.id %}" class="">
-									<button class="btn btn-outline-info" style="float: right;">View</button>
+					<div class="articles__container__grid">
+						<img class="articles__container__grid__img" src="{% static article.image.url %}"
+							alt="BA{{ article.id }}ID" />
+						<h4 class="articles__container__grid__title">{{ article.title }}</h4>
+						<!-- <div class="articles__container__grid__price">{{ article.price }}</div> -->
+						<div class="row">
+							<div class="col-md-4">
+								<small class="text-muted text-left">{{ article.pub_ts|naturaltime }}</small>
+							</div>
+							<div class="col-md-4">
+								<a class="articles__container__grid__btn" href="{% url 'article' article.id %}">
+									<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
 								</a>
-								<span>
-									<!-- <p class="card-text"> -->
-										<!-- {{ article.description }} -->
-									<!-- </p> -->
-								</span>
-								<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+							</div>
+							<div class="col-md-4">
+								{% if user.is_superuser %}
+									<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
+										<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
+									</a>
+								{% endif %}
 							</div>
 						</div>
 					</div>
 				{% empty %}
-					<div class="alert alert-danger" role="alert">No Results Matching your query.!!</div>
+					<div class="container container-fluid text-center">
+						<div class="row">
+							<div class="alert alert-danger" role="alert">No Results Matching your query.!!</div>
+							<a href="{% url 'search' %}">
+								<button class="form-control form-control-lg btn btn-outline-info btn-lg">Search.</button>
+							</a>
+						</div>
+					</div>
 				{% endfor %}
 			</div>
 		</div>
-    </div>
+	</div>
 {% endblock %}

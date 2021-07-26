@@ -215,3 +215,32 @@ Created by Priyansh Bordia &copy; 2021 Marketplace, Inc.
 	</div>
 	<button type="submit" class="btn btn-primary">Sign in</button>
 </form>
+
+<div class="container-fluid text-center">
+	<div class="justify-content-center">
+		<div class="row">
+			{% for article in articles %}
+			<div class="col-md-4">
+				<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+					<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID"
+						style="max-width: 24rem; max-height: 20rem;">
+					<div class="card-body">
+						<h5 class="card-title">{{ article.title }}</h5>
+						<a href="{% url 'article' article.id %}" class="">
+							<button class="btn btn-outline-info" style="float: right;">View</button>
+						</a>
+						<span>
+							<!-- <p class="card-text"> -->
+							<!-- {{ article.description }} -->
+							<!-- </p> -->
+						</span>
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+				</div>
+			</div>
+			{% empty %}
+			<div class="alert alert-danger" role="alert"></div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

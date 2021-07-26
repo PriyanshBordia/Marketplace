@@ -1,9 +1,9 @@
-<!-- templates/circle/articles.html -->
+<!-- templates/circle/article.html -->
 
 {% extends 'circle/base.html' %}
 
 {% block title %}
-	UA{{ article.id }}ID
+	BA{{ article.id }}ID
 {% endblock %}
 
 {% block head %}
@@ -14,36 +14,34 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid ">
-		<div class="justify-content-center">
+	<div class="article">
+		<div class="article__grid">
 			{% if form %}
 				<div class="row">
 					<div class="col-md-6">
 						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 600px; max-height: 300px;" />
-						<!-- <div class="col-md-4">
-							<a href="{% url 'article' article.id %}">
-								{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
-							</a>
-						</div> -->
 					</div>
 					<div class="col-md-6">
 						<form class="form-group" action="{% url 'edit' article.id 'article' %}" method="POST" enctype="multipart/form-data">
-						
+					
 							{% csrf_token %}
-						
+					
 							{% bootstrap_form form layout='horizontal' %}
-						
+					
 							<div class="row">
 								<div class="col-md-4">
 									<a href="{% url 'article' article.id %}">
-										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
+										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info btn-md"
+										%}
 									</a>
 								</div>
 								<div class="col-md-4">
-									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning" button_type="reset" %}
+									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning btn-md"
+									button_type="reset" %}
 								</div>
 								<div class="col-md-4">
-									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success" button_type="submit" %}
+									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success btn-md"
+									button_type="submit" %}
 								</div>
 							</div>
 						</form>
@@ -51,43 +49,52 @@
 				</div>
 			{% else %}
 				<div class="row">
-					<div class="col-md-8">
-						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
-					</div>
-					<div class="col-md-4">
-						<div class="article__grid__title">
-							<h2>{{ article.title }}</h2>
+					<div class="col-md-6">
+						<div class="row">
+							<img class="article__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
 						</div>
-						<div class="article__grid__description">
-							<p>{{ article.description }}</p>
+						<div class="row">
+							<small class="text-muted text-left">{{ article.pub_ts|naturaltime }}</small>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<h1 class="article__grid__title">{{ article.title }}</h1>
+						<div class="article__grid__desc">
+							{{ article.description }}
 						</div>
 						<div class="row">
 							<div class="col-md-4">
 								<a href="{% url 'wishlist' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-info">Bookmark</button>
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">Bookmark</button>
 								</a>
 							</div>
 							<div class="col-md-4">
 								<a href="{% url 'rent' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-warning">Rent</button>
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
 								</a>
 							</div>
 							<div class="col-md-4">
 								<a href="{% url 'cart' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-success">Cart</button>
+									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Cart</button>
 								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<a href="{% url 'edit' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-primary">Edit</button>
+									<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Edit</button>
 								</a>
 							</div>
 							<div class="col-md-6">
 								<a href="{% url 'remove' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-danger">Delete</button>
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
 								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8"></div>
+							<div class="col-md-4">
+								<h2 class="article__grid__price">₹ {{ article.price }}</h2>
 							</div>
 						</div>
 					</div>

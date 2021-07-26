@@ -13,46 +13,43 @@
 {% endblock %}
 
 {% block body %}
-	<div class="article container-fluid text-center">
-		<div class="article__grid justify-content-center">
-			<div class="row">
-				<div class="article__grid__img col-md-3">
-					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
-					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
-					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
-					{% if not_tagged|length > 0 %}
-						<div class="form-control">
-							<select name="tags" id="" class="custom-select">
-								{% for tag in not_tagged %}
-									<option value="{{ tag.id }}">{{ tag.name }}</option>
-								{% endfor %}
-							</select>
-						</div>
-					{% endif %}
-				</div>
-				<div class="col-md-9">
-					<form class="form-group" action="{% url 'addArticle' %}" method="post" enctype="multipart/form-data">
-
-						{% csrf_token %}
-						
-						{% bootstrap_form form layout='horizontal' %}
-
-
-						<div class="row">
-							<div class="col-md-4">
-								{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning" button_type="reset" %}
-							</div>
-							<div class="col-md-4">
-								{% bootstrap_button "Add.!" button_class="form-control form-control-md btn btn-outline-success" button_type="submit" %}
-							</div>
-							<div class="col-md-4">
-								<a href="{% url 'search' %}" class="form-control form-control-md btn btn-outline-info" role="button">
-									Cancel
-								</a>
-							</div>
-						</div>
+	<div class="container container-fluid">
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
+				{% if not_tagged|length > 0 %}
+					<form class="form-group">
+						<select class="form-control" name="tags" id="" class="custom-select">
+							{% for tag in not_tagged %}
+							<option value="{{ tag.id }}">{{ tag.name }}</option>
+							{% endfor %}
+						</select>
 					</form>
-				</div>
+				{% else %}
+					<div class="alert alert-success">All tags used.</div>
+				{% endif %}
+				<!-- <div class="col-md-4"> -->
+					<a href="{% url 'search' %}" class="form-control form-control-md btn btn-outline-secondary" role="button">
+						Cancel
+					</a>
+				<!-- </div> -->
+			</div>
+			<div class="col-md-8">
+				<form class="form-group" action="{% url 'addArticle' %}" method="post" enctype="multipart/form-data">
+		
+					{% csrf_token %}
+		
+					{% bootstrap_form form layout='horizontal' %}
+		
+					<div class="row mt-5">
+						<div class="col-md-6">
+							{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning btn-md" button_type="reset" %}
+						</div>
+						<div class="col-md-6">
+							{% bootstrap_button "Add.!" button_class="form-control form-control-md btn btn-outline-success btn-md" button_type="submit" %}
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
