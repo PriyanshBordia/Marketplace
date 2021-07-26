@@ -433,7 +433,11 @@ hr {
 }
 
 .persons {
-  margin-top: 2rem;
+  margin: 2rem auto 1rem auto;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .articles {
@@ -477,12 +481,11 @@ hr {
 }
 
 .articles {
-  margin-top: 1rem;
-  border: 1px solid cornsilk;
+  margin: 2rem auto 2rem auto;
 }
 
 .articles__container__grid {
-  margin: .8rem auto .8rem auto;
+  margin: 1.5rem auto 1.5rem auto;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -490,30 +493,37 @@ hr {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  border: 1px solid #ccd6f6;
+  border: 0.125rem solid #ccd6f6;
   background-color: #112240;
 }
 
 .articles__container__grid__img {
-  border: 1px solid cornflowerblue;
+  width: 400px;
+  height: 250px;
 }
 
 .articles__container__grid__title {
-  padding: .2rem;
+  padding-top: .6rem;
+}
+
+.articles__container__grid__price {
+  padding: .4rem;
 }
 
 .articles__container__grid__btn {
-  margin-top: .5rem;
-  margin-right: .1rem;
+  margin-top: .4rem .2rem auto .2rem;
   width: 1in;
 }
 
 .articles__container__grid small {
-  margin: auto;
-  margin-left: 0.1rem;
   color: gray;
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: 100;
+}
+
+.articles__container__grid:hover {
+  border: 0.25rem solid #7dce94;
+  background-color: #233554;
 }
 
 .friend__container {
@@ -649,6 +659,54 @@ hr {
 
 .chats {
   margin-top: 2rem;
+}
+
+.cart {
+  margin: 2rem auto 2rem auto;
+}
+
+.cart__container {
+  margin: 2rem auto 2rem auto;
+  border: 1px solid mediumslateblue;
+}
+
+.cart__container__grid {
+  border: 1px solid coral;
+}
+
+.cart__container__grid__img {
+  width: 400px;
+  height: 400px;
+  border: 2px solid #ccd6f6;
+}
+
+.cart__container__grid__title {
+  padding: 1rem;
+  color: #F6AF44;
+  font-size: 2.2rem;
+  font-weight: 200;
+  line-height: 2rem;
+}
+
+.cart__container__grid__desc {
+  font-weight: 200;
+  line-height: 2rem;
+}
+
+.cart__container__grid__price {
+  padding: 1rem;
+  color: #7dce94;
+  font-size: 1.4rem;
+  font-weight: 200;
+  line-height: 1rem;
+}
+
+.cart__container__grid__btn {
+  margin-top: 0.2rem;
+}
+
+.cart__container__grid small {
+  padding: 1rem;
 }
 
 table, tr, th, td {

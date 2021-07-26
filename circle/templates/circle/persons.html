@@ -11,55 +11,60 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
-	<style>
-		.persons {
-			/* max-width: 700px; */
-			margin: auto;
-			text-align: center;
-			align-items: center;
-		}
-	</style>
 {% endblock %}
 
 {% block body %}
 	<div class="persons container-fluid text-center">
-		<di class="justify-content-center">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-6">
-							<img src="https://img.icons8.com/bubbles/200/000000/private-account-male.png" />
-						</div>
-						<div class="col-md-6">
-							<img src="https://img.icons8.com/bubbles/200/000000/private-account-female.png" />
+		<div class="justify-content-center">
+			{% if persons|length > 0 %}
+				<div class="row">
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6">
+								<img src="https://img.icons8.com/bubbles/200/000000/private-account-male.png" />
+							</div>
+							<div class="col-md-6">
+								<img src="https://img.icons8.com/bubbles/200/000000/private-account-female.png" />
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-8">
-					<h2> Persons </h2>
-					<hr>
-					<table class="center">
-						<thead>
-							<tr>
-								<th>MPUID</th>
-								<th>Username</th>
-								<th>Details</th>
-							<tr>
-						</thead>
-						<tbody>
-							{% for person in persons %}
+					<div class="col-md-8">
+						<h2> Persons </h2>
+						<hr>
+						<table class="center">
+							<thead>
 								<tr>
-									<td>{{ person.id }}</td>
-									<td>{{ person.username }}</td>
-									<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'person' person.user.id %}" role="button">Show</a></td>
-								</tr>
-							{% empty %}
-								<div class="alert alert-success" role="alert">No Users.</div>
-							{% endfor %}
-						</tbody>
-					</table>
+									<th>MPUID</th>
+									<th>Username</th>
+									<th>Details</th>
+								<tr>
+							</thead>
+							<tbody>
+								{% for person in persons %}
+									<tr>
+										<td>{{ person.id }}</td>
+										<td>{{ person.username }}</td>
+										<td>
+											<a href="{% url 'person' person.user.id %}">
+												<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+											</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
 				</div>
-			</div>
+			{% else %}
+				<div class="container">
+					<div class="row">
+						<div class="alert alert-info" role="alert">No Users.</div>
+						<a href="{% url 'newPerson' %}">
+							<button class="form-contol form-control-lg btn btn-outline-info">Add Person.</button>
+						</a>
+					</div>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

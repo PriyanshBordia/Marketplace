@@ -14,67 +14,60 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="justify-content-center">
-			<!-- <img src="https://img.icons8.com/bubbles/100/000000/check.png" /> -->
-			<!-- <img src="https://img.icons8.com/bubbles/100/000000/cash-register.png" /> -->
-			{% for article in articles %}
-				<div class="row" style="border: 1px solid mediumslateblue;">
+	<div class="cart">
+		<div class="cart__container">
+			<div class="row">
+				{% for article in articles %}
 					<div class="col-md-6">
-						<img class="cart__container__grid__img" src="{% static article.image.url %}" />
-					</div>
-					<div class="col-md-6">
-						<h3 class="cart__container__grid__title">{{ article.title }}</h3>
-						<div class="cart__container__grid__desc">
-							{{ article.description }}
-						</div>
-						<p>{{ article.price }}</p>
+						<div class="cart__container__grid">
+						<img class="cart__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
+						<div class="cart__container__grid__title">{{ article.title }}</div>
+						<div class="cart__container__grid__price">₹ {{ article.price }}</div>
+						<!-- <div class="cart__container__grid__desc"> -->
+							<!-- <p class="text-left"></p>{{ article.description }} -->
+						<p class="text-right"><small class="text-muted">Last updated {{ article.pub_ts|naturaltime }}</small></p>
+						<!-- </div> -->
 						<div class="row">
-							<div class="col-md-4">
-								<a href="{% url 'article' article.id %}" class="">
+							<div class="col-md-3">
+								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-md btn btn-outline-info">View</button>
 								</a>
 							</div>
-							<div class="col-md-4">
-								<a href="{% url 'rent' article.id %}" class="">
+							<div class="col-md-3">
+								<a href="{% url 'rent' article.id %}">
 									<button class="form-control form-control-md btn btn-outline-success">Rent</button>
 								</a>
 							</div>
-							<div class="col-md-4">
-								<a href="{% url 'bookmark' article.id %}">
+							<div class="col-md-3">
+								<a href="{% url 'wishlist' article.id %}">
 									<button class="form-control form-control-md btn btn-outline-warning">Mark</button>
 								</a>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<p class="text-left"><small class="text-muted">Last updated {{ article.pub_ts|naturaltime }}</small></p>
-							</div>
-							<div class="col-md-4"></div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<a href="{% url 'remove' article.id 'carted' %}">
 									<button class="form-control form-control-md btn btn-outline-danger">Remove</button>
 								</a>
 							</div>
-						</div>						
-					</div>
-				</div>
-			{% empty %}
-				<div class="container">
-					<div class="row">
-						<div class="alert alert-info" role="alert">
-							Nothing to view.!!
+						</div>	
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<a href="{% url 'search' %}">
-								<button class="form-control btn btn-outline-info btn-md">Search</button>
-							</a>
+				{% empty %}
+					<div class="container container-fluid text-center">
+						<div class="row">
+							<div class="alert alert-info" role="alert">
+								Nothing to view.!!
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{% url 'search' %}">
+									<button class="form-control btn btn-outline-info btn-md">Search</button>
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -111,11 +111,11 @@ def addPerson(request):
 
 			username = email.split('@')[0]
 			# ph_no = (9378214503 + (user_id * 10) % request.user.id)
-			profile = request.FILES['image']
+			profile = request.FILES['profile']
 
 			try:
 				person = Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
-				return HttpResponseRedirect(reverse("person", args=(person.id, )))
+				return HttpResponseRedirect(reverse("person", args=(user.id, )))
 			except:
 				return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
 		except User.DoesNotExist:
@@ -360,7 +360,7 @@ def rent(request, article_id):
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-#testing left
+
 @login_required
 def cart(request, article_id):
 	try:
@@ -379,7 +379,7 @@ def cart(request, article_id):
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-#testing left
+
 @login_required
 def purchased(request):
 	try:
@@ -390,7 +390,7 @@ def purchased(request):
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-#testing left
+
 def sold(request):
 	try:
 		user_id = request.user.id
@@ -400,7 +400,7 @@ def sold(request):
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-# testing left
+
 @login_required
 def wishlisted(request):
 	try:
@@ -411,7 +411,7 @@ def wishlisted(request):
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
-#testing left
+
 @login_required
 def rented(request):
 	try:
@@ -439,33 +439,41 @@ def carted(request):
 
 
 @login_required
-def remove(request, article_id, type):
-	try:
-		user_id = request.user.id
-		article = Article.objects.get(pk=article_id)
-		if type == 'article':
-			article.delete()
-			return HttpResponseRedirect(reverse("articles", args=()))
-
-		person = Person.objects.filter(user_id=user_id).first()			
-		if type == 'marked':
-			person.bookmarked.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("wishlisted", args=()))
-		elif type == 'rented':
-			person.rented.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("rented", args=()))
-		elif type == 'carted':
-			person.carted.remove(article)
-			person.save()
-			return HttpResponseRedirect(reverse("carted", args=()))
-		else:
-			return HttpResponseRedirect(reverse("search", args=()))
-	except Article.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
-	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+def remove(request, id, type):
+	if type == 'person':
+		try:
+			user_id = request.user.id
+			person = Person.objects.get(pk=id)
+			person.delete()
+			return HttpResponseRedirect(reverse("persons", args=()))
+		except Person.DoesNotExist:
+			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
+	else:
+		try:
+			user_id = request.user.id
+			article = Article.objects.get(pk=id)
+			if type == 'article':
+				article.delete()
+				return HttpResponseRedirect(reverse("articles", args=()))
+			person = Person.objects.filter(user_id=user_id).first()			
+			if type == 'marked':
+				person.bookmarked.remove(article)
+				person.save()
+				return HttpResponseRedirect(reverse("wishlisted", args=()))
+			elif type == 'rented':
+				person.rented.remove(article)
+				person.save()
+				return HttpResponseRedirect(reverse("rented", args=()))
+			elif type == 'carted':
+				person.carted.remove(article)
+				person.save()
+				return HttpResponseRedirect(reverse("carted", args=()))
+			else:
+				return HttpResponseRedirect(reverse("search", args=()))
+		except Article.DoesNotExist:
+			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+		except Person.DoesNotExist:
+			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required

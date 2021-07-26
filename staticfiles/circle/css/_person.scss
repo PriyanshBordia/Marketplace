@@ -32,15 +32,16 @@
 		}
 
 		&__bio {
-
+			font-size: 1rem;
 		}
 
-		&__age,  {
-
+		&__age, &__gender {
+			font-size: 1rem;
 		}
 	}
 
-	&__rented, &__bookmarked {
-		margin: 3rem;
+	&__rented, &__display, &__bookmarked, &__purchased, &__sold {
+
+		margin: 1rem auto 1rem auto;
 	}
 }

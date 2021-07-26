@@ -9,7 +9,7 @@
 {% block head %}
 	<style>
 		#user {
-			max-width: 900px;
+			max-width: 800px;
 			margin: auto;
 			text-align: center;
 			align-items: center;
@@ -19,23 +19,16 @@
 
 {% block body %}
 	<div id="user">
-		<br><br>
-		<div>
-			<span style="float: left;"><img src="https://img.icons8.com/bubbles/200/000000/user-male.png" /></span>
-			<span style="float: right;"><img src="https://img.icons8.com/bubbles/200/000000/user-female.png" /></span>
+		<div class="row">
+			<span class="col-md-6" style="float: left;"><img src="https://img.icons8.com/bubbles/200/000000/user-male.png" /></span>
+			<span class="col-md-6" style="float: right;"><img src="https://img.icons8.com/bubbles/200/000000/user-female.png" /></span>
 		</div>
-	
-		<span>
-			<h2>User Details </h2>
-		</span>
-		<span>
-			<h3>MPU{{ user.id }}ID</h3>
-		</span>
+		<div class="row">
+			<h2>User Details MPU{{ user.id }}ID</h2>
+		</div>
 
-		<br>
-	
 		{% if user.id == request.user.id %}
-			<div class="conatainer container-fluid">
+			<div class="conatainer container-fluid text-center">
 				<div class="justify-content-center">
 					<form class="form-group" action="{% url 'update' %}" method="post">
 		
@@ -62,4 +55,5 @@
 			<h4><strong>Last Name : </strong>{{ user.last_name }}</h4>
 			<h4><strong>E-mail : </strong> {{ user.email }}</h4>
 		{% endif %}
+	</div>
 {% endblock %}

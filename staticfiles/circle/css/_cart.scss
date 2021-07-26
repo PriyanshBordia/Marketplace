@@ -1,0 +1,57 @@
+.cart {
+
+	margin: 2rem auto 2rem auto;
+
+	&__container {
+
+		margin: 2rem auto 2rem auto;
+		border: 1px solid mediumslateblue;
+
+		&__grid {
+
+			border: 1px solid coral;
+
+			&__img {
+
+				width: 400px;
+				height: 400px;
+				// max-width: $width-sm; 
+				// max-height: 300px;
+				border: 2px solid $LightestSlate;
+			}
+
+			&__title {
+
+				padding: 1rem;
+				color: $Casablanca;
+				font-size: 2.2rem;
+				font-weight: 200;
+				line-height: 2rem;
+			}
+
+			&__desc {
+
+				font-weight: 200;
+				line-height: 2rem;
+			}
+
+			&__price {
+
+				padding: 1rem;
+				color: $SimplerLimeGreen;
+				font-size: 1.4rem;
+				font-weight: 200;
+				line-height: 1rem;
+			}
+
+			&__btn {
+
+				margin-top: 0.2rem;
+			}
+
+			small {
+				padding: 1rem;
+			}
+		}
+	}
+}

@@ -1,42 +1,49 @@
 .articles {
 	
-	margin-top: 1rem;
-	border: 1px solid cornsilk;
+	margin: 2rem auto 2rem auto;
 
 	&__container {
 
 		&__grid {
 
-			margin: .8rem auto .8rem auto;
+			margin: 1.5rem auto 1.5rem auto;
 			text-align: center;
 			align-items: center;
 			justify-content: center;
-			border: 1px solid $LightestSlate;
+			border: .125rem solid $LightestSlate;
 			background-color: $LightNavy;
 
 			&__img {
 
-				border: 1px solid cornflowerblue;
+				width: 400px; 
+				height: 250px;
 			}
 
 			&__title {
 
-				padding: .2rem;
+				padding-top: .6rem;
+			}
+			
+			&__price {
+
+				padding: .4rem;
 			}
 
 			&__btn {
 				
-				margin-top: .5rem;
-				margin-right: .1rem;
+				margin-top: .4rem .2rem auto .2rem;
 				width: $btn-size-xxs;
 			}
 
 			small {
-				margin: auto;
-				margin-left: 0.1rem;
 				color: gray;
-				font-size: 1rem;
+				font-size: .8rem;
 				font-weight: 100;
+			}
+
+			&:hover {
+				border: .25rem solid $SimplerLimeGreen;
+				background-color: $LightestNavy;
 			}
 		}
 	}
