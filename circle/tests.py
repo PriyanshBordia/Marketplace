@@ -67,6 +67,10 @@ class UrlsTestCase(TestCase):
 		url = reverse('persons')
 		self.assertEquals(resolve(url).func, views.persons)
 
+	def test_url_edit(self):
+		url = reverse('edit', args=[1, 'test'])
+		self.assertEquals(resolve(url).func, views.edit)
+
 	def test_url_newArticle(self):
 		url = reverse('newArticle')
 		self.assertEquals(resolve(url).func, views.newArticle)

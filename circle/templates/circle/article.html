@@ -8,55 +8,91 @@
 
 {% block head %}
 	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
+	{% load humanizelib %}
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid text-center">
+	<div class="container-fluid ">
 		<div class="justify-content-center">
-			<div class="row">
-				<div class="col-md-8">
-					<!-- <p>{{ article.image.url }}</p>	 -->
-					{% if article.image %}
+			{% if form %}
+				<div class="row">
+					<div class="col-md-6">
+						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 600px; max-height: 300px;" />
+						<!-- <div class="col-md-4">
+							<a href="{% url 'article' article.id %}">
+								{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
+							</a>
+						</div> -->
+					</div>
+					<div class="col-md-6">
+						<form class="form-group" action="{% url 'edit' article.id 'article' %}" method="POST" enctype="multipart/form-data">
+						
+							{% csrf_token %}
+						
+							{% bootstrap_form form layout='horizontal' %}
+						
+							<div class="row">
+								<div class="col-md-4">
+									<a href="{% url 'article' article.id %}">
+										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
+									</a>
+								</div>
+								<div class="col-md-4">
+									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning" button_type="reset" %}
+								</div>
+								<div class="col-md-4">
+									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success" button_type="submit" %}
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			{% else %}
+				<div class="row">
+					<div class="col-md-8">
 						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
-					{% else %}
-						<img class="article__grid__img" src="{% static 'images/article/streets.png' %}" alt="UA{{ article.id }}ID" style="width: 700px; height: 400px;" />
-					{% endif %}
-				</div>
-				<div class="col-md-4">
-					<div class="article__grid__title">
-						<h2>{{ article.title }}</h2>
 					</div>
-					<div class="article__grid__description">
-						<p>{{ article.description }}</p>
+					<div class="col-md-4">
+						<div class="article__grid__title">
+							<h2>{{ article.title }}</h2>
+						</div>
+						<div class="article__grid__description">
+							<p>{{ article.description }}</p>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<a href="{% url 'wishlist' article.id %}">
+									<button class="form-control form-control-md btn btn-outline-info">Bookmark</button>
+								</a>
+							</div>
+							<div class="col-md-4">
+								<a href="{% url 'rent' article.id %}">
+									<button class="form-control form-control-md btn btn-outline-warning">Rent</button>
+								</a>
+							</div>
+							<div class="col-md-4">
+								<a href="{% url 'cart' article.id %}">
+									<button class="form-control form-control-md btn btn-outline-success">Cart</button>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<a href="{% url 'edit' article.id 'article' %}">
+									<button class="form-control form-control-md btn btn-outline-primary">Edit</button>
+								</a>
+							</div>
+							<div class="col-md-6">
+								<a href="{% url 'remove' article.id 'article' %}">
+									<button class="form-control form-control-md btn btn-outline-danger">Delete</button>
+								</a>
+							</div>
+						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<a href="{% url 'wishlist' article.id %}">
-								<button class="form-control form-control-md btn btn-outline-info">Bookmark</button>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="{% url 'rent' article.id %}">
-								<button class="form-control form-control-md btn btn-outline-warning">Rent</button>
-							</a>
-						</div>
-						<div class="col-md-4">
-							<a href="{% url 'cart' article.id %}">
-								<button class="form-control form-control-md btn btn-outline-success">Buy</button>
-							</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3"></div>
-						<div class="col-md-6">
-							<a href="{% url 'remove' article.id 'article' %}">
-								<button class="form-control form-control-md btn btn-outline-danger">Delete</button>
-							</a>
-						</div>
-						<div class="col-md-3"></div>
-					</div>
-				</div>
-			</div>
+				</div>		
+			{% endif %}			
 		</div>
 	</div>
 {% endblock %}

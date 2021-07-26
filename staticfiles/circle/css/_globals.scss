@@ -79,30 +79,35 @@ h1:hover {
 
 h2, .home-head, .h2 {
 	margin-top: 1rem;
+	margin-bottom: .5rem;
     color: $Casablanca;
     font-weight: 400;
 }
 
 h3 {
 	margin-top: .8rem;
+	margin-bottom: .4rem;
     color: $CadetBlue;
     font-weight: 450;
 }
 
 h4 {
 	margin-top: .6rem;
+	margin-bottom: .3rem;
     color: $RoseGold;
     font-weight: 500;
 }
 
 h5 {
 	margin-top: .4rem;
+	margin-bottom: .2rem;
     color: $VanillaGrey;
     font-weight: 600;
 }
 
 h6 {
 	margin-top: .2rem;
+	margin-bottom: .1rem;
 	color: $VanillaGrey;
     font-weight: 650;
 }

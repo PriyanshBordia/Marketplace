@@ -1,6 +1,17 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from .models import Article, Person, Tag, Message, Chat
+
+class UserForm(forms.ModelForm):
+
+	class Meta:
+		model = User
+		fields = '__all__'
+
+	def __str__(self) -> str:
+		return super().__str__()
+
 
 class ArticleForm(forms.ModelForm):
 

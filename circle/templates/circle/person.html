@@ -13,11 +13,46 @@
 {% endblock %}
 
 {% block body %}
-	<div class="person container-fluid">
+	<div class="container-fluid text-center">
 		<div class="justify-content-center">
-			<div class="row">
-				<!-- <div class="person"> -->
-					<div class="col-md-3">
+			{% if form %}
+				<div class="row">
+					<div class="col-md-4">
+						<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />	
+						<div class="row">
+							<div class="col-md-4">
+								<a href="{% url 'person' request.user.id %}">
+									{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<form class="form-group" action="{% url 'edit' person.id 'person' %}" method="POST" enctype="multipart/form-data">
+
+							{% csrf_token %}
+				
+							{% bootstrap_form form layout='horizontal' %}
+					
+							<div class="row">
+								<div class="col-md-4">
+									<a href="{% url 'person' request.user.id %}">
+										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
+									</a>
+								</div>
+								<div class="col-md-4">
+									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning" button_type="reset" %}
+								</div>
+								<div class="col-md-4">
+									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success" button_type="submit" %}
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			{% else %}
+				<div class="row">
+					<div class="person col-md-3">
 						<div class="person__grid">
 							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
 							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
@@ -31,69 +66,198 @@
 							<p class="person__grid__phno">{{ person.ph_no }} </p>
 							<p>{{ person.slug }}</p>
 						</div>
+						<!-- <hr> -->
+						<div class="row">
+							<div class="col-md-6">
+								<a href="{% url 'edit' person.id 'person' %}">
+									<button class="form-control form-control-md btn btn-outline-primary">Edit</button>
+								</a>
+							</div>
+							<div class="col-md-6">
+								<a href="{% url 'remove' person.id 'person' %}">
+									<button class="form-control form-control-md btn btn-outline-danger">Delete</button>
+								</a>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-9">
-						{% for article in person.rented.all %}
-							<div class="person__rented">
-								<h4>{{ article.id }}</h4>
+					<div class="person col-md-9">
+						<div class="row">
+							<div class="col-md-6">
+								{% if person.rented.all|length > 0 %}
+									<h3>Rented</h3>
+									<div class="person__rented">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>MAUID</th>
+													<th>Title</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for article in person.rented.all %}
+													<tr>
+														<td>{{ article.id }}</td>
+														<td>{{ article.title }}</td>
+														<td>
+															<a href="{% url 'article' article.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-info" role="alert">Nothing Rented.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-info" role="alert">Nothing Rented.</div>
+								{% endif %}
 							</div>
-						{% empty %}
-							<div class="alert alert-success" role="alert">Nothing Rented.</div>
-						{% endfor %}
+							<!-- <div class="col-md-6"></div> -->
+						</div>
 						<hr>
-						{% for article in person.bookmarked.all %}
-							<div class="person__bookmarked">
-								<h4>{{ article.id }}</h4>
+						<div class="row">
+							<div class="col-md-6">
+								{% if person.display.all|length > 0 %}
+									<h3>Display</h3>
+									<div class="person__display">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>MAUID</th>
+													<th>Title</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for article in person.display.all %}
+													<tr>
+														<td>{{ article.id }}</td>
+														<td>{{ article.title }}</td>
+														<td>
+															<a href="{% url 'article' article.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-danger" role="alert">Nothing on Display.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-danger" role="alert">Nothing on Display.</div>
+								{% endif %}
 							</div>
-						{% empty %}
-							<div class="alert alert-success" role="alert">Nothing Bookmarks.</div>
-						{% endfor %}
+							<div class="col-md-6">
+								{% if person.bookmarked.all|length > 0 %}
+									<h3>Bookmarked</h3>
+									<div class="person__bookmarked">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>MAUID</th>
+													<th>Title</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for article in person.bookmarked.all %}
+													<tr>
+														<td>{{ article.id }}</td>
+														<td>{{ article.title }}</td>
+														<td>
+															<a href="{% url 'article' article.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-success" role="alert">Nothing Bookmarked.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-success" role="alert">Nothing Bookmarked.</div>
+								{% endif %}
+							</div>
+						</div>
 						<hr>
-						{% for article in person.purchased.all %}
-							<div class="person__purchase">
-								<h4>{{ article.id }}</h4>
+						<div class="row">
+							<div class="col-md-6">
+								{% if person.purchased.all|length > 0 %}
+									<h3>Purchased</h3>
+									<div class="person__purchased">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>MAUID</th>
+													<th>Title</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for article in person.purchased.all %}
+													<tr>
+														<td>{{ article.id }}</td>
+														<td>{{ article.title }}</td>
+														<td>
+															<a href="{% url 'article' article.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-success" role="alert">Nothing Purchased.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-warning" role="alert">Nothing Purchased.</div>
+								{% endif %}
 							</div>
-						{% empty %}
-							<div class="alert alert-success" role="alert">Nothing Purchased.</div>
-						{% endfor %}
-						<hr>
-						{% if person.display.all|length > 0 %}
-							<div class="person__display">
-								<table class="center">
-									<thead>
-										<tr>
-											<th>MAUID</th>
-											<th>Title</th>
-											<th>Details</th>
-										<tr>
-									</thead>
-									<tbody>
-										{% for article in person.display.all %}
-											<tr>
-												<td>{{ article.id }}</td>
-												<td>{{ article.title }}</td>
-												<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'article' article.id %}" role="button">Show</a></td>
-											</tr>
-										{% empty %}
-											<div class="alert alert-success" role="alert">No Users.</div>
-										{% endfor %}
-									</tbody>
-								</table>
+							<div class="col-md-6">
+								{% if person.sold.all|length > 0 %}
+									<h3>Sold</h3>
+									<div class="person__sold">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>MAUID</th>
+													<th>Title</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for article in person.sold.all %}
+													<tr>
+														<td>{{ article.id }}</td>
+														<td>{{ article.title }}</td>
+														<td>
+															<a href="{% url 'article' article.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-success" role="alert">Nothing Sold.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-success" role="alert">Nothing Sold.</div>
+								{% endif %}
 							</div>
-						{% else %}
-							<div class="alert alert-success" role="alert">Nothing on Display.</div>
-						{% endif %}
-						<hr>
-						{% for article in person.sold.all %}
-							<div class="person__sold">
-								<h4>{{ article.id }}</h4>
-							</div>
-						{% empty %}
-							<div class="alert alert-success" role="alert">Nothing Sold.</div>
-						{% endfor %}
+						</div>
 					</div>
-				<!-- </div> -->
-			</div>
+				</div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

@@ -22,13 +22,13 @@
 					<img src="https://img.icons8.com/bubbles/200/000000/form.png" />
 				</div>
 				<div class="col-md-9">
-					<form class="form-group" action="{% url 'addPerson' %}" action="POST" enctype="multipart/form-data">
+					<form class="form-group" action="{% url 'addPerson' %}" method="POST" enctype="multipart/form-data">
+						
 						{% csrf_token %}
 				
-						
 						{% bootstrap_form form layout='horizontal' %}
 				
-						<div class="form-row">
+						<div class="row">
 							<div class="col-md-6">
 								{% bootstrap_button "Reset" button_class="form-control btn btn-outline-warning" button_type="reset" %}
 							</div>

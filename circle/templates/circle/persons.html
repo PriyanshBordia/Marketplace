@@ -51,7 +51,7 @@
 								<tr>
 									<td>{{ person.id }}</td>
 									<td>{{ person.username }}</td>
-									<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'person' person.id %}" role="button">Show</a></td>
+									<td><a class="form-control form-control-lg btn btn-outline-info btn-md" href="{% url 'person' person.user.id %}" role="button">Show</a></td>
 								</tr>
 							{% empty %}
 								<div class="alert alert-success" role="alert">No Users.</div>
