@@ -46,6 +46,7 @@ def addPerson(request):
 			person.user = User.objects.get(pk=request.user.id)
 			person.username = str(form.cleaned_data["email"].split('@')[0])
 			form.save()
+			Chat.objects.create(person.id, person.id)
 			return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
 		else:
 			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "persons"})
@@ -140,10 +141,16 @@ def addPerson(request):
 def person(request, person_id):
 	try:
 		person = Person.objects.get(user_id=person_id)
-		cprint(person.sex, 'red')
-		return render(request, "circle/person.html", context={"person": person})
+		if request.user.id != person_id:
+			chat_id = Chat.objects.filter(Q(sender=person_id, receiver=request.user.id) | Q(sender=request.user.id, receiver=person_id)).first().id
+			cprint(chat_id, 'red')
+			return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
+		else:
+			return render(request, "circle/person.html", context={"person": person,})
 	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Key Error.!", "link": "person"})
+		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Data Error.!", "link": "search"})
+	except Chat.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Data Error.!", "link": "search"})
 
 
 @login_required
@@ -160,6 +167,7 @@ def newArticle(request):
 
 @login_required	
 def addArticle(request):
+	article = Article()
 	# if request.method == "POST":
 	# 	form = ArticleForm(request.POST, request.FILES)
 	# 	if form.is_valid():
@@ -294,13 +302,29 @@ def articles(request):
 	articles = Article.objects.all()
 	return render(request, "circle/articles.html", context={"articles": articles})
 
+@login_required
+def addFriend(request, person_id):
+	try:
+		user_id = request.user.id
+		person = Person.objects.get(pk=person_id)
+		p = Person.objects.filter(user_id=user_id).first()
+		p.friends.add(person)
+		p.save()
+		# sender_id = Person.objects.filter(user_id=user_id).first()
+		# if person.allowsMessage:
+			# Chat.objects.create(sender_id, person_id)
+		return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "persons"})
+
 
 @login_required
 def friends(request):
 	user_id = request.user.id
 	try:
 		person = Person.objects.filter(user_id=user_id).first()
-		friends = person.friends.all()
+		# friends = person.friends.all()
+		friends = Chat.objects.filter(sender=person) #| Q(receiver=person)
 		return render(request, "circle/friends.html", context={"friends": friends})
 	except Person.DoesNotExist:
 		friends = []

@@ -60,24 +60,51 @@
 							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
 							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
 							<p class="person__grid__username">{{ person.username }} </p>
-							<p class="person__grid__gender">{{ person.age }} {{ person.sex.value }}</p>
+							<p class="person__grid__gender">{{ person.age }} {{ person.sex }}</p>
 							<p class="person__grid__bio"><i class="far fa-address-card"></i> {{ person.bio }}</p>
 							<p class="person__grid__email"><i class="fas fa-envelope"></i> {{ person.email }} </p>
 							<p class="person__grid__phno"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
 							<!-- <p>{{ person.slug }}</p> -->
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<a href="{% url 'edit' person.id 'person' %}">
-									<button class="form-control form-control-md btn btn-outline-primary">Edit</button>
-								</a>
+						{% if person.user.id == request.user.id %}
+							<div class="row">
+								<div class="col-md-6">
+									<a href="{% url 'edit' person.id 'person' %}">
+										<button class="form-control form-control-md btn btn-outline-primary btn-md">Edit</button>
+									</a>
+								</div>
+								<div class="col-md-6">
+									<a href="{% url 'remove' person.id 'person' %}">
+										<button class="form-control form-control-md btn btn-outline-danger btn-md">Delete</button>
+									</a>
+								</div>
 							</div>
-							<div class="col-md-6">
-								<a href="{% url 'remove' person.id 'person' %}">
-									<button class="form-control form-control-md btn btn-outline-danger">Delete</button>
-								</a>
-							</div>
-						</div>
+						{% else %}
+							{% if chat_id %}
+								<div class="row">
+									<div class="col-md-6">
+										<a href="{% url 'chat' chat_id %}">
+											<button class="form-control form-control-md btn btn-outline-warning btn-md">Chat</button>
+										</a>
+									</div>
+									<div class="col-md-6">
+										<a href="{% url 'remove' person.id 'friend' %}">
+											<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
+										</a>
+									</div>
+								</div>
+							{% else %}
+								<div class="row">
+									<div class="col-md-2"></div>
+									<div class="col-md-8">
+										<a href="{% url 'addFriend' person.id %}">
+											<button class="form-control form-control-md btn btn-outline-success btn-md">Add Friend</button>
+										</a>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+							{% endif %}
+						{% endif %}
 					</div>
 					<div class="col-md-9">
 						<div class="row">
@@ -114,7 +141,39 @@
 									<div class="alert alert-info" role="alert">Nothing Rented.</div>
 								{% endif %}
 							</div>
-							<!-- <div class="col-md-6"></div> -->
+							<div class="col-md-6">
+								{% if person.friends.all|length > 0 %}
+									<h3>Friends</h3>
+									<div class="person__friends">
+										<table class="center">
+											<thead>
+												<tr>
+													<th>BPUID</th>
+													<th>Name</th>
+													<th>Details</th>
+												<tr>
+											</thead>
+											<tbody>
+												{% for person in person.friends.all %}
+													<tr>
+														<td>{{ person.id }}</td>
+														<td>{{ person.first }} {{ person.last }}</td>
+														<td>
+															<a href="{% url 'person' person.user.id %}">
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+															</a>
+														</td>
+													</tr>
+												{% empty %}
+													<div class="alert alert-info" role="alert">No Friends.</div>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+								{% else %}
+									<div class="alert alert-info" role="alert">No Friends.</div>
+								{% endif %}
+							</div>
 						</div>
 						<hr>
 						<div class="row">

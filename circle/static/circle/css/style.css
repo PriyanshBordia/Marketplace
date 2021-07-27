@@ -394,13 +394,10 @@ hr {
 }
 
 .person {
-  margin: 2rem 2rem 2rem 2rem;
+  margin: 2rem;
 }
 
 .person__grid {
-  margin-top: 1.5rem;
-  margin-right: 2rem;
-  margin-left: auto;
   padding: 1rem;
 }
 
@@ -562,7 +559,7 @@ hr {
   background-color: #233554;
 }
 
-.friend__container {
+.friends__container {
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -572,16 +569,16 @@ hr {
           justify-content: center;
 }
 
-.friend__container__grid {
+.friends__container__grid {
   margin: 2rem auto 1rem auto;
   border: 0.125rem solid #ccd6f6;
 }
 
-.friend__container__grid:hover {
+.friends__container__grid:hover {
   background-color: #112240;
 }
 
-.friend__container__grid__img {
+.friends__container__grid__img {
   margin-top: 2rem;
   max-width: 9rem;
   max-height: 9rem;
@@ -589,7 +586,7 @@ hr {
   border: 2px solid coral;
 }
 
-.friend__container__grid__name {
+.friends__container__grid__name {
   padding: 1rem;
   margin: 1rem;
   font-size: 1.5rem;
@@ -597,18 +594,18 @@ hr {
   border-bottom: 1px solid #ccd6f6;
 }
 
-.friend__container__grid__btn {
+.friends__container__grid__btn {
   margin: 1rem;
   width: 1in;
 }
 
-.friend__container__msg {
+.friends__container__msg {
   max-width: 50rem;
   margin: auto;
   margin-top: 8rem;
 }
 
-.friend__container__msg__btn {
+.friends__container__msg__btn {
   margin: 2rem;
   width: 2in;
 }

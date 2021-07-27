@@ -62,35 +62,39 @@
 						<div class="article__grid__desc">
 							{{ article.description }}
 						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<a href="{% url 'wishlist' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-info btn-lg">Bookmark</button>
-								</a>
+						{% if user.is_superuser %}
+							<div class="row">
+								<div class="col-md-4">
+									<a href="{% url 'wishlist' article.id %}">
+										<button class="form-control form-control-lg btn btn-outline-info btn-lg">Bookmark</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<a href="{% url 'rent' article.id %}">
+										<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<a href="{% url 'cart' article.id %}">
+										<button class="form-control form-control-lg btn btn-outline-success btn-lg">Cart</button>
+									</a>
+								</div>
 							</div>
-							<div class="col-md-4">
-								<a href="{% url 'rent' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
-								</a>
+						{% else %}
+							<div class="row">
+								<div class="col-md-6">
+									<a href="{% url 'edit' article.id 'article' %}">
+										<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Edit</button>
+									</a>
+								</div>
+								<div class="col-md-6">
+									<a href="{% url 'remove' article.id 'article' %}">
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
+									</a>
+								</div>
 							</div>
-							<div class="col-md-4">
-								<a href="{% url 'cart' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Cart</button>
-								</a>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<a href="{% url 'edit' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Edit</button>
-								</a>
-							</div>
-							<div class="col-md-6">
-								<a href="{% url 'remove' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
-								</a>
-							</div>
-						</div>
+						{% endif %}
+						
 						<div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">

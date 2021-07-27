@@ -14,6 +14,9 @@ class Tag(models.Model):
 
 	description = models.TextField(max_length=511, blank=False, null=False, default="A Tag")
 
+	# created_ts = models.DateTimeField(auto_now_add=True)
+	# updated_ts = models.DateTimeField(auto_now=True)
+
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
@@ -35,19 +38,18 @@ class Tag(models.Model):
 
 class Article(models.Model):
 
-	# owner = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="owner", default=1)
-	
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
 	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
 
 	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
 
-	pub_ts = models.DateTimeField(auto_now=True)
-
 	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
+
+	pub_ts = models.DateTimeField(auto_now_add=True)
+	# updated_ts = models.DateTimeField(auto_now=True)
 
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
@@ -102,6 +104,9 @@ class Person(models.Model):
 
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
+	# created_ts = models.DateTimeField(auto_now_add=True)
+	# updated_ts = models.DateTimeField(auto_now=True)
+
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 
@@ -119,7 +124,7 @@ class Person(models.Model):
 		ordering = ['id']
 
 	def __str__(self):
-		return f"{self.first} {self.last}  {self.age}  {self.sex}"
+		return f"{self.first} {self.last}  {self.age}"
 
 
 class Message(models.Model):
@@ -128,10 +133,13 @@ class Message(models.Model):
 
 	timestamp = models.DateTimeField(auto_now_add=True)
 	
+	# created_ts = models.DateTimeField(auto_now_add=True)
+	# updated_ts = models.DateTimeField(auto_now=True)
+
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.text) + str(self.timestamp))
+		self.slug = slugify(str(self.text) + str(self.timestamp) + str(self.id))
 		super(Message, self).save(*args, **kwargs)
 
 	def isValidMessage(self):
@@ -149,13 +157,16 @@ class Message(models.Model):
 
 class Chat(models.Model):
 	
-	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
-	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
-
-	created_date = models.DateTimeField(auto_now_add=True)
+	sender = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="sender")
+	receiver = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="receiver")
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 
+	created_date = models.DateTimeField(auto_now_add=True)
+
+	# created_ts = models.DateTimeField(auto_now_add=True)
+	# updated_ts = models.DateTimeField(auto_now=True)
+	
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 
@@ -174,3 +185,31 @@ class Chat(models.Model):
 
 	def __str__(self):
 		return f"{self.sender.first} {self.sender.last} <-> {self.receiver.first} {self.receiver.last}"
+
+
+# class Friend(models.Model):
+
+# 	chat = models.ForeignKey(Chat, )
+# 	created_ts = models.DateTimeField(auto_now_add=True)
+# 	updated_ts = models.DateTimeField(auto_now=True)
+
+# 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
+
+
+# 	def save(self, *args, **kwargs):
+# 		self.slug = slugify(self.username)
+# 		super(Friend, self).save(*args, **kwargs)
+
+# 	def isValidPerson(self):
+# 		return self.rented != self.sold
+	
+# 	def __format__(self):
+# 		return f"{self.id} {self.slug}"
+
+# 	class Meta:
+# 		ordering = ['id']
+
+# 	def __str__(self):
+# 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
+
+

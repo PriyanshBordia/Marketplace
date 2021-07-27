@@ -10,41 +10,46 @@
 	{% load static %}
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
+	{% load humanizelib %}
 {% endblock %}
 
 {% block body %}
-	<div class="friend container-fluid text-center">
-		<div class="friend__container justify-content-center">
-			{% for friend in friends %}
-				<div class="col-md-4">
-					<div class="friend__container__grid">
-						<div class="friend__container__grid__img">
-							<img src="{% static friend.profile.url %}" alt="{{ friend.id }}" />
-						</div>
-						<!-- <div > -->
-							<h3 class="friend__container__grid__name">{{ friend.first }} {{ friend.last }}</h3>
-						<!-- </div> -->
-						<div class="row">
-							<a href="{% url 'chats' %}">
-								<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger">Unfriend</button>
-							</a>
-							<a href="{% url 'chats' %}">
-								<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-warning">Chat</button>
-							</a>
-							<a href="{% url 'chats' %}">
-								<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger">Remove</button>
-							</a>
+	<div class="friends">
+		<div class="friends__container">
+			<div class="row">
+				{% for friend in friends %}
+					<div class="col-md-4">
+						<div class="friends__container__grid">
+							<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="{{ friend.id }}" />
+							<h3 class="friends__container__grid__name">{{ friend.reciever.first }} {{ friend.reciever.last }}</h3>
+							<div class="row">
+								<div class="col-md-4">
+									<!-- <p class="text-left"><small class="text-muted">{{ friend }}</small></p> -->
+									<!-- <a href="{% url 'chats' %}">
+										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger btn-md"></button>
+									</a> -->
+								</div>
+								<div class="col-md-4">
+									<a href="{% url 'chat' chat.id %}">
+										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-warning btn-md">Chat</button>
+									</a>
+								</div>
+								<div class="col-md-4">
+									<a href="{% url 'remove' friend.reciever.id 'friend' %}">
+										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger btn-md">Unfriend</button>
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% empty %}
-				<div class="friend__container__msg">
-					<p class="friend__container__msg__title alert alert-info" role="alert">You don't have any friends.</p>
-					<a href="{% url 'persons' %}">
-						<button class="friend__container__msg__btn form-control form-control-lg btn btn-outline-info btn-lg">Find people.!</button>
-					</a>
-				</div>
-			{% endfor %}
+				{% empty %}
+					<div class="friends__container__msg">
+						<p class="friends__container__msg__title alert alert-info" role="alert">You don't have any friends.</p>
+						<a href="{% url 'persons' %}">
+							<button class="friends__container__msg__btn form-control form-control-lg btn btn-outline-info btn-lg">Find people.!</button>
+						</a>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
