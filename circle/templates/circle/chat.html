@@ -14,39 +14,41 @@
 {% endblock %}
 
 {% block body %}
-	<div class="chat text-center">
-		<div class="chat__container justify-content-center">
+	<div class="chat">
+		<div class="chat__container">
 			<div class="row">
 				<div class="col-md-4">
-					<img class="chat__container__img" src="https://img.icons8.com/bubbles/200/000000/topic.png" />
-					<div class="chat__container__details">
-						<p>details</p>
+					<img class="chat__container__img" src="{% static chat.receiver.profile.url %}" alt="BP{{ person.id }}ID" />
+					<h4 class="chat__container__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h4>
+					<div class="chat__container__btn">
+						<a href="{% url 'person' chat.receiver.id %}">
+							<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
+						</a>
 					</div>
+					<hr>
 				</div>
 				<div class="col-md-8">
-					<div class="chat__container__header">
-						{{ chat }}
-					</div>
-					<div class="row chat__container__grid">
+					<div class="chat__container__grid justify-content-center">
+						<!-- <div class="chat__container__grid__header"></div> -->
 						<div class="chat__container__grid__message">
 							{% for message in chat.messages.all %}
 								<div class="row">
 									{% if message.sender_id != request.user.id %}
 										<div class="chat__container__grid__message__sender">
 											{{ message.text }}
+											<br>
+											<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
 										</div>
-										<br>
-										<small>{{ message.timestamp|naturaltime }}</small>
 									{% else %}
 										<div class="chat__container__grid__message__receiver">
 											{{ message.text }}
+											<br>
+											<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
 										</div>
-										<br>
-										<small>{{ message.timestamp|naturaltime }}</small>
 									{% endif %}
 								</div>
 							{% empty %}
-								<div class="alert alert-info">Start a conversation.!</div>
+								<div class="alert alert-info" role="alert">Start a conversation.!</div>
 							{% endfor %}
 						</div>
 					</div>
@@ -55,17 +57,14 @@
 					
 							{% csrf_token %}
 					
-							<!-- {% bootstrap_form form layout='horizontal' %} -->
-					
-							<!-- {% bootstrap_button "<img src='https://img.icons8.com/bubbles/50/000000/sent.png' />" button_class="form-control form-control-md" button_type="submit" %} -->
-					
 							<div class="row">
 								<div class="col-md-10">
 									<input class="form-control form-control-lg" autocomplete="off" autofocus
-										placeholder="Type your message here..." type="text" name="message" />
+										placeholder="Type your message here..." type="text" name="message" required />
 								</div>
 								<div class="col-md-2">
-									<button class="form-control form-control-lg btn btn-lg btn-outline-info">Send</button>
+									<button class="form-control form-control-lg btn btn-lg btn-outline-info btn-lg"><i
+											class="fas fa-arrow-right"></i></button>
 								</div>
 							</div>
 						</form>

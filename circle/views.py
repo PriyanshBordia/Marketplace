@@ -323,12 +323,13 @@ def friends(request):
 	user_id = request.user.id
 	try:
 		person = Person.objects.filter(user_id=user_id).first()
-		# friends = person.friends.all()
-		friends = Chat.objects.filter(sender=person) #| Q(receiver=person)
-		return render(request, "circle/friends.html", context={"friends": friends})
+		friends = person.friends.all()
+		chats = Chat.objects.filter(Q(sender=person) | Q(receiver=person))
+		return render(request, "circle/friends.html", context={"chats": chats, "friends": friends})
 	except Person.DoesNotExist:
-		friends = []
 		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Type Error", "link": "search"})
+	except Chat.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "You don't have any chats.!!", "type": "Data Error", "link": "search"})
 
 
 @login_required

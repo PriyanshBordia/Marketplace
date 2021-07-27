@@ -17,11 +17,11 @@
 	<div class="friends">
 		<div class="friends__container">
 			<div class="row">
-				{% for friend in friends %}
+				{% for chat in chats %}
 					<div class="col-md-4">
 						<div class="friends__container__grid">
 							<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="{{ friend.id }}" />
-							<h3 class="friends__container__grid__name">{{ friend.reciever.first }} {{ friend.reciever.last }}</h3>
+							<h3 class="friends__container__grid__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h3>
 							<div class="row">
 								<div class="col-md-4">
 									<!-- <p class="text-left"><small class="text-muted">{{ friend }}</small></p> -->
@@ -35,7 +35,7 @@
 									</a>
 								</div>
 								<div class="col-md-4">
-									<a href="{% url 'remove' friend.reciever.id 'friend' %}">
+									<a href="{% url 'remove' chat.receiver.id 'friend' %}">
 										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger btn-md">Unfriend</button>
 									</a>
 								</div>

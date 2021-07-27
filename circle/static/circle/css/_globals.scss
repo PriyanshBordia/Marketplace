@@ -63,10 +63,9 @@ svg {
 
 
 h1 {
-	margin-top: 1.4rem;
-	margin-bottom: .7rem;
-    color: $LightSaberBlue;
+	margin: 1.4rem auto .7rem auto;
     font-weight: 250;
+    color: $LightSaberBlue;
 }
 
 h1:hover {
@@ -76,37 +75,32 @@ h1:hover {
 }
 
 h2, .home-head, .h2 {
-	margin-top: 1rem;
-	margin-bottom: .5rem;
-    color: $Casablanca;
+	margin: 1rem auto .5rem auto;
     font-weight: 400;
+    color: $Casablanca;
 }
 
 h3 {
-	margin-top: .8rem;
-	margin-bottom: .4rem;
-    color: $CadetBlue;
+	margin: .8rem auto .4rem auto;
     font-weight: 450;
+    color: $CadetBlue;
 }
 
 h4 {
-	margin-top: .6rem;
-	margin-bottom: .3rem;
-    color: $RoseGold;
+	margin: .6rem auto .3rem auto;
     font-weight: 500;
+    color: $RoseGold;
 }
 
 h5 {
-	margin-top: .4rem;
-	margin-bottom: .2rem;
-    color: $VanillaGrey;
+	margin: .4rem auto .2rem auto;
     font-weight: 600;
+    color: $Silver;
 }
 
 h6 {
-	margin-top: .2rem;
-	margin-bottom: .1rem;
-	color: $VanillaGrey;
+	margin: .2rem auto .1rem auto;
+	color: $CuriousBlue;
     font-weight: 650;
 }
 
@@ -143,7 +137,7 @@ hr {
     margin: .8rem auto .8rem auto;
 }
 
-.col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
+.col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
     padding: 0.5rem .5rem 0.5rem .5rem;
 }
 
