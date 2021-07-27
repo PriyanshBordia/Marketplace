@@ -39,8 +39,22 @@ def newPerson(request):
 
 @login_required
 def addPerson(request):
+	person = Person()
+	if request.POST:
+		form = PersonForm(request.POST, request.FILES, instance=person)
+		if form.is_valid():
+			person.user = User.objects.get(pk=request.user.id)
+			person.username = str(form.cleaned_data["email"].split('@')[0])
+			form.save()
+			return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
+		else:
+			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "persons"})
+	else:
+		form = PersonForm(instance=person)
+		return render(request, "circle/person.html", context={"person": person, "form": form})
+
 	if request.GET:
-		return HttpResponseRedirect(reverse("search", args=()))
+		return HttpResponseRedirect(reverse('newPerson', args=()))
 	else:
 		try:
 			user = User.objects.get(pk=request.user.id)
@@ -110,12 +124,12 @@ def addPerson(request):
 				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
 			username = email.split('@')[0]
-			# ph_no = (9378214503 + (user_id * 10) % request.user.id)
+
 			profile = request.FILES['profile']
 
 			try:
-				person = Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
-				return HttpResponseRedirect(reverse("person", args=(user.id, )))
+				Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
+				return HttpResponseRedirect(reverse('person', args=(user.id, )))
 			except:
 				return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
 		except User.DoesNotExist:
@@ -126,6 +140,7 @@ def addPerson(request):
 def person(request, person_id):
 	try:
 		person = Person.objects.get(user_id=person_id)
+		cprint(person.sex, 'red')
 		return render(request, "circle/person.html", context={"person": person})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Key Error.!", "link": "person"})
@@ -146,19 +161,15 @@ def newArticle(request):
 @login_required	
 def addArticle(request):
 	# if request.method == "POST":
-	# 	cprint('post', 'cyan')
 	# 	form = ArticleForm(request.POST, request.FILES)
-	# 	cprint(form, 'yellow')
 	# 	if form.is_valid():
-	# 		cprint('yes', 'red')
-	# 	form.save()
+	# 		form.save()
 	# 	return HttpResponseRedirect(reverse("articles"))
 	# else:
-	# 	form = ArticleForm()
-	# return render(request, "circle/newArticle.html", context={"form": form})
+	# 	return HttpResponseRedirect('newArticle.html', args=())
 
 	if request.GET:
-		return HttpResponseRedirect(reverse("newArticle", args=()))
+		return HttpResponseRedirect(reverse('newArticle', args=()))
 	else:
 		user_id = request.user.id
 
@@ -189,20 +200,20 @@ def addArticle(request):
 		except TypeError:
 			return render(request, "circle/error.html", context={"message": "Incompatible Tag DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-		image = request.FILES['image']
+		# try:
+		# 	tags = request.POST.get('tags')
+		# 	if tags is not None:
+		# 		tags = list(tags)
+		# 	else:
+		# 		tags = []
+		# except KeyError:
+		# 	return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
+		# except ValueError:
+		# 	return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
+		# except TypeError:
+		# 	return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
 
-		try:
-			tags = request.POST.get('tags')
-			if tags is not None:
-				tags = list(tags)
-			else:
-				tags = []
-		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "newArticle"})
-		except ValueError:
-			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newArticle"})
-		except TypeError:
-			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newArticle"})
+		image = request.FILES['image']
 
 		article = Article.objects.create(title=title, description=description, image=image, price=price)
 		# cprint(article, 'red')
@@ -222,7 +233,7 @@ def addArticle(request):
 			person.save() 
 			return HttpResponseRedirect(reverse("article", args=(article.id, )))
 		except Person.DoesNotExist:  
-			return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Key Error", "link": "newArticle"})
+			return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newArticle"})
 
 
 @login_required

@@ -1,9 +1,11 @@
 .person {
 
+	margin: 2rem 2rem 2rem 2rem;
+
 	&__grid {
 
 		margin-top: 1.5rem;
-		margin-right: auto;
+		margin-right: 2rem;
 		margin-left: auto;
 		padding: 1rem;
 
@@ -37,6 +39,11 @@
 
 		&__age, &__gender {
 			font-size: 1rem;
+		}
+
+		&__btn {
+
+			margin-top: 3rem;
 		}
 	}
 

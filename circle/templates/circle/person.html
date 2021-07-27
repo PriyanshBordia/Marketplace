@@ -13,21 +13,30 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid text-center">
+	<div class="person">
 		<div class="justify-content-center">
-			{% if form %}
-				<div class="row">
-					<div class="col-md-4">
-						<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />	
-						<div class="row">
-							<div class="col-md-4">
-								<a href="{% url 'person' request.user.id %}">
-									{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
-								</a>
-							</div>
+			<div class="row">
+				{% if form %}
+					<div class="col-md-3">
+						<div class="person__grid">
+							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
+							<p class="person__grid__username">{{ person.username }} </p>
+							<p class="person__grid__gender">{{ person.age }} {{ person.sex.value }}</p>
+							<!-- <p class="person__grid__age"> -->
+							<!-- {{ person.age }} -->
+							<!-- </p> -->
+							<p class="person__grid__bio"><i class="far fa-address-card"></i> {{ person.bio }}</p>
+							<p class="person__grid__email"><i class="fas fa-envelope"></i> {{ person.email }} </p>
+							<p class="person__grid__phno"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
+							<!-- <p>{{ person.slug }}</p> -->
+							<br>
+							<a class="person__grid__btn" href="{% url 'person' request.user.id %}">
+								{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info btn-md" %}
+							</a>
 						</div>
 					</div>
-					<div class="col-md-8">
+					<div class="col-md-9">
 						<form class="form-group" action="{% url 'edit' person.id 'person' %}" method="POST" enctype="multipart/form-data">
 
 							{% csrf_token %}
@@ -35,38 +44,28 @@
 							{% bootstrap_form form layout='horizontal' %}
 					
 							<div class="row">
+								<div class="col-md-4"> </div>
 								<div class="col-md-4">
-									<a href="{% url 'person' request.user.id %}">
-										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info" %}
-									</a>
+									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning btn-md" button_type="reset" %}
 								</div>
 								<div class="col-md-4">
-									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning" button_type="reset" %}
-								</div>
-								<div class="col-md-4">
-									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success" button_type="submit" %}
+									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success btn-md" button_type="submit" %}
 								</div>
 							</div>
 						</form>
 					</div>
-				</div>
-			{% else %}
-				<div class="row">
-					<div class="person col-md-3">
+				{% else %}
+					<div class="col-md-3">
 						<div class="person__grid">
 							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
 							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
 							<p class="person__grid__username">{{ person.username }} </p>
-							<p class="person__grid__gender">{{ person.age }} {{ person.sex }}</p>
-							<!-- <p class="person__grid__age"> -->
-								<!-- {{ person.age }} -->
-							<!-- </p> -->
-							<p class="person__grid__bio">{{ person.bio }}</p>
-							<p class="person__grid__email">{{ person.email }} </p>
-							<p class="person__grid__phno">{{ person.ph_no }} </p>
-							<p>{{ person.slug }}</p>
+							<p class="person__grid__gender">{{ person.age }} {{ person.sex.value }}</p>
+							<p class="person__grid__bio"><i class="far fa-address-card"></i> {{ person.bio }}</p>
+							<p class="person__grid__email"><i class="fas fa-envelope"></i> {{ person.email }} </p>
+							<p class="person__grid__phno"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
+							<!-- <p>{{ person.slug }}</p> -->
 						</div>
-						<!-- <hr> -->
 						<div class="row">
 							<div class="col-md-6">
 								<a href="{% url 'edit' person.id 'person' %}">
@@ -80,7 +79,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="person col-md-9">
+					<div class="col-md-9">
 						<div class="row">
 							<div class="col-md-6">
 								{% if person.rented.all|length > 0 %}
@@ -101,7 +100,7 @@
 														<td>{{ article.title }}</td>
 														<td>
 															<a href="{% url 'article' article.id %}">
-																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">Show</button>
 															</a>
 														</td>
 													</tr>
@@ -138,7 +137,7 @@
 														<td>{{ article.title }}</td>
 														<td>
 															<a href="{% url 'article' article.id %}">
-																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">Show</button>
 															</a>
 														</td>
 													</tr>
@@ -171,7 +170,7 @@
 														<td>{{ article.title }}</td>
 														<td>
 															<a href="{% url 'article' article.id %}">
-																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">Show</button>
 															</a>
 														</td>
 													</tr>
@@ -207,7 +206,7 @@
 														<td>{{ article.title }}</td>
 														<td>
 															<a href="{% url 'article' article.id %}">
-																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">Show</button>
 															</a>
 														</td>
 													</tr>
@@ -240,7 +239,7 @@
 														<td>{{ article.title }}</td>
 														<td>
 															<a href="{% url 'article' article.id %}">
-																<button class="form-control form-control-lg btn btn-outline-info btn-md">Show</button>
+																<button class="form-control form-control-lg btn btn-outline-info btn-lg">Show</button>
 															</a>
 														</td>
 													</tr>

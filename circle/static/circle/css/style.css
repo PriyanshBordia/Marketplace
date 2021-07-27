@@ -134,7 +134,7 @@ svg {
 }
 
 .container {
-  max-width: 66em;
+  max-width: 40em;
   margin: 3rem auto 2rem auto;
   text-align: center;
   -webkit-box-align: center;
@@ -393,9 +393,13 @@ hr {
   margin-bottom: 1rem;
 }
 
+.person {
+  margin: 2rem 2rem 2rem 2rem;
+}
+
 .person__grid {
   margin-top: 1.5rem;
-  margin-right: auto;
+  margin-right: 2rem;
   margin-left: auto;
   padding: 1rem;
 }
@@ -431,6 +435,10 @@ hr {
   font-size: 1rem;
 }
 
+.person__grid__btn {
+  margin-top: 3rem;
+}
+
 .person__rented, .person__display, .person__bookmarked, .person__purchased, .person__sold {
   margin: 1rem auto 1rem auto;
 }
@@ -441,6 +449,14 @@ hr {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.persons__grid {
+  border: 1px solid #ccd6f6;
+  background-color: #112240;
 }
 
 .article {
@@ -730,12 +746,10 @@ hr {
 }
 
 table, tr, th, td {
-  margin-top: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
+  margin-top: 2rem auto 2rem auto;
+  padding: .5rem;
   text-align: center;
-  border: 2px solid #bd8c7d;
+  border: .125rem solid #bd8c7d;
 }
 
 thead {
@@ -749,7 +763,7 @@ tbody {
 
 th {
   color: #7dce94;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
