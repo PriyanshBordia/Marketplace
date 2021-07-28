@@ -18,14 +18,24 @@
 		<div class="chat__container">
 			<div class="row">
 				<div class="col-md-4">
-					<img class="chat__container__img" src="{% static chat.receiver.profile.url %}" alt="BP{{ person.id }}ID" />
-					<h4 class="chat__container__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h4>
-					<div class="chat__container__btn">
-						<a href="{% url 'person' chat.receiver.id %}">
-							<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
-						</a>
-					</div>
-					<hr>
+					{% if chat.receiver.user.id == request.user.id %}
+						<img class="chat__container__img" src="{% static chat.sender.profile.url %}" alt="BP{{ person.id }}ID" />
+						<h4 class="chat__container__name">{{ chat.sender.first }} {{ chat.sender.last }}</h4>
+						<div class="chat__container__btn">
+							<a href="{% url 'person' chat.sender.id %}">
+								<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
+							</a>
+						</div>
+					{% else %}
+						<img class="chat__container__img" src="{% static chat.receiver.profile.url %}" alt="BP{{ person.id }}ID" />
+						<h4 class="chat__container__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h4>
+						<div class="chat__container__btn">
+							<a href="{% url 'person' chat.receiver.id %}">
+								<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
+							</a>
+						</div>
+					{% endif %}
+					<hr class="mr-4 ml-4">
 				</div>
 				<div class="col-md-8">
 					<div class="chat__container__grid justify-content-center">
@@ -33,18 +43,30 @@
 						<div class="chat__container__grid__message">
 							{% for message in chat.messages.all %}
 								<div class="row">
-									{% if message.sender_id != request.user.id %}
-										<div class="chat__container__grid__message__sender">
-											{{ message.text }}
-											<br>
-											<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
-										</div>
+									{% if chat.sender.user.id == chat.sender.user.id %}
+										{% if chat.sender.user.id == request.user.id %}
+											<div class="chat__container__grid__message__sender">
+												<p class="pl-2 pr-2">{{ message.text }}</p>
+												<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
+											</div>
+										{% else %}
+											<div class="chat__container__grid__message__receiver">
+												<p class="pl-2 pr-2">{{ message.text }}</p>
+												<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
+											</div>
+										{% endif %}
 									{% else %}
-										<div class="chat__container__grid__message__receiver">
-											{{ message.text }}
-											<br>
-											<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
-										</div>
+										{% if chat.receiver.user.id == request.user.id %}
+											<div class="chat__container__grid__message__sender">
+												<p class="pl-2 pr-2">{{ message.text }}</p>
+												<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
+											</div>
+										{% else %}
+											<div class="chat__container__grid__message__receiver">
+												<p>{{ message.text }}</p>
+												<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
+											</div>
+										{% endif %}
 									{% endif %}
 								</div>
 							{% empty %}
@@ -63,8 +85,7 @@
 										placeholder="Type your message here..." type="text" name="message" required />
 								</div>
 								<div class="col-md-2">
-									<button class="form-control form-control-lg btn btn-lg btn-outline-info btn-lg"><i
-											class="fas fa-arrow-right"></i></button>
+									<button class="form-control form-control-lg btn btn-lg btn-outline-info btn-lg"><i class="fas fa-arrow-right"></i></button>
 								</div>
 							</div>
 						</form>

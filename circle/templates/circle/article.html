@@ -19,7 +19,11 @@
 			{% if form %}
 				<div class="row">
 					<div class="col-md-6">
-						<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 600px; max-height: 300px;" />
+						{% if article.image.url %}
+							<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 600px; max-height: 300px;" />
+						{% else %}
+							<img src="https://img.icons8.com/bubbles/100/000000/edit-file.png"/>
+						{% endif %}
 					</div>
 					<div class="col-md-6">
 						<form class="form-group" action="{% url 'edit' article.id 'article' %}" method="POST" enctype="multipart/form-data">

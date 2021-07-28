@@ -92,20 +92,21 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  text-align: center;
   font-size: 1.125rem;
   font-weight: 300;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  line-height: 1.3;
+  color: whitesmoke;
+  background-color: #001831;
+  text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  line-height: 1.3;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  color: whitesmoke;
-  background-color: #001831;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body.no-scroll {
@@ -673,6 +674,12 @@ hr {
   border-radius: .6rem;
 }
 
+.chat__container__grid__message__sender p {
+  margin-bottom: 0;
+  padding: .2rem .4rem 0 1rem;
+  text-align: right;
+}
+
 .chat__container__grid__message__sender small {
   padding: auto 1rem auto 1rem;
   float: right;
@@ -686,6 +693,12 @@ hr {
   float: left;
   border: 0.125rem solid #e6f1ff;
   border-radius: .6rem;
+}
+
+.chat__container__grid__message__receiver p {
+  margin-bottom: 0;
+  padding: .2rem 1rem 0 .4rem;
+  text-align: left;
 }
 
 .chat__container__grid__message__receiver small {

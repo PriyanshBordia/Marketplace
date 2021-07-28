@@ -47,7 +47,6 @@
 		&__grid {
 
 			margin: 1rem auto 1rem auto;
-			// width: calc(100vw - 700px);
 			height: calc(100vh - 400px);
 			background-color: $LightNavy;
 			border: .125rem solid $LightSlate;
@@ -72,6 +71,12 @@
 					border: .125rem solid $White;
 					border-radius: .6rem;
 					
+					p {
+						margin-bottom: 0;
+						padding: .2rem .4rem 0 1rem;
+						text-align: right;
+					}
+
 					small {
 						padding: auto 1rem auto 1rem;
 						float: right;
@@ -87,6 +92,12 @@
 					float: left;
 					border: .125rem solid $White;
 					border-radius: .6rem;
+
+					p {
+						margin-bottom: 0;
+						padding: .2rem 1rem 0 .4rem;
+						text-align: left;
+					}
 
 					small {
 						padding: auto 1rem auto 1rem;

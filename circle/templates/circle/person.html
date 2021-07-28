@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-	MPP{{ person.id }}ID
+	BP{{ person.id }}ID
 {% endblock %}
 
 {% block head %}
@@ -57,7 +57,11 @@
 				{% else %}
 					<div class="col-md-3">
 						<div class="person__grid">
-							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+							{% if person.profile.url %}
+								<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+							{% else %}
+								<img src="https://img.icons8.com/bubbles/100/000000/name.png" />
+							{% endif %}
 							<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
 							<p class="person__grid__username">{{ person.username }} </p>
 							<p class="person__grid__gender">{{ person.age }} {{ person.sex }}</p>
@@ -314,8 +318,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endif %}
+				{% endif %}
+			</div>
 		</div>
 	</div>
 {% endblock %}
