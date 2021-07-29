@@ -7,9 +7,9 @@
 		&__grid {
 
 			margin: 1.5rem auto 1.5rem auto;
-			text-align: center;
-			align-items: center;
-			justify-content: center;
+			// text-align: center;
+			// align-items: center;
+			// justify-content: center;
 			border: .125rem solid $LightestSlate;
 			background-color: $LightNavy;
 
@@ -21,24 +21,30 @@
 
 			&__title {
 
-				padding-top: .6rem;
+				padding: .6rem auto .4rem auto;
 			}
 			
 			&__price {
 
-				padding: .4rem;
+				padding: .2rem;
+				color: $RoseGold;
+				background-color: $Navy;
+				border: .125rem solid $LightestSlate;
+				border-radius: 1rem;
 			}
 
-			&__btn {
+			// &__btn {
 				
-				margin-top: .4rem .2rem auto .2rem;
-				width: $btn-size-xxs;
-			}
+				// margin-top: .4rem .2rem auto .2rem;
+				// width: $btn-size-xxs;
+			// }
 
-			small {
-				color: gray;
-				font-size: .8rem;
-				font-weight: 100;
+			p {
+				small {
+					color: gray;
+					font-size: .8rem;
+					font-weight: 100;
+				}
 			}
 
 			&:hover {

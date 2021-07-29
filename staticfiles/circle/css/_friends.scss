@@ -40,22 +40,5 @@
 				width: $btn-size-xxs;
 			}
 		}
-
-		&__msg {
-
-			// position: absolute;
-			// left: 50%;
-			// top: 50%;
-			// transform: translate(-50%, -50%);
-			max-width: 50rem;
-			margin: auto;
-			margin-top: 8rem;
-
-			&__btn {
-
-				margin: 2rem;
-				width: $btn-size-xs;
-			}
-		}
 	}
 }
