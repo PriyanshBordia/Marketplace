@@ -76,7 +76,7 @@ class Person(models.Model):
 
 	options = (('M', 'Male'), ('F', 'Female'), ('X', 'Not Preferred to say'))
 
-	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user")
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="person")
 	profile = models.ImageField(upload_to="images/persons", blank=True, null=False)
 
 	username = models.CharField(max_length=64, blank=False, null=False, unique=True)
@@ -113,6 +113,9 @@ class Person(models.Model):
 	def save(self, *args, **kwargs):
 		self.slug = slugify(str(self.id))
 		super(Person, self).save(*args, **kwargs)
+
+	def isDisplayed(self):
+		return self.display.all().count() > 0
 
 	def isValidPerson(self):
 		return (self.id > 0 and len(self.first + self.last) > 0)

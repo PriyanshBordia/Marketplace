@@ -52,6 +52,13 @@
 				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Type to Search..." aria-label="Search">
 				<button class="form-control btn btn-outline-warning my-2 my-sm-2" type="submit">Search</button>
 			</form>
+			<!-- <form class="form-inline my-3 my-lg-0 mr-auto ml-2" action="{% url 'persons' %}" method="POST">
+				
+				{% csrf_token %}
+
+				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Type to Search..." aria-label="Search">
+				<button class="form-control btn btn-outline-info my-2 my-sm-2" type="submit">Search</button>
+			</form> -->
             <ul class="navbar-nav mr-2">
 				{% if user.is_superuser %}
 					<li class="nav-item dropdown">

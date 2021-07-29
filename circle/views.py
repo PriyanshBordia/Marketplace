@@ -27,6 +27,7 @@ def home(request):
 	# logger.info("This logs an info message.")
 	# logger.warning("This logs a warning message.")
 	# logger.error("This logs an error message.")
+	# cprint(request.user.person.display.all(), "red")
 	return render(request, "circle/home.html", context={})
 
 
@@ -130,7 +131,7 @@ def addPerson(request):
 
 			try:
 				Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
-				return HttpResponseRedirect(reverse('person', args=(user.id, )))
+				return HttpResponseRedirect(reverse('person', args=(person.id, )))
 			except:
 				return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
 		except User.DoesNotExist:
@@ -140,7 +141,7 @@ def addPerson(request):
 @login_required
 def person(request, person_id):
 	try:
-		person = Person.objects.get(user_id=person_id)
+		person = Person.objects.get(pk=person_id)
 		if request.user.id != person_id:
 			chat_id = Chat.objects.filter(Q(left=person_id, right=request.user.id) | Q(left=request.user.id, right=person_id)).first().id
 			return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
@@ -172,7 +173,7 @@ def addArticle(request):
 		if form.is_valid():
 			try:
 				form.save()
-				person = Person.objects.filter(user_id=request.user.id).first()
+				person = Person.objects.get(pk=request.user.person.id)
 				person.display.add(article)
 				person.save()
 				return HttpResponseRedirect(reverse("article", args=(article.id, )))
@@ -313,24 +314,22 @@ def articles(request):
 @login_required
 def addFriend(request, person_id):
 	try:
-		user_id = request.user.id
-		person = Person.objects.get(pk=person_id)
-		p = Person.objects.filter(user_id=user_id).first()
-		p.friends.add(person)
-		p.save()
-		sender_id = Person.objects.filter(user_id=user_id).first()
+		friend = Person.objects.get(pk=person_id)
+		person = Person.objects.get(pk=request.user.person.id)
+		person.friends.add(friend)
+		person.save()
 		if person.allowsMessage:
-			Chat.objects.create(left=sender_id, right=person_id)
-		return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
+			Chat.objects.create(left=person, right=friend)
+		return HttpResponseRedirect(reverse('person', args=(person.id, )))
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "search"})
 
 
 @login_required
 def friends(request):
-	user_id = request.user.id
 	try:
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		friends = person.friends.all()
 		chats = Chat.objects.filter(Q(left=person) | Q(right=person))
 		return render(request, "circle/friends.html", context={"chats": chats, "friends": friends})
@@ -353,7 +352,7 @@ def result(request):
 		try:
 			search = str(request.POST.get("search"))
 		except KeyError:
-			return render(request, "circle/error.html", context={"message":  "Enter a Bio.!!", "type": "Key Error", "link": "articles"})
+			return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
 		except ValueError:
 			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
 		except TypeError:
@@ -367,8 +366,8 @@ def result(request):
 @login_required
 def display(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.display.all()
 		return render(request, "circle/display.html", context={"articles": articles})
 	except Person.DoesNotExist:
@@ -378,9 +377,9 @@ def display(request):
 @login_required
 def wishlist(request, article_id):
 	try:
-		user_id = request.user.id
 		article = Article.objects.get(pk=article_id)
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		person.bookmarked.add(article)
 		person.save()
 		return HttpResponseRedirect(reverse("wishlisted", args=()))
@@ -394,9 +393,9 @@ def wishlist(request, article_id):
 @login_required
 def rent(request, article_id):
 	try:
-		user_id = request.user.id
 		article = Article.objects.get(pk=article_id)
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		person.rented.add(article)
 		person.save()
 		return HttpResponseRedirect(reverse("rented", args=()))
@@ -409,15 +408,11 @@ def rent(request, article_id):
 @login_required
 def cart(request, article_id):
 	try:
-		user_id = request.user.id
 		article = Article.objects.get(pk=article_id)
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		person.carted.add(article)
 		person.save()
-		# user_id = article.user.id
-		# person = Person.objects.filter(display=article).first()
-		# person.sold.add(article)
-		# person.save()
 		return HttpResponseRedirect(reverse("carted", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
@@ -428,8 +423,8 @@ def cart(request, article_id):
 @login_required
 def purchased(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.purchased.all()
 		return render(request, "circle/wishlist.html", context={"articles": articles})
 	except Person.DoesNotExist:
@@ -438,8 +433,8 @@ def purchased(request):
 
 def sold(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.sold.all()
 		return render(request, "circle/sold.html", context={"articles": articles})
 	except Person.DoesNotExist:
@@ -449,8 +444,8 @@ def sold(request):
 @login_required
 def wishlisted(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.bookmarked.all()
 		return render(request, "circle/wishlist.html", context={"articles": articles})
 	except Person.DoesNotExist:
@@ -460,8 +455,8 @@ def wishlisted(request):
 @login_required
 def rented(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.rented.all()
 		return render(request, "circle/rent.html", context={"articles": articles})
 	except Article.DoesNotExist:
@@ -473,8 +468,8 @@ def rented(request):
 @login_required
 def carted(request):
 	try:
-		user_id = request.user.id
-		person = Person.objects.filter(user_id=user_id).first()
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
 		articles = person.carted.all()
 		return render(request, "circle/cart.html", context={"articles": articles})
 	except Article.DoesNotExist:
@@ -494,12 +489,12 @@ def remove(request, id, type):
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 	elif type == 'article':
 		try:
-			user_id = request.user.id
+			person_id = request.user.person.id
 			article = Article.objects.get(pk=id)
 			if type == 'article':
 				article.delete()
 				return HttpResponseRedirect(reverse("articles", args=()))
-			person = Person.objects.filter(user_id=user_id).first()			
+			person = Person.objects.get(pk=person_id)
 			if type == 'marked':
 				person.bookmarked.remove(article)
 				person.save()
@@ -520,17 +515,17 @@ def remove(request, id, type):
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 	elif type == 'friend':
 		try:
-			user_id = request.user.id
-			person = Person.objects.filter(user_id=user_id).first()
 			friend = Person.objects.get(pk=id)
+			person_id = request.user.person.id
+			person = Person.objects.get(pk=person_id)
 			person.friends.remove(friend)
-			return HttpResponseRedirect(reverse('person', args=(user_id, )))
+			return HttpResponseRedirect(reverse('person', args=(person_id, )))
 		except Person.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Data Error", "link": "search"})
 	elif type == 'chat':
 		try:
-			user_id = request.user.id
-			person = Person.objects.filter(user_id=user_id).first()
+			person_id = request.user.person.id
+			person = Person.objects.get(pk=person_id)
 		except Person.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Data Error", "link": "search"})
 

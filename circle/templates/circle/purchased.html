@@ -14,56 +14,61 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid text-center">
-		<div class="justify-content-center">
+	<div class="articles">
+		<div class="articles__container">
 			<div class="row">
 				{% for article in articles %}
 					<div class="col-md-4">
-						<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+						<div class="articles__container__grid card text-white bg-dark mb-3" style="max-width: 24rem;">
 							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
 							<div class="card-body">
 								<h5 class="card-title">{{ article.title }}</h5>
-								<div class="row">
+								<!-- <div class="row">
 									<div class="col-md-3">
-										<a href="{% url 'article' article.id %}" class="">
-											<button class="btn btn-outline-info">View</button>
+										<a href="{% url 'remove' article.id 'marked' %}">
+											<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
 										</a>
 									</div>
 									<div class="col-md-3">
-										<a href="{% url 'buy' article.id %}" class="">
-											<button class="btn btn-outline-success">Buy</button>
+										<a href="{% url 'article' article.id %}">
+											<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
 										</a>
 									</div>
 									<div class="col-md-3">
 										<a href="{% url 'rent' article.id %}">
-											<button class="btn btn-outline-warning">Rent</button>
+											<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Rent</button>
 										</a>
 									</div>
 									<div class="col-md-3">
-										<a href="{% url 'remove' article.id 'marked' %}">
-											<button class="btn btn-outline-danger">Remove</button>
+										<a href="{% url 'buy' article.id %}">
+											<button class="form-control form-control-sm btn btn-outline-success btn-sm">Buy</button>
 										</a>
 									</div>
-								</div>
+								</div> -->
 							</div>
 							<p class="card-text text-left"><small class="text-muted">Added {{ article.pub_ts|naturaltime }}</small></p>
 						</div>
 					</div>
 				{% empty %}
-					<div class="container">
-						<div class="row">
+					<div class="container container-fluid text-center">
+						<div class="row justify-content-center">
 							<div class="alert alert-info" role="alert">
-								Nothing to view.!!
+								Nothing purchased.!!
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
+								<a href="{% url 'wishlisted' %}">
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">Wishlist</button>
+								</a>
+							</div>
+							<div class="col-md-6">
 								<a href="{% url 'search' %}">
-									<button class="form-control btn btn-outline-info btn-md">Search</button>
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Search</button>
 								</a>
 							</div>
 						</div>
-					</div>	
+					</div>
 				{% endfor %}
 			</div>
 		</div>

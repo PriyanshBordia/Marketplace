@@ -1,10 +1,17 @@
 .person {
 
-	margin: 2rem;
+	margin: 2rem auto 2rem auto;
+	
+	border: 1px solid $LightSlate;
+	background-color: $LightNavy;
+
 
 	&__grid {
 
-		padding: 1rem;
+		margin: 1rem 2rem 1rem 2rem;
+		padding: 1rem 1rem 1rem 1rem;
+		border: 1px solid $LightestSlate;
+		background-color: $LightestNavy;
 
 		&__img {
 
@@ -40,7 +47,7 @@
 
 		&__btn {
 
-			margin-top: 3rem;
+			margin: 3rem 2rem auto 2rem;
 		}
 	}
 

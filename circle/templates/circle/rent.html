@@ -14,34 +14,34 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<div class="justify-content-center">
+	<div class="articles">
+		<div class="articles__container">
 			<div class="row">
 				{% for article in articles %}
 					<div class="col-md-4">
-						<div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
+						<div class="articles__container__grid card text-white bg-dark mb-3" style="max-width: 24rem;">
 							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 24rem; height: 16rem;">
 							<div class="card-body">
 								<h5 class="card-title">{{ article.title }}</h5>
 								<div class="row">
-									<div class="col-md-12">
-										<a href="{% url 'article' article.id %}" class="">
-											<button class="btn btn-outline-info">View</button>
-										</a>
-									<!-- </div> -->
-									<!-- <div class="col-md-3"> -->
-										<a href="{% url 'cart' article.id %}" class="">
-											<button class="btn btn-outline-success">Cart</button>
-										</a>
-									<!-- </div> -->
-									<!-- <div class="col-md-3"> -->
-										<a href="{% url 'wishlist' article.id %}">
-											<button class="btn btn-outline-warning">Mark</button>
-										</a>
-									<!-- </div> -->
-									<!-- <div class="col-md-3"> -->
+									<div class="col-md-3">
 										<a href="{% url 'remove' article.id 'rented' %}">
-											<button class="btn btn-outline-danger">Remove</button>
+											<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
+										</a>
+									</div>
+									<div class="col-md-3">
+										<a href="{% url 'article' article.id %}">
+											<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
+										</a>
+									</div>
+									<div class="col-md-3">
+										<a href="{% url 'wishlist' article.id %}">
+											<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Mark</button>
+										</a>
+									</div>
+									<div class="col-md-3">
+										<a href="{% url 'return' article.id %}">
+											<button class="form-control form-control-sm btn btn-outline-success btn-sm">Return</button>
 										</a>
 									</div>
 								</div>
@@ -50,8 +50,8 @@
 						</div>
 					</div>
 				{% empty %}
-					<div class="container">
-						<div class="row">
+					<div class="container container-fluid text-center">
+						<div class="row justify-content-center">
 							<div class="alert alert-info" role="alert">
 								Nothing to view.!!
 							</div>
@@ -59,11 +59,11 @@
 						<div class="row">
 							<div class="col-md-12">
 								<a href="{% url 'search' %}">
-									<button class="form-control btn btn-outline-info btn-md">Search</button>
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Search</button>
 								</a>
 							</div>
 						</div>
-					</div>	
+					</div>
 				{% endfor %}
 			</div>
 		</div>

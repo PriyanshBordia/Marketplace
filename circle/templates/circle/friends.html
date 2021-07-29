@@ -17,7 +17,7 @@
 	<div class="friends">
 		<div class="friends__container">
 			<div class="row">
-				{% for chat in chats %}
+				{% for friend in friends %}
 					<div class="col-md-4">
 						<div class="friends__container__grid">
 							<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="{{ friend.id }}" />
@@ -43,11 +43,17 @@
 						</div>
 					</div>
 				{% empty %}
-					<div class="friends__container__msg">
-						<p class="friends__container__msg__title alert alert-info" role="alert">You don't have any friends.</p>
-						<a href="{% url 'persons' %}">
-							<button class="friends__container__msg__btn form-control form-control-lg btn btn-outline-info btn-lg">Find people.!</button>
-						</a>
+					<div class="container container-fluid text-center">
+						<div class="row justify-content-center">
+							<div class="alert alert-info" role="alert">You don't have any friends.</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{% url 'search' %}">
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Find people.!</button>
+								</a>
+							</div>
+						</div>
 					</div>
 				{% endfor %}
 			</div>
