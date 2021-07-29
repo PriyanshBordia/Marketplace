@@ -10,5 +10,5 @@ python3 manage.py migrate
 git add .
 git commit -am "deploy"
 git push
-sleep()
+sleep 3
 git push heroku main
