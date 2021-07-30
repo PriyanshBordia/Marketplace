@@ -1,25 +1,27 @@
 .person {
 
-	margin: 2rem auto 2rem auto;
+	margin: 1rem auto 1rem auto;
 	
-	border: 1px solid $LightSlate;
+	border: .125rem solid $LightSlate;
 	background-color: $LightNavy;
 
 
 	&__grid {
 
-		margin: 1rem 2rem 1rem 2rem;
+		margin: 1rem 1rem 1rem 1rem;
 		padding: 1rem 1rem 1rem 1rem;
-		border: 1px solid $LightestSlate;
+		border: .125rem solid $LightestSlate;
 		background-color: $LightestNavy;
 
 		&__img {
 
+			margin: 1rem auto 1rem auto;
 			width: 200px;
 			height: 200px;
-			border-radius: 50%;
 			text-align: center;
 			align-items: center;
+			border-radius: 50%;
+			border: .125rem solid $LightestSlate;
 		}
 
 		&__name {
@@ -41,13 +43,22 @@
 			font-size: 1rem;
 		}
 
+		&__email. &__ph_no {
+			font-size: 1rem;
+		}
+
 		&__age, &__gender {
 			font-size: 1rem;
 		}
 
 		&__btn {
 
-			margin: 3rem 2rem auto 2rem;
+			margin: 1rem auto 1rem auto;
+		}
+
+		&__form {
+
+			margin: 1rem 2rem 1rem 2rem;
 		}
 	}
 

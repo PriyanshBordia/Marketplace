@@ -10,54 +10,75 @@
 	{% load static %}
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
+	{% load humanizelib %}
 {% endblock %}
 
 {% block body %}
 	<div class="person">
 		<div class="row">
 			{% if form %}
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="person__grid">
-						<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+						{% if person.profile.url %}
+							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+						{% else %}
+							{% if person.sex == 'M' %}
+								<img src="https://img.icons8.com/bubbles/200/000000/writer-male.png" />
+							{% elif person.sex == 'F' %}
+								<img src="https://img.icons8.com/bubbles/200/000000/writer-female.png" />
+							{% else %}
+								<img src="https://img.icons8.com/bubbles/200/000000/iphone-spinner.png" />
+							{% endif %}
+						{% endif %}
 						<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
 						<p class="person__grid__username">{{ person.username }} </p>
-						<p class="person__grid__gender">{{ person.age }} {{ person.sex.value }}</p>
-						<!-- <p class="person__grid__age"> -->
-						<!-- {{ person.age }} -->
-						<!-- </p> -->
+						<p class="person__grid__gender">{{ person.age }} {{ person.sex }}</p>
 						<p class="person__grid__bio"><i class="far fa-address-card"></i> {{ person.bio }}</p>
 						<p class="person__grid__email"><i class="fas fa-envelope"></i> {{ person.email }} </p>
-						<p class="person__grid__phno"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
-						<!-- <p>{{ person.slug }}</p> -->
-						<br>
-						<a class="person__grid__btn" href="{% url 'person' request.user.id %}">
-							{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info btn-md" %}
-						</a>
-					</div>
-				</div>
-				<div class="col-md-9">
-					<form class="form-group" action="{% url 'edit' person.id 'person' %}" method="POST" enctype="multipart/form-data">
-
-						{% csrf_token %}
-			
-						{% bootstrap_form form layout='horizontal' %}
-				
-						<div class="row">
-							<div class="col-md-4"> </div>
-							<div class="col-md-4">
-								{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning btn-md" button_type="reset" %}
+						<p class="person__grid__ph_no"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
+						<div class="row mt-0 mb-0 pb-0">
+							<div class="col-md-8 pb-0">
+								<p class="text-left pl-1 pr-auto pt-0"><small class="text-muted">Last Updated {{ person.updated_ts|naturaltime }}</small></p>
 							</div>
-							<div class="col-md-4">
-								{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success btn-md" button_type="submit" %}
+							<div class="col-md-4 pb-0">
+								<p class="text-right pl-auto pr-1 pt-0"><small class="text-muted">{{ person.created_ts|naturaltime }}</small></p>
 							</div>
 						</div>
-					</form>
+					</div>
+					<div class="row mt-0">
+						<div class="col-md-12">
+							<a class="person__grid__btn" href="{% url 'person' request.user.id %}">
+								{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info btn-md" %}
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="person__grid__form">
+						<form class="form-group" action="{% url 'edit' person.id 'person' %}" method="POST" enctype="multipart/form-data">
+						
+							{% csrf_token %}
+						
+							{% bootstrap_form form layout='horizontal' %}
+						
+							<div class="row">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									{% bootstrap_button "Reset" button_class="form-control form-control-lg btn btn-outline-warning btn-lg" button_type="reset" %}
+								</div>
+								<div class="col-md-4">
+									{% bootstrap_button "Save" button_class="form-control form-control-lg btn btn-outline-success btn-lg" button_type="submit" %}
+								</div>
+								<div class="col-md-2"></div>
+							</div>
+						</form>
+					</div>
 				</div>
 			{% else %}
 				<div class="col-md-4">
 					<div class="person__grid">
 						{% if person.profile.url %}
-							<img class="person__grid__img" src="{% static person.profile.url %}" alt="UA{{ person.id }}ID" />
+							<img class="person__grid__img" src="{% static person.profile.url %}" alt="BP{{ person.id }}ID" />
 						{% else %}
 							<img src="https://img.icons8.com/bubbles/100/000000/name.png" />
 						{% endif %}
@@ -67,10 +88,18 @@
 						<p class="person__grid__bio"><i class="far fa-address-card"></i> {{ person.bio }}</p>
 						<p class="person__grid__email"><i class="fas fa-envelope"></i> {{ person.email }} </p>
 						<p class="person__grid__phno"><i class="fas fa-phone-alt"></i> {{ person.ph_no }} </p>
-						<!-- <p>{{ person.slug }}</p> -->
+						<div class="row mt-0 mb-0 pb-0">
+							<div class="col-md-8 pb-0">
+								<p class="text-left pt-auto pr-auto pb-0 pl-1"><small class="text-muted">Last Updated {{ person.updated_ts|naturaltime }}</small></p>
+							</div>
+							<div class="col-md-4 pb-0">
+								<p class="text-right pr-1 pt-0 pb-0 pl-auto"><small class="text-muted">{{ person.created_ts|naturaltime }}</small>
+								</p>
+							</div>
+						</div>
 					</div>
 					{% if person.user.id == request.user.id %}
-						<div class="row">
+						<div class="row mt-0 mb-0">
 							<div class="col-md-6">
 								<a href="{% url 'edit' person.id 'person' %}">
 									<button class="form-control form-control-md btn btn-outline-primary btn-md">Edit</button>
@@ -84,7 +113,7 @@
 						</div>
 					{% else %}
 						{% if chat_id %}
-							<div class="row">
+							<div class="row mt-0 mb-0">
 								<div class="col-md-6">
 									<a href="{% url 'chat' chat_id %}">
 										<button class="form-control form-control-md btn btn-outline-warning btn-md">Chat</button>
@@ -97,7 +126,7 @@
 								</div>
 							</div>
 						{% else %}
-							<div class="row">
+							<div class="row mt-0 mb-0">
 								<div class="col-md-2"></div>
 								<div class="col-md-8">
 									<a href="{% url 'addFriend' person.id %}">

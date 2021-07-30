@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-	Wishlist {{ articles|length }}
+	Wishlist ({{ articles|length }})
 {% endblock %}
 
 {% block head %}
@@ -18,35 +18,39 @@
 		<div class="articles__container">
 			<div class="row">
 				{% for article in articles %}
-					<div class="col-md-4">
-						<div class="articles__container__grid card text-white bg-dark mb-3" style="max-width: 24rem;">
-							<img class="articles__container__grid__img card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
-							<div class="card-body">
-								<h5 class="articles__container__grid__title card-title">{{ article.title }}</h5>
-								<div class="row">
-									<div class="col-md-3">
-										<a href="{% url 'remove' article.id 'marked' %}">
-											<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'article' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'rent' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Rent</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'cart' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-success btn-sm">Cart</button>
-										</a>
-									</div>
+					<div class="articles__container__grid">
+						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
+						<h5 class="articles__container__grid__title card-title">{{ article.title }}</h5>
+						<div class="row">
+							<div class="col-md-3">
+								<a href="{% url 'article' article.id %}">
+									<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
+								</a>
+							</div>
+							<div class="col-md-3">
+								<a href="{% url 'rent' article.id %}">
+									<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Rent</button>
+								</a>
+							</div>
+							<div class="col-md-3">
+								<a href="{% url 'cart' article.id %}">
+									<button class="form-control form-control-sm btn btn-outline-success btn-sm">Cart</button>
+								</a>
+							</div>
+							<div class="col-md-3">
+								<a href="{% url 'remove' article.id 'marked' %}">
+									<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
+								</a>
+							</div>
+						</div>
+							<div class="row mt-0 mb-0">
+								<div class="col-md-8">
+									<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+								</div>
+								<div class="col-md-4">
+									<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
 								</div>
 							</div>
-							<p class="card-text text-left"><small class="text-muted">Added {{ article.pub_ts|naturaltime }}</small></p>
 						</div>
 					</div>
 				{% empty %}

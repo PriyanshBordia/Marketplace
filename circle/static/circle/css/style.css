@@ -400,25 +400,27 @@ hr {
 
 .person {
   margin: 2rem auto 2rem auto;
-  border: 1px solid #a8b2d1;
+  border: 0.125rem solid #a8b2d1;
   background-color: #112240;
 }
 
 .person__grid {
-  margin: 1rem 2rem 1rem 2rem;
+  margin: 1rem 1rem 1rem 1rem;
   padding: 1rem 1rem 1rem 1rem;
-  border: 1px solid #ccd6f6;
+  border: 0.125rem solid #ccd6f6;
   background-color: #233554;
 }
 
 .person__grid__img {
+  margin: 1rem auto 1rem auto;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 50%;
+  border: 0.125rem solid #ccd6f6;
 }
 
 .person__grid__name {
@@ -438,12 +440,20 @@ hr {
   font-size: 1rem;
 }
 
+.person__grid__email {
+  font-size: 1rem;
+}
+
 .person__grid__age, .person__grid__gender {
   font-size: 1rem;
 }
 
 .person__grid__btn {
-  margin: 3rem 2rem auto 2rem;
+  margin: 2rem auto 2rem auto;
+}
+
+.person__grid__form {
+  margin: 1rem 2rem 1rem 2rem;
 }
 
 .person__rented, .person__display, .person__bookmarked, .person__purchased, .person__sold {
