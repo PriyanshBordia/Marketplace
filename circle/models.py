@@ -185,7 +185,7 @@ class Chat(models.Model):
 		ordering = ['id']
 
 	def __str__(self):
-		return f"{self.id}. [{self.sender.first} {self.sender.last} <-> {self.receiver.first} {self.receiver.last}]"
+		return f"{self.id}. ({self.left.first} {self.left.last} <-> {self.right.first} {self.right.last})"
 
 
 # class Friend(models.Model):

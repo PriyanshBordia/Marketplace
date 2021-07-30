@@ -1,4 +1,35 @@
 .chats {
 
-	margin-top: 2rem;
+	margin: 2rem auto 2rem auto;
+
+	&__container {
+
+		&__grid {
+
+			margin: 1rem auto 1rem auto;
+			padding: 1rem 1rem 1rem 1rem;
+			border: .125rem solid $LightestSlate;
+			border-radius: .25rem;
+		
+			&__header {
+
+				border-bottom: .125rem solid $LightSlate;
+
+				&__img {
+
+					margin: 1rem 1rem 1rem 1rem;
+					padding: 1rem 1rem 1rem 1rem;
+					width: 150px;
+					height: 150px;
+					border: .125rem solid $LightestNavy;
+					border-radius: 50%;
+				}
+
+				&__name {
+					margin: 1rem 1rem 1rem 1rem;
+					padding: 2rem 1rem 2rem 1rem;
+				}
+			}
+		}
+	}
 }

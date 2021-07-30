@@ -59,7 +59,7 @@
 				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Type to Search..." aria-label="Search">
 				<button class="form-control btn btn-outline-info my-2 my-sm-2" type="submit">Search</button>
 			</form> -->
-            <ul class="navbar-nav mr-2">
+            <ul class="navbar-nav mr-3">
 				{% if user.is_superuser %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,8 +72,6 @@
 							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
 							<a class="dropdown-item" href="{% url 'persons' %}">Persons</a>
 							<a class="dropdown-item" href="{% url 'users' %}">Users</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="{% url 'newPerson' %}">Add person</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{% url 'error' %}">Error</a>
 						</div>
@@ -99,6 +97,7 @@
 							<a class="dropdown-item" href="{% url 'sold' %}">Sold</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{% url 'newArticle' %}">Add article</a>
+							<a class="dropdown-item" href="{% url 'newPerson' %}">Add person</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="{% url 'password_reset' %}">Reset password</a>
 							<div class="dropdown-divider"></div>

@@ -3,7 +3,7 @@
 {% extends 'circle/base.html' %}
 
 {% block title %}
-	Articles
+	Articles {{ article|length }}
 {% endblock %}
 
 {% block head %}
@@ -11,6 +11,7 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
+	{% load circle_tags %}
 {% endblock %}
 
 {% block body %}
@@ -31,7 +32,7 @@
 								</a>
 							</div>
 							<div class="col-md-4">
-								{% if user.is_superuser & request.user.person. %}
+								{% if article|isDisplayed:request.user.person.id %}
 									<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
 										<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
 									</a>
@@ -40,10 +41,10 @@
 						</div>
 						<div class="row mt-0 mb-0">
 							<div class="col-md-8">
-								<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+								<p class="text-left pt-0 pr-auto pl-1 pb-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
 							</div>
 							<div class="col-md-4">
-								<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+								<p class="text-right  pt-0 pr-1 pl-auto pb-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
 							</div>
 						</div>
 					</div>

@@ -40,24 +40,28 @@ def newPerson(request):
 
 @login_required
 def addPerson(request):
-	person = Person()
-	if request.POST:
-		form = PersonForm(request.POST, request.FILES, instance=person)
-		if form.is_valid():
-			person.user = User.objects.get(pk=request.user.id)
-			person.username = str(form.cleaned_data["email"].split('@')[0])
-			form.save()
-			Chat.objects.create(left=person.id, right=person.id)
-			return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
-		else:
-			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
-	else:
-		form = PersonForm(instance=person)
-		return render(request, "circle/person.html", context={"person": person, "form": form})
 
-	if request.GET:
-		return HttpResponseRedirect(reverse('newPerson', args=()))
-	else:
+	try:
+		person = Person()
+		if request.POST:
+			form = PersonForm(request.POST, request.FILES, instance=person)
+			if form.is_valid():
+				person.user = User.objects.get(pk=request.user.id)
+				person.username = str(form.cleaned_data["email"].split('@')[0])
+				form.save()
+				Chat.objects.create(left=person, right=person)
+				return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
+			else:
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+		else:
+			form = PersonForm(instance=person)
+			return render(request, "circle/person.html", context={"person": person, "form": form})
+	except Exception as e:
+		cprint(str(e), 'red')
+
+	# if request.GET:
+	# 	return HttpResponseRedirect(reverse('newPerson', args=()))
+	# else:
 		try:
 			user = User.objects.get(pk=request.user.id)
 			try:

@@ -227,12 +227,15 @@ hr {
 }
 
 .alert {
-  margin: 3rem auto 2rem auto;
+  margin: 3rem auto 3rem auto;
   font-size: 1.5rem;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .row {
@@ -240,7 +243,7 @@ hr {
 }
 
 .col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
-  padding: 0.5rem .5rem 0.5rem .5rem;
+  padding: 0.5rem 0.5rem 0.5rem .5rem;
 }
 
 .flex {
@@ -571,6 +574,10 @@ hr {
   border-radius: 1rem;
 }
 
+.articles__container__grid__btn {
+  margin-top: .4rem auto .2rem auto;
+}
+
 .articles__container__grid p small {
   color: gray;
   font-size: .8rem;
@@ -578,8 +585,7 @@ hr {
 }
 
 .articles__container__grid:hover {
-  border: 0.125rem solid #7dce94;
-  background-color: #233554;
+  border: 0.125rem dashed #7dce94;
 }
 
 .friends__container {
@@ -734,7 +740,32 @@ hr {
 }
 
 .chats {
-  margin-top: 2rem;
+  margin: 2rem auto 2rem auto;
+}
+
+.chats__container__grid {
+  margin: 1rem auto 1rem auto;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 0.125rem solid #ccd6f6;
+  border-radius: .25rem;
+}
+
+.chats__container__grid__header {
+  border-bottom: 0.125rem solid #a8b2d1;
+}
+
+.chats__container__grid__header__img {
+  margin: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
+  width: 150px;
+  height: 150px;
+  border: 0.125rem solid #233554;
+  border-radius: 50%;
+}
+
+.chats__container__grid__header__name {
+  margin: 1rem 1rem 1rem 1rem;
+  padding: 2rem 1rem 2rem 1rem;
 }
 
 .cart {
