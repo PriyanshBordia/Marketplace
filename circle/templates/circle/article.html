@@ -11,6 +11,7 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
+	{% load circle_tags %}
 {% endblock %}
 
 {% block body %}
@@ -20,9 +21,9 @@
 				<div class="row">
 					<div class="col-md-6">
 						{% if article.image.url %}
-							<img class="article__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" />
+							<img class="article__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
 						{% else %}
-							<img src="https://img.icons8.com/bubbles/100/000000/edit-file.png"/>
+							<img src="https://img.icons8.com/bubbles/200/000000/edit-file.png"/>
 						{% endif %}
 					</div>
 					<div class="col-md-6">
@@ -35,30 +36,30 @@
 							<div class="row">
 								<div class="col-md-4">
 									<a href="{% url 'article' article.id %}">
-										{% bootstrap_button "Cancel" button_class="form-control form-control-md btn btn-outline-info btn-md" %}
+										{% bootstrap_button "Cancel" button_class="form-control form-control-lg btn btn-outline-info btn-lg" %}
 									</a>
 								</div>
 								<div class="col-md-4">
-									{% bootstrap_button "Reset" button_class="form-control form-control-md btn btn-outline-warning btn-md" button_type="reset" %}
+									{% bootstrap_button "Reset" button_class="form-control form-control-lg btn btn-outline-warning btn-lg" button_type="reset" %}
 								</div>
 								<div class="col-md-4">
-									{% bootstrap_button "Save" button_class="form-control form-control-md btn btn-outline-success btn-md" button_type="submit" %}
+									{% bootstrap_button "Save" button_class="form-control form-control-lg btn btn-outline-success btn-lg" button_type="submit" %}
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
 			{% else %}
-				<div class="row mb-0">
-					<div class="col-md-6">
+				<div class="row mb-0 pb-0">
+					<div class="col-md-6 mb-0">
 						<img class="article__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 mb-0">
 						<h1 class="article__grid__title">{{ article.title }}</h1>
 						<div class="article__grid__desc">
 							{{ article.description }}
 						</div>
-						{% if article != request.user.person.display.all.first %}
+							{% if not article|isDisplayed:"1" %}
 							<div class="row">
 								<div class="col-md-4">
 									<a href="{% url 'wishlist' article.id %}">
@@ -66,18 +67,18 @@
 									</a>
 								</div>
 								<div class="col-md-4">
-									<a href="{% url 'rent' article.id %}">
-										<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
-									</a>
-								</div>
-								<div class="col-md-4">
 									<a href="{% url 'cart' article.id %}">
 										<button class="form-control form-control-lg btn btn-outline-success btn-lg">Cart</button>
 									</a>
 								</div>
+								<div class="col-md-4">
+									<a href="{% url 'rent' article.id %}">
+										<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
+									</a>
+								</div>
 							</div>
 						{% else %}
-							<div class="row">
+							<div class="row mb-0">
 								<div class="col-md-6">
 									<a href="{% url 'edit' article.id 'article' %}">
 										<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Edit</button>
@@ -90,7 +91,7 @@
 								</div>
 							</div>
 						{% endif %}
-						<div class="row mt-1">
+						<div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">
 								<h2 class="article__grid__price">₹ {{ article.price }}</h2>
@@ -100,10 +101,10 @@
 				</div>	
 				<div class="row mt-0 mb-0">
 					<div class="col-md-8">
-						<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+						<p class="text-left pt-0 pr-auto pb-1 pl-1"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
 					</div>
 					<div class="col-md-4">
-						<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+						<p class="text-right pt-0 pr-1 pb-1 pl-auto"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
 					</div>
 				</div>
 			{% endif %}			

@@ -32,9 +32,9 @@
 							</div>
 							<div class="col-md-4">
 								{% if user.is_superuser & request.user.person. %}
-								<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
-									<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
-								</a>
+									<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
+										<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
+									</a>
 								{% endif %}
 							</div>
 						</div>

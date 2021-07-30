@@ -19,9 +19,9 @@
 			<div class="row">
 				{% for article in articles %}
 					<div class="articles__container__grid">
-						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID">
+						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID">
 						<h5 class="articles__container__grid__title">{{ article.title }}</h5>
-						<div class="row">
+						<div class="row mb-0">
 							<div class="col-md-3">
 								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>

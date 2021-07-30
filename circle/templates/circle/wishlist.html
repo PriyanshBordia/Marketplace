@@ -21,7 +21,7 @@
 					<div class="articles__container__grid">
 						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
 						<h5 class="articles__container__grid__title card-title">{{ article.title }}</h5>
-						<div class="row">
+						<div class="row mb-0">
 							<div class="col-md-3">
 								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>

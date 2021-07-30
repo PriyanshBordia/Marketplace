@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 	'humanize',
 	'bootstrap4',
 	'fontawesome_5',
+	# 'circle_tags',
 	'django_autoslug',
     'accounts',
 ]
