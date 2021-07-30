@@ -18,24 +18,35 @@
 		<div class="chat__container">
 			<div class="row">
 				<div class="col-md-4">
-					{% if chat.receiver.user.id == request.user.id %}
-						<img class="chat__container__img" src="{% static chat.sender.profile.url %}" alt="BP{{ person.id }}ID" />
-						<h4 class="chat__container__name">{{ chat.sender.first }} {{ chat.sender.last }}</h4>
-						<div class="chat__container__btn">
-							<a href="{% url 'person' chat.sender.id %}">
-								<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
-							</a>
+					{% if chat.right.person.id != request.user.id %}
+						<img class="chat__container__img" src="{% static chat.left.profile.url %}" alt="BP{{ person.id }}ID" />
+						<h4 class="chat__container__name">{{ chat.right.first }} {{ chat.right.last }}</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<!-- <div class="chat__container__btn"> -->
+									<a href="{% url 'person' chat.right.id %}">
+										<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+									</a>
+								<!-- </div> -->
+							</div>
+							<div class="col-md-6">
+								<!-- <div class="chat__container__btn"> -->
+									<a href="{% url 'remove' chat.id 'chat' %}">
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+									</a>
+								<!-- </div> -->
+							</div>
 						</div>
 					{% else %}
 						<img class="chat__container__img" src="{% static chat.receiver.profile.url %}" alt="BP{{ person.id }}ID" />
 						<h4 class="chat__container__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h4>
 						<div class="chat__container__btn">
-							<a href="{% url 'person' chat.receiver.id %}">
+							<a href="{% url 'person' chat.left.id %}">
 								<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
 							</a>
 						</div>
 					{% endif %}
-					<hr class="mr-4 ml-4">
+					<hr>
 				</div>
 				<div class="col-md-8">
 					<div class="chat__container__grid justify-content-center">
@@ -43,8 +54,8 @@
 						<div class="chat__container__grid__message">
 							{% for message in chat.messages.all %}
 								<div class="row">
-									{% if chat.sender.user.id == chat.sender.user.id %}
-										{% if chat.sender.user.id == request.user.id %}
+									{% if chat.left.person.user.id == chat.right.user.id %}
+										{% if chat.left.user.id == request.user.id %}
 											<div class="chat__container__grid__message__sender">
 												<p class="pl-2 pr-2">{{ message.text }}</p>
 												<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>

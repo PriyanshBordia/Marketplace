@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MinLengthValidator
 
-import datetime
-
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -42,7 +40,7 @@ class Article(models.Model):
 
 	title = models.CharField(validators=[MinLengthValidator(1)], max_length=64, blank=False, null=False, default="Article")
 
-	description = models.TextField(max_length=255, blank=False, null=False, default="Describe the article...")
+	description = models.TextField(max_length=800, blank=False, null=False, default="Describe the article...")
 
 	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
 
@@ -132,8 +130,8 @@ class Person(models.Model):
 
 class Message(models.Model):
 
-	sender = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="sender", default=1)
-	receiver = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
+	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
+	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
 
 	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
 
@@ -160,8 +158,8 @@ class Message(models.Model):
 
 class Chat(models.Model):
 	
-	left =  models.OneToOneField(Person, on_delete=models.CASCADE, related_name="left", default=1)
-	right = models.OneToOneField(Person, on_delete=models.CASCADE, related_name="right", default=1)
+	left =  models.ForeignKey(Person, on_delete=models.CASCADE, related_name="left", default=1)
+	right = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="right", default=1)
 
 	messages = models.ManyToManyField(Message, blank=True, related_name="messages")
 
@@ -170,13 +168,12 @@ class Chat(models.Model):
 	
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
-
 	def save(self, *args, **kwargs):
 		self.slug = slugify(str(self.id))
 		super(Chat, self).save(*args, **kwargs)
 
 	def isValidChat(self):
-		return len(self.messages) >= 0
+		return (len(self.messages) >= 0 and self.left.isValidPerson() and self.right.isValidPerson())
 	
 	def __format__(self):
 		return f"{self.id}"
@@ -186,31 +183,5 @@ class Chat(models.Model):
 
 	def __str__(self):
 		return f"{self.id}. ({self.left.first} {self.left.last} <-> {self.right.first} {self.right.last})"
-
-
-# class Friend(models.Model):
-
-# 	chat = models.ForeignKey(Chat, )
-# 	created_ts = models.DateTimeField(auto_now_add=True)
-# 	updated_ts = models.DateTimeField(auto_now=True)
-
-# 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
-
-
-# 	def save(self, *args, **kwargs):
-# 		self.slug = slugify(self.username)
-# 		super(Friend, self).save(*args, **kwargs)
-
-# 	def isValidPerson(self):
-# 		return self.rented != self.sold
-	
-# 	def __format__(self):
-# 		return f"{self.id} {self.slug}"
-
-# 	class Meta:
-# 		ordering = ['id']
-
-# 	def __str__(self):
-# 		return f"{self.first} {self.last}  {self.age}  {self.sex}"
 
 

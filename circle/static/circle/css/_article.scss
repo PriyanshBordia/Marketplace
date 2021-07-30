@@ -16,6 +16,9 @@
 			margin: 2rem auto 2rem auto;
 			width: 650px; 
 			height: 450px;
+			max-width: 100%;
+			max-height: 100%;
+			border-bottom: .125rem solid $LightestNavy;
 			border: .25rem solid $LightestSlate;
 		}
 
@@ -26,11 +29,11 @@
 
 		&__desc {
 
-			margin: 2rem 2rem 2rem 2rem;
+			margin: 2rem 1rem 2rem 1rem;
 			padding: 2rem auto 2rem auto;
 			height: 12rem;
 			overflow-y: auto;
-			line-height: 1.4rem;
+			line-height: 1.8rem;
 			background-color: $LightestNavy;
 			border: .125rem solid $LightestSlate;
 		}
@@ -50,9 +53,10 @@
 		}
 
 		small {
-			color: gray;
+			padding: 0;
 			font-size: 1rem;
 			font-weight: 100;
+			color: gray;
 		}
 	}
 }

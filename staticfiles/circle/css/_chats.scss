@@ -1,4 +1,57 @@
 .chats {
 
-	margin-top: 2rem;
+	margin: 2rem auto 2rem auto;
+
+	&__container {
+
+		margin: 1rem auto 1rem auto;
+		padding: 0;
+		max-height: calc(100vh - 15%);
+		overflow-y: auto;
+		border: .125rem solid $LightestSlate;
+		
+		&__grid {
+
+			margin: 1rem auto 1rem auto;
+			// padding: 1rem 1rem 1rem 1rem;
+			background-color: $LightNavy;
+			border: .125rem solid $LightestSlate;
+			border-radius: .25rem;
+		
+			&__header {
+
+				margin: .2rem auto .2rem auto;
+				padding: .2rem auto .2rem auto;
+				background-color: $LightNavy;
+				border-bottom: .125rem solid $LightSlate;
+				border-radius: .2rem;
+
+				&__img {
+
+					margin: .2rem .2rem .2rem .2rem;
+					padding: 1rem 1rem 1rem 1rem;
+					width: 120px;
+					height: 120px;
+					border: .125rem solid $LightestNavy;
+					border-radius: 50%;
+				}
+
+				&__name {
+					margin: .2rem .2rem .2rem .2rem;
+					padding: 2rem 0 .2rem 2rem;
+					font-size: 1.4rem;
+					font-weight: 300;
+					color: $RoseGold;
+				}
+			}
+		}
+	}
+
+	small {
+
+		padding: 0;
+		font-size: 1rem;
+		font-weight: 100;
+		color: gray;
+	}
 }

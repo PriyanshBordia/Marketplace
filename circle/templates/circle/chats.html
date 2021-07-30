@@ -16,76 +16,71 @@
 
 {% block body %}
 	<div class="chats">
-		<div class="chats__container">
-			<div class="row">
-				<div class="col-md-3">
-					<img class="chats__container__grid__img" src="https://img.icons8.com/bubbles/200/000000/chat.png" />
-				</div>
-				<div class="col-md-9">
+		<div class="row">
+			<div class="col-md-3">
+				<img src="https://img.icons8.com/bubbles/200/000000/edit-chat-history.png" />
+				<img src="https://img.icons8.com/bubbles/200/000000/more.png" />
+				<img src="https://img.icons8.com/bubbles/200/000000/comments.png" />
+			</div>
+			<div class="col-md-9">
+				<div class="chats__container">
 					<div class="row">
 						{% for chat in chats %}
-							<div class="col-md-6">
-								<div class="chats__container__grid">
-									{% if chat.left.id == request.user.person.id %}
-										<div class="chats__container__grid__header">
-											<div class="row">
-												<div class="col-md-2">
-													<img class="chats__container__grid__header__img" src="{% static chat.right.profile.url %}" alt="BP{{ person.id }}ID" />
-												</div>
-												<div class="col-md-10">
-													<h1 class="chats__container__grid__header__name">{{ chat.right.first }} {{ chat.right.last }}</h1>
-												</div>
+							{{chat.left.person.id}}
+							<div class="chats__container__grid">
+								{% if chat.left.id == request.user.person.id %}
+									<div class="chats__container__grid__header">
+										<div class="row mt-2 mb-2">
+											<div class="col-md-3">
+												<img class="chats__container__grid__header__img" src="{% static chat.right.profile.url %}" alt="BP{{ person.id }}ID" />
 											</div>
-											<div class="row mt-0 mb-0">
-												<div class="col-md-6"></div>
-												<div class="col-md-6">
-													<p class="text-right"><small class="text-muted">{{ chat.right.person.last_seen|naturaltime }}</small></p>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<a href="{% url 'chat' chat.id %}">
-													<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
-												</a>
-											</div>
-											<div class="col-md-6">
-												<a href="{% url 'remove' chat.id 'chat' %}">
-													<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
-												</a>
-											</div>
-										</div>
-									{% else %}
-										<div class="chats__container__grid__header">
-											<img class="chats__container__grid__img" src="{% static chat.left.profile.url %}" alt="UA{{ person.id }}ID" />
-											<h1 class="chats__container__grid__name">{{ chat.left.first }} {{ chat.left.last }}</h1>
-											<div class="row mt-0 mb-0">
-												<div class="col-md-6"></div>
-												<div class="col-md-6">
-													<p class="text-right"><small class="text-muted">{{ chat.left.person.last_seen|naturaltime }}</small></p>
+											<div class="col-md-9">
+												<p class="chats__container__grid__header__name">{{ chat.right.first }} {{ chat.right.last }}</p>
+												<div class="row mt-0 mb-0">
+													<div class="col-md-6"></div>
+													<div class="col-md-6">
+														<p class="text-right"><small class="text-muted">{{ chat.right.user.last_login|naturaltime }}</small></p>
+													</div>
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<a href="{% url 'chat' chat.id %}">
-													<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
-												</a>
+									</div>
+								{% else %}
+									<div class="chats__container__grid__header">
+										<div class="row mb-0 pb-0">
+											<div class="col-md-3">
+												<img class="chats__container__grid__header__img" src="{% static chat.left.profile.url %}" alt="BP{{ person.id }}ID" />
 											</div>
-											<div class="col-md-6">
-												<a href="{% url 'remove' chat.id 'chat' %}">
-													<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
-												</a>
+											<div class="col-md-9">
+												<h3 class="chats__container__grid__header__name">{{ chat.left.first }} {{ chat.left.last }}</h3>
+												<div class="row mt-0 mb-0">
+													<div class="col-md-6"></div>
+													<div class="col-md-6">
+														<p class="text-right"><small class="text-muted">{{ chat.left.user.last_login|naturaltime }}</small></p>
+													</div>
+												</div>
 											</div>
 										</div>
-									{% endif %}
+									</div>
+								{% endif %}
+								<div class="row mb-0">
+									<div class="col-md-6">
+										<a href="{% url 'chat' chat.id %}">
+											<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
+										</a>
+									</div>
+									<div class="col-md-6">
+										<a href="{% url 'remove' chat.id 'chat' %}">
+											<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+										</a>
+									</div>
 								</div>
-								<div class="row mt-0 mb-0">
+								<div class="row mt-1 mb-0">
 									<div class="col-md-8">
-										<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+										<p class="text-left"><small class="text-muted">Last Updated {{ chat.updated_ts|naturaltime }}</small></p>
 									</div>
 									<div class="col-md-4">
-										<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+										<p class="text-right"><small class="text-muted">{{ chat.created_ts|naturaltime }}</small></p>
 									</div>
 								</div>
 							</div>

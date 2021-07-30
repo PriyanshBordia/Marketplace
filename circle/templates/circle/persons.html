@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-	Persons
+	Persons {{ persons|length }}
 {% endblock %}
 
 {% block head %}
@@ -34,7 +34,7 @@
 						<table class="center">
 							<thead>
 								<tr>
-									<th>MPUID</th>
+									<th>BPUID</th>
 									<th>Username</th>
 									<th>Details</th>
 								<tr>

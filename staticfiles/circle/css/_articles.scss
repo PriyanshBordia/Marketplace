@@ -1,12 +1,16 @@
 .articles {
 	
-	margin: 2rem auto 2rem auto;
+	margin: 1rem auto 1rem auto;
 
 	&__container {
 
+		margin: 1rem 1rem 1rem 1rem;
+		// border: .125rem solid $LightSlate;
+		background-color: $LightNavy;
+
 		&__grid {
 
-			margin: 1.5rem auto 1.5rem auto;
+			margin: 1rem auto 1rem auto;
 			// text-align: center;
 			// align-items: center;
 			// justify-content: center;
@@ -17,11 +21,15 @@
 
 				width: 400px; 
 				height: 250px;
+				max-width: 100%;
+				max-height: 100%;
+				border-bottom: .125rem solid $LightestNavy;
 			}
 
 			&__title {
 
-				padding: .6rem auto .4rem auto;
+				margin: 1rem auto .4rem auto;
+				padding: 1rem auto 1rem auto;
 			}
 			
 			&__price {
@@ -33,23 +41,22 @@
 				border-radius: 1rem;
 			}
 
-			// &__btn {
+			&__btn {
 				
-				// margin-top: .4rem .2rem auto .2rem;
-				// width: $btn-size-xxs;
-			// }
+				margin-top: .4rem auto .2rem auto;
+			}
 
 			p {
 				small {
-					color: gray;
+					padding: 0;
 					font-size: .8rem;
 					font-weight: 100;
+					color: gray;
 				}
 			}
 
 			&:hover {
-				border: .125rem solid $SimplerLimeGreen;
-				background-color: $LightestNavy;
+				border: .125rem dashed $SimplerLimeGreen;
 			}
 		}
 	}

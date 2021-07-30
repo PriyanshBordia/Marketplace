@@ -227,7 +227,7 @@ hr {
 }
 
 .alert {
-  margin: 3rem auto 3rem auto;
+  margin: 2rem auto 2rem auto;
   font-size: 1.5rem;
   text-align: center;
   -webkit-box-align: center;
@@ -468,7 +468,7 @@ hr {
 }
 
 .persons {
-  margin: 3rem auto 3rem auto;
+  margin: 2rem auto 2rem auto;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -479,7 +479,7 @@ hr {
 }
 
 .persons__grid {
-  border: 1px solid #ccd6f6;
+  border: 0.125rem solid #ccd6f6;
   background-color: #112240;
 }
 
@@ -504,6 +504,9 @@ hr {
   margin: 2rem auto 2rem auto;
   width: 650px;
   height: 450px;
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 0.125rem solid #233554;
   border: 0.25rem solid #ccd6f6;
 }
 
@@ -512,11 +515,11 @@ hr {
 }
 
 .article__grid__desc {
-  margin: 2rem 2rem 2rem 2rem;
+  margin: 2rem 1rem 2rem 1rem;
   padding: 2rem auto 2rem auto;
   height: 12rem;
   overflow-y: auto;
-  line-height: 1.4rem;
+  line-height: 1.8rem;
   background-color: #233554;
   border: 0.125rem solid #ccd6f6;
 }
@@ -534,23 +537,23 @@ hr {
 }
 
 .article__grid small {
-  color: gray;
+  padding: 0;
   font-size: 1rem;
   font-weight: 100;
+  color: gray;
 }
 
 .articles {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
 }
 
 .articles__container {
   margin: 1rem 1rem 1rem 1rem;
-  border: 0.125rem solid #a8b2d1;
   background-color: #112240;
 }
 
 .articles__container__grid {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
   border: 0.125rem solid #ccd6f6;
   background-color: #112240;
 }
@@ -558,7 +561,9 @@ hr {
 .articles__container__grid__img {
   width: 400px;
   height: 250px;
-  border: 0.125rem solid #ccd6f6;
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 0.125rem solid #233554;
 }
 
 .articles__container__grid__title {
@@ -579,9 +584,10 @@ hr {
 }
 
 .articles__container__grid p small {
-  color: gray;
+  padding: 0;
   font-size: .8rem;
   font-weight: 100;
+  color: gray;
 }
 
 .articles__container__grid:hover {
@@ -671,15 +677,14 @@ hr {
 }
 
 .chat__container__grid {
-  margin: 1rem auto 1rem auto;
-  height: calc(100vh - 400px);
+  margin: 1rem 1rem 1rem 1rem;
   background-color: #112240;
   border: 0.125rem solid #a8b2d1;
   border-radius: 0.3rem;
 }
 
 .chat__container__grid__message {
-  padding-right: 1rem;
+  margin: .2rem .2rem .2rem .2rem;
   height: calc(100vh - 400px);
   overflow-y: scroll;
   line-height: 2rem;
@@ -743,29 +748,51 @@ hr {
   margin: 2rem auto 2rem auto;
 }
 
+.chats__container {
+  margin: 1rem auto 1rem auto;
+  padding: 0;
+  max-height: calc(100vh - 15%);
+  overflow-y: auto;
+  border: 0.125rem solid #ccd6f6;
+}
+
 .chats__container__grid {
   margin: 1rem auto 1rem auto;
-  padding: 1rem 1rem 1rem 1rem;
+  background-color: #112240;
   border: 0.125rem solid #ccd6f6;
   border-radius: .25rem;
 }
 
 .chats__container__grid__header {
+  margin: .2rem auto .2rem auto;
+  padding: .2rem auto .2rem auto;
+  background-color: #112240;
   border-bottom: 0.125rem solid #a8b2d1;
+  border-radius: .2rem;
 }
 
 .chats__container__grid__header__img {
-  margin: 1rem 1rem 1rem 1rem;
+  margin: .2rem .2rem .2rem .2rem;
   padding: 1rem 1rem 1rem 1rem;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border: 0.125rem solid #233554;
   border-radius: 50%;
 }
 
 .chats__container__grid__header__name {
-  margin: 1rem 1rem 1rem 1rem;
-  padding: 2rem 1rem 2rem 1rem;
+  margin: .2rem .2rem .2rem .2rem;
+  padding: 2rem 0 .2rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #bd8c7d;
+}
+
+.chats small {
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 100;
+  color: gray;
 }
 
 .cart {

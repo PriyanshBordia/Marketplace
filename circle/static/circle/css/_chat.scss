@@ -46,15 +46,15 @@
 
 		&__grid {
 
-			margin: 1rem auto 1rem auto;
-			height: calc(100vh - 400px);
+			margin: 1rem 1rem 1rem 1rem;
+			// height: calc(100vh - 400px);
 			background-color: $LightNavy;
 			border: .125rem solid $LightSlate;
 			border-radius: 0.3rem;
 
 			&__message {
 
-				padding-right: 1rem;
+				margin: .2rem .2rem .2rem .2rem;
 				height: calc(100vh - 400px);
 				overflow-y: scroll;
 				line-height: 2rem;

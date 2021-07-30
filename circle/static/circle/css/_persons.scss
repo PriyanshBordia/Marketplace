@@ -1,13 +1,13 @@
 .persons {
 
-	margin: 3rem auto 3rem auto;
+	margin: 2rem auto 2rem auto;
 	text-align: center;
 	align-items: center;
 	justify-content: center;
 
 	&__grid {
 
-		border: 1px solid $LightestSlate;
+		border: .125rem solid $LightestSlate;
 		background-color: $LightNavy;
 	}
 }

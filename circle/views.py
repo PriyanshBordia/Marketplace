@@ -555,16 +555,19 @@ def remove(request, id, type):
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Data Error", "link": "search"})
 	elif type == 'chat':
 		try:
+			chat = Chat.objects.get(pk=id)
 			person_id = request.user.person.id
 			person = Person.objects.get(pk=person_id)
-		except Person.DoesNotExist:
+			chats.objects.delete(chat)
+			return HttpResponseRedirect(reverse('person', args=(person_id, )))
+		except Chat.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Data Error", "link": "search"})
 
 
 @login_required
 def addMessage(request, chat_id):
-	if request.POST:
-		try:
+	try:
+		if request.POST:
 			message = str(request.POST.get("message"))
 			text = Message.objects.create(text=message)
 			if text.isValidMessage():
@@ -574,17 +577,17 @@ def addMessage(request, chat_id):
 					chat.save()
 					return HttpResponseRedirect(reverse('chat', args=(chat_id, )))
 				except Chat.DoesNotExist:
-					return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Type Error", "link": "chats"})
+					return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Type Error", "link": "search"})
 			else:
 				return HttpResponse('Message Cannot be Empty.!')
-		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter text.!!", "type": "Key Error", "link": "articles"})
-		except ValueError:
-			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-		except TypeError:
-			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
-	else:
-		return HttpResponseRedirect(reverse('home', args=()))
+		else:
+			return HttpResponseRedirect(reverse('chat', args=(chat_id)))
+	except KeyError:
+		return render(request, "circle/error.html", context={"message": "Enter text.!!", "type": "Key Error", "link": "search"})
+	except ValueError:
+		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
+	except TypeError:
+		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
 	
 		
 @login_required
@@ -601,39 +604,6 @@ def chat(request, chat_id):
 def chats(request):
 	chats = Chat.objects.all()
 	return render(request, "circle/chats.html", context={"chats": chats})
-
-
-@login_required
-def message(request):
-
-	if request.POST:
-		try:
-			chat_id = float(request.POST.get('chat_id'))
-		except KeyError:
-			return render(request, "circle/error.html", context={"message": "Enter title.!!", "type": "Key Error", "link": "articles"})
-		except ValueError:
-			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-		except TypeError:
-			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
-
-
-	try:
-		text = list(request.POST.get('text'))
-	except KeyError:
-		return render(request, "circle/error.html", context={"message": "Enter text.!!", "type": "Key Error", "link": "articles"})
-	except ValueError:
-		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-	except TypeError:
-		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
-
-	message = Message.objects.create(text=text, timestamp=datetime.now())
-
-	chat = Chat.objects.get(pk=chat_id)
-	chat.messages.add(message)
-
-	chat.save()
-
-	return HttpResponseRedirect(reverse("chat", args=(chat_id, )))
 
 
 @login_required
