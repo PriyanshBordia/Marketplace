@@ -398,8 +398,12 @@ hr {
   margin-bottom: 1rem;
 }
 
+.search {
+  margin: 2rem;
+}
+
 .person {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
   border: 0.125rem solid #a8b2d1;
   background-color: #112240;
 }
@@ -440,7 +444,7 @@ hr {
   font-size: 1rem;
 }
 
-.person__grid__email {
+.person__grid__email, .person__grid__ph_no {
   font-size: 1rem;
 }
 
@@ -449,7 +453,7 @@ hr {
 }
 
 .person__grid__btn {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
 }
 
 .person__grid__form {

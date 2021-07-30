@@ -19,33 +19,31 @@
 			<div class="row">
 				{% for article in articles %}
 					<div class="col-md-4">
-						<div class="articles__container__grid card text-white bg-dark mb-3" style="max-width: 24rem;">
-							<img class="card-img-top" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="width: 24rem; height: 16rem;">
-							<div class="card-body">
-								<h5 class="card-title">{{ article.title }}</h5>
-								<div class="row">
-									<div class="col-md-3">
-										<a href="{% url 'remove' article.id 'rented' %}">
-											<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'article' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'wishlist' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Mark</button>
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="{% url 'return' article.id %}">
-											<button class="form-control form-control-sm btn btn-outline-success btn-sm">Return</button>
-										</a>
-									</div>
+						<div class="articles__container__grid">
+							<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID">
+							<h5 class="card-title">{{ article.title }}</h5>
+							<div class="row">
+								<div class="col-md-3">
+									<a href="{% url 'remove' article.id 'rented' %}">
+										<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
+									</a>
 								</div>
-								<p class="card-text text-left"><small class="text-muted">Last updated {{ article.pub_ts|naturaltime }}</small></p>
+								<div class="col-md-3">
+									<a href="{% url 'article' article.id %}">
+										<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="{% url 'wishlist' article.id %}">
+										<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Mark</button>
+									</a>
+								</div>
+								<div class="col-md-3">
+									<a href="{% url 'return' article.id %}">
+										<button class="form-control form-control-sm btn btn-outline-success btn-sm">Return</button>
+									</a>
+								</div>
+							</div>
 							</div>
 						</div>
 					</div>

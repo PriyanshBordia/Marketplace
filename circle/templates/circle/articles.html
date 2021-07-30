@@ -26,16 +26,16 @@
 								<p class="articles__container__grid__price">₹ {{ article.price|floatformat:2 }}</p>
 							</div>
 							<div class="col-md-4">
-								{% if user.is_superuser %}
-									<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
-										<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
-									</a>
-								{% endif %}
-							</div>
-							<div class="col-md-4">
 								<a class="articles__container__grid__btn" href="{% url 'article' article.id %}">
 									<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
 								</a>
+							</div>
+							<div class="col-md-4">
+								{% if user.is_superuser & request.user.person. %}
+								<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
+									<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
+								</a>
+								{% endif %}
 							</div>
 						</div>
 						<div class="row mt-0 mb-0">
@@ -52,9 +52,13 @@
 						<div class="row justify-content-center">
 							<div class="alert alert-warning" role="alert">No Articles.</div>
 						</div>
-						<a href="{% url 'newArticle' %}">
-							<button class="form-control form-control-lg btn btn-outline-info btn-lg">Add Article.</button>
-						</a>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{% url 'newArticle' %}">
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">Add Article.</button>
+								</a>
+							</div>
+						</div>
 					</div>
 				{% endfor %}
 			</div>
