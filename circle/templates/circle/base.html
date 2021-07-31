@@ -60,7 +60,7 @@
 				<button class="form-control btn btn-outline-info my-2 my-sm-2" type="submit">Search</button>
 			</form> -->
             <ul class="navbar-nav mr-3">
-				{% if user.is_superuser %}
+				{% if request.user.is_superuser %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<img src="https://img.icons8.com/bubbles/50/000000/administrative-tools.png" />
