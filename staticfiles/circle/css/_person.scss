@@ -2,7 +2,7 @@
 
 	margin: 1rem auto 1rem auto;
 	
-	border: .125rem solid $LightSlate;
+	border: .125rem solid $LightestNavy;
 	background-color: $LightNavy;
 
 
@@ -16,12 +16,17 @@
 		&__img {
 
 			margin: 1rem auto 1rem auto;
+			padding: 1rem 1rem 1rem 1rem;
 			width: 200px;
 			height: 200px;
 			text-align: center;
 			align-items: center;
 			border-radius: 50%;
 			border: .125rem solid $LightestSlate;
+
+			&:hover {
+				background-color: $LightNavy;
+			}
 		}
 
 		&__name {

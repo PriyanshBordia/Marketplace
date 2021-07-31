@@ -4,6 +4,7 @@
 
 	&__container {
 
+		margin: 1rem auto 1rem auto;
 		text-align: center;
 		align-items: center;
 		justify-content: center;
@@ -11,12 +12,12 @@
 		&__grid {
 
 			margin: 2rem auto 2rem auto;
-			border: .125rem solid $LightestSlate;
-
+			background-color: $LightNavy;
+			border: .125rem solid $LightestNavy;
+			
 			&:hover {
 
-				border: .125rem solid $LightestNavy;
-				background-color: $LightNavy;
+				border: .125rem solid $LightestSlate;
 			}
 
 			&__img {
