@@ -29,8 +29,9 @@ urlpatterns = [
     path('wishlisted', views.wishlisted, name='wishlisted'),
    	path('rented', views.rented, name='rented'),
     path('carted', views.carted, name='carted'),
+    path('retreated/<int:article_id>', views.retreated, name='retreated'),
    	path('remove/<int:id>/<str:type>', views.remove, name='remove'),
-    path('addMessage/<int:sender_id>/<int:receiver_id>/<int:chat_id>', views.addMessage, name='addMessage'),
+    path('addMessage/<int:chat_id>', views.addMessage, name='addMessage'),
     path('chat/<int:chat_id>', views.chat, name='chat'),
     path('chats', views.chats, name='chats'),
    	path('user/<int:user_id>', views.user, name='user'),
@@ -38,3 +39,4 @@ urlpatterns = [
 	path('error', views.error, name='error'),
    	# path('verification', views.verification, name='verification'),
 ]
+

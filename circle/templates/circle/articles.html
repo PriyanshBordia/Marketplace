@@ -28,13 +28,13 @@
 							</div>
 							<div class="col-md-4">
 								{% if article|isDisplayed:request.user.person.id %}
-								<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+								<a href="{% url 'remove' article.id 'article' %}">
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
 								</a>
 								{% endif %}
 							</div>
 							<div class="col-md-4">
-								<a class="articles__container__grid__btn" href="{% url 'article' article.id %}">
+								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 								</a>
 							</div>

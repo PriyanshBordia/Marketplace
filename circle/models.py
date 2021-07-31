@@ -20,7 +20,8 @@ class Tag(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.id))
+		if not self.slug:
+			self.slug = slugify(str(Tag.objects.all().count() + 1))
 		super(Tag, self).save(*args, **kwargs)
 
 	def isValidTag(self):
@@ -54,7 +55,8 @@ class Article(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.id))
+		if not self.slug:
+			self.slug = slugify(str(Article.objects.all().count() + 1))
 		super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
@@ -90,6 +92,8 @@ class Person(models.Model):
 	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
 
+	# retreated = models.ManyToManyField(Article, blank=True, related_name="retreated")
+
 	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
 	purchased = models.ManyToManyField(Article, blank=True, related_name="purchased")
 
@@ -100,7 +104,7 @@ class Person(models.Model):
 	carted = models.ManyToManyField(Article, blank=True, related_name="carted")
 
 	friends = models.ManyToManyField('self', blank=True, related_name="friends")
-	chats = models.ManyToManyField('Chat', blank=True, related_name="chats")
+	# chats = models.ManyToManyField('Chat', blank=True, related_name="chats")
 	
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
@@ -110,7 +114,8 @@ class Person(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.id))
+		if not self.slug:
+			self.slug = slugify(str(Person.objects.all().count() + 1))
 		super(Person, self).save(*args, **kwargs)
 
 	def isDisplayed(self):
@@ -141,7 +146,8 @@ class Message(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.id))
+		if not self.slug:
+			self.slug = slugify(str(Message.objects.all().count() + 1))
 		super(Message, self).save(*args, **kwargs)
 
 	def isValidMessage(self):
@@ -170,7 +176,8 @@ class Chat(models.Model):
 	slug = models.SlugField(max_length=64, blank=False, null=False, unique=True)
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(str(self.id))
+		if not self.slug:
+			self.slug = slugify(str(Chat.objects.all().count() + 1))
 		super(Chat, self).save(*args, **kwargs)
 
 	def isValidChat(self):

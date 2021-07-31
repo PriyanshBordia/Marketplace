@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-    Results
+    Results {{ articles|length }}
 {% endblock %}
 
 {% block head %}
@@ -27,13 +27,13 @@
 							</div>
 							<div class="col-md-4">
 								{% if user.is_superuser %}
-									<a class="articles__container__grid__btn" href="{% url 'remove' article.id 'article' %}">
+									<a href="{% url 'remove' article.id 'article' %}">
 										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
 									</a>
 								{% endif %}
 							</div>
 							<div class="col-md-4">
-								<a class="articles__container__grid__btn" href="{% url 'article' article.id %}">
+								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 								</a>
 							</div>

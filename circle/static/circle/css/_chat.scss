@@ -1,27 +1,21 @@
 .chat {
 
 	margin: 2rem auto 2rem auto;
-	// text-align: center;
-	// align-items: center;
-	// justify-content: center;
 
 	&__container {
 
-		// margin: 1rem;
-		// text-align: center;
-		// align-items: center;
-		// justify-content: center;
-		background-color: $LightestNavy;
+		margin: 1rem 1rem 1rem 1rem;
+		background-color: $LightNavy;
 		border: .125rem solid $LightestSlate;
 
 		&__img {
 
-			margin-top: 2rem;
-			width: 6.25rem;
-			height: 6.25rem;;
+			margin: 1rem auto 1rem auto;
+			padding: 1rem 1rem 1rem 1rem;
+			width: 12.25rem;
+			height: 12.25rem;
+			border: .125rem solid $LightestSlate;
 			border-radius: 50%;
-			text-align: center;
-			align-items: center;
 		}
 
 		&__name {
@@ -47,7 +41,6 @@
 		&__grid {
 
 			margin: 1rem 1rem 1rem 1rem;
-			// height: calc(100vh - 400px);
 			background-color: $LightNavy;
 			border: .125rem solid $LightSlate;
 			border-radius: 0.3rem;
@@ -55,7 +48,7 @@
 			&__message {
 
 				margin: .2rem .2rem .2rem .2rem;
-				height: calc(100vh - 400px);
+				height: calc(100vh - 25rem);
 				overflow-y: scroll;
 				line-height: 2rem;
 				font-size: 1rem;

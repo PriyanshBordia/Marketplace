@@ -118,6 +118,10 @@ class UrlsTestCase(TestCase):
 	def test_url_rent(self):
 		url = reverse('rent', args=[1,])
 		self.assertEquals(resolve(url).func, views.rent)
+	
+	def test_url_retreat(self):
+		url = reverse('retreat', args=[1])
+		self.assertEquals(resolve(url).func, views.retreat)
 
 	def test_url_cart(self):
 		url = reverse('cart', args=[1, ])
@@ -146,6 +150,10 @@ class UrlsTestCase(TestCase):
 	def test_url_carted(self):
 		url = reverse('carted')
 		self.assertEquals(resolve(url).func, views.carted)
+
+	def test_url_retreated(self):
+		url = reverse('retreated')
+		self.assertEquals(resolve(url).func, views.retreated)
 
 	def test_url_remove(self):
 		url = reverse('remove', args=[1, 'article'])

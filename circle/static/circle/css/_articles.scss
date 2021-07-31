@@ -11,18 +11,18 @@
 
 		&__grid {
 
-			margin: 1rem auto 1rem auto;
-			border: .125rem solid $LightestSlate;
+			margin: 2rem auto 2rem auto;
+			background-color: $LightNavy;
+			border: .125rem solid $LightestNavy;
 
 			&:hover {
 
-				border: .125rem solid $LightestNavy;
-				background-color: $LightNavy;
+				border: .125rem solid $LightestSlate;
 			}
 
 			&__img {
 
-				width: 480px; 
+				width: 450px; 
 				height: 250px;
 				max-width: 100%;
 				max-height: 100%;
@@ -40,8 +40,8 @@
 			
 			&__price {
 
-				padding: .2rem;
-				color: $RoseGold;
+				padding: .7rem 1rem .7rem 1rem;
+				color: $CuriousBlue;
 				background-color: $Navy;
 				border: .125rem solid $LightestSlate;
 				border-radius: 1rem;
