@@ -1,32 +1,39 @@
 .cart {
 
-	margin: 2rem auto 2rem auto;
+	margin: 1rem auto 1rem auto;
 
 	&__container {
 
-		margin: 2rem auto 2rem auto;
-		border: 1px solid mediumslateblue;
+		margin: 1rem auto 1rem auto;
+		border: .125rem solid $LightSlate;
 
 		&__grid {
 
-			border: 1px solid coral;
+			margin: 1rem auto 1rem auto;
+			border: .125rem solid $LightestSlate;
+
+			&:hover {
+
+				border: .125rem solid $LightestNavy;
+				background-color: $LightNavy;
+			}
 
 			&__img {
 
-				width: 400px;
-				height: 400px;
-				// max-width: $width-sm; 
-				// max-height: 300px;
-				border: 2px solid $LightestSlate;
+				width: 700px;
+				height: 350px;
+				max-width: 100%;
+				border: .125rem solid $LightestSlate;
 			}
 
 			&__title {
 
-				padding: 1rem;
-				color: $Casablanca;
+				margin: .2rem .2rem .2rem .2rem;
+				padding: 1rem 1rem 1rem 1rem;
 				font-size: 2.2rem;
 				font-weight: 200;
 				line-height: 2rem;
+				color: $Casablanca;
 			}
 
 			&__desc {
@@ -37,11 +44,13 @@
 
 			&__price {
 
-				padding: 1rem;
-				color: $SimplerLimeGreen;
-				font-size: 1.4rem;
-				font-weight: 200;
-				line-height: 1rem;
+				margin: 2rem 2rem 2rem 2rem;
+				padding: 1rem 1rem 1rem 1rem;
+				font-size: 2rem;
+				color: $CuriousBlue;
+				background-color: $Navy;
+				border: .125rem solid $LightestSlate;
+				border-radius: 1rem;
 			}
 
 			&__btn {

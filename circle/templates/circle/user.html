@@ -23,18 +23,18 @@
 						{% csrf_token %}
 			
 						<div class="form-group form-text h3">
-							<input class="form-control form-control-md ml-auto mr-auto" type="text" autocomplete="off" autofocus
+							<input class="form-control form-control-lg ml-auto mr-auto" type="text" autocomplete="off" autofocus
 								placeholder="First Name" name="first" value="{{ user.first_name }}"></span>
 						</div>
 						<div class="form-group form-text h3">
-							<span><input class="form-control form-control-md ml-auto mr-auto" type="text" autocomplete="off" autofocus
+							<span><input class="form-control form-control-lg ml-auto mr-auto" type="text" autocomplete="off" autofocus
 									placeholder="Last Name" name="last" value="{{ user.last_name }}"></span>
 						</div>
 						<div class="form-group form-text h4">
-							<input class="form-control form-control-md ml-auto mr-auto" type="email" autocomplete="off" autofocus
+							<input class="form-control form-control-lg ml-auto mr-auto" type="email" autocomplete="off" autofocus
 								placeholder="E-mail" aria-describedby="emailHelp" name="email" value="{{ user.email }}">
 						</div>
-						<button class="form-control form-control-md btn btn-outline-success btn-md mt-3" type="submit" name="button">Update Details</button>
+						<button class="form-control form-control-lg btn btn-outline-success btn-lg mt-3" type="submit" name="button">Update Details</button>
 					</form>
 				{% else %}
 					<h4><strong>First Name : </strong>{{ user.first_name }}</h4>

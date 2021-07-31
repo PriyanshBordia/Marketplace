@@ -13,15 +13,15 @@
 		&__grid {
 
 			margin: 1rem auto 1rem auto;
-			// padding: 1rem 1rem 1rem 1rem;
+			padding: 1rem 1rem 0 1rem;
 			background-color: $LightNavy;
 			border: .125rem solid $LightestSlate;
-			border-radius: .25rem;
+			// border-radius: .25rem;
 		
 			&__header {
 
 				margin: .2rem auto .2rem auto;
-				padding: .2rem auto .2rem auto;
+				padding: 1rem auto 1rem auto;
 				background-color: $LightNavy;
 				border-bottom: .125rem solid $LightSlate;
 				border-radius: .2rem;
@@ -38,7 +38,7 @@
 
 				&__name {
 					margin: .2rem .2rem .2rem .2rem;
-					padding: 2rem 0 .2rem 2rem;
+					padding: 2rem 1.5rem .4rem 2rem;
 					font-size: 1.4rem;
 					font-weight: 300;
 					color: $RoseGold;
@@ -49,6 +49,7 @@
 
 	small {
 
+		margin: 0;
 		padding: 0;
 		font-size: 1rem;
 		font-weight: 100;

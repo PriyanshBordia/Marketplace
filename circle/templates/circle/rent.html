@@ -20,26 +20,26 @@
 				{% for article in articles %}
 					<div class="articles__container__grid">
 						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID">
-						<h5 class="articles__container__grid__title">{{ article.title }}</h5>
+						<div class="articles__container__grid__title">{{ article.title }}</div>
 						<div class="row mb-0">
 							<div class="col-md-3">
 								<a href="{% url 'article' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 								</a>
 							</div>
 							<div class="col-md-3">
 								<a href="{% url 'wishlist' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Wishlist</button>
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Wishlist</button>
 								</a>
 							</div>
 							<div class="col-md-3">
-								<a href="{% url 'return' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-success btn-sm">Return</button>
+								<a href="{% url 'retreat' article.id %}">
+									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Return</button>
 								</a>
 							</div>
 							<div class="col-md-3">
 								<a href="{% url 'remove' article.id 'rented' %}">
-									<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
 								</a>
 							</div>
 						</div>

@@ -26,7 +26,6 @@
 				<div class="chats__container">
 					<div class="row">
 						{% for chat in chats %}
-							{{chat.left.person.id}}
 							<div class="chats__container__grid">
 								{% if chat.left.id == request.user.person.id %}
 									<div class="chats__container__grid__header">
@@ -75,11 +74,11 @@
 										</a>
 									</div>
 								</div>
-								<div class="row mt-1 mb-0">
-									<div class="col-md-8">
+								<div class="row mt-2 mb-0 pb-0">
+									<div class="col-md-8 mb-0">
 										<p class="text-left"><small class="text-muted">Last Updated {{ chat.updated_ts|naturaltime }}</small></p>
 									</div>
-									<div class="col-md-4">
+									<div class="col-md-4 mb-0">
 										<p class="text-right"><small class="text-muted">{{ chat.created_ts|naturaltime }}</small></p>
 									</div>
 								</div>

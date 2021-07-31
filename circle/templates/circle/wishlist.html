@@ -19,27 +19,27 @@
 			<div class="row">
 				{% for article in articles %}
 					<div class="articles__container__grid">
-						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="UA{{ article.id }}ID" style="max-width: 24rem; max-height: 20rem;">
-						<h5 class="articles__container__grid__title card-title">{{ article.title }}</h5>
+						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID">
+						<div class="articles__container__grid__title">{{ article.title }}</div>
 						<div class="row mb-0">
 							<div class="col-md-3">
 								<a href="{% url 'article' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-info btn-sm">View</button>
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 								</a>
 							</div>
 							<div class="col-md-3">
 								<a href="{% url 'rent' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-warning btn-sm">Rent</button>
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Rent</button>
 								</a>
 							</div>
 							<div class="col-md-3">
 								<a href="{% url 'cart' article.id %}">
-									<button class="form-control form-control-sm btn btn-outline-success btn-sm">Cart</button>
+									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Cart</button>
 								</a>
 							</div>
 							<div class="col-md-3">
 								<a href="{% url 'remove' article.id 'marked' %}">
-									<button class="form-control form-control-sm btn btn-outline-danger btn-sm">Remove</button>
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
 								</a>
 							</div>
 						</div>

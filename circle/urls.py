@@ -21,6 +21,7 @@ urlpatterns = [
     path('display', views.display, name='display'),
     path('wishlist/<int:article_id>', views.wishlist, name='wishlist'),
    	path('rent/<int:article_id>', views.rent, name='rent'),
+    path('retreat/<int:article_id>', views.retreat, name='retreat'),
     path('cart/<int:article_id>', views.cart, name='cart'),
     path('buy/<int:article_id>', views.buy, name='buy'),
    	path('purchased', views.purchased, name='purchased'),

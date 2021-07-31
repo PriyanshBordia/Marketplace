@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, request
 
 from .utils import *
 
@@ -27,7 +27,6 @@ def home(request):
 	# logger.info("This logs an info message.")
 	# logger.warning("This logs a warning message.")
 	# logger.error("This logs an error message.")
-	# cprint(request.user.person.display.all(), "red")
 	return render(request, "circle/home.html", context={})
 
 
@@ -339,7 +338,7 @@ def friends(request):
 		chats = Chat.objects.filter(Q(left=person) | Q(right=person))
 		return render(request, "circle/friends.html", context={"chats": chats, "friends": friends})
 	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Type Error", "link": "search"})
+		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Data Error", "link": "search"})
 	except Chat.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "You don't have any chats.!!", "type": "Data Error", "link": "search"})
 
@@ -382,15 +381,12 @@ def display(request):
 @login_required
 def wishlist(request, article_id):
 	try:
-		if request.POST:
-			article = Article.objects.get(pk=article_id)
-			person_id = request.user.person.id
-			person = Person.objects.get(pk=person_id)
-			person.bookmarked.add(article)
-			person.save()
-			return HttpResponseRedirect(reverse("wishlisted", args=()))
-		else:
-			return HttpResponseRedirect(reverse('article', args=(article_id, )))
+		article = Article.objects.get(pk=article_id)
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
+		person.bookmarked.add(article)
+		person.save()
+		return HttpResponseRedirect(reverse("wishlisted", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -400,15 +396,12 @@ def wishlist(request, article_id):
 @login_required
 def rent(request, article_id):
 	try:
-		if request.POST:
-			article = Article.objects.get(pk=article_id)
-			person_id = request.user.person.id
-			person = Person.objects.get(pk=person_id)
-			person.rented.add(article)
-			person.save()
-			return HttpResponseRedirect(reverse("rented", args=()))
-		else:
-			return HttpResponseRedirect(reverse('article', args=(article_id, )))
+		article = Article.objects.get(pk=article_id)
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
+		person.rented.add(article)
+		person.save()
+		return HttpResponseRedirect(reverse("rented", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -416,17 +409,20 @@ def rent(request, article_id):
 
 
 @login_required
+def retreat(request, article_id):
+	pass
+
+
+@login_required
 def cart(request, article_id):
 	try:
-		if request.POST:
-			article = Article.objects.get(pk=article_id)
-			person_id = request.user.person.id
-			person = Person.objects.get(pk=person_id)
-			person.carted.add(article)
-			person.save()
-			return HttpResponseRedirect(reverse("carted", args=()))
-		else:
-			return HttpResponseRedirect(reverse('article', args=(article_id, )))
+		article = Article.objects.get(pk=article_id)
+		person_id = request.user.person.id
+		person = Person.objects.get(pk=person_id)
+		person.carted.add(article)
+		person.save()
+		cprint(person.carted.all(), 'yellow')
+		return HttpResponseRedirect(reverse("carted", args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Data Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -462,6 +458,7 @@ def purchased(request):
 		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 
+@login_required
 def sold(request):
 	try:
 		person_id = request.user.person.id

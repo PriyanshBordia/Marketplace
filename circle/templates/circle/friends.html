@@ -3,7 +3,7 @@
 {% extends "circle/base.html" %}
 
 {% block title %}
-	Friends
+	Friends {{ friends|length }}
 {% endblock %}
 
 {% block head %}
@@ -20,24 +20,41 @@
 				{% for friend in friends %}
 					<div class="col-md-4">
 						<div class="friends__container__grid">
-							<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="{{ friend.id }}" />
-							<h3 class="friends__container__grid__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h3>
 							<div class="row">
 								<div class="col-md-4">
-									<!-- <p class="text-left"><small class="text-muted">{{ friend }}</small></p> -->
-									<!-- <a href="{% url 'chats' %}">
-										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger btn-md"></button>
-									</a> -->
+									<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="BP{{ friend.id }}ID" />
 								</div>
+								<div class="col-md-8">
+									<h3 class="friends__container__grid__name">{{ friend.first }} {{ friend.last }}</h3>
+								</div>
+							</div>
+							<div class="row mb-0">
 								<div class="col-md-4">
-									<a href="{% url 'chat' chat.id %}">
-										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-warning btn-md">Chat</button>
+									<a href="{% url 'person' friend.id %}">
+										<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 									</a>
 								</div>
 								<div class="col-md-4">
-									<a href="{% url 'remove' chat.receiver.id 'friend' %}">
-										<button class="friend__container__grid__btn form-control form-control-md btn btn-outline-danger btn-md">Unfriend</button>
+									{% for chat in chats %}
+										{% if chat.left.id == friend.id or chat.right.id == friend.id %}
+											<a href="{% url 'chat' chat.id %}">
+												<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+								<div class="col-md-4">
+									<a href="{% url 'remove' friend.id 'friend' %}">
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Unfriend</button>
 									</a>
+								</div>
+							</div>
+							<div class="row mt-2 mb-0 pb-0">
+								<div class="col-md-8 mb-0">
+									<p class="text-left"><small class="text-muted">Last Seen {{ friend.user.last_login|naturaltime }}</small></p>
+								</div>
+								<div class="col-md-4 mb-0">
+									<!-- <p class="text-right"><small class="text-muted">{{ friend.updated_ts|naturaltime }}</small></p> -->
 								</div>
 							</div>
 						</div>

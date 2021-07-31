@@ -227,12 +227,15 @@ hr {
 }
 
 .alert {
-  margin: 3rem auto 2rem auto;
+  margin: 2rem auto 2rem auto;
   font-size: 1.5rem;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .row {
@@ -240,7 +243,7 @@ hr {
 }
 
 .col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
-  padding: 0.5rem .5rem 0.5rem .5rem;
+  padding: 0.5rem 0.5rem 0.5rem .5rem;
 }
 
 .flex {
@@ -398,27 +401,33 @@ hr {
   margin-bottom: 1rem;
 }
 
+.search {
+  margin: 2rem;
+}
+
 .person {
-  margin: 2rem auto 2rem auto;
-  border: 1px solid #a8b2d1;
+  margin: 1rem auto 1rem auto;
+  border: 0.125rem solid #a8b2d1;
   background-color: #112240;
 }
 
 .person__grid {
-  margin: 1rem 2rem 1rem 2rem;
+  margin: 1rem 1rem 1rem 1rem;
   padding: 1rem 1rem 1rem 1rem;
-  border: 1px solid #ccd6f6;
+  border: 0.125rem solid #ccd6f6;
   background-color: #233554;
 }
 
 .person__grid__img {
+  margin: 1rem auto 1rem auto;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border-radius: 50%;
+  border: 0.125rem solid #ccd6f6;
 }
 
 .person__grid__name {
@@ -438,12 +447,20 @@ hr {
   font-size: 1rem;
 }
 
+.person__grid__email, .person__grid__ph_no {
+  font-size: 1rem;
+}
+
 .person__grid__age, .person__grid__gender {
   font-size: 1rem;
 }
 
 .person__grid__btn {
-  margin: 3rem 2rem auto 2rem;
+  margin: 1rem auto 1rem auto;
+}
+
+.person__grid__form {
+  margin: 1rem 2rem 1rem 2rem;
 }
 
 .person__rented, .person__display, .person__bookmarked, .person__purchased, .person__sold {
@@ -451,7 +468,7 @@ hr {
 }
 
 .persons {
-  margin: 3rem auto 3rem auto;
+  margin: 2rem auto 2rem auto;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -462,7 +479,7 @@ hr {
 }
 
 .persons__grid {
-  border: 1px solid #ccd6f6;
+  border: 0.125rem solid #ccd6f6;
   background-color: #112240;
 }
 
@@ -471,7 +488,60 @@ hr {
 }
 
 .article__grid {
-  margin: .8rem auto .8rem auto;
+  margin: .8rem .4rem .8rem .4rem;
+  border: 0.125rem solid #ccd6f6;
+  background-color: #112240;
+}
+
+.article__grid__img {
+  margin: 2rem auto 2rem auto;
+  width: 650px;
+  height: 450px;
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 0.125rem solid #233554;
+  border: 0.25rem solid #ccd6f6;
+}
+
+.article__grid__title {
+  margin: 1rem auto 1rem auto;
+}
+
+.article__grid__desc {
+  margin: 2rem 1rem 2rem 1rem;
+  padding: 2rem auto 2rem auto;
+  height: 12rem;
+  overflow-y: auto;
+  line-height: 1.8rem;
+  background-color: #233554;
+  border: 0.125rem solid #ccd6f6;
+}
+
+.article__grid__price {
+  padding: .2rem .2rem .2rem .2rem;
+  background-color: #0a192f;
+  border: 0.125rem solid #ccd6f6;
+  border-radius: 1rem;
+}
+
+.article__grid__btn {
+  margin: 1rem auto 1rem auto;
+  width: 1in;
+}
+
+.article__grid small {
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 100;
+  color: gray;
+}
+
+.articles {
+  margin: 1rem auto 1rem auto;
+}
+
+.articles__container {
+  margin: 1rem 1rem 1rem 1rem;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -479,67 +549,29 @@ hr {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background-color: #112240;
-}
-
-.article__grid__img {
-  margin: 2rem auto 2rem auto;
-  width: 600px;
-  height: 400px;
-  border: 0.25rem solid #ccd6f6;
-}
-
-.article__grid__title {
-  margin: 1rem auto auto 1.2rem;
-}
-
-.article__grid__desc {
-  margin: 2rem auto 2rem auto;
-  padding: 1rem;
-  height: 12rem;
-  overflow-y: auto;
-  background-color: #233554;
-  border: 0.125rem solid #ccd6f6;
-}
-
-.article__grid__price {
-  padding: .2rem;
-  background-color: #0a192f;
-  border: 0.125rem solid #ccd6f6;
-  border-radius: 1rem;
-}
-
-.article__grid__btn {
-  margin-top: .5rem;
-  margin-right: .1rem;
-  width: 1in;
-}
-
-.article__grid small {
-  margin: auto;
-  margin-left: 0.1rem;
-  color: gray;
-  font-size: 1rem;
-  font-weight: 100;
-}
-
-.articles {
-  margin: 2rem auto 2rem auto;
 }
 
 .articles__container__grid {
-  margin: 1.5rem auto 1.5rem auto;
+  margin: 1rem auto 1rem auto;
   border: 0.125rem solid #ccd6f6;
+}
+
+.articles__container__grid:hover {
+  border: 0.125rem solid #233554;
   background-color: #112240;
 }
 
 .articles__container__grid__img {
   width: 400px;
   height: 250px;
+  max-width: 100%;
+  max-height: 100%;
+  border-bottom: 0.125rem solid #233554;
 }
 
 .articles__container__grid__title {
-  padding: .6rem auto .4rem auto;
+  margin: 1rem auto .4rem auto;
+  padding: 1rem auto 1rem auto;
 }
 
 .articles__container__grid__price {
@@ -550,15 +582,19 @@ hr {
   border-radius: 1rem;
 }
 
-.articles__container__grid p small {
-  color: gray;
-  font-size: .8rem;
-  font-weight: 100;
+.articles__container__grid__btn {
+  margin-top: .4rem auto .2rem auto;
 }
 
-.articles__container__grid:hover {
-  border: 0.125rem solid #7dce94;
-  background-color: #233554;
+.articles__container__grid p small {
+  padding: 0;
+  font-size: .8rem;
+  font-weight: 100;
+  color: gray;
+}
+
+.friends {
+  margin: 1rem 1rem 1rem 1rem;
 }
 
 .friends__container {
@@ -572,16 +608,18 @@ hr {
 }
 
 .friends__container__grid {
-  margin: 2rem auto 1rem auto;
+  margin: 2rem auto 2rem auto;
   border: 0.125rem solid #ccd6f6;
 }
 
 .friends__container__grid:hover {
+  border: 0.125rem solid #233554;
   background-color: #112240;
 }
 
 .friends__container__grid__img {
   margin-top: 2rem;
+  padding: 1rem 1rem 1rem 1rem;
   max-width: 9rem;
   max-height: 9rem;
   border-radius: 50%;
@@ -589,16 +627,18 @@ hr {
 }
 
 .friends__container__grid__name {
-  padding: 1rem;
   margin: 1rem;
+  padding: 1rem;
   font-size: 1.5rem;
   font-weight: 300;
   border-bottom: 1px solid #ccd6f6;
 }
 
-.friends__container__grid__btn {
-  margin: 1rem;
-  width: 1in;
+.friends__container p small {
+  padding: 0;
+  font-size: .8rem;
+  font-weight: 100;
+  color: gray;
 }
 
 .chat {
@@ -644,15 +684,14 @@ hr {
 }
 
 .chat__container__grid {
-  margin: 1rem auto 1rem auto;
-  height: calc(100vh - 400px);
+  margin: 1rem 1rem 1rem 1rem;
   background-color: #112240;
   border: 0.125rem solid #a8b2d1;
   border-radius: 0.3rem;
 }
 
 .chat__container__grid__message {
-  padding-right: 1rem;
+  margin: .2rem .2rem .2rem .2rem;
   height: calc(100vh - 400px);
   overflow-y: scroll;
   line-height: 2rem;
@@ -713,7 +752,55 @@ hr {
 }
 
 .chats {
-  margin-top: 2rem;
+  margin: 2rem auto 2rem auto;
+}
+
+.chats__container {
+  margin: 1rem auto 1rem auto;
+  padding: 0;
+  max-height: calc(100vh - 15%);
+  overflow-y: auto;
+  border: 0.125rem solid #ccd6f6;
+}
+
+.chats__container__grid {
+  margin: 1rem auto 1rem auto;
+  padding: 1rem 1rem 0 1rem;
+  background-color: #112240;
+  border: 0.125rem solid #ccd6f6;
+}
+
+.chats__container__grid__header {
+  margin: .2rem auto .2rem auto;
+  padding: 1rem auto 1rem auto;
+  background-color: #112240;
+  border-bottom: 0.125rem solid #a8b2d1;
+  border-radius: .2rem;
+}
+
+.chats__container__grid__header__img {
+  margin: .2rem .2rem .2rem .2rem;
+  padding: 1rem 1rem 1rem 1rem;
+  width: 120px;
+  height: 120px;
+  border: 0.125rem solid #233554;
+  border-radius: 50%;
+}
+
+.chats__container__grid__header__name {
+  margin: .2rem .2rem .2rem .2rem;
+  padding: 2rem 1.5rem .4rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #bd8c7d;
+}
+
+.chats small {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 100;
+  color: gray;
 }
 
 .cart {

@@ -1,5 +1,7 @@
 .friends {
 
+	margin: 1rem 1rem 1rem 1rem;
+
 	&__container {
 
 		text-align: center;
@@ -8,36 +10,47 @@
 
 		&__grid {
 
-			margin: 2rem auto 1rem auto;
+			margin: 2rem auto 2rem auto;
 			border: .125rem solid $LightestSlate;
 
 			&:hover {
 
+				border: .125rem solid $LightestNavy;
 				background-color: $LightNavy;
 			}
 
 			&__img {
 
 				margin-top: 2rem;
-				max-width: 9rem;
-				max-height: 9rem;
+				padding: 1rem 1rem 1rem 1rem;
+				width: 100px;
+				height: 100px;
 				border-radius: 50%;
 				border: 2px solid coral;
 			}
 
 			&__name {
 
-				padding: 1rem;
 				margin: 1rem;
+				padding: 1rem;
 				font-size: 1.5rem;
 				font-weight: 300;
 				border-bottom: 1px solid $LightestSlate;
 			}
 
-			&__btn {
+			// &__btn {
 
-				margin: 1rem;
-				width: $btn-size-xxs;
+			// 	margin: 1rem;
+			// 	width: $btn-size-xxs;
+			// }
+		}
+
+		p {
+			small {
+				padding: 0;
+				font-size: .8rem;
+				font-weight: 100;
+				color: gray;
 			}
 		}
 	}
