@@ -18,6 +18,15 @@ register = template.Library()
 # 		return False
 
 
+@register.filter(name='isFriend')
+def isFriend(value, arg):
+	try:
+		person_id = int(arg)
+		return Person.objects.filter(id=person_id, friends__pk=value.id).exists()
+	except Person.DoesNotExist:
+		return False
+
+
 @register.filter(name='isDisplayed')
 def isDisplayed(value, arg):
 	try:

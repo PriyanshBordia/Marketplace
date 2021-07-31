@@ -100,7 +100,8 @@ class Person(models.Model):
 	carted = models.ManyToManyField(Article, blank=True, related_name="carted")
 
 	friends = models.ManyToManyField('self', blank=True, related_name="friends")
-
+	chats = models.ManyToManyField('Chat', blank=True, related_name="chats")
+	
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
 	created_ts = models.DateTimeField(auto_now_add=True)
@@ -133,7 +134,7 @@ class Message(models.Model):
 	sender = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="sender", default=1)
 	receiver = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="receiver", default=1)
 
-	text = models.TextField(max_length=255, blank=False, null=False, default="Type a Message...")
+	text = models.TextField(max_length=255, blank=False, null=False)
 
 	timestamp = models.DateTimeField(auto_now_add=True)
 

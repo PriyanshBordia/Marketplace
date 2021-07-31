@@ -40,7 +40,6 @@ def newPerson(request):
 
 @login_required
 def addPerson(request):
-
 	try:
 		person = Person()
 		if request.POST:
@@ -50,7 +49,7 @@ def addPerson(request):
 				person.username = str(form.cleaned_data["email"].split('@')[0])
 				form.save()
 				Chat.objects.create(left=person, right=person)
-				return HttpResponseRedirect(reverse('person', args=(request.user.id, )))
+				return HttpResponseRedirect(reverse('person', args=(person.id, )))
 			else:
 				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:
@@ -62,95 +61,96 @@ def addPerson(request):
 	# if request.GET:
 	# 	return HttpResponseRedirect(reverse('newPerson', args=()))
 	# else:
-		try:
-			user = User.objects.get(pk=request.user.id)
-			try:
-				bio = str(request.POST.get("bio"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message":  "Enter a Bio.!!", "type": "Key Error", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# try:
+		# 	user = User.objects.get(pk=request.user.id)
+		# 	try:
+		# 		bio = str(request.POST.get("bio"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message":  "Enter a Bio.!!", "type": "Key Error", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			try:
-				first = str(request.POST.get("first"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message":  "Enter a First Name.!!", "type": "Key Error", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		first = str(request.POST.get("first"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message":  "Enter a First Name.!!", "type": "Key Error", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			try:
-				last = str(request.POST.get("last"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message":  "Enter a Last Name.!!", "type": "Key Error", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		last = str(request.POST.get("last"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message":  "Enter a Last Name.!!", "type": "Key Error", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			try:
-				age = int(request.POST.get("age"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message": "Enter a Age!", "type": "Key Error.!!", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		age = int(request.POST.get("age"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message": "Enter a Age!", "type": "Key Error.!!", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			try:
-				sex = str(request.POST.get("sex"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message": "Select gender from the options provided.!!", "type": "KeyError", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		sex = str(request.POST.get("sex"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message": "Select gender from the options provided.!!", "type": "KeyError", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			sex = sex[0]
+		# 	sex = sex[0]
 
-			try:
-				email = str(request.POST.get("email"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message": "Enter an e-mail address.!!", "type": "KeyError", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		email = str(request.POST.get("email"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message": "Enter an e-mail address.!!", "type": "KeyError", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			try:
-				ph_no = str(request.POST.get("ph_no"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message": "Enter an e-mail address.!!", "type": "KeyError", "link": "newPerson"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
+		# 	try:
+		# 		ph_no = str(request.POST.get("ph_no"))
+		# 	except KeyError:
+		# 		return render(request, "circle/error.html", context={"message": "Enter an e-mail address.!!", "type": "KeyError", "link": "newPerson"})
+		# 	except ValueError:
+		# 		return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "newPerson"})
+		# 	except TypeError:
+		# 		return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "newPerson"})
 
-			username = email.split('@')[0]
+		# 	username = email.split('@')[0]
 
-			profile = request.FILES['profile']
+		# 	profile = request.FILES['profile']
 
-			try:
-				Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
-				return HttpResponseRedirect(reverse('person', args=(person.id, )))
-			except:
-				return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
-		except User.DoesNotExist:
-			return render(request, "circle/error.html", context={"message": "No user found.!!", "type": "Data Error", "link": "newPerson"})
+		# 	try:
+		# 		Person.objects.create(user=user, profile=profile, username=username, bio=bio, first=first, last=last, age=age, sex=sex, email=email, ph_no=ph_no)
+		# 		return HttpResponseRedirect(reverse('person', args=(person.id, )))
+		# 	except:
+		# 		return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
+		# except User.DoesNotExist:
+		# 	return render(request, "circle/error.html", context={"message": "No user found.!!", "type": "Data Error", "link": "newPerson"})
 		
 
 @login_required
 def person(request, person_id):
 	try:
 		person = Person.objects.get(pk=person_id)
-		if request.user.id != person_id:
-			chat_id = Chat.objects.filter(Q(left=person_id, right=request.user.id) | Q(left=request.user.id, right=person_id)).first().id
-			return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
+		if  Person.objects.filter(pk=request.user.person.id, friends__pk=person.id).exists():
+			if Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).exists():
+				chat_id = Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).first().id
+				return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
 		else:
-			return render(request, "circle/person.html", context={"person": person,})
+			return render(request, "circle/person.html", context={"person": person})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Data Error.!", "link": "search"})
 	except Chat.DoesNotExist:
@@ -323,7 +323,7 @@ def addFriend(request, person_id):
 		person = Person.objects.get(pk=request.user.person.id)
 		person.friends.add(friend)
 		person.save()
-		if person.allowsMessage:
+		if friend.allowsMessage:
 			Chat.objects.create(left=person, right=friend)
 		return HttpResponseRedirect(reverse('person', args=(person.id, )))
 	except Person.DoesNotExist:
@@ -565,11 +565,11 @@ def remove(request, id, type):
 
 
 @login_required
-def addMessage(request, chat_id):
+def addMessage(request, sender_id, receiver_id, chat_id):
 	try:
 		if request.POST:
 			message = str(request.POST.get("message"))
-			text = Message.objects.create(text=message)
+			text = Message.objects.create(sender=sender_id, receiver=receiver_id, text=message)
 			if text.isValidMessage():
 				try:
 					chat = Chat.objects.get(pk=chat_id)

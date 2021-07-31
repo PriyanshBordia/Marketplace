@@ -85,7 +85,7 @@
 							<img src="https://img.icons8.com/bubbles/50/000000/contacts.png" />
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="{% url 'person' request.user.id %}">Your details</a>
+							<a class="dropdown-item" href="{% url 'person' request.user.person.id %}">Your details</a>
 							<a class="dropdown-item" href="{% url 'friends' %}">Your friends</a>
 							<a class="dropdown-item" href="{% url 'chats' %}">Your chats</a>
 							<div class="dropdown-divider"></div>

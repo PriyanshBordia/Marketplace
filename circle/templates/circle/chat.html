@@ -18,35 +18,39 @@
 		<div class="chat__container">
 			<div class="row">
 				<div class="col-md-4">
-					{% if chat.right.person.id != request.user.id %}
-						<img class="chat__container__img" src="{% static chat.left.profile.url %}" alt="BP{{ person.id }}ID" />
-						<h4 class="chat__container__name">{{ chat.right.first }} {{ chat.right.last }}</h4>
+					{% if chat.right.person.id != request.user.person.id %}
+						<img class="chat__container__img" src="{% static chat.right.profile.url %}" alt="BP{{ person.id }}ID" />
+						<h1 class="chat__container__name">{{ chat.right.first }} {{ chat.right.last }}</h1>
 						<div class="row">
 							<div class="col-md-6">
-								<!-- <div class="chat__container__btn"> -->
-									<a href="{% url 'person' chat.right.id %}">
-										<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
-									</a>
-								<!-- </div> -->
+								<a href="{% url 'person' chat.right.id %}">
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+								</a>
 							</div>
 							<div class="col-md-6">
-								<!-- <div class="chat__container__btn"> -->
-									<a href="{% url 'remove' chat.id 'chat' %}">
-										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
-									</a>
-								<!-- </div> -->
+								<a href="{% url 'remove' chat.id 'chat' %}">
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+								</a>
 							</div>
 						</div>
+						<hr>
 					{% else %}
-						<img class="chat__container__img" src="{% static chat.receiver.profile.url %}" alt="BP{{ person.id }}ID" />
-						<h4 class="chat__container__name">{{ chat.receiver.first }} {{ chat.receiver.last }}</h4>
-						<div class="chat__container__btn">
-							<a href="{% url 'person' chat.left.id %}">
-								<button class="form-control form-control-md btn btn-outline-info btn-md">View</button>
-							</a>
+						<img class="chat__container__img" src="{% static chat.left.profile.url %}" alt="BP{{ person.id }}ID" />
+						<h1 class="chat__container__name">{{ chat.left.first }} {{ chat.left.last }}</h1>
+						<div class="row">
+							<div class="col-md-6">
+								<a href="{% url 'person' chat.left.id %}">
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+								</a>
+							</div>
+							<div class="col-md-6">
+								<a href="{% url 'remove' chat.id 'chat' %}">
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+								</a>
+							</div>
 						</div>
+						<hr>
 					{% endif %}
-					<hr>
 				</div>
 				<div class="col-md-8">
 					<div class="chat__container__grid justify-content-center">
@@ -54,20 +58,20 @@
 						<div class="chat__container__grid__message">
 							{% for message in chat.messages.all %}
 								<div class="row">
-									{% if chat.left.person.user.id == chat.right.user.id %}
-										{% if chat.left.user.id == request.user.id %}
-											<div class="chat__container__grid__message__sender">
-												<p class="pl-2 pr-2">{{ message.text }}</p>
-												<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
-											</div>
-										{% else %}
-											<div class="chat__container__grid__message__receiver">
-												<p class="pl-2 pr-2">{{ message.text }}</p>
-												<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
-											</div>
-										{% endif %}
+									<!-- {% if chat.left.id == request.user.person.id %} -->
+									{% if message.sender.id == request.user.person.id %}
+										<div class="chat__container__grid__message__sender">
+											<p class="pl-2 pr-2">{{ message.text }}</p>
+											<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
+										</div>
 									{% else %}
-										{% if chat.receiver.user.id == request.user.id %}
+										<div class="chat__container__grid__message__receiver">
+											<p class="pl-2 pr-2">{{ message.text }}</p>
+											<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
+										</div>
+									{% endif %}
+									<!-- {% else %}
+										{% if message.receiver.id != request.user.person.id %}
 											<div class="chat__container__grid__message__sender">
 												<p class="pl-2 pr-2">{{ message.text }}</p>
 												<small class="pl-2 pr-2">{{ message.timestamp|naturaltime }}</small>
@@ -78,7 +82,7 @@
 												<small class="pr-2 pl-2">{{ message.timestamp|naturaltime }}</small>
 											</div>
 										{% endif %}
-									{% endif %}
+									{% endif %} -->
 								</div>
 							{% empty %}
 								<div class="alert alert-info" role="alert">Start a conversation.!</div>
@@ -86,7 +90,7 @@
 						</div>
 					</div>
 					<div class="chat__container__footer">
-						<form class="form-group" action="{% url 'addMessage' chat.id %}" method="POST">
+						<form class="form-group" action="{% url 'addMessage' request.user.person.id chat.right.id chat.id %}" method="POST">
 					
 							{% csrf_token %}
 					

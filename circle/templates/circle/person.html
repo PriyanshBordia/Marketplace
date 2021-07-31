@@ -11,6 +11,7 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
+	{% load circle_tags %}
 {% endblock %}
 
 {% block body %}
@@ -102,38 +103,36 @@
 						<div class="row mt-0 mb-0">
 							<div class="col-md-6">
 								<a href="{% url 'edit' person.id 'person' %}">
-									<button class="form-control form-control-md btn btn-outline-primary btn-md">Edit</button>
+									<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Edit</button>
 								</a>
 							</div>
 							<div class="col-md-6">
 								<a href="{% url 'remove' person.id 'person' %}">
-									<button class="form-control form-control-md btn btn-outline-danger btn-md">Delete</button>
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
 								</a>
 							</div>
 						</div>
 					{% else %}
-						{% if chat_id %}
+						{% if person|isFriend:request.user.person.id %}
 							<div class="row mt-0 mb-0">
 								<div class="col-md-6">
 									<a href="{% url 'chat' chat_id %}">
-										<button class="form-control form-control-md btn btn-outline-warning btn-md">Chat</button>
+										<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
 									</a>
 								</div>
 								<div class="col-md-6">
 									<a href="{% url 'remove' person.id 'friend' %}">
-										<button class="form-control form-control-md btn btn-outline-danger btn-md">Remove</button>
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
 									</a>
 								</div>
 							</div>
 						{% else %}
 							<div class="row mt-0 mb-0">
-								<div class="col-md-2"></div>
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<a href="{% url 'addFriend' person.id %}">
-										<button class="form-control form-control-md btn btn-outline-success btn-md">Add Friend</button>
+										<button class="form-control form-control-lg btn btn-outline-success btn-lg">Add Friend</button>
 									</a>
 								</div>
-								<div class="col-md-2"></div>
 							</div>
 						{% endif %}
 					{% endif %}
