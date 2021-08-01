@@ -597,12 +597,17 @@ def remove(request, id, type):
 				person.carted.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse("carted", args=()))
-			elif type == 'purchased':
-				person.purchased.remove(article)
+			# elif type == 'purchased':
+			# 	person.purchased.remove(article)
+			# 	person.save()
+			# 	return HttpResponseRedirect(reverse("purchased", args=()))
+			elif type == 'display':
+				person.display.remove(article)
 				person.save()
-				return HttpResponseRedirect(reverse("purchased", args=()))
+				article.delete()
+				return HttpResponseRedirect(reverse("display", args=()))
 			else:
-				return HttpResponseRedirect(reverse("search", args=()))
+				return HttpResponseRedirect(reverse("search", args=("article", )))
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 		except Person.DoesNotExist:

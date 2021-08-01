@@ -5,17 +5,16 @@
 	&__container {
 
 		margin: 1rem auto 1rem auto;
-		padding: 0;
-		height: calc(100vh - 15rem);
+		height: calc(100vh - 5rem);
 		overflow-y: auto;
 		border: .125rem solid $LightestSlate;
 		
 		&__grid {
 
-			margin: 1rem auto auto auto;
-			padding: 1rem 1rem .2rem 1rem;
+			margin: .4rem .4rem .4rem .4rem;
 			background-color: $LightNavy;
-			border: .25rem solid $LightestNavy;
+			border: .125rem solid $LightestNavy;
+			border-radius: .1rem;
 			
 			&:hover {
 
@@ -24,28 +23,25 @@
 
 			&__header {
 
-				margin: .2rem auto .2rem auto;
-				padding: 1rem auto .2rem auto;
 				background-color: $LightNavy;
 				border-bottom: .125rem solid $LightSlate;
-				// border-radius: .2rem;
 
 				&__img {
 
-					margin: .2rem .2rem .2rem .2rem;
+					margin: .2rem auto .2rem auto;
 					padding: 1rem 1rem 1rem 1rem;
-					width: 120px;
-					height: 120px;
+					width: 7.5rem;
+					height: 7.5rem;
 					border: .125rem solid $LightestNavy;
 					border-radius: 50%;
 				}
 
 				&__name {
-					margin: .2rem .2rem .2rem .2rem;
-					padding: 2rem 1.5rem .4rem 2rem;
-					font-size: 1.4rem;
+					margin: 2rem 0 .2rem auto;
+					padding: 2rem 0 .2rem auto;
+					font-size: 2rem;
 					font-weight: 300;
-					color: $RoseGold;
+					color: $VanillaGrey;
 				}
 			}
 		}
@@ -53,8 +49,8 @@
 
 	small {
 
-		margin: 0;
-		padding: 0;
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
 		font-size: 1rem;
 		font-weight: 100;
 		color: gray;

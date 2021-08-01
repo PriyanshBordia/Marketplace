@@ -22,7 +22,19 @@
 					{{ message }}
 				</div>
 				<div class="error__grid__a">
-					<a class="btn btn-outline-danger btn-lg" href="{% url link %}" role="button">Go. Back</a>
+					{% if link == "search" %}
+						<a href="{% url link 'article' %}">
+							<button class="form-control form-control-lg btn btn-outline-danger btn-lg">
+								Search
+							</button>
+						</a>
+					{% else %}
+						<a href="{% url link %}">
+							<button class="form-control form-control-lg btn btn-outline-danger btn-lg">
+								Go. Back
+							</button>
+						</a>
+					{% endif %}
 				</div>
 			</error>
 		</div>

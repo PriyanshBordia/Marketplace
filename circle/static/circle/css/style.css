@@ -239,7 +239,13 @@ hr {
 }
 
 .row {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
@@ -412,8 +418,8 @@ hr {
 }
 
 .person__grid {
-  margin: 1rem 1rem 1rem 1rem;
-  padding: 1rem 1rem 1rem 1rem;
+  margin: .2rem .4rem .2rem .4rem;
+  padding: .2rem auto .2rem auto;
   border: 0.125rem solid #233554;
 }
 
@@ -424,8 +430,8 @@ hr {
 .person__grid__img {
   margin: 1rem auto 1rem auto;
   padding: 1rem 1rem 1rem 1rem;
-  width: 200px;
-  height: 200px;
+  width: 12.25rem;
+  height: 12.25rem;
   text-align: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -572,8 +578,8 @@ hr {
 }
 
 .articles__container__grid__img {
-  width: 450px;
-  height: 250px;
+  width: 28.125rem;
+  height: 15.250rem;
   max-width: 100%;
   max-height: 100%;
   border-bottom: 0.25rem solid #233554;
@@ -777,17 +783,16 @@ hr {
 
 .chats__container {
   margin: 1rem auto 1rem auto;
-  padding: 0;
-  height: calc(100vh - 15rem);
+  height: calc(100vh - 5rem);
   overflow-y: auto;
   border: 0.125rem solid #ccd6f6;
 }
 
 .chats__container__grid {
-  margin: 1rem auto auto auto;
-  padding: 1rem 1rem .2rem 1rem;
+  margin: .4rem .4rem .4rem .4rem;
   background-color: #112240;
-  border: 0.25rem solid #233554;
+  border: 0.125rem solid #233554;
+  border-radius: .1rem;
 }
 
 .chats__container__grid:hover {
@@ -795,32 +800,30 @@ hr {
 }
 
 .chats__container__grid__header {
-  margin: .2rem auto .2rem auto;
-  padding: 1rem auto .2rem auto;
   background-color: #112240;
   border-bottom: 0.125rem solid #a8b2d1;
 }
 
 .chats__container__grid__header__img {
-  margin: .2rem .2rem .2rem .2rem;
+  margin: .2rem auto .2rem auto;
   padding: 1rem 1rem 1rem 1rem;
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
   border: 0.125rem solid #233554;
   border-radius: 50%;
 }
 
 .chats__container__grid__header__name {
-  margin: .2rem .2rem .2rem .2rem;
-  padding: 2rem 1.5rem .4rem 2rem;
-  font-size: 1.4rem;
+  margin: 2rem 0 .2rem auto;
+  padding: 2rem 0 .2rem auto;
+  font-size: 2rem;
   font-weight: 300;
-  color: #bd8c7d;
+  color: #f6f5f3;
 }
 
 .chats small {
-  margin: 0;
-  padding: 0;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
   font-size: 1rem;
   font-weight: 100;
   color: gray;
@@ -845,8 +848,8 @@ hr {
 }
 
 .cart__container__grid__img {
-  width: 600px;
-  height: 350px;
+  width: 37.5rem;
+  height: 21.875rem;
   max-width: 100%;
   border: 0.125rem solid #a8b2d1;
 }
