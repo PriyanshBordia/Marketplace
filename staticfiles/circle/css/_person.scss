@@ -10,8 +10,12 @@
 
 		margin: 1rem 1rem 1rem 1rem;
 		padding: 1rem 1rem 1rem 1rem;
-		border: .125rem solid $LightestSlate;
-		background-color: $LightestNavy;
+		border: .125rem solid $LightestNavy;
+
+		&:hover {
+			border: .125rem solid $LightestSlate;
+			// background-color: $LightestNavy;
+		}
 
 		&__img {
 
@@ -31,8 +35,8 @@
 
 		&__name {
 
-			margin-top: 1rem;
-			padding-right: 1rem;
+			margin: 1rem auto 1rem auto;
+			padding: 1rem 1rem 1rem 1rem;
 			font-size: 2rem;
 			color: $LightSlate;
 		}

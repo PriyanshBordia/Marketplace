@@ -5,17 +5,16 @@
 	&__container {
 
 		margin: 1rem auto 1rem auto;
-		// border: .125rem solid $LightSlate;
 
 		&__grid {
 
 			margin: .2rem auto 1rem auto;
-			border: .125rem solid $LightestSlate;
+			background-color: $LightNavy;
+			border: .125rem solid $LightestNavy;
 
 			&:hover {
 
-				border: .125rem solid $LightestNavy;
-				background-color: $LightNavy;
+				border: .125rem solid $LightestSlate;
 			}
 
 			&__img {
@@ -23,7 +22,7 @@
 				width: 600px;
 				height: 350px;
 				max-width: 100%;
-				border: .125rem solid $LightestSlate;
+				border: .125rem solid $LightSlate;
 			}
 
 			&__title {
