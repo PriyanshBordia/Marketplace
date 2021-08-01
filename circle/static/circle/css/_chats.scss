@@ -12,19 +12,23 @@
 		
 		&__grid {
 
-			margin: 1rem auto 1rem auto;
-			padding: 1rem 1rem 0 1rem;
+			margin: 1rem auto auto auto;
+			padding: 1rem 1rem .2rem 1rem;
 			background-color: $LightNavy;
-			border: .125rem solid $LightestSlate;
-			// border-radius: .25rem;
-		
+			border: .25rem solid $LightestNavy;
+			
+			&:hover {
+
+				border: .125rem solid $LightestSlate;
+			}
+
 			&__header {
 
 				margin: .2rem auto .2rem auto;
-				padding: 1rem auto 1rem auto;
+				padding: 1rem auto .2rem auto;
 				background-color: $LightNavy;
 				border-bottom: .125rem solid $LightSlate;
-				border-radius: .2rem;
+				// border-radius: .2rem;
 
 				&__img {
 

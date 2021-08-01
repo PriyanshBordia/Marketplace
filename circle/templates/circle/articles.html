@@ -3,7 +3,7 @@
 {% extends 'circle/base.html' %}
 
 {% block title %}
-	Articles {{ article|length }}
+	Articles {{ articles|length }}
 {% endblock %}
 
 {% block head %}
@@ -28,9 +28,9 @@
 							</div>
 							<div class="col-md-4">
 								{% if article|isDisplayed:request.user.person.id %}
-								<a href="{% url 'remove' article.id 'article' %}">
-									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
-								</a>
+									<a href="{% url 'remove' article.id 'article' %}">
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
+									</a>
 								{% endif %}
 							</div>
 							<div class="col-md-4">
