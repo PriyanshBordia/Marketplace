@@ -1,0 +1,64 @@
+<!-- "template/circle/retreated.html" -->
+
+{% extends "circle/base.html" %}
+
+{% block title %}
+	Retreated {{ articles|length }}
+{% endblock %}
+
+{% block head %}
+	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
+	{% load humanizelib %}
+{% endblock %}
+
+{% block body %}
+	<div class="articles">
+		<div class="articles__container">
+			<div class="row">
+				{% for article in articles %}
+					<div class="articles__container__grid">
+						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID">
+						<div class="articles__container__grid__title">{{ article.title }}</div>
+						<div class="row mb-0">
+							<div class="col-md-6">
+								<a href="{% url 'article' article.id %}">
+									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+								</a>
+							</div>
+							<!-- <div class="col-md-6">
+								<a href="{% url 'remove' article.id 'purchased' %}">
+									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Return</button>
+								</a>
+							</div> -->
+						</div>
+						<div class="row mt-0 mb-0">
+							<div class="col-md-8">
+								<p class="text-left pt-0 pr-auto pb-1 pl-1"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+							</div>
+							<div class="col-md-4">
+								<p class="text-right pt-0 pr-1 pb-1 pl-auto"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+							</div>
+						</div>
+					</div>
+				{% empty %}
+					<div class="container container-fluid text-center">
+						<div class="row justify-content-center">
+							<div class="alert alert-info" role="alert">
+								Nothing to view.!!
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{% url 'search' 'article' %}">
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Search</button>
+								</a>
+							</div>
+						</div>
+					</div>	
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

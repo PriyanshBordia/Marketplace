@@ -92,7 +92,7 @@ class Person(models.Model):
 	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
 
-	# retreated = models.ManyToManyField(Article, blank=True, related_name="retreated")
+	retreated = models.ManyToManyField(Article, blank=True, related_name="retreated")
 
 	rented = models.ManyToManyField(Article, blank=True, related_name="rented")
 	purchased = models.ManyToManyField(Article, blank=True, related_name="purchased")
@@ -104,8 +104,7 @@ class Person(models.Model):
 	carted = models.ManyToManyField(Article, blank=True, related_name="carted")
 
 	friends = models.ManyToManyField('self', blank=True, related_name="friends")
-	# chats = models.ManyToManyField('Chat', blank=True, related_name="chats")
-	
+
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
 	created_ts = models.DateTimeField(auto_now_add=True)

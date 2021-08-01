@@ -314,21 +314,21 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('friends'))
 		self.assertTemplateUsed(self.response, "circle/friends.html")
 
-	def test_view_status_code_search(self):
-		self.response = self.client.get(reverse('search'))
-		self.assertEquals(self.response.status_code, 200)
+	# def test_view_status_code_search(self):
+	# 	self.response = self.client.get(reverse('search'))
+	# 	self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_search(self):
-		self.response = self.client.get(reverse('search'))
-		self.assertTemplateUsed(self.response, "circle/search.html")
+	# def test_view_template_used_search(self):
+	# 	self.response = self.client.get(reverse('search'))
+	# 	self.assertTemplateUsed(self.response, "circle/search.html")
 		
-	def test_view_status_code_result(self):
-		self.response = self.client.get(reverse('result'))
-		self.assertEquals(self.response.status_code, 200)
+	# def test_view_status_code_result(self):
+	# 	self.response = self.client.get(reverse('result'))
+	# 	self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_result(self):
-		self.response = self.client.get(reverse('result'))
-		self.assertTemplateUsed(self.response, "circle/result.html")
+	# def test_view_template_used_result(self):
+	# 	self.response = self.client.get(reverse('result'))
+	# 	self.assertTemplateUsed(self.response, "circle/result.html")
 	
 	def test_view_status_code_display(self):
 		self.response = self.client.get(reverse('display'))

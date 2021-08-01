@@ -365,10 +365,23 @@ def result(request, type):
 				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
 			
 			if type == 'article':
+				display = list(Person.objects.get(pk=request.user.person.id).display.all()) #.values_list('id'))
+				rent = list(Person.objects.get(pk=request.user.person.id).rented.all()) #.values_list('id'))
+				purchased = list(Person.objects.get(pk=request.user.person.id).purchased.all()) #.values_list('id'))
+				sold = list(Person.objects.get(pk=request.user.person.id).sold.all()) #.values_list('id'))
+				# cprint(display, 'green')
+				# cprint(rent, 'red')
+				# cprint(purchased, 'blue')
+				# cprint(sold, 'yellow')
+
 				articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
+				# .exclude(display)
+				# .exclude(rent).exclude(purchased).exclude(sold)
 				return render(request, "circle/result.html", context={'articles': articles, 'type': type})
 			elif type == 'person':
-				persons = Person.objects.filter(Q(first__contains=search) | Q(last__contains=search) | Q(username__contains=search))
+				friends = list(Person.objects.get(pk=request.user.person.id).friends.all())
+				cprint(friends, 'blue')
+				persons = Person.objects.filter(Q(first__contains=search) | Q(last__contains=search) | Q(username__contains=search)).exclude(friends__in=friends)
 				return render(request, "circle/result.html", context={'persons': persons, 'type': type})
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
@@ -422,6 +435,7 @@ def retreat(request, article_id):
 		person_id = request.user.person.id
 		person = Person.objects.get(pk=person_id)
 		person.retreated.add(article)
+		person.rented.remove(article)
 		person.save()
 		return HttpResponseRedirect(reverse("rented", args=()))
 	except Article.DoesNotExist:
