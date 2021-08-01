@@ -45,14 +45,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.1rem;">
-			<form class="form-inline my-3 my-lg-0 mr-2 ml-auto" action="{% url 'result' 'article' %}" method="POST">
+			<form class="form-inline my-3 my-lg-0 mr-auto ml-auto" action="{% url 'result' 'article' %}" method="POST">
 				
 				{% csrf_token %}
 
 				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Search Articles..." aria-label="Search">
 				<button class="form-control btn btn-outline-warning my-2 my-sm-2" type="submit">Search</button>
 			</form>
-			<form class="form-inline my-3 my-lg-0 mr-auto ml-2" action="{% url 'result' 'person' %}" method="POST">
+			<form class="form-inline my-3 my-lg-0 mr-auto ml-auto" action="{% url 'result' 'person' %}" method="POST">
 				
 				{% csrf_token %}
 
@@ -62,7 +62,7 @@
             <ul class="navbar-nav mr-3">
 				{% if request.user.is_superuser %}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Super">
 							<img src="https://img.icons8.com/bubbles/50/000000/administrative-tools.png" />
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -80,7 +80,7 @@
 				{% if user.is_authenticated %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
+							aria-haspopup="true" aria-expanded="false" title="Profile">
 							<!-- Profile -->
 							<img src="https://img.icons8.com/bubbles/50/000000/contacts.png" />
 						</a>
@@ -107,20 +107,22 @@
 							<a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
 						</div>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'carted' %}">
-							<img src="https://img.icons8.com/bubbles/50/000000/buy.png" />
-						</a>
-					</li>
+					{% if request.user.person %}
+						<li class="nav-item">
+							<a class="nav-link" href="{% url 'carted' %}" title="Cart">
+								<img src="https://img.icons8.com/bubbles/50/000000/buy.png" />
+							</a>
+						</li>
+					{% endif %}
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'login' %}">
+						<a class="nav-link" href="{% url 'login' %}" title="Login">
 							<!-- Log In -->
 							<img src="https://img.icons8.com/clouds/50/000000/login-rounded-right.png" />
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'signup' %}">
+						<a class="nav-link" href="{% url 'signup' %}" title="Register">
 							<!-- Register -->
 							<img src="https://img.icons8.com/bubbles/50/000000/export.png" />
 						</a>

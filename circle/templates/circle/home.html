@@ -41,13 +41,18 @@
 				<br>
                 <div class="home-head h2">
                     <span id="username">Welcome</span>, <br>
-                    Log In to enter the marketplace.
+                    Register & Log In to enter the marketplace.
                 </div>
 				<br>
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<a href="{% url 'login' %}" role="button">
-							<button class="form-control form-control-lg btn btn-outline-info btn-lg">Log In</button>
+							<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Log In</button>
+						</a>
+					</div>
+					<div class="col-md-6">
+						<a href="{% url 'login' %}" role="button">
+							<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Register</button>
 						</a>
 					</div>
 				</div>

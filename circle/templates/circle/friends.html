@@ -11,12 +11,13 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
+	{% load circle_tags %}
 {% endblock %}
 
 {% block body %}
 	<div class="friends">
 		<div class="friends__container">
-			<div class="row">
+			<div class="row justify-content-center">
 				{% for friend in friends %}
 					<div class="col-md-4">
 						<div class="friends__container__grid">
@@ -25,7 +26,9 @@
 									<img class="friends__container__grid__img" src="{% static friend.profile.url %}" alt="BP{{ friend.id }}ID" />
 								</div>
 								<div class="col-md-8">
-									<h3 class="friends__container__grid__name">{{ friend.first }} {{ friend.last }}</h3>
+									<div class="friends__container__grid__name">{{ friend.first }} {{ friend.last }}</div>
+									<div class="friends__container__grid__email"><i class="fas fa-envelope"></i> {{ friend.email }}</div>
+									<hr>
 								</div>
 							</div>
 							<div class="row mb-0">
@@ -35,13 +38,9 @@
 									</a>
 								</div>
 								<div class="col-md-4">
-									{% for chat in chats %}
-										{% if chat.left.id == friend.id or chat.right.id == friend.id %}
-											<a href="{% url 'chat' chat.id %}">
-												<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
-											</a>
-										{% endif %}
-									{% endfor %}
+									<a href="{% url 'chat' friend|get_chat_id:request.user.person.id %}">
+										<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
+									</a>
 								</div>
 								<div class="col-md-4">
 									<a href="{% url 'remove' friend.id 'friend' %}">

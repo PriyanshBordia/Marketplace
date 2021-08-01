@@ -239,13 +239,7 @@ hr {
 }
 
 .row {
-  margin: 1rem auto 1rem auto;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  margin: .2rem auto .4rem auto;
 }
 
 .col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
@@ -613,7 +607,7 @@ hr {
 }
 
 .friends {
-  margin: 1rem 1rem 1rem 1rem;
+  margin: 1rem auto 1rem auto;
 }
 
 .friends__container {
@@ -640,8 +634,8 @@ hr {
 .friends__container__grid__img {
   margin: .4rem auto .4rem auto;
   padding: 1rem 1rem 1rem 1rem;
-  width: 6.25rem;
-  height: 6.25rem;
+  width: 9.375rem;
+  height: 9.375rem;
   border: 0.125rem solid #ccd6f6;
   border-radius: 50%;
 }
@@ -652,10 +646,24 @@ hr {
 
 .friends__container__grid__name {
   margin: 1rem 1rem 1rem 1rem;
-  padding: 1rem 1rem 1rem 1rem;
-  font-size: 1.5rem;
+  padding: 1rem auto .4rem auto;
+  font-size: 2rem;
   font-weight: 300;
-  border-bottom: 0.125rem solid #ccd6f6;
+  color: #428bca;
+}
+
+.friends__container__grid__username {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #64ffda;
+}
+
+.friends__container__grid__bio {
+  font-size: 1.2rem;
+}
+
+.friends__container__grid__email, .friends__container__grid__ph_no {
+  font-size: 1.2rem;
 }
 
 .friends__container p small {
