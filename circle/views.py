@@ -344,27 +344,34 @@ def friends(request):
 
 
 @login_required
-def search(request):
-	return render(request, "circle/search.html", context={})
+def search(request, type):
+	return render(request, "circle/search.html", context={"type": type})
 
 
 @login_required
-def result(request):
-	if request.GET:
-		return HttpResponseRedirect(reverse('search', args=()))
-	else:
-		try:
-			search = str(request.POST.get("search"))
-		except KeyError:
-			return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
-		except ValueError:
-			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "articles"})
-		except TypeError:
-			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "articles"})
+def result(request, type):
+	try:
 
-	articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
-
-	return render(request, "circle/result.html", context={'articles': articles})
+		if request.GET:
+			return HttpResponseRedirect(reverse('search', args=(type,)))
+		else:
+			try:
+				search = str(request.POST.get("search"))
+			except KeyError:
+				return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
+			except ValueError:
+				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
+			except TypeError:
+				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
+			
+			if type == 'article':
+				articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
+				return render(request, "circle/result.html", context={'articles': articles, 'type': type})
+			elif type == 'person':
+				persons = Person.objects.filter(Q(first__contains=search) | Q(last__contains=search) | Q(username__contains=search))
+				return render(request, "circle/result.html", context={'persons': persons, 'type': type})
+	except Article.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required

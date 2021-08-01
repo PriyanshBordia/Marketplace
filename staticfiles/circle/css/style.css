@@ -414,8 +414,11 @@ hr {
 .person__grid {
   margin: 1rem 1rem 1rem 1rem;
   padding: 1rem 1rem 1rem 1rem;
+  border: 0.125rem solid #233554;
+}
+
+.person__grid:hover {
   border: 0.125rem solid #ccd6f6;
-  background-color: #233554;
 }
 
 .person__grid__img {
@@ -436,8 +439,8 @@ hr {
 }
 
 .person__grid__name {
-  margin-top: 1rem;
-  padding-right: 1rem;
+  margin: 1rem auto 1rem auto;
+  padding: 1rem 1rem 1rem 1rem;
   font-size: 2rem;
   color: #a8b2d1;
 }
@@ -494,17 +497,19 @@ hr {
 
 .article__grid {
   margin: .8rem .4rem .8rem .4rem;
-  border: 0.125rem solid #ccd6f6;
   background-color: #112240;
 }
 
 .article__grid__img {
   margin: 2rem auto 2rem auto;
-  width: 650px;
-  height: 450px;
+  width: 40.625rem;
+  height: 28.125rem;
   max-width: 100%;
   max-height: 100%;
-  border-bottom: 0.125rem solid #233554;
+  border: 0.25rem solid #233554;
+}
+
+.article__grid__img:hover {
   border: 0.25rem solid #ccd6f6;
 }
 
@@ -571,7 +576,7 @@ hr {
   height: 250px;
   max-width: 100%;
   max-height: 100%;
-  border-bottom: 0.125rem solid #233554;
+  border-bottom: 0.25rem solid #233554;
 }
 
 .articles__container__grid__title {
@@ -651,16 +656,26 @@ hr {
 }
 
 .chat {
-  margin: 2rem auto 2rem auto;
+  margin: 1rem auto 1rem auto;
 }
 
 .chat__container {
+  margin: 1rem auto 1rem auto;
+  border: 0.125rem solid #233554;
+}
+
+.chat__container__details {
   margin: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   background-color: #112240;
+  border: 0.125rem solid #233554;
+}
+
+.chat__container__details:hover {
   border: 0.125rem solid #ccd6f6;
 }
 
-.chat__container__img {
+.chat__container__details__img {
   margin: 1rem auto 1rem auto;
   padding: 1rem 1rem 1rem 1rem;
   width: 12.25rem;
@@ -669,22 +684,15 @@ hr {
   border-radius: 50%;
 }
 
-.chat__container__name {
-  margin: 2rem auto 2rem auto;
-  padding: 2rem;
-  font-size: 2rem;
+.chat__container__details__img:hover {
+  background-color: #112240;
 }
 
-.chat__container__btn {
-  margin: 2rem auto 2rem auto;
-  width: 1in;
-  text-align: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.chat__container__details__name {
+  margin: 1rem auto 1rem auto;
+  padding: 1rem 1rem 1rem 1rem;
+  font-size: 2rem;
+  color: #a8b2d1;
 }
 
 .chat__container__header {
@@ -699,7 +707,7 @@ hr {
 }
 
 .chat__container__grid__message {
-  margin: .2rem .2rem .2rem .2rem;
+  margin: .2rem auto .2rem auto;
   height: calc(100vh - 25rem);
   overflow-y: scroll;
   line-height: 2rem;
@@ -772,18 +780,21 @@ hr {
 }
 
 .chats__container__grid {
-  margin: 1rem auto 1rem auto;
-  padding: 1rem 1rem 0 1rem;
+  margin: 1rem auto auto auto;
+  padding: 1rem 1rem .2rem 1rem;
   background-color: #112240;
+  border: 0.25rem solid #233554;
+}
+
+.chats__container__grid:hover {
   border: 0.125rem solid #ccd6f6;
 }
 
 .chats__container__grid__header {
   margin: .2rem auto .2rem auto;
-  padding: 1rem auto 1rem auto;
+  padding: 1rem auto .2rem auto;
   background-color: #112240;
   border-bottom: 0.125rem solid #a8b2d1;
-  border-radius: .2rem;
 }
 
 .chats__container__grid__header__img {
@@ -821,19 +832,19 @@ hr {
 
 .cart__container__grid {
   margin: .2rem auto 1rem auto;
-  border: 0.125rem solid #ccd6f6;
+  background-color: #112240;
+  border: 0.125rem solid #233554;
 }
 
 .cart__container__grid:hover {
-  border: 0.125rem solid #233554;
-  background-color: #112240;
+  border: 0.125rem solid #ccd6f6;
 }
 
 .cart__container__grid__img {
   width: 600px;
   height: 350px;
   max-width: 100%;
-  border: 0.125rem solid #ccd6f6;
+  border: 0.125rem solid #a8b2d1;
 }
 
 .cart__container__grid__title {

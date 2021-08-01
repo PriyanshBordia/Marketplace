@@ -632,20 +632,24 @@ hr {
 }
 
 .friends__container__grid__img {
-  margin-top: 2rem;
+  margin: .4rem auto .4rem auto;
   padding: 1rem 1rem 1rem 1rem;
-  width: 100px;
-  height: 100px;
+  width: 6.25rem;
+  height: 6.25rem;
+  border: 0.125rem solid #ccd6f6;
   border-radius: 50%;
-  border: 2px solid coral;
+}
+
+.friends__container__grid__img:hover {
+  background-color: #233554;
 }
 
 .friends__container__grid__name {
-  margin: 1rem;
-  padding: 1rem;
+  margin: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   font-size: 1.5rem;
   font-weight: 300;
-  border-bottom: 1px solid #ccd6f6;
+  border-bottom: 0.125rem solid #ccd6f6;
 }
 
 .friends__container p small {

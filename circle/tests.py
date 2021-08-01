@@ -100,11 +100,11 @@ class UrlsTestCase(TestCase):
 		self.assertEquals(resolve(url).func, views.friends)
 
 	def test_url_search(self):
-		url = reverse('search')
+		url = reverse('search', args=['test-type'])
 		self.assertEquals(resolve(url).func, views.search)
 
 	def test_url_result(self):
-		url = reverse('result')
+		url = reverse('result', args=['test-type'])
 		self.assertEquals(resolve(url).func, views.result)
 	
 	def test_url_display(self):

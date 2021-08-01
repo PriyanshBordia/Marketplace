@@ -16,34 +16,31 @@
 			border: .125rem solid $LightestNavy;
 			
 			&:hover {
-
 				border: .125rem solid $LightestSlate;
 			}
 
 			&__img {
 
-				margin-top: 2rem;
+				margin: .4rem auto .4rem auto;
 				padding: 1rem 1rem 1rem 1rem;
-				width: 100px;
-				height: 100px;
+				width: 6.25rem;
+				height: 6.25rem;
+				border: .125rem solid $LightestSlate;
 				border-radius: 50%;
-				border: 2px solid coral;
+
+				&:hover {
+					background-color: $LightestNavy;
+				}
 			}
 
 			&__name {
 
-				margin: 1rem;
-				padding: 1rem;
+				margin: 1rem 1rem 1rem 1rem;
+				padding: 1rem 1rem 1rem 1rem;
 				font-size: 1.5rem;
 				font-weight: 300;
-				border-bottom: 1px solid $LightestSlate;
+				border-bottom: .125rem solid $LightestSlate;
 			}
-
-			// &__btn {
-
-			// 	margin: 1rem;
-			// 	width: $btn-size-xxs;
-			// }
 		}
 
 		p {
