@@ -8,21 +8,20 @@
 
 	&__grid {
 
-		margin: 1rem 1rem 1rem 1rem;
-		padding: 1rem 1rem 1rem 1rem;
+		margin: .2rem .4rem .2rem .4rem;
+		padding: .2rem auto .2rem auto;
 		border: .125rem solid $LightestNavy;
 
 		&:hover {
 			border: .125rem solid $LightestSlate;
-			// background-color: $LightestNavy;
 		}
 
 		&__img {
 
 			margin: 1rem auto 1rem auto;
 			padding: 1rem 1rem 1rem 1rem;
-			width: 200px;
-			height: 200px;
+			width: 12.25rem;
+			height: 12.25rem;
 			text-align: center;
 			align-items: center;
 			border-radius: 50%;

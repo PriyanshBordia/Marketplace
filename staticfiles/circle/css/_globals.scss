@@ -148,7 +148,9 @@ hr {
 }
 
 .row {
-    margin: 2rem auto 2rem auto;
+    margin: 1rem auto 1rem auto;
+	align-items: center;
+	justify-content: center;
 }
 
 .col-md-12, .col-md-10, .col-md-9, .col-md-8, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2 {
