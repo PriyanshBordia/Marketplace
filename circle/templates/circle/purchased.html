@@ -21,13 +21,11 @@
 					<div class="articles__container__grid">
 						<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID">
 						<div class="articles__container__grid__title">{{ article.title }}</div>
-						<div class="row mb-0">
-							<!-- <div class="col-md-6">
-								<a href="{% url 'remove' article.id 'purchased' %}">
-									<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Return</button>
-								</a>
-							</div> -->
-							<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="articles__container__grid__price">₹ {{ article.price }}</div>
+							</div>
+							<div class="col-md-4 m-auto">
 								<a href="{% url 'article' article.id %}">
 									<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 								</a>

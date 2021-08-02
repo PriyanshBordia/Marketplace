@@ -21,7 +21,16 @@
 					<div class="cart__container__grid">
 						<img class="cart__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
 						<div class="cart__container__grid__title">{{ article.title }}</div>
-						<div class="cart__container__grid__price">₹ {{ article.price }}</div>
+						<div class="row">
+							<div class="col-md-8">
+								<div class="cart__container__grid__price">₹ {{ article.price }}</div>
+							</div>
+							<div class="col-md-4 m-auto">
+								<a href="{% url 'buy' article.id %}">
+									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Buy</button>
+								</a>
+							</div>
+						</div>
 						<div class="row mb-0">
 							<div class="col-md-3">
 								<a href="{% url 'article' article.id %}">
@@ -29,13 +38,13 @@
 								</a>
 							</div>
 							<div class="col-md-3">
-								<a href="{% url 'rent' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-success btn-lg">Rent</button>
+								<a href="{% url 'wishlist' article.id %}">
+									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Wishlist</button>
 								</a>
 							</div>
 							<div class="col-md-3">
-								<a href="{% url 'wishlist' article.id %}">
-									<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Wishlist</button>
+								<a href="{% url 'rent' article.id %}">
+									<button class="form-control form-control-lg btn btn-outline-primary btn-lg">Rent</button>
 								</a>
 							</div>
 							<div class="col-md-3">
