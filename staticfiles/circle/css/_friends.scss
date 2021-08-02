@@ -1,6 +1,6 @@
 .friends {
 
-	margin: 1rem 1rem 1rem 1rem;
+	margin: 1rem auto 1rem auto;
 
 	&__container {
 
@@ -23,8 +23,8 @@
 
 				margin: .4rem auto .4rem auto;
 				padding: 1rem 1rem 1rem 1rem;
-				width: 6.25rem;
-				height: 6.25rem;
+				width: 9.375rem;
+				height: 9.375rem;
 				border: .125rem solid $LightestSlate;
 				border-radius: 50%;
 
@@ -36,10 +36,25 @@
 			&__name {
 
 				margin: 1rem 1rem 1rem 1rem;
-				padding: 1rem 1rem 1rem 1rem;
-				font-size: 1.5rem;
+				padding: 1rem auto .4rem auto;
+				font-size: 2rem;
 				font-weight: 300;
-				border-bottom: .125rem solid $LightestSlate;
+				color: $CuriousBlue;
+			}
+
+			&__username {
+
+				font-size: 1.2rem;
+				font-weight: 300;
+				color: $NeonGreen;
+			}
+
+			&__bio {
+				font-size: 1.2rem;
+			}
+
+			&__email, &__ph_no {
+				font-size: 1.2rem;
 			}
 		}
 
