@@ -198,6 +198,8 @@ def friends(request):
 
 @login_required
 def search(request, type):
+	if type != 'article' and type == 'person':
+		type = 'article'
 	return render(request, "circle/search.html", context={"type": type})
 
 
@@ -236,6 +238,8 @@ def result(request, type):
 				return render(request, "circle/result.html", context={'persons': persons, 'type': type})
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
+	except Person.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required
@@ -409,7 +413,7 @@ def remove(request, id, type):
 		try:
 			person = Person.objects.get(pk=id)
 			person.delete()
-			return HttpResponseRedirect(reverse("search", args=()))
+			return HttpResponseRedirect(reverse('search', args=('person', )))
 		except Person.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Type Error", "link": "search"})
 	elif type == 'friend':
@@ -458,9 +462,9 @@ def remove(request, id, type):
 				person.display.remove(article)
 				person.save()
 				article.delete()
-				return HttpResponseRedirect(reverse("display", args=()))
+				return HttpResponseRedirect(reverse('display', args=()))
 			else:
-				return HttpResponseRedirect(reverse("search", args=("article", )))
+				return HttpResponseRedirect(reverse('search', args=('article', )))
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 		except Person.DoesNotExist:
