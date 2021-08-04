@@ -206,6 +206,23 @@ class ViewsTestCase(TestCase):
 		p1.display.add(a1)
 		p1.save()
 
+	def test_view_status_code_login(self):
+		self.response = self.client.get(reverse('login'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_login(self):
+		self.response = self.client.get(reverse('login'))
+		self.assertTemplateUsed(self.response, "registration/login.html")
+
+	def test_view_template_used_signup(self):
+		self.response = self.client.get(reverse('signup'))
+		self.assertTemplateUsed(self.response, "registration/signup.html")
+
+	def test_view_status_code_signup(self):
+		self.response = self.client.get(reverse('signup'))
+		self.assertEquals(self.response.status_code, 200)
+
+
 	def test_view_status_code_home(self):
 		self.response = self.client.get(reverse('home'))
 		self.assertEquals(self.response.status_code, 200)
@@ -214,15 +231,16 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('home'))
 		self.assertTemplateUsed(self.response, "circle/home.html")
 	
-	# def test_view_status_code_addPerson(self):
-	# 	self.response = self.client.get(reverse('addPerson'))
-	# 	self.assertEquals(self.response.status_code, 200)
-	# 	self.response = self.client.post(reverse('addPerson'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_addPerson(self):
+		self.response = self.client.get(reverse('addPerson'))
+		self.assertEquals(self.response.status_code, 200)
+		self.response = self.client.post(reverse('addPerson'), {'profile': 'test.png', 'bio': 'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex': 'X', 'email': 'test@mail.io', 'ph_no': 9876543210})
+		self.assertEquals(self.response.status_code, 200)
 
-	# def test_view_template_used_addPerson(self):
-	# 	self.response = self.client.post('addPerson', {'profile':'test.png', 'bio':'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex':'X', 'email':'test@mail.io', 'ph_no': 9876543210})
-	# 	self.assertTemplateUsed(self.response, "circle/person.html")
+	def test_view_template_used_addPerson(self):
+		self.response = self.client.post(reverse('addPerson'), {'profile':'test.png', 'bio':'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex':'X', 'email':'test@mail.io', 'ph_no': 9876543210})
+		cprint(self.response, 'blue')
+		self.assertTemplateUsed(self.response, "circle/person.html")
 
 	def test_view_status_code_newPerson(self):
 		self.response = self.client.get(reverse('newPerson'))
@@ -248,15 +266,16 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('persons'))
 		self.assertTemplateUsed(self.response, "circle/persons.html")
 
-	# def test_view_status_code_addArticle(self):
-	# 	self.response = self.client.get(reverse('addArticle'))
-	# 	self.assertEquals(self.response.status_code, 200)
-	# 	self.response = self.client.post(reverse('addArticle'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_addArticle(self):
+		self.response = self.client.get(reverse('addArticle'))
+		self.assertEquals(self.response.status_code, 200)
+		self.response = self.client.post(reverse('addArticle'), {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
+		self.assertEquals(self.response.status_code, 200)
 
-	# def test_view_template_used_addArticle(self):
-	# 	self.response = self.client.post('addArticle', {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
-	# 	self.assertTemplateUsed(self.response, "circle/article.html")
+	def test_view_template_used_addArticle(self):
+		self.response = self.client.post(reverse('addArticle'), {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
+		cprint(self.response, 'blue')
+		self.assertTemplateUsed(self.response, "circle/article.html")
 
 	def test_view_status_code_newArticle(self):
 		self.response = self.client.get(reverse('newArticle'))
@@ -438,7 +457,14 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('error'))
 		self.assertTemplateUsed(self.response, "circle/error.html")
 
+	def test_view_status_code_logout(self):
+		self.response = self.client.get(reverse('logout'))
+		self.assertEquals(self.response.status_code, 200)
 
+	def test_view_template_used_logout(self):
+		self.response = self.client.get(reverse('logout'))
+		self.assertTemplateUsed(self.response, "registration/home.html")
+		
 # Test for the templates
 class TemplatesTestCase(TestCase):
     def test_validate_templates(self):

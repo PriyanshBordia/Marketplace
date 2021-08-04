@@ -37,6 +37,5 @@ urlpatterns = [
    	path('user/<int:user_id>', views.user, name='user'),
     path('users', views.users, name='users'),
 	path('error', views.error, name='error'),
-   	# path('verification', views.verification, name='verification'),
 ]
 
