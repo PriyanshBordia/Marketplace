@@ -237,10 +237,9 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.post(reverse('addPerson'), {'profile': 'test.png', 'bio': 'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex': 'X', 'email': 'test@mail.io', 'ph_no': 9876543210})
 		self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_addPerson(self):
-		self.response = self.client.post(reverse('addPerson'), {'profile':'test.png', 'bio':'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex':'X', 'email':'test@mail.io', 'ph_no': 9876543210})
-		cprint(self.response, 'blue')
-		self.assertTemplateUsed(self.response, "circle/person.html")
+	# def test_view_template_used_addPerson(self):
+	# 	self.response = self.client.post(reverse('addPerson'), {'profile':'test.png', 'bio':'Test A1 bio', 'first': 'test', 'last': 'test', 'age': 19, 'sex':'X', 'email':'test@mail.io', 'ph_no': 9876543210})
+	# 	self.assertTemplateUsed(self.response, "circle/person.html")
 
 	def test_view_status_code_newPerson(self):
 		self.response = self.client.get(reverse('newPerson'))
@@ -272,10 +271,9 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.post(reverse('addArticle'), {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
 		self.assertEquals(self.response.status_code, 200)
 
-	def test_view_template_used_addArticle(self):
-		self.response = self.client.post(reverse('addArticle'), {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
-		cprint(self.response, 'blue')
-		self.assertTemplateUsed(self.response, "circle/article.html")
+	# def test_view_template_used_addArticle(self):
+	# 	self.response = self.client.post(reverse('addArticle'), {'title':'Test A1', 'description':'Test A1 bio', 'image':'test.png', 'price':990})
+	# 	self.assertTemplateUsed(self.response, "circle/article.html")
 
 	def test_view_status_code_newArticle(self):
 		self.response = self.client.get(reverse('newArticle'))
@@ -301,25 +299,17 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('articles'))
 		self.assertTemplateUsed(self.response, "circle/articles.html")
 
-	# def test_view_status_code_update(self):
-	# 	self.response = self.client.get(reverse('update'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_update(self):
+		self.response = self.client.get(reverse('update'))
+		self.assertEquals(self.response.status_code, 302)
 
 	# def test_view_template_used_update(self):
 	# 	self.response = self.client.get(reverse('update'))
 	# 	self.assertTemplateUsed(self.response, "circle/articles.html")
 	
-	# def test_view_status_code_update(self):
-	# 	self.response = self.client.post('update', {})
-	# 	self.assertEquals(self.response.status_code, 200)
-
-	# def test_view_template_used_update(self):
-	# 	self.response = self.client.post('update', {})
-	# 	self.assertTemplateUsed(self.response, "circle/person.html")
-
-	# def test_view_status_code_addFriend(self):
-	# 	self.response = self.client.get(reverse('addFriend'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_addFriend(self):
+		self.response = self.client.get(reverse('addFriend'))
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_addFriend(self):
 	# 	self.response = self.client.get(reverse('addFriend'))
@@ -333,21 +323,21 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('friends'))
 		self.assertTemplateUsed(self.response, "circle/friends.html")
 
-	# def test_view_status_code_search(self):
-	# 	self.response = self.client.get(reverse('search'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_search(self):
+		self.response = self.client.get(reverse('search', arg=('test', )))
+		self.assertEquals(self.response.status_code, 200)
 
-	# def test_view_template_used_search(self):
-	# 	self.response = self.client.get(reverse('search'))
-	# 	self.assertTemplateUsed(self.response, "circle/search.html")
+	def test_view_template_used_search(self):
+		self.response = self.client.get(reverse('search', arg=('test', )))
+		self.assertTemplateUsed(self.response, "circle/search.html")
 		
-	# def test_view_status_code_result(self):
-	# 	self.response = self.client.get(reverse('result'))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_result(self):
+		self.response = self.client.get(reverse('result', arg=('test', )))
+		self.assertEquals(self.response.status_code, 200)
 
-	# def test_view_template_used_result(self):
-	# 	self.response = self.client.get(reverse('result'))
-	# 	self.assertTemplateUsed(self.response, "circle/result.html")
+	def test_view_template_used_result(self):
+		self.response = self.client.get(reverse('result', arg=('test', )))
+		self.assertTemplateUsed(self.response, "circle/result.html")
 	
 	def test_view_status_code_display(self):
 		self.response = self.client.get(reverse('display'))
@@ -357,36 +347,44 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('display'))
 		self.assertTemplateUsed(self.response, "circle/display.html")
 	
-	# def test_view_status_code_wishlist(self):
-	# 	self.response = self.client.post(reverse('wishlist', args=(1,)))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_wishlist(self):
+		self.response = self.client.post(reverse('wishlist', args=(1, )))
+		self.assertEquals(self.response.status_code, 302)
 
 	# def test_view_template_used_wishlist(self):
-	# 	self.response = self.client.post(reverse('wishlist', args=(1,)))
-	# 	self.assertTemplateUsed(self.response, None)
+	# 	self.response = self.client.post(reverse('wishlist', args=(1, )))
+	# 	self.assertTemplateUsed(self.response, "circle/wishlist.html")
 	
-	# def test_view_status_code_rent(self):
-	# 	self.response = self.client.post(reverse('rent', args=(1,)))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_rent(self):
+		self.response = self.client.post(reverse('rent', args=(1, )))
+		self.assertEquals(self.response.status_code, 302)
 
 	# def test_view_template_used_rent(self):
-	# 	self.response = self.client.post(reverse('rent', args=(1,)))
-	# 	self.assertTemplateUsed(self.response, None)
+	# 	self.response = self.client.post(reverse('rent', args=(1, )))
+	# 	self.assertTemplateUsed(self.response, "circle/rent.html")
+	
+	def test_view_status_code_retreat(self):
+		self.response = self.client.get(reverse('retreat', args=(1, )))
+		self.assertEquals(self.response.status_code, 302)
 
-	# def test_view_status_code_cart(self):
-	# 	self.response = self.client.post(reverse('cart', args=(1,)))
-	# 	self.assertEquals(self.response.status_code, 200)
+	# def test_view_template_used_retreat(self):
+	# 	self.response = self.client.get(reverse('retreat', args=(1, )))
+	# 	self.assertTemplateUsed(self.response, "circle/retreat.html")
+
+	def test_view_status_code_cart(self):
+		self.response = self.client.get(reverse('cart', args=(1, )))
+		self.assertEquals(self.response.status_code, 302)
 
 	# def test_view_template_used_cart(self):
-	# 	self.response = self.client.post(reverse('cart', args=(1,)))
-	# 	self.assertTemplateUsed(self.response, None)
+	# 	self.response = self.client.get(reverse('cart', args=(1, )))
+	# 	self.assertTemplateUsed(self.response, "circle/cart.html")
 
-	# def test_view_status_code_buy(self):
-	# 	self.response = self.client.post(reverse('buy', args=(1,)))
-	# 	self.assertEquals(self.response.status_code, 200)
+	def test_view_status_code_buy(self):
+		self.response = self.client.get(reverse('buy', args=(1, )))
+		self.assertEquals(self.response.status_code, 302)
 
 	# def test_view_template_used_buy(self):
-	# 	self.response = self.client.post(reverse('buy', args=(1,)))
+	# 	self.response = self.client.get(reverse('buy', args=(1, )))
 	# 	self.assertTemplateUsed(self.response, "purchased.html")
 	
 	def test_view_status_code_purchased(self):
@@ -429,13 +427,37 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('carted'))
 		self.assertTemplateUsed(self.response, "circle/cart.html")
 	
-	def test_view_status_code_error(self):
-		self.response = self.client.get(reverse('error'))
+	def test_view_template_used_retreated(self):
+		self.response = self.client.post(reverse('retreated'))
+		self.assertTemplateUsed(self.response, "circle/retreat.html")
+	
+	def test_view_status_code_retreated(self):
+		self.response = self.client.get(reverse('retreated'))
 		self.assertEquals(self.response.status_code, 200)
 
-	# Test for remove view 
+	def test_view_status_code_remove(self):
+		self.response = self.client.get(reverse('remove', arg=(1, 'test')))
+		self.assertEquals(self.response.status_code, 200)
 
-	# Test for addMessage view
+	def test_view_template_used_remove(self):
+		self.response = self.client.get(reverse('remove', arg=(1, 'test')))
+		self.assertTemplateUsed(self.response, "circle/chat.html") 
+
+	def test_view_status_code_addMessage(self):
+		self.response = self.client.get(reverse('addMessage'))
+		self.assertEquals(self.response.status_code, 302)
+
+	# def test_view_template_used_addMessage(self):
+	# 	self.response = self.client.get(reverse('addMessage'))
+	# 	self.assertTemplateUsed(self.response, "circle/chat.html")
+
+	def test_view_status_code_chat(self):
+		self.response = self.client.get(reverse('chat', arg=(1, )))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_chat(self):
+		self.response = self.client.get(reverse('chat', arg=(1, )))
+		self.assertTemplateUsed(self.response, "circle/chat.html")
 
 	def test_view_status_code_chats(self):
 		self.response = self.client.get(reverse('chats'))
@@ -453,18 +475,23 @@ class ViewsTestCase(TestCase):
 		self.response = self.client.get(reverse('users'))
 		self.assertTemplateUsed(self.response, "circle/users.html")
 
+	def test_view_status_code_error(self):
+		self.response = self.client.get(reverse('error'))
+		self.assertEquals(self.response.status_code, 200)
+
 	def test_view_template_used_error(self):
 		self.response = self.client.get(reverse('error'))
 		self.assertTemplateUsed(self.response, "circle/error.html")
 
 	def test_view_status_code_logout(self):
 		self.response = self.client.get(reverse('logout'))
-		self.assertEquals(self.response.status_code, 200)
+		self.assertEquals(self.response.status_code, 302)
 
-	def test_view_template_used_logout(self):
-		self.response = self.client.get(reverse('logout'))
-		self.assertTemplateUsed(self.response, "registration/home.html")
+	# def test_view_template_used_logout(self):
+	# 	self.response = self.client.get(reverse('logout'))
+	# 	self.assertTemplateUsed(self.response, "circle/home.html")
 		
+
 # Test for the templates
 class TemplatesTestCase(TestCase):
     def test_validate_templates(self):

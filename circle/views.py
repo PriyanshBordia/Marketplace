@@ -547,18 +547,15 @@ def update(request):
 		except TypeError:
 			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
 
-		user = User.objects.get(pk=user_id)
-
-		user.first_name = first
-		user.last_name = last
-		user.email = email
-		user.save()
 		try:
 			user = User.objects.get(pk=user_id)
+			User.objects.update(first_name=first, last_name=last, email=email)
+			user.save()
+			return render(request, "circle/user.html", context={"user": user})
 		except User.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "User Doesn't Exist!", "type": "Value DoesNotExist.!!", "link": "search"})
-
-	return render(request, "circle/user.html", context={"user": user})
+	else:
+		return HttpResponseRedirect(reverse('user', args=(user_id, )))
 
 
 @login_required
