@@ -8,16 +8,16 @@ from django.core.management import call_command
 from .models import Article, Person, Message, Tag, Chat
 from . import views
 
-from termcolor import cprint
+
 # Create your tests here.
 
 
-# class BrowserTest(StaticLiveServerTestCase):
+class BrowserTest(StaticLiveServerTestCase):
 
-# 	def setUp(self) -> None:
-# 		super().setUp()
+	def setUp(self) -> None:
+		super().setUp()
+		self.browser = webdriver.Safari()
 
-# 		self.browser = webdriver.Safari()
 
 # Test for models
 class ModelsTestCase(TestCase):
@@ -30,12 +30,16 @@ class ModelsTestCase(TestCase):
 		# Base Class setUp
 		super().setUp()
 
-		a1 = Article.objects.create(title="Article 1", bio="a1 bio", image="test.png", price=990)
-		a2 = Article.objects.create(title="Article 2", bio="a2 bio", image="test.png", price=990)
-		a3 = Article.objects.create(title="Article 3", bio="a3 bio", image="test.png", price=890)
+		a1 = Article.objects.create(
+			title="Article 1", description="a1 description", image="test.png", price=990)
+		a2 = Article.objects.create(title="Article 2", description="a2 description", image="test.png", price=990)
+		a3 = Article.objects.create(title="Article 3", description="a3 description", image="test.png", price=890)
 		
 	def test_is_valid_article(self):
 		self.a1.is_valid_article()
+		self.a2.is_valid_article()
+		self.a3.is_valid_article()
+
 
 # Test for urls
 class UrlsTestCase(TestCase):
