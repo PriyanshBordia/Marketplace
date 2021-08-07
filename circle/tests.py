@@ -20,23 +20,22 @@ from termcolor import cprint
 # 		self.browser = webdriver.Safari()
 
 # Test for models
-# class ModelsTestCase(TestCase):
+class ModelsTestCase(TestCase):
 
-# 	def __init__(self, methodName: str) -> None:
-# 		super().__init__(methodName=methodName)
+	def __init__(self, methodName: str) -> None:
+		super().__init__(methodName=methodName)
 
-# 	def setUp(self) -> None:
+	def setUp(self) -> None:
 
-# 		# Base Class setUp
-# 		super().setUp()
+		# Base Class setUp
+		super().setUp()
 
-# 		a1 = Article.objects.create(title="Article 1", bio="a1 bio")
-# 		a1 = Article.objects.create(title="Article 2", bio="a2 bio")
-# 		a3 = Article.objects.create(title="Article 3", bio="a bio")
-
+		a1 = Article.objects.create(title="Article 1", bio="a1 bio", image="test.png", price=990)
+		a2 = Article.objects.create(title="Article 2", bio="a2 bio", image="test.png", price=990)
+		a3 = Article.objects.create(title="Article 3", bio="a3 bio", image="test.png", price=890)
 		
-# 	def test_is_valid_article(self):
-# 		self.a1.is_valid_article()
+	def test_is_valid_article(self):
+		self.a1.is_valid_article()
 
 # Test for urls
 class UrlsTestCase(TestCase):

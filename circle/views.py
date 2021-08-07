@@ -2,30 +2,19 @@ import os
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
-# from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .utils import *
 
-from termcolor import cprint
-
 from .models import Article, Person, Message, Tag, Chat
-from .forms import ArticleForm, PersonForm, TagForm, MessageForm
+from .forms import ArticleForm, PersonForm, MessageForm, ChatForm, TagForm
 
-# import logging
-
-# Get an instance of a logger
-# logger = logging.getLogger(__file__)
 
 # Create your views here.
 
 def home(request):
-	# logger.debug("This logs a debug message.")
-	# logger.info("This logs an info message.")
-	# logger.warning("This logs a warning message.")
-	# logger.error("This logs an error message.")
 	return render(request, "circle/home.html", context={})
 
 
