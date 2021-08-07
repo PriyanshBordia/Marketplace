@@ -187,7 +187,7 @@ def friends(request):
 
 @login_required
 def search(request, type):
-	if type != 'article' and type == 'person':
+	if type != 'article' and type != 'person':
 		type = 'article'
 	return render(request, "circle/search.html", context={"type": type})
 

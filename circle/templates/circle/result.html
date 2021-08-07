@@ -11,43 +11,46 @@
 	{% load bootstrap4 %}
 	{% load fontawesome_5 %}
 	{% load humanizelib %}
+	{% load circle_tags %}
 {% endblock %}
 
 {% block body %}
 	{% if type == 'article' %}
 		<div class="articles">
 			<div class="articles__container">
-				<div class="row">
+				<div class="row justify-content-center">
 					{% for article in articles %}
-						<div class="articles__container__grid">
-							<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
-							<h4 class="articles__container__grid__title">{{ article.title }}</h4>
-							<div class="row mb-0">
-								<div class="col-md-4">
-									<div class="articles__container__grid__price">₹ {{ article.price }}</div>
-								</div>
-								<div class="col-md-4">
-									{% if user.is_superuser %}
-										<a href="{% url 'remove' article.id 'article' %}">
-											<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+						{% if not article|isPurchased:request.user.person.id and not article|isRented:request.user.person.id and not article|isSold:request.user.person.id %}
+							<div class="articles__container__grid">
+								<img class="articles__container__grid__img" src="{% static article.image.url %}" alt="BA{{ article.id }}ID" />
+								<h4 class="articles__container__grid__title">{{ article.title }}</h4>
+								<div class="row mb-0">
+									<div class="col-md-4">
+										<div class="articles__container__grid__price">₹ {{ article.price }}</div>
+									</div>
+									<div class="col-md-4">
+										{% if user.is_superuser or article|isDisplayed:request.user.person.id %}
+											<a href="{% url 'remove' article.id 'article' %}">
+												<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Remove</button>
+											</a>
+										{% endif %}
+									</div>
+									<div class="col-md-4">
+										<a href="{% url 'article' article.id %}">
+											<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
 										</a>
-									{% endif %}
+									</div>
 								</div>
-								<div class="col-md-4">
-									<a href="{% url 'article' article.id %}">
-										<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
-									</a>
-								</div>
-							</div>
-							<div class="row mt-0 mb-0">
-								<div class="col-md-8">
-									<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
-								</div>
-								<div class="col-md-4">
-									<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+								<div class="row mt-0 mb-0">
+									<div class="col-6 col-md-8">
+										<p class="text-left pl-2 pr-auto pt-0"><small class="text-muted">Last Updated {{ article.updated_ts|naturaltime }}</small></p>
+									</div>
+									<div class="col-6 col-md-4">
+										<p class="text-right pl-auto pr-2 pt-0"><small class="text-muted">{{ article.pub_ts|naturaltime }}</small></p>
+									</div>
 								</div>
 							</div>
-						</div>
+						{% endif %}
 					{% empty %}
 						<div class="container container-fluid text-center">
 							<div class="row justify-content-center">
@@ -68,7 +71,7 @@
 	{% elif type == 'person' %}
 		<div class="friends">
 			<div class="friends__container">
-				<div class="row">
+				<div class="row justify-content-center">
 					{% for person in persons %}
 						<div class="col-md-4">
 							<div class="friends__container__grid">
@@ -77,27 +80,49 @@
 										<img class="friends__container__grid__img" src="{% static person.profile.url %}" alt="BP{{ person.id }}ID" />
 									</div>
 									<div class="col-md-8">
-										<p class="friends__container__grid__name">{{ person.first }} {{ person.last }}</p>
+										<div class="friends__container__grid__name">{{ person.first }} {{ person.last }}</div>
+										<div class="friends__container__grid__email"><i class="fas fa-envelope"></i> {{ person.email }}</div>
+										<hr>
 									</div>
 								</div>
-								<div class="row mt-0 mb-0">
-									<div class="col-md-6">
-										<a href="{% url 'person' person.id %}">
-											<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
-										</a>
+								{% if person|isFriend:request.user.person.id %}
+									<div class="row mb-0">
+										<div class="col-md-4">
+											<a href="{% url 'person' person.id %}">
+												<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+											</a>
+										</div>
+										<div class="col-md-4">
+											<a href="{% url 'chat' person|get_chat_id:request.user.person.id %}">
+												<button class="form-control form-control-lg btn btn-outline-warning btn-lg">Chat</button>
+											</a>
+										</div>
+										<div class="col-md-4">
+											<a href="{% url 'remove' person.id 'friend' %}">
+												<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Unfriend</button>
+											</a>
+										</div>
 									</div>
-									<div class="col-md-6">
-										<a href="{% url 'addFriend' person.id %}">
-											<button class="form-control form-control-lg btn btn-outline-success btn-lg">Add</button>
-										</a>
+								{% else %}
+									<div class="row mb-0">
+										<div class="col-md-6">
+											<a href="{% url 'person' person.id %}">
+												<button class="form-control form-control-lg btn btn-outline-info btn-lg">View</button>
+											</a>
+										</div>
+										<div class="col-md-6">
+											<a href="{% url 'addFriend' person.id %}">
+												<button class="form-control form-control-lg btn btn-outline-success btn-lg">Chat</button>
+											</a>
+										</div>
 									</div>
-								</div>
+								{% endif %}
 								<div class="row mt-2 mb-0 pb-0">
 									<div class="col-md-8 mb-0">
 										<p class="text-left"><small class="text-muted">Last Seen {{ person.user.last_login|naturaltime }}</small></p>
 									</div>
 									<div class="col-md-4 mb-0">
-										<p class="text-right"><small class="text-muted">{{ person.updated_ts|naturaltime }}</small></p>
+										<p class="text-right"><small class="text-muted">{{ person.user.date_joined|naturaltime }}</small></p>
 									</div>
 								</div>
 							</div>

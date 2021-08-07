@@ -21,6 +21,7 @@ def chatId(value, arg):
 	except Chat.DoesNotExist:
 		cprint("Chat does not exist", 'red')
 
+
 @register.filter(name='isFriend')
 def isFriend(value, arg):
 	try:
@@ -35,6 +36,15 @@ def isDisplayed(value, arg):
 	try:
 		person_id = int(arg)
 		return Person.objects.filter(id=person_id, display__pk=value.id).exists()
+	except Person.DoesNotExist:
+		return False
+
+
+@register.filter(name='isPurchased')
+def isPurchased(value, arg):
+	try:
+		person_id = int(arg)
+		return Person.objects.filter(id=person_id, purchased__pk=value.id).exists()
 	except Person.DoesNotExist:
 		return False
 
@@ -57,10 +67,19 @@ def isRented(value, arg):
 		return False
 
 
-@register.filter(name='isPurchased')
-def isPurchased(value, arg):
+@register.filter(name='isRetreated')
+def isRetreated(value, arg):
 	try:
-		person_id = int(arg[0])
-		return Person.objects.filter(id=person_id, purchased__pk=value.id).exists()
+		person_id = int(arg)
+		return Person.objects.filter(id=person_id, retreated__pk=value.id).exists()
+	except Person.DoesNotExist:
+		return False
+
+
+@register.filter(name='isSold')
+def isSold(value, arg):
+	try:
+		person_id = int(arg)
+		return Person.objects.filter(id=person_id, sold__pk=value.id).exists()
 	except Person.DoesNotExist:
 		return False
