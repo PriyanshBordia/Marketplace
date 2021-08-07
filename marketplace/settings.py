@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -38,7 +37,7 @@ SECRET_KEY = os.getenv(('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS'), '127.0.0.1']
+ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
 
 # ADMINS
 # ADMINS = [os.getenv(('ADMINS')]
@@ -97,48 +96,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'marketplace.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-
-# Logging
-# https://docs.djangoproject.com/en/3.2/topics/logging/
-
-# LOGGING = {
-# 	'version': 1,
-# 	'disable_existing_loggers': False,
-# 	'formatters': {
-# 		'verbose': {
-# 			'format': ("%(asctime)s [%(levelname)-8s] '(%(module)s.%(funcName)s)' :: %(message)s")
-# 		},
-# 		'simple': {
-# 			'format': '%(levelname)s :: %(message)s'
-# 		}
-# 	},
-# 	'handlers': {
-# 		'file': {
-# 			'level': 'DEBUG',
-# 			'class': 'logging.FileHandler',
-# 			'filename': 'logs/debug.log',
-# 			'formatter': 'verbose'
-# 		},
-# 		'console': {
-# 			'level': 'DEBUG',
-# 			'class': 'logging.StreamHandler',
-# 			'formatter': 'verbose'
-# 		},
-# 	},
-# 	'loggers': {
-# 		'django': {
-# 			'handlers': ["file"],
-# 			'level': 'DEBUG',
-# 			'propagate': True,
-# 		},
-# 	},
-# 	"root": {
-# 		"level": "DEBUG", 
-# 		"handlers": ["file"]
-# 	},
-# }
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -234,11 +191,4 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = 'Team Baazaar <no-reply@baazaar.io>'
-
-
-# sentry_sdk.init(
-#     dsn=os.environ.get("SENTRY_DSN"),
-#     integrations=[DjangoIntegration()],
-#     environment="prod"
-# )
+DEFAULT_FROM_EMAIL = 'Team Baazaar - The Marketplace <no-reply@baazaar.io>'
