@@ -20,24 +20,24 @@ class BrowserTest(StaticLiveServerTestCase):
 
 
 # Test for models
-class ModelsTestCase(TestCase):
+# class ModelsTestCase(TestCase):
 
-	def __init__(self, methodName: str) -> None:
-		super().__init__(methodName=methodName)
+# 	def __init__(self, methodName: str) -> None:
+# 		super().__init__(methodName=methodName)
 
-	def setUp(self) -> None:
+# 	def setUp(self) -> None:
 
-		# Base Class setUp
-		super().setUp()
+# 		# Base Class setUp
+# 		super().setUp()
 
-		a1 = Article.objects.create(title="Article 1", description="a1 description", image="test.png", price=990)
-		a2 = Article.objects.create(title="Article 2", description="a2 description", image="test.png", price=990)
-		a3 = Article.objects.create(title="Article 3", description="a3 description", image="test.png", price=890)
+# 		a1 = Article.objects.create(title="Article 1", description="a1 description", image="test.png", price=990)
+# 		a2 = Article.objects.create(title="Article 2", description="a2 description", image="test.png", price=990)
+# 		a3 = Article.objects.create(title="Article 3", description="a3 description", image="test.png", price=890)
 		
-	def test_is_valid_article(self):
-		a1.is_valid_article()
-		a2.is_valid_article()
-		a3.is_valid_article()
+# 	def test_is_valid_article(self):
+# 		a1.is_valid_article()
+# 		a2.is_valid_article()
+# 		a3.is_valid_article()
 
 
 # Test for urls
