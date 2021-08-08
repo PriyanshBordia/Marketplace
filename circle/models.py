@@ -8,11 +8,13 @@ from django.contrib.auth.models import User
 
 class Tag(models.Model):
 
+	# person = models.ForeignKey(Person, on_delete=models.CASCADE)
+	
 	name = models.CharField(max_length=64, blank=False, null=False)
 
-	domain = models.CharField(max_length=64, blank=False, null=False) #, default="General")
+	domain = models.CharField(max_length=64, blank=False, null=False)
 
-	description = models.TextField(max_length=511, blank=False, null=False) #, default="A Tag")
+	description = models.TextField(max_length=511, blank=False, null=False)
 
 	created_ts = models.DateTimeField(auto_now_add=True)
 	updated_ts = models.DateTimeField(auto_now=True)

@@ -606,6 +606,20 @@ hr {
   color: gray;
 }
 
+.tag__grid {
+  margin: 2rem auto 2rem auto;
+  border: 0.125rem solid #ccd6f6;
+}
+
+.tags__container {
+  margin: 1rem auto 1rem auto;
+}
+
+.tags__container__grid {
+  margin: 2rem auto 2rem auto;
+  border: 0.125rem solid #233554;
+}
+
 .friends {
   margin: 1rem auto 1rem auto;
 }

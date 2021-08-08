@@ -62,12 +62,13 @@
             <ul class="navbar-nav mr-3">
 				{% if request.user.is_superuser %}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Super">
-							<img src="https://img.icons8.com/bubbles/50/000000/administrative-tools.png" />
-						</a>
+						<div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Super">
+							<img src="https://img.icons8.com/bubbles/50/000000/verified-account.png" />
+						</div>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="{% url 'user' request.user.id %}">User</a>
 							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="{% url 'tags' %}">Tags</a>
 							<a class="dropdown-item" href="{% url 'articles' %}">Articles</a>
 							<a class="dropdown-item" href="{% url 'chats' %}">Chats</a>
 							<a class="dropdown-item" href="{% url 'persons' %}">Persons</a>
@@ -79,11 +80,15 @@
 				{% endif %}
 				{% if user.is_authenticated %}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						<div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false" title="Profile">
 							<!-- Profile -->
-							<img src="https://img.icons8.com/bubbles/50/000000/contacts.png" />
-						</a>
+							{% if request.user.person.profile.url %}
+								<img src="{% static request.user.person.profile.url %}" alt="BP{{ request.user.person.id }}ID" style="width: 50px; height: 50px; border-radius: 50%;" />
+							{% else %}
+								<img src="https://img.icons8.com/bubbles/50/000000/stor.png" />
+							{% endif %}
+						</div>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							{% if request.user.person %}
 								<a class="dropdown-item" href="{% url 'person' request.user.person.id %}">Your details</a>
@@ -97,6 +102,7 @@
 								<a class="dropdown-item" href="{% url 'purchased' %}">Purchased</a>
 								<a class="dropdown-item" href="{% url 'sold' %}">Sold</a>
 								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{% url 'addTag' %}">Add tag</a>
 								<a class="dropdown-item" href="{% url 'newArticle' %}">Add article</a>
 							{% else %}
 								<a class="dropdown-item" href="{% url 'newPerson' %}">Add person</a>
@@ -108,9 +114,9 @@
 						</div>
 					</li>
 					{% if request.user.person %}
-						<li class="nav-item">
+						<li class="nav-item m-auto">
 							<a class="nav-link" href="{% url 'carted' %}" title="Cart">
-								<img src="https://img.icons8.com/bubbles/50/000000/buy.png" />
+								<img src="https://img.icons8.com/clouds/50/000000/buy.png" />
 							</a>
 						</li>
 					{% endif %}

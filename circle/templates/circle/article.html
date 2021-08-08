@@ -72,7 +72,7 @@
 									</a>
 								</div>
 							</div>
-						{% else %}
+						{% elif not article|isPurchased:request.user.person.id %}
 							<div class="row mb-0">
 								<div class="col-md-4">
 									<a href="{% url 'wishlist' article.id %}">

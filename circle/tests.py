@@ -30,15 +30,14 @@ class ModelsTestCase(TestCase):
 		# Base Class setUp
 		super().setUp()
 
-		a1 = Article.objects.create(
-			title="Article 1", description="a1 description", image="test.png", price=990)
+		a1 = Article.objects.create(title="Article 1", description="a1 description", image="test.png", price=990)
 		a2 = Article.objects.create(title="Article 2", description="a2 description", image="test.png", price=990)
 		a3 = Article.objects.create(title="Article 3", description="a3 description", image="test.png", price=890)
 		
 	def test_is_valid_article(self):
-		self.a1.is_valid_article()
-		self.a2.is_valid_article()
-		self.a3.is_valid_article()
+		a1.is_valid_article()
+		a2.is_valid_article()
+		a3.is_valid_article()
 
 
 # Test for urls
@@ -89,6 +88,18 @@ class UrlsTestCase(TestCase):
 	def test_url_edit(self):
 		url = reverse('edit', args=[1, 'test'])
 		self.assertEquals(resolve(url).func, views.edit)
+	
+	def test_url_addTag(self):
+		url = reverse('addTag',)
+		self.assertEquals(resolve(url).func, views.addTag)
+	
+	def test_url_tag(self):
+		url = reverse('tag', args=[1])
+		self.assertEquals(resolve(url).func, views.tag)
+	
+	def test_url_tags(self):
+		url = reverse('tags',)
+		self.assertEquals(resolve(url).func, views.tags)
 
 	def test_url_addFriend(self):
 		url = reverse('addFriend', args=[1])
@@ -303,15 +314,23 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_articles(self):
 		self.response = self.client.get(reverse('articles'))
 		self.assertTemplateUsed(self.response, "circle/articles.html")
-
-	def test_view_status_code_update(self):
-		self.response = self.client.get(reverse('update'))
-		self.assertEquals(self.response.status_code, 302)
-
-	# def test_view_template_used_update(self):
-	# 	self.response = self.client.get(reverse('update'))
-	# 	self.assertTemplateUsed(self.response, "circle/articles.html")
 	
+	def test_view_status_code_tag(self):
+		self.response = self.client.get(reverse('tag', args=(1, )))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_tag(self):
+		self.response = self.client.get(reverse('tag', args=(1, )))
+		self.assertTemplateUsed(self.response, "circle/tag.html")
+
+	def test_view_status_code_tags(self):
+		self.response = self.client.get(reverse('tags'))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_tags(self):
+		self.response = self.client.get(reverse('tags'))
+		self.assertTemplateUsed(self.response, "circle/tags.html")
+
 	def test_view_status_code_addFriend(self):
 		self.response = self.client.get(reverse('addFriend', args=(1, )))
 		self.assertEquals(self.response.status_code, 302)
@@ -471,6 +490,22 @@ class ViewsTestCase(TestCase):
 	def test_view_template_used_chats(self):
 		self.response = self.client.get(reverse('chats'))
 		self.assertTemplateUsed(self.response, "circle/chats.html")
+
+	def test_view_status_code_update(self):
+		self.response = self.client.get(reverse('update'))
+		self.assertEquals(self.response.status_code, 302)
+
+	# def test_view_template_used_update(self):
+	# 	self.response = self.client.get(reverse('update'))
+	# 	self.assertTemplateUsed(self.response, "circle/articles.html")
+
+	def test_view_status_code_user(self):
+		self.response = self.client.get(reverse('user', args=(1, )))
+		self.assertEquals(self.response.status_code, 200)
+
+	def test_view_template_used_user(self):
+		self.response = self.client.get(reverse('user', args=(1, )))
+		self.assertTemplateUsed(self.response, "circle/user.html")
 
 	def test_view_status_code_users(self):
 		self.response = self.client.get(reverse('users'))

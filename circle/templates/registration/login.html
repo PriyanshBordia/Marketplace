@@ -19,6 +19,7 @@
 			<h2 class="auth__grid__title">Log In to enter the marketplace.!</h2>
 			<hr>
             <form class="form-group" method="POST">
+				
                 {% csrf_token %}
                 
                 {% bootstrap_form form layout='horizontal' %}

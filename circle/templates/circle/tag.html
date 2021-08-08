@@ -1,0 +1,84 @@
+<!-- templates/circle/tag.html -->
+
+{% extends 'circle/base.html' %}
+
+{% block title %}
+	Tag {{ tag.id }}
+{% endblock %}
+
+{% block head %}
+	{% load static %}
+	{% load bootstrap4 %}
+	{% load fontawesome_5 %}
+	{% load humanizelib %}
+	{% load circle_tags %}
+{% endblock %}
+
+{% block body %}
+	<div class="tag">
+		<div class="row">
+			{% if form %}
+				<div class="col-md-3">
+					<img src="https://img.icons8.com/clouds/200/000000/price-tag.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/price-tag.png" />
+					<img src="https://img.icons8.com/bubbles/200/000000/barcode.png" />
+					<div class="row mt-0">
+						<div class="col-md-12">
+							<a href="{% url 'tag' tag.id %}" class="form-control form-control-lg btn btn-outline-secondary btn-lg"
+								role="button">
+								Cancel
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<form class="form-group" action="{% url 'addTag' %}" method="POST" enctype="multipart/form-data">
+				
+						{% csrf_token %}
+				
+						{% bootstrap_form form layout='horizontal' %}
+				
+						<div class="row m-3">
+							<div class="col-md-6">
+								{% bootstrap_button "Reset" button_class="form-control form-control-lg btn btn-outline-warning btn-lg" button_type="reset" %}
+							</div>
+							<div class="col-md-6">
+								{% bootstrap_button "Add.!" button_class="form-control form-control-lg btn btn-outline-success btn-lg" button_type="submit" %}
+							</div>
+						</div>
+					</form>
+				</div>
+			{% else %}
+				<div class="col-md-4">
+					<div class="tag__grid">
+						<h1 class="tag__grid__title">{{ tag.name }}</h1>
+						<div class="row mb-0">
+							<div class="col-md-6">
+								{% if tag|isDisplayed:request.user.person.id %}
+									<a href="{% url 'edit' tag.id 'tag' %}">
+										<button class="form-control form-control-lg btn btn-outline-info btn-lg">Edit</button>
+									</a>
+								{% endif %}
+							</div>
+							<div class="col-md-6">
+								{% if tag|isDisplayed:request.user.person.id %}
+									<a href="{% url 'remove' tag.id 'tag' %}">
+										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+						<div class="row mt-0 mb-0">
+							<div class="col-md-8">
+								<p class="text-left pt-0 pr-auto pl-1 pb-0"><small class="text-muted">Updated {{ tag.updated_ts|naturaltime }}</small></p>
+							</div>
+							<div class="col-md-4">
+								<p class="text-right  pt-0 pr-1 pl-auto pb-0"><small class="text-muted">{{ tag.created_ts|naturaltime }}</small></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

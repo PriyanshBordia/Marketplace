@@ -43,7 +43,7 @@ def addPerson(request):
 			form = PersonForm(instance=person)
 			return render(request, "circle/person.html", context={"person": person, "form": form})
 	except Exception as e:
-		return render(request, "circle/error.html", context={"message": "Internal Error!!", "type": "Internal Error", "link": "newPerson"})
+		return render(request, "circle/error.html", context={"message": str(e), "type": "Internal Error", "link": "newPerson"})
 
 
 @login_required
@@ -86,16 +86,16 @@ def addArticle(request):
 					person = Person.objects.get(pk=request.user.person.id)
 					person.display.add(article)
 					person.save()
-					return HttpResponseRedirect(reverse("article", args=(article.id, )))
+					return HttpResponseRedirect(reverse('article', args=(article.id, )))
 				except Person.DoesNotExist:
-					return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newPerson"})
+					return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newArticle"})
 			else:
 				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:
-			form = PersonForm(instance=article)
+			form = ArticleForm(instance=article)
 			return render(request, "circle/article.html", context={"article": article, "form": form})
 	except Exception as e:
-		return render(request, "circle/error.html", context={"message": "Internal Error!!", "type": "Internal Error", "link": "newPerson"})
+		return render(request, "circle/error.html", context={"message": str(e), "type": "Internal Error", "link": "newArticle"})
 		
 
 @login_required
@@ -133,6 +133,22 @@ def edit(request, id, type):
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "articles"})
 
+	elif type == 'tag':
+		try:
+			tag = Tag.objects.get(pk=id)
+			if request.POST:
+				form = TagForm(request.POST, request.FILES, instance=tag)
+				if form.is_valid():
+					form.save()
+					return HttpResponseRedirect(reverse('tag', args=(id, )))
+				else:
+					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "tags"})
+			else:
+				form = TagForm(instance=tag)
+				return render(request, "circle/tag.html", context={"tag": tag, "form": form})
+		except Tag.DoesNotExist:
+			return render(request, "circle/error.html", context={"message": "No Tag Found.!!", "type": "Type Error", "link": "tags"})
+
 	else:
 		return render(request, "circle/error.html", context={"message": "Invalid Type.!!", "type": "Type Error", "link": "search"})
 
@@ -155,6 +171,39 @@ def article(request, article_id):
 def articles(request):
 	articles = Article.objects.all()
 	return render(request, "circle/articles.html", context={"articles": articles})
+
+
+@login_required
+def addTag(request):
+	tag = Tag()
+	try:
+		if request.method == "POST":
+			form = TagForm(request.POST, request.FILES, instance=tag)
+			if form.is_valid():
+				form.save()
+				return HttpResponseRedirect(reverse('tag', args=(tag.id, )))
+			else:
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+		else:
+			form = TagForm(instance=tag)
+			return render(request, "circle/addTag.html", context={"tag": tag, "form": form})
+	except Exception as e:
+		return render(request, "circle/error.html", context={"message": str(e), "type": "Internal Error", "link": "addTag"})
+
+
+@login_required
+def tag(request, tag_id):
+	try:
+		tag = Tag.objects.get(pk=tag_id)
+		return render(request, "circle/tag.html", context={"tag": tag})
+	except Tag.DoesNotExist:
+		return render(request, "circle/error.html", context={"message": "Tag does not exist.!!", "type": "Type Error", "link": "search"})
+
+
+@login_required
+def tags(request):
+	tags = Tag.objects.all()
+	return render(request, "circle/tags.html", context={"tags": tags})
 
 
 @login_required
@@ -250,7 +299,7 @@ def wishlist(request, article_id):
 		person = Person.objects.get(pk=person_id)
 		person.bookmarked.add(article)
 		person.save()
-		return HttpResponseRedirect(reverse("wishlisted", args=()))
+		return HttpResponseRedirect(reverse('wishlisted', args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -284,7 +333,7 @@ def retreat(request, article_id):
 		person.retreated.add(article)
 		person.rented.remove(article)
 		person.save()
-		return HttpResponseRedirect(reverse("rented", args=()))
+		return HttpResponseRedirect(reverse('rented', args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -317,7 +366,7 @@ def buy(request, article_id):
 			person.purchased.add(article)
 			person.carted.remove(article)
 			person.save()
-		return HttpResponseRedirect(reverse("purchased", args=()))
+		return HttpResponseRedirect(reverse('purchased', args=()))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Data Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -429,24 +478,24 @@ def remove(request, id, type):
 			article = Article.objects.get(pk=id)
 			if type == 'article':
 				article.delete()
-				return HttpResponseRedirect(reverse("articles", args=()))
+				return HttpResponseRedirect(reverse('articles', args=()))
 			person = Person.objects.get(pk=person_id)
 			if type == 'marked':
 				person.bookmarked.remove(article)
 				person.save()
-				return HttpResponseRedirect(reverse("wishlisted", args=()))
+				return HttpResponseRedirect(reverse('wishlisted', args=()))
 			elif type == 'rented':
 				person.rented.remove(article)
 				person.save()
-				return HttpResponseRedirect(reverse("rented", args=()))
+				return HttpResponseRedirect(reverse('rented', args=()))
 			elif type == 'carted':
 				person.carted.remove(article)
 				person.save()
-				return HttpResponseRedirect(reverse("carted", args=()))
+				return HttpResponseRedirect(reverse('carted', args=()))
 			# elif type == 'purchased':
 			# 	person.purchased.remove(article)
 			# 	person.save()
-			# 	return HttpResponseRedirect(reverse("purchased", args=()))
+			# 	return HttpResponseRedirect(reverse('purchased', args=()))
 			elif type == 'display':
 				person.display.remove(article)
 				person.save()
