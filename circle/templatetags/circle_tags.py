@@ -4,10 +4,9 @@ from django.db.models import Q
 
 from circle.models import Article, Person, Tag, Message, Chat
 
-from termcolor import cprint
-
 
 register = template.Library()
+
 
 @register.filter(name='get_chat_id')
 def chatId(value, arg):
@@ -17,9 +16,18 @@ def chatId(value, arg):
 		friend = value
 		return Chat.objects.filter(Q(left=person, right=friend) | Q(left=friend, right=person)).first().id
 	except Person.DoesNotExist:
-		cprint("Person does not exist", 'red')
+		return  False
 	except Chat.DoesNotExist:
-		cprint("Chat does not exist", 'red')
+		return False
+
+
+@register.filter(name='isTag')
+def isTag(value, arg):
+	try:
+		person_id = int(arg)
+		return Person.objects.filter(id=person_id, tags__pk=value.id).exists()
+	except Person.DoesNotExist:
+		return False 
 
 
 @register.filter(name='isFriend')

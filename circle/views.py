@@ -180,8 +180,14 @@ def addTag(request):
 		if request.method == "POST":
 			form = TagForm(request.POST, request.FILES, instance=tag)
 			if form.is_valid():
-				form.save()
-				return HttpResponseRedirect(reverse('tag', args=(tag.id, )))
+				try:
+					form.save()
+					person = Person.objects.get(pk=request.user.person.id)
+					person.tags.add(tag)
+					person.save()
+					return HttpResponseRedirect(reverse('tag', args=(tag.id, )))
+				except Person.DoesNotExist:
+					return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newArticle"})
 			else:
 				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:

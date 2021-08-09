@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Tag(models.Model):
-
-	# person = models.ForeignKey(Person, on_delete=models.CASCADE)
 	
 	name = models.CharField(max_length=64, blank=False, null=False)
 
@@ -23,7 +21,7 @@ class Tag(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(str(Tag.objects.all().count() + 1))
+			self.slug = slugify(str(Tag.objects.all().count() + 1) + str(self.name))
 		super(Tag, self).save(*args, **kwargs)
 
 	def isValidTag(self):
@@ -58,7 +56,7 @@ class Article(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(str(Article.objects.all().count() + 1))
+			self.slug = slugify(str(Article.objects.all().count() + 1) + str(self.title))
 		super(Article, self).save(*args, **kwargs)
 
 	def isValidArticle(self):
@@ -93,6 +91,7 @@ class Person(models.Model):
 	email = models.EmailField(blank=False, null=False, unique=True)
 	ph_no = models.BigIntegerField(blank=False, null=False, unique=True)
 
+	tags = models.ManyToManyField(Tag, blank=True, related_name="ptags")
 
 	retreated = models.ManyToManyField(Article, blank=True, related_name="retreated")
 
@@ -116,7 +115,7 @@ class Person(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(str(Person.objects.all().count() + 1))
+			self.slug = slugify(str(Person.objects.all().count() + 1) + str(self.name) + ' ' + str(self.last))
 		super(Person, self).save(*args, **kwargs)
 
 	def isDisplayed(self):
