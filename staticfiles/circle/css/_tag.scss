@@ -1,8 +1,11 @@
 .tag {
 
+	margin: 2rem auto 2rem auto;
+	border: .125rem solid $LightestNavy;
+
 	&__grid {
 
 		margin: 2rem auto 2rem auto;
-		border:.125rem solid $LightestSlate;
+		border: .125rem solid $LightestSlate;
 	}
 }
