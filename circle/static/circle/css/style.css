@@ -145,7 +145,7 @@ svg {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #112240;
-  border: 0.125rem solid #ccd6f6;
+  border: 0.125rem solid #233554;
   border-radius: 2rem;
   -webkit-transition-duration: 0.4s;
   /* Safari */
@@ -604,6 +604,11 @@ hr {
   font-size: .8rem;
   font-weight: 100;
   color: gray;
+}
+
+.tag {
+  margin: 2rem auto 2rem auto;
+  border: 0.125rem solid #233554;
 }
 
 .tag__grid {
