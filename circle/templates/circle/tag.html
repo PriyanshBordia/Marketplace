@@ -24,8 +24,8 @@
 						<img src="https://img.icons8.com/bubbles/200/000000/barcode.png" />
 						<div class="row mt-0">
 							<div class="col-md-12">
-								<a href="{% url 'tag' tag.id %}" class="form-control form-control-lg btn btn-outline-secondary btn-lg"
-									role="button">
+								<a href="{% url 'tag' tag.id %}"
+									class="form-control form-control-lg btn btn-outline-secondary btn-lg" role="button">
 									Cancel
 								</a>
 							</div>
@@ -34,17 +34,19 @@
 				</div>
 				<div class="col-md-9">
 					<form class="form-group" action="{% url 'addTag' %}" method="POST" enctype="multipart/form-data">
-				
+		
 						{% csrf_token %}
-				
+		
 						{% bootstrap_form form layout='horizontal' %}
-				
+		
 						<div class="row m-3">
 							<div class="col-md-6">
-								{% bootstrap_button "Reset" button_class="form-control form-control-lg btn btn-outline-warning btn-lg" button_type="reset" %}
+								{% bootstrap_button "Reset" button_class="form-control form-control-lg btn btn-outline-warning
+								btn-lg" button_type="reset" %}
 							</div>
 							<div class="col-md-6">
-								{% bootstrap_button "Save" button_class="form-control form-control-lg btn btn-outline-success btn-lg" button_type="submit" %}
+								{% bootstrap_button "Save" button_class="form-control form-control-lg btn btn-outline-success
+								btn-lg" button_type="submit" %}
 							</div>
 						</div>
 					</form>
@@ -57,12 +59,17 @@
 						<div class="tag__grid__title">{{ tag.description }}</div>
 						{% if tag|isTag:request.user.person.id %}
 							<div class="row mb-0">
-								<div class="col-md-6">
+								<div class="col-md-4">
+									<a href="{% url 'tags' %}">
+										<button class="form-control form-control-lg btn btn-outline-light btn-lg">Add Tag.</button>
+									</a>
+								</div>
+								<div class="col-md-4">
 									<a href="{% url 'edit' tag.id 'tag' %}">
 										<button class="form-control form-control-lg btn btn-outline-info btn-lg">Edit</button>
 									</a>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<a href="{% url 'remove' tag.id 'tag' %}">
 										<button class="form-control form-control-lg btn btn-outline-danger btn-lg">Delete</button>
 									</a>

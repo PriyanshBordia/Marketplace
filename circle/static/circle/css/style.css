@@ -608,6 +608,7 @@ hr {
 
 .tag {
   margin: 2rem auto 2rem auto;
+  max-width: 80rem;
   border: 0.125rem solid #233554;
 }
 
