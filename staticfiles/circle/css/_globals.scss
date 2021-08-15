@@ -59,9 +59,6 @@ svg {
 	background-color: $LightNavy;
 	border: .125rem solid $LightestNavy;
 	border-radius: 2rem;
-
-	-webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
 	
 	&:hover {
 		border: .125rem dashed $NeonGreen

@@ -147,9 +147,6 @@ svg {
   background-color: #112240;
   border: 0.125rem solid #233554;
   border-radius: 2rem;
-  -webkit-transition-duration: 0.4s;
-  /* Safari */
-  transition-duration: 0.4s;
 }
 
 .container:hover {

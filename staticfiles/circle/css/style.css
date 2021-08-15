@@ -145,11 +145,8 @@ svg {
       -ms-flex-pack: center;
           justify-content: center;
   background-color: #112240;
-  border: 0.125rem solid #ccd6f6;
+  border: 0.125rem solid #233554;
   border-radius: 2rem;
-  -webkit-transition-duration: 0.4s;
-  /* Safari */
-  transition-duration: 0.4s;
 }
 
 .container:hover {
@@ -608,6 +605,7 @@ hr {
 
 .tag {
   margin: 2rem auto 2rem auto;
+  max-width: 80rem;
   border: 0.125rem solid #233554;
 }
 
