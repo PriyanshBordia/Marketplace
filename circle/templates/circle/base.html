@@ -86,7 +86,7 @@
 							{% if request.user.person.profile.url %}
 								<img src="{% static request.user.person.profile.url %}" alt="BP{{ request.user.person.id }}ID" style="width: 50px; height: 50px; border-radius: 50%;" />
 							{% else %}
-								<img src="https://img.icons8.com/bubbles/50/000000/stor.png" />
+								<img src="https://img.icons8.com/bubbles/50/000000/stormtrooper.png" />
 							{% endif %}
 						</div>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -126,6 +126,11 @@
 							<!-- Log In -->
 							<img src="https://img.icons8.com/clouds/50/000000/login-rounded-right.png" />
 						</a>
+					</li>
+					<li class="nav-item">
+							<a class="nav-link" href="{% url 'password_reset' %}" title="Reset password">
+								<img src="https://img.icons8.com/bubbles/50/000000/reset.png" />
+							</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="{% url 'signup' %}" title="Register">
