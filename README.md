@@ -4,46 +4,47 @@
 [![GitHub forks](https://img.shields.io/github/forks/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/network)
 [![GitHub stars](https://img.shields.io/github/stars/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/stargazers)
 [![GitHub license](https://img.shields.io/github/license/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/blob/main/LICENSE)
-#### A place to buy and sell goods.!
 
-#### Home
-[!home]								<img src="https://img.icons8.com/bubbles/50/000000/stormtrooper.png" />
-()
+> A place to buy and sell goods.!
 
-### `Registeration Page`:
+
+### `Home` : 
+
+![Home](/screenshots/home.png)
+
+### `Registeration Page` :
 
 ![Register](/screenshots/signup.png)
 
-### `Login Page`:
+### `Login Page` :
 
 ![Login](./screenshots/login.png)
 
-### `Booking Page`:
+### `Booking Page` :
 
-![Book](./screenshots/book.png)
-
-### `Travel Page`:
-
-![Travel](./screenshots/travel1.png)
-![Travel](./screenshots/travel2.png)
-
-
-### `Flights Details`:
-
-![Flight](./screenshots/flight.png)
-
-### `Flights Page`:
-
-![Flights](./screenshots/flights.png)
+![Add Article](./screenshots/addArticle.png)
 
 
 ### `Person Details`:
 
-![Flight](./screenshots/person.png)
+![Person](./screenshots/person.png)
 
 ### `Persons Page`:
 
-![Flights](./screenshots/persons.png)
+![Persons](./screenshots/persons.png)
+
+### `Friends` :
+
+![Friends](./screenshots/friends.png)
+
+### `Chat` :
+
+![Chat](./screenshots/chat.png)
+
+### `Chats` :
+
+![Chats](./screenshots/chats.png)
+
 
 ### `Users Details`:
 
@@ -53,10 +54,10 @@
 
 ![Users](./screenshots/users.png)
 
-### `Reset Password`:
+<!-- ### `Reset Password`: -->
 
-![Reset](./screenshots/reset.png)
+<!-- ![Reset](./screenshots/reset-password.png) -->
 
-### `E -mail Sent Success`:
+<!-- ### `E -mail Sent Success`: -->
 
-![Done](./screenshots/done.png)
+<!-- ![Done](./screenshots/done.png) -->
