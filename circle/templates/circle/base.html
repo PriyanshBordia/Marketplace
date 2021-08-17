@@ -45,21 +45,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 1.1rem;">
-			<form class="form-inline my-3 my-lg-0 mr-auto ml-auto" action="{% url 'result' 'article' %}" method="POST">
+			{% if user.is_authenticated %}
+				<form class="form-inline my-3 my-lg-0 mr-4 ml-auto" action="{% url 'result' 'article' %}" method="POST">
 				
-				{% csrf_token %}
+					{% csrf_token %}
 
-				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Search Articles..." aria-label="Search">
-				<button class="form-control btn btn-outline-warning my-2 my-sm-2" type="submit">Search</button>
-			</form>
-			<form class="form-inline my-3 my-lg-0 mr-auto ml-auto" action="{% url 'result' 'person' %}" method="POST">
-				
-				{% csrf_token %}
+					<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Search Articles..." aria-label="Search">
+					<button class="form-control btn btn-outline-warning my-2 my-sm-2" type="submit">Search</button>
+				</form>
+				<form class="form-inline my-3 my-lg-0 mr-2 ml-2" action="{% url 'result' 'person' %}" method="POST">
+					
+					{% csrf_token %}
 
-				<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Find People..." aria-label="Search">
-				<button class="form-control btn btn-outline-info my-2 my-sm-2" type="submit">Search</button>
-			</form>
-            <ul class="navbar-nav mr-3">
+					<input class="form-control mr-sm-3" type="search" name="search" autocomplete="off" autofocus placeholder="Find People..." aria-label="Search">
+					<button class="form-control btn btn-outline-info my-2 my-sm-2" type="submit">Search</button>
+				</form>
+			{% endif %}
+            <ul class="navbar-nav mr-3 ml-auto">
 				{% if request.user.is_superuser %}
 					<li class="nav-item dropdown">
 						<div class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Super">
