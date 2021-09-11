@@ -101,10 +101,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
 
     'development': {
         'ENGINE': os.getenv('DEV_ENGINE'),
@@ -115,7 +115,7 @@ DATABASES = {
         'PORT': os.getenv('DEV_DB_PORT'),
     },
 
-    'production': {
+    'default': {
         'ENGINE': os.getenv('ENGINE'),
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
@@ -191,4 +191,4 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL = 'Team Baazaar - The Marketplace <no-reply@baazaar.io>'
+DEFAULT_FROM_EMAIL = 'Team Baazaar - The Marketplace <no-reply@baazaar.herokuapp.com>'
