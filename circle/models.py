@@ -45,7 +45,7 @@ class Article(models.Model):
 
 	image = models.ImageField(upload_to="images/articles", blank=False, null=False)
 
-	price = models.FloatField(validators=[MinValueValidator(1)], blank=False, null=False)
+	price = models.DecimalField(decimal_places=4, max_digits=9, validators=[MinValueValidator(1)], blank=False, null=False)
 
 	tags = models.ManyToManyField(Tag, blank=True, related_name="tags")
 
@@ -115,7 +115,7 @@ class Person(models.Model):
 
 	def save(self, *args, **kwargs):
 		if not self.slug:
-			self.slug = slugify(str(Person.objects.all().count() + 1) + str(self.name) + ' ' + str(self.last))
+			self.slug = slugify(str(Person.objects.all().count() + 1) + str(self.first) + ' ' + str(self.last))
 		super(Person, self).save(*args, **kwargs)
 
 	def isDisplayed(self):
@@ -181,7 +181,7 @@ class Chat(models.Model):
 		super(Chat, self).save(*args, **kwargs)
 
 	def isValidChat(self):
-		return (len(self.messages) >= 0 and self.left.isValidPerson() and self.right.isValidPerson())
+		return (self.left.isValidPerson() and self.right.isValidPerson())
 	
 	def __format__(self):
 		return f"{self.id}"

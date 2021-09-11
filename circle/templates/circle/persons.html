@@ -59,10 +59,12 @@
 		{% else %}
 			<div class="container container-fluid">
 				<div class="row justify-content-center">
-					<div class="alert alert-info" role="alert">No Persons.</div>
-					<a href="{% url 'newPerson' %}">
-						<button class="form-control form-control-lg btn btn-outline-info btn-lg">Add Person.</button>
-					</a>
+					<div class="col-md-12">
+						<div class="alert alert-info" role="alert">No Persons.</div>
+						<a href="{% url 'newPerson' %}">
+							<button class="form-control form-control-lg btn btn-outline-info btn-lg">Add Person.</button>
+						</a>
+					</div>
 				</div>
 			</div>
 		{% endif %}

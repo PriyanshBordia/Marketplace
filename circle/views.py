@@ -34,7 +34,11 @@ def addPerson(request):
 			if form.is_valid():
 				person.user = User.objects.get(pk=request.user.id)
 				person.username = str(form.cleaned_data["email"].split('@')[0])
+				email = person.email
+				if Person.objects.filter(email=email).exists():
+					return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", "type": "Integrity Error", "link": "newPerson"})
 				form.save()
+				print(person)
 				Chat.objects.create(left=person, right=person)
 				return HttpResponseRedirect(reverse('person', args=(person.id, )))
 			else:
@@ -106,9 +110,12 @@ def edit(request, id, type):
 			if request.POST:
 				form = PersonForm(request.POST, request.FILES, instance=person)
 				if form.is_valid():
+					person.username = str(form.cleaned_data["email"].split('@')[0])
+					email = str(form.cleaned_data["email"])
+					if Person.objects.filter(email=email).exclude(pk=person.id).exists():
+						return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", "type": "Integrity Error", "link": "newPerson"})
 					form.save()
-					user_id = person.user.id
-					return HttpResponseRedirect(reverse('person', args=(user_id, )))
+					return HttpResponseRedirect(reverse('person', args=(person.id, )))
 				else:
 					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 			else:

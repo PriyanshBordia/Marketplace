@@ -20,7 +20,7 @@
 			{% if form %}
 				<div class="col-md-4">
 					<div class="person__grid">
-						{% if person.profile.url %}
+						{% if person.profile %}
 							<img class="person__grid__img" src="{% static person.profile.url %}" alt="BP{{ person.id }}ID" />
 						{% else %}
 							{% if person.sex == 'M' %}
@@ -78,10 +78,10 @@
 			{% else %}
 				<div class="col-md-4">
 					<div class="person__grid">
-						{% if person.profile.url %}
+						{% if person.profile %}
 							<img class="person__grid__img" src="{% static person.profile.url %}" alt="BP{{ person.id }}ID" />
 						{% else %}
-							<img src="https://img.icons8.com/bubbles/100/000000/name.png" />
+							<img src="https://img.icons8.com/bubbles/200/000000/name.png" alt="BP{{ person.id }}ID" />
 						{% endif %}
 						<p class="person__grid__name">{{ person.first }} {{ person.last }}</p>
 						<p class="person__grid__username">{{ person.username }} </p>
