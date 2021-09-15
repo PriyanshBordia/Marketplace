@@ -24,9 +24,9 @@ class ChatAdmin(admin.ModelAdmin):
 	pass
 
 
-admin.site.site_header = "Baazaar - The Marketplace"  
+admin.site.site_header = 'Baazaar - The Marketplace'
 admin.site.site_title = "Baazaar - The Marketplace"
-admin.site.index_title = "Marketplace Administration"
+admin.site.index_title = "Administration"
 
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Article, ArticleAdmin)
