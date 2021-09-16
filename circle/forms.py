@@ -9,24 +9,15 @@ class UserForm(forms.ModelForm):
 		model = User
 		fields = '__all__'
 
-	def __str__(self) -> str:
-		return super().__str__()
-
 
 class ArticleForm(forms.ModelForm):
 
 	class Meta:
 		model = Article
 		fields = ('title', 'description', 'image', 'price')
-	
-	def __str__(self) -> str:
-		return super().__str__()
 
 
 class PersonForm(forms.ModelForm):
-
-	def __str__(self) -> str:
-		return super().__str__()
 
 	class Meta:
 		model = Person
@@ -35,9 +26,6 @@ class PersonForm(forms.ModelForm):
 
 class MessageForm(forms.ModelForm):
 
-	def __str__(self) -> str:
-		return super().__str__()
-
 	class Meta:
 		model = Message
 		fields = ('text', )
@@ -45,18 +33,12 @@ class MessageForm(forms.ModelForm):
 
 class ChatForm(forms.ModelForm):
 
-	def __str__(self) -> str:
-		return super().__str__()
-
 	class Meta:
 		model = Chat
 		fields = ('messages', )
 
 
 class TagForm(forms.ModelForm):
-
-	def __str__(self) -> str:
-		return super().__str__()
 
 	class Meta:
 		model = Tag
