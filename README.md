@@ -1,4 +1,5 @@
 # Marketplace
+
 [![Build Status](https://travis-ci.com/PriyanshBordia/Marketplace.svg?branch=main)](https://travis-ci.com/PriyanshBordia/Marketplace)
 [![GitHub issues](https://img.shields.io/github/issues/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/issues)
 [![GitHub forks](https://img.shields.io/github/forks/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/network)
@@ -6,10 +7,10 @@
 [![GitHub license](https://img.shields.io/github/license/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/blob/main/LICENSE)
 
 - A place to buy and sell goods.!
-- Login, Register and interact with people and indulge in informative conversations.
+- Login, Register and interact with people and indulge in informative
+  conversations.
 
-
-### `Home` : 
+### `Home` :
 
 ![Home](/screenshots/home.png)
 
@@ -24,7 +25,6 @@
 ### `Booking Page` :
 
 ![Add Article](./screenshots/addArticle.png)
-
 
 ### `Person Details`:
 
@@ -45,7 +45,6 @@
 ### `Chats` :
 
 ![Chats](./screenshots/chats.png)
-
 
 ### `Users Details`:
 
