@@ -5,7 +5,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/stargazers)
 [![GitHub license](https://img.shields.io/github/license/PriyanshBordia/Marketplace)](https://github.com/PriyanshBordia/Marketplace/blob/main/LICENSE)
 
-> A place to buy and sell goods.!
+- A place to buy and sell goods.!
+- Login, Register and interact with people and indulge in informative conversations.
 
 
 ### `Home` : 
