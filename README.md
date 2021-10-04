@@ -9,9 +9,8 @@
 
 - A place to buy and sell goods.!
 - Login, Register and interact with people and indulge in informative
-  conversations. 
+  conversations.
 - Buy, Sell and Rent Articles
-- An intuitive UI Design
 
 ### `Home` :
 
