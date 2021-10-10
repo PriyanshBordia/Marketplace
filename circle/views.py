@@ -104,7 +104,7 @@ def person(request, person_id):
                 chat_id = (Chat.objects.filter(
                     Q(left=person_id, right=request.user.person.id)
                     | Q(left=request.user.person.id, right=person_id)).first().
-                           id)
+                    id)
                 return render(
                     request,
                     "circle/person.html",
