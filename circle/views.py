@@ -36,16 +36,16 @@ def addPerson(request):
 				person.username = str(form.cleaned_data["email"].split('@')[0])
 				email = person.email
 				if Person.objects.filter(email=email).exists():
-					return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", "type": "Integrity Error", "link": "newPerson"})
+					return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", 
+											     "type": "Integrity Error", 
+											     "link": "newPerson"})
 				form.save()
 				print(person)
 				Chat.objects.create(left=person, right=person)
 				return HttpResponseRedirect(reverse('person', args=(person.id, )))
-			else:
-				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
-		else:
-			form = PersonForm(instance=person)
-			return render(request, "circle/person.html", context={"person": person, "form": form})
+			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+		form = PersonForm(instance=person)
+		return render(request, "circle/person.html", context={"person": person, "form": form})
 	except Exception as e:
 		return render(request, "circle/error.html", context={"message": str(e), "type": "Internal Error", "link": "newPerson"})
 
@@ -61,9 +61,13 @@ def person(request, person_id):
 		else:
 			return render(request, "circle/person.html", context={"person": person})
 	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Data Error.!", "link": "search"})
+		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", 
+								     "type": "Data Error.!", 
+								     "link": "search"})
 	except Chat.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "No Chat Found.!!", "type": "Data Error.!", "link": "search"})
+		return render(request, "circle/error.html", context={"message": "No Chat Found.!!", 
+								     "type": "Data Error.!", 
+								     "link": "search"})
 
 
 @login_required
@@ -113,7 +117,9 @@ def edit(request, id, type):
 					person.username = str(form.cleaned_data["email"].split('@')[0])
 					email = str(form.cleaned_data["email"])
 					if Person.objects.filter(email=email).exclude(pk=person.id).exists():
-						return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", "type": "Integrity Error", "link": "newPerson"})
+						return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", 
+												     "type": "Integrity Error", 
+												     "link": "newPerson"})
 					form.save()
 					return HttpResponseRedirect(reverse('person', args=(person.id, )))
 				else:
@@ -132,14 +138,12 @@ def edit(request, id, type):
 				if form.is_valid():
 					form.save()
 					return HttpResponseRedirect(reverse('article', args=(id, )))
-				else:
-					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "articles"})
-			else:
-				form = ArticleForm(instance=article)
-				return render(request, "circle/article.html", context={"article": article, "form": form})
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "articles"})		
+			form = ArticleForm(instance=article)
+			return render(request, "circle/article.html", context={"article": article, "form": form})
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "articles"})
-
+		
 	elif type == 'tag':
 		try:
 			tag = Tag.objects.get(pk=id)
@@ -148,16 +152,12 @@ def edit(request, id, type):
 				if form.is_valid():
 					form.save()
 					return HttpResponseRedirect(reverse('tag', args=(id, )))
-				else:
-					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "tags"})
-			else:
-				form = TagForm(instance=tag)
-				return render(request, "circle/tag.html", context={"tag": tag, "form": form})
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "tags"})
+			form = TagForm(instance=tag)
+			return render(request, "circle/tag.html", context={"tag": tag, "form": form})
 		except Tag.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Tag Found.!!", "type": "Type Error", "link": "tags"})
-
-	else:
-		return render(request, "circle/error.html", context={"message": "Invalid Type.!!", "type": "Type Error", "link": "search"})
+	return render(request, "circle/error.html", context={"message": "Invalid Type.!!", "type": "Type Error", "link": "search"})
 
 
 @login_required
@@ -242,9 +242,13 @@ def friends(request):
 		chats = Chat.objects.filter(Q(left=person) | Q(right=person))
 		return render(request, "circle/friends.html", context={"chats": chats, "friends": friends})
 	except Person.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", "type": "Data Error", "link": "search"})
+		return render(request, "circle/error.html", context={"message": "You don't have any friends.!!", 
+								     "type": "Data Error", 
+								     "link": "search"})
 	except Chat.DoesNotExist:
-		return render(request, "circle/error.html", context={"message": "You don't have any chats.!!", "type": "Data Error", "link": "search"})
+		return render(request, "circle/error.html", context={"message": "You don't have any chats.!!", 
+								     "type": "Data Error", 
+								     "link": "search"})
 
 
 @login_required
@@ -259,15 +263,14 @@ def result(request, type):
 	try:
 		if request.GET:
 			return HttpResponseRedirect(reverse('search', args=(type,)))
-		else:
-			try:
-				search = str(request.POST.get("search"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
+		try:
+			search = str(request.POST.get("search"))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
 			
 			if type == 'article':
 				display = list(Person.objects.get(pk=request.user.person.id).display.all()) #.values_list('id'))
@@ -283,7 +286,7 @@ def result(request, type):
 				# .exclude(display)
 				# .exclude(rent).exclude(purchased).exclude(sold)
 				return render(request, "circle/result.html", context={'articles': articles, 'type': type})
-			elif type == 'person':
+			if type == 'person':
 				friends = list(Person.objects.get(pk=request.user.person.id).friends.all())
 				persons = Person.objects.filter(Q(first__contains=search) | Q(last__contains=search) | Q(username__contains=search)).exclude(friends__in=friends)
 				return render(request, "circle/result.html", context={'persons': persons, 'type': type})
@@ -329,8 +332,7 @@ def rent(request, article_id):
 			person.rented.add(article)
 			person.save()
 			return HttpResponseRedirect(reverse('rented', args=()))
-		else:
-			return HttpResponseRedirect(reverse('article', args=(article_id, )))
+		return HttpResponseRedirect(reverse('article', args=(article_id, )))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -497,11 +499,11 @@ def remove(request, id, type):
 				person.bookmarked.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('wishlisted', args=()))
-			elif type == 'rented':
+			if type == 'rented':
 				person.rented.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('rented', args=()))
-			elif type == 'carted':
+			if type == 'carted':
 				person.carted.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('carted', args=()))
@@ -509,13 +511,12 @@ def remove(request, id, type):
 			# 	person.purchased.remove(article)
 			# 	person.save()
 			# 	return HttpResponseRedirect(reverse('purchased', args=()))
-			elif type == 'display':
+			if type == 'display':
 				person.display.remove(article)
 				person.save()
 				article.delete()
-				return HttpResponseRedirect(reverse('display', args=()))
-			else:
-				return HttpResponseRedirect(reverse('search', args=('article', )))
+				return HttpResponseRedirect(reverse('display', args=()))	
+			return HttpResponseRedirect(reverse('search', args=('article', )))
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 		except Person.DoesNotExist:
