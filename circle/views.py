@@ -101,11 +101,11 @@ def person(request, person_id):
             if Chat.objects.filter(
                     Q(left=person_id, right=request.user.person.id)
                     | Q(left=request.user.person.id, right=person_id)).exists(
-                    ):
+            ):
                 chat_id = (Chat.objects.filter(
                     Q(left=person_id, right=request.user.person.id)
                     | Q(left=request.user.person.id, right=person_id)).first().
-                           id)
+                    id)
                 return render(
                     request,
                     "circle/person.html",
@@ -567,9 +567,9 @@ def result(request, type):
 
             if type == "article":
                 # .values_list('id'))
-#                display = list(
- #                   Person.objects.get(
-  #                      pk=request.user.person.id).display.all())
+                #                display = list(
+             #                   Person.objects.get(
+              #                      pk=request.user.person.id).display.all())
                 # .values_list('id'))
                 rent = list(
                     Person.objects.get(pk=request.user.person.id).rented.all())
