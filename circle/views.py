@@ -9,7 +9,6 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import ArticleForm
-from .forms import ChatForm
 from .forms import MessageForm
 from .forms import PersonForm
 from .forms import TagForm
