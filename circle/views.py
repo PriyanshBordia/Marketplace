@@ -3,12 +3,21 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .forms import ArticleForm, ChatForm, MessageForm, PersonForm, TagForm
-from .models import Article, Chat, Message, Person, Tag
+from .forms import ArticleForm
+from .forms import ChatForm
+from .forms import MessageForm
+from .forms import PersonForm
+from .forms import TagForm
+from .models import Article
+from .models import Chat
+from .models import Message
+from .models import Person
+from .models import Tag
 from .utils import *
 
 # Create your views here.
