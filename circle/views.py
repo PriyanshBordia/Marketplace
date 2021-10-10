@@ -42,9 +42,8 @@ def addPerson(request):
 				Chat.objects.create(left=person, right=person)
 				return HttpResponseRedirect(reverse('person', args=(person.id, )))
 			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
-		else:
-			form = PersonForm(instance=person)
-			return render(request, "circle/person.html", context={"person": person, "form": form})
+		form = PersonForm(instance=person)
+		return render(request, "circle/person.html", context={"person": person, "form": form})
 	except Exception as e:
 		return render(request, "circle/error.html", context={"message": str(e), "type": "Internal Error", "link": "newPerson"})
 
@@ -57,7 +56,6 @@ def person(request, person_id):
 			if Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).exists():
 				chat_id = Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).first().id
 				return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
-		else:
 			return render(request, "circle/person.html", context={"person": person})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Data Error.!", "link": "search"})
@@ -92,8 +90,7 @@ def addArticle(request):
 					return HttpResponseRedirect(reverse('article', args=(article.id, )))
 				except Person.DoesNotExist:
 					return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newArticle"})
-			else:
-				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:
 			form = ArticleForm(instance=article)
 			return render(request, "circle/article.html", context={"article": article, "form": form})
@@ -130,8 +127,7 @@ def edit(request, id, type):
 				if form.is_valid():
 					form.save()
 					return HttpResponseRedirect(reverse('article', args=(id, )))
-				else:
-					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "articles"})
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "articles"})
 			else:
 				form = ArticleForm(instance=article)
 				return render(request, "circle/article.html", context={"article": article, "form": form})
@@ -192,8 +188,7 @@ def addTag(request):
 					return HttpResponseRedirect(reverse('tag', args=(tag.id, )))
 				except Person.DoesNotExist:
 					return render(request, "circle/error.html", context={"message": "No person found.!!", "type": "Data Error", "link": "newArticle"})
-			else:
-				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:
 			form = TagForm(instance=tag)
 			return render(request, "circle/addTag.html", context={"tag": tag, "form": form})
