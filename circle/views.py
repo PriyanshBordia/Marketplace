@@ -41,8 +41,7 @@ def addPerson(request):
 				print(person)
 				Chat.objects.create(left=person, right=person)
 				return HttpResponseRedirect(reverse('person', args=(person.id, )))
-			else:
-				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+			return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 		else:
 			form = PersonForm(instance=person)
 			return render(request, "circle/person.html", context={"person": person, "form": form})
@@ -116,8 +115,7 @@ def edit(request, id, type):
 						return render(request, "circle/error.html", context={"message": "Email Already Registered.!!", "type": "Integrity Error", "link": "newPerson"})
 					form.save()
 					return HttpResponseRedirect(reverse('person', args=(person.id, )))
-				else:
-					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "search"})
 			else:
 				form = PersonForm(instance=person)
 				return render(request, "circle/person.html", context={"person": person, "form": form})
@@ -147,9 +145,8 @@ def edit(request, id, type):
 				form = TagForm(request.POST, request.FILES, instance=tag)
 				if form.is_valid():
 					form.save()
-					return HttpResponseRedirect(reverse('tag', args=(id, )))
-				else:
-					return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "tags"})
+					return HttpResponseRedirect(reverse('tag', args=(id, )))	
+				return render(request, "circle/error.html", context={"message": "Invalid Data.!!", "type": "Type Error", "link": "tags"})
 			else:
 				form = TagForm(instance=tag)
 				return render(request, "circle/tag.html", context={"tag": tag, "form": form})
@@ -259,15 +256,14 @@ def result(request, type):
 	try:
 		if request.GET:
 			return HttpResponseRedirect(reverse('search', args=(type,)))
-		else:
-			try:
-				search = str(request.POST.get("search"))
-			except KeyError:
-				return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
-			except ValueError:
-				return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
-			except TypeError:
-				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
+		try:
+			search = str(request.POST.get("search"))
+		except KeyError:
+			return render(request, "circle/error.html", context={"message":  "Enter text to search.!!", "type": "Key Error", "link": "search"})
+		except ValueError:
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field.!!", "type": "Value Error", "link": "search"})
+		except TypeError:
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
 			
 			if type == 'article':
 				display = list(Person.objects.get(pk=request.user.person.id).display.all()) #.values_list('id'))
@@ -329,8 +325,7 @@ def rent(request, article_id):
 			person.rented.add(article)
 			person.save()
 			return HttpResponseRedirect(reverse('rented', args=()))
-		else:
-			return HttpResponseRedirect(reverse('article', args=(article_id, )))
+		return HttpResponseRedirect(reverse('article', args=(article_id, )))
 	except Article.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 	except Person.DoesNotExist:
@@ -497,11 +492,11 @@ def remove(request, id, type):
 				person.bookmarked.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('wishlisted', args=()))
-			elif type == 'rented':
+			if type == 'rented':
 				person.rented.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('rented', args=()))
-			elif type == 'carted':
+			if type == 'carted':
 				person.carted.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('carted', args=()))
@@ -509,13 +504,12 @@ def remove(request, id, type):
 			# 	person.purchased.remove(article)
 			# 	person.save()
 			# 	return HttpResponseRedirect(reverse('purchased', args=()))
-			elif type == 'display':
+			if type == 'display':
 				person.display.remove(article)
 				person.save()
 				article.delete()
 				return HttpResponseRedirect(reverse('display', args=()))
-			else:
-				return HttpResponseRedirect(reverse('search', args=('article', )))
+			return HttpResponseRedirect(reverse('search', args=('article', )))
 		except Article.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Article Found.!!", "type": "Type Error", "link": "search"})
 		except Person.DoesNotExist:
