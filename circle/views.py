@@ -1,16 +1,15 @@
 import os
-from django.urls import reverse
-from django.db.models import Q
-from django.shortcuts import render
-from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
+from .forms import ArticleForm, ChatForm, MessageForm, PersonForm, TagForm
+from .models import Article, Chat, Message, Person, Tag
 from .utils import *
-
-from .models import Article, Person, Message, Tag, Chat
-from .forms import ArticleForm, PersonForm, MessageForm, ChatForm, TagForm
-
 
 # Create your views here.
 
