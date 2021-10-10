@@ -100,8 +100,7 @@ def person(request, person_id):
                                  friends__pk=person.id).exists():
             if Chat.objects.filter(
                     Q(left=person_id, right=request.user.person.id)
-                    | Q(left=request.user.person.id, right=person_id)).exists(
-                    ):
+                    | Q(left=request.user.person.id, right=person_id)).exists():
                 chat_id = (Chat.objects.filter(
                     Q(left=person_id, right=request.user.person.id)
                     | Q(left=request.user.person.id, right=person_id)).first().
