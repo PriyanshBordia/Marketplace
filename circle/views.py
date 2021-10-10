@@ -31,9 +31,12 @@ def home(request):
 def newPerson(request):
     form = PersonForm()
     tags = Tag.objects.all()
-    return render(
-        request, "circle/newPerson.html", context={"form": form, "tags": tags}
-    )
+    return render(request,
+                  "circle/newPerson.html",
+                  context={
+                      "form": form,
+                      "tags": tags
+                  })
 
 
 @login_required
@@ -59,7 +62,8 @@ def addPerson(request):
                 form.save()
                 print(person)
                 Chat.objects.create(left=person, right=person)
-                return HttpResponseRedirect(reverse("person", args=(person.id,)))
+                return HttpResponseRedirect(
+                    reverse("person", args=(person.id, )))
             return render(
                 request,
                 "circle/error.html",
@@ -70,14 +74,21 @@ def addPerson(request):
                 },
             )
         form = PersonForm(instance=person)
-        return render(
-            request, "circle/person.html", context={"person": person, "form": form}
-        )
+        return render(request,
+                      "circle/person.html",
+                      context={
+                          "person": person,
+                          "form": form
+                      })
     except Exception as e:
         return render(
             request,
             "circle/error.html",
-            context={"message": str(e), "type": "Internal Error", "link": "newPerson"},
+            context={
+                "message": str(e),
+                "type": "Internal Error",
+                "link": "newPerson"
+            },
         )
 
 
@@ -85,28 +96,28 @@ def addPerson(request):
 def person(request, person_id):
     try:
         person = Person.objects.get(pk=person_id)
-        if Person.objects.filter(
-            pk=request.user.person.id, friends__pk=person.id
-        ).exists():
+        if Person.objects.filter(pk=request.user.person.id,
+                                 friends__pk=person.id).exists():
             if Chat.objects.filter(
-                Q(left=person_id, right=request.user.person.id)
-                | Q(left=request.user.person.id, right=person_id)
-            ).exists():
-                chat_id = (
-                    Chat.objects.filter(
-                        Q(left=person_id, right=request.user.person.id)
-                        | Q(left=request.user.person.id, right=person_id)
-                    )
-                    .first()
-                    .id
-                )
+                    Q(left=person_id, right=request.user.person.id)
+                    | Q(left=request.user.person.id, right=person_id)).exists(
+                    ):
+                chat_id = (Chat.objects.filter(
+                    Q(left=person_id, right=request.user.person.id)
+                    | Q(left=request.user.person.id, right=person_id)).first().
+                           id)
                 return render(
                     request,
                     "circle/person.html",
-                    context={"person": person, "chat_id": chat_id},
+                    context={
+                        "person": person,
+                        "chat_id": chat_id
+                    },
                 )
         else:
-            return render(request, "circle/person.html", context={"person": person})
+            return render(request,
+                          "circle/person.html",
+                          context={"person": person})
     except Person.DoesNotExist:
         return render(
             request,
@@ -153,7 +164,8 @@ def addArticle(request):
                     person = Person.objects.get(pk=request.user.person.id)
                     person.display.add(article)
                     person.save()
-                    return HttpResponseRedirect(reverse("article", args=(article.id,)))
+                    return HttpResponseRedirect(
+                        reverse("article", args=(article.id, )))
                 except Person.DoesNotExist:
                     return render(
                         request,
@@ -179,13 +191,20 @@ def addArticle(request):
             return render(
                 request,
                 "circle/article.html",
-                context={"article": article, "form": form},
+                context={
+                    "article": article,
+                    "form": form
+                },
             )
     except Exception as e:
         return render(
             request,
             "circle/error.html",
-            context={"message": str(e), "type": "Internal Error", "link": "newArticle"},
+            context={
+                "message": str(e),
+                "type": "Internal Error",
+                "link": "newArticle"
+            },
         )
 
 
@@ -197,13 +216,11 @@ def edit(request, id, type):
             if request.POST:
                 form = PersonForm(request.POST, request.FILES, instance=person)
                 if form.is_valid():
-                    person.username = str(form.cleaned_data["email"].split("@")[0])
+                    person.username = str(
+                        form.cleaned_data["email"].split("@")[0])
                     email = str(form.cleaned_data["email"])
-                    if (
-                        Person.objects.filter(email=email)
-                        .exclude(pk=person.id)
-                        .exists()
-                    ):
+                    if (Person.objects.filter(email=email).exclude(
+                            pk=person.id).exists()):
                         return render(
                             request,
                             "circle/error.html",
@@ -214,7 +231,8 @@ def edit(request, id, type):
                             },
                         )
                     form.save()
-                    return HttpResponseRedirect(reverse("person", args=(person.id,)))
+                    return HttpResponseRedirect(
+                        reverse("person", args=(person.id, )))
                 return render(
                     request,
                     "circle/error.html",
@@ -225,9 +243,12 @@ def edit(request, id, type):
                     },
                 )
             form = PersonForm(instance=person)
-            return render(
-                request, "circle/person.html", context={"person": person, "form": form}
-            )
+            return render(request,
+                          "circle/person.html",
+                          context={
+                              "person": person,
+                              "form": form
+                          })
         except Person.DoesNotExist:
             return render(
                 request,
@@ -243,10 +264,13 @@ def edit(request, id, type):
         try:
             article = Article.objects.get(pk=id)
             if request.POST:
-                form = ArticleForm(request.POST, request.FILES, instance=article)
+                form = ArticleForm(request.POST,
+                                   request.FILES,
+                                   instance=article)
                 if form.is_valid():
                     form.save()
-                    return HttpResponseRedirect(reverse("article", args=(id,)))
+                    return HttpResponseRedirect(reverse("article",
+                                                        args=(id, )))
                 return render(
                     request,
                     "circle/error.html",
@@ -260,7 +284,10 @@ def edit(request, id, type):
             return render(
                 request,
                 "circle/article.html",
-                context={"article": article, "form": form},
+                context={
+                    "article": article,
+                    "form": form
+                },
             )
         except Article.DoesNotExist:
             return render(
@@ -280,7 +307,7 @@ def edit(request, id, type):
                 form = TagForm(request.POST, request.FILES, instance=tag)
                 if form.is_valid():
                     form.save()
-                    return HttpResponseRedirect(reverse("tag", args=(id,)))
+                    return HttpResponseRedirect(reverse("tag", args=(id, )))
                 return render(
                     request,
                     "circle/error.html",
@@ -291,9 +318,12 @@ def edit(request, id, type):
                     },
                 )
             form = TagForm(instance=tag)
-            return render(
-                request, "circle/tag.html", context={"tag": tag, "form": form}
-            )
+            return render(request,
+                          "circle/tag.html",
+                          context={
+                              "tag": tag,
+                              "form": form
+                          })
         except Tag.DoesNotExist:
             return render(
                 request,
@@ -307,7 +337,11 @@ def edit(request, id, type):
     return render(
         request,
         "circle/error.html",
-        context={"message": "Invalid Type.!!", "type": "Type Error", "link": "search"},
+        context={
+            "message": "Invalid Type.!!",
+            "type": "Type Error",
+            "link": "search"
+        },
     )
 
 
@@ -333,14 +367,19 @@ def article(request, article_id):
     return render(
         request,
         "circle/article.html",
-        context={"article": article, "not_tagged": not_tagged},
+        context={
+            "article": article,
+            "not_tagged": not_tagged
+        },
     )
 
 
 @login_required
 def articles(request):
     articles = Article.objects.all()
-    return render(request, "circle/articles.html", context={"articles": articles})
+    return render(request,
+                  "circle/articles.html",
+                  context={"articles": articles})
 
 
 @login_required
@@ -355,7 +394,8 @@ def addTag(request):
                     person = Person.objects.get(pk=request.user.person.id)
                     person.tags.add(tag)
                     person.save()
-                    return HttpResponseRedirect(reverse("tag", args=(tag.id,)))
+                    return HttpResponseRedirect(reverse("tag",
+                                                        args=(tag.id, )))
                 except Person.DoesNotExist:
                     return render(
                         request,
@@ -378,14 +418,21 @@ def addTag(request):
                 )
         else:
             form = TagForm(instance=tag)
-            return render(
-                request, "circle/addTag.html", context={"tag": tag, "form": form}
-            )
+            return render(request,
+                          "circle/addTag.html",
+                          context={
+                              "tag": tag,
+                              "form": form
+                          })
     except Exception as e:
         return render(
             request,
             "circle/error.html",
-            context={"message": str(e), "type": "Internal Error", "link": "addTag"},
+            context={
+                "message": str(e),
+                "type": "Internal Error",
+                "link": "addTag"
+            },
         )
 
 
@@ -421,7 +468,7 @@ def addFriend(request, person_id):
         person.save()
         if friend.allowsMessage:
             Chat.objects.create(left=person, right=friend)
-        return HttpResponseRedirect(reverse("person", args=(person.id,)))
+        return HttpResponseRedirect(reverse("person", args=(person.id, )))
     except Person.DoesNotExist:
         return render(
             request,
@@ -441,9 +488,12 @@ def friends(request):
         person = Person.objects.get(pk=person_id)
         friends = person.friends.all()
         chats = Chat.objects.filter(Q(left=person) | Q(right=person))
-        return render(
-            request, "circle/friends.html", context={"chats": chats, "friends": friends}
-        )
+        return render(request,
+                      "circle/friends.html",
+                      context={
+                          "chats": chats,
+                          "friends": friends
+                      })
     except Person.DoesNotExist:
         return render(
             request,
@@ -477,7 +527,7 @@ def search(request, type):
 def result(request, type):
     try:
         if request.GET:
-            return HttpResponseRedirect(reverse("search", args=(type,)))
+            return HttpResponseRedirect(reverse("search", args=(type, )))
         try:
             search = str(request.POST.get("search"))
         except KeyError:
@@ -514,44 +564,52 @@ def result(request, type):
             if type == "article":
                 # .values_list('id'))
                 display = list(
-                    Person.objects.get(pk=request.user.person.id).display.all()
-                )
+                    Person.objects.get(
+                        pk=request.user.person.id).display.all())
                 # .values_list('id'))
-                rent = list(Person.objects.get(pk=request.user.person.id).rented.all())
+                rent = list(
+                    Person.objects.get(pk=request.user.person.id).rented.all())
                 # .values_list('id'))
                 purchased = list(
-                    Person.objects.get(pk=request.user.person.id).purchased.all()
-                )
+                    Person.objects.get(
+                        pk=request.user.person.id).purchased.all())
                 # .values_list('id'))
-                sold = list(Person.objects.get(pk=request.user.person.id).sold.all())
+                sold = list(
+                    Person.objects.get(pk=request.user.person.id).sold.all())
                 # cprint(display, 'green')
                 # cprint(rent, 'red')
                 # cprint(purchased, 'blue')
                 # cprint(sold, 'yellow')
 
                 articles = Article.objects.filter(
-                    Q(title__contains=search) | Q(description__contains=search)
-                )
+                    Q(title__contains=search)
+                    | Q(description__contains=search))
                 # .exclude(display)
                 # .exclude(rent).exclude(purchased).exclude(sold)
                 return render(
                     request,
                     "circle/result.html",
-                    context={"articles": articles, "type": type},
+                    context={
+                        "articles": articles,
+                        "type": type
+                    },
                 )
             if type == "person":
                 friends = list(
-                    Person.objects.get(pk=request.user.person.id).friends.all()
-                )
+                    Person.objects.get(
+                        pk=request.user.person.id).friends.all())
                 persons = Person.objects.filter(
                     Q(first__contains=search)
                     | Q(last__contains=search)
-                    | Q(username__contains=search)
-                ).exclude(friends__in=friends)
+                    | Q(username__contains=search)).exclude(
+                        friends__in=friends)
                 return render(
                     request,
                     "circle/result.html",
-                    context={"persons": persons, "type": type},
+                    context={
+                        "persons": persons,
+                        "type": type
+                    },
                 )
     except Article.DoesNotExist:
         return render(
@@ -581,7 +639,9 @@ def display(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.display.all()
-        return render(request, "circle/display.html", context={"articles": articles})
+        return render(request,
+                      "circle/display.html",
+                      context={"articles": articles})
     except Person.DoesNotExist:
         return render(
             request,
@@ -635,7 +695,7 @@ def rent(request, article_id):
             person.rented.add(article)
             person.save()
             return HttpResponseRedirect(reverse("rented", args=()))
-        return HttpResponseRedirect(reverse("article", args=(article_id,)))
+        return HttpResponseRedirect(reverse("article", args=(article_id, )))
     except Article.DoesNotExist:
         return render(
             request,
@@ -728,7 +788,8 @@ def buy(request, article_id):
         article = Article.objects.get(pk=article_id)
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
-        if article not in person.rented.all() and article not in person.purchased.all():
+        if article not in person.rented.all(
+        ) and article not in person.purchased.all():
             person.purchased.add(article)
             person.carted.remove(article)
             person.save()
@@ -761,7 +822,9 @@ def purchased(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.purchased.all()
-        return render(request, "circle/purchased.html", context={"articles": articles})
+        return render(request,
+                      "circle/purchased.html",
+                      context={"articles": articles})
     except Person.DoesNotExist:
         return render(
             request,
@@ -780,7 +843,9 @@ def sold(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.sold.all()
-        return render(request, "circle/sold.html", context={"articles": articles})
+        return render(request,
+                      "circle/sold.html",
+                      context={"articles": articles})
     except Person.DoesNotExist:
         return render(
             request,
@@ -799,7 +864,9 @@ def wishlisted(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.bookmarked.all()
-        return render(request, "circle/wishlist.html", context={"articles": articles})
+        return render(request,
+                      "circle/wishlist.html",
+                      context={"articles": articles})
     except Person.DoesNotExist:
         return render(
             request,
@@ -818,7 +885,9 @@ def rented(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.rented.all()
-        return render(request, "circle/rent.html", context={"articles": articles})
+        return render(request,
+                      "circle/rent.html",
+                      context={"articles": articles})
     except Article.DoesNotExist:
         return render(
             request,
@@ -847,7 +916,9 @@ def carted(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.carted.all()
-        return render(request, "circle/cart.html", context={"articles": articles})
+        return render(request,
+                      "circle/cart.html",
+                      context={"articles": articles})
     except Article.DoesNotExist:
         return render(
             request,
@@ -876,7 +947,9 @@ def retreated(request):
         person_id = request.user.person.id
         person = Person.objects.get(pk=person_id)
         articles = person.retreated.all()
-        return render(request, "circle/retreat.html", context={"articles": articles})
+        return render(request,
+                      "circle/retreat.html",
+                      context={"articles": articles})
     except Article.DoesNotExist:
         return render(
             request,
@@ -905,7 +978,7 @@ def remove(request, id, type):
         try:
             person = Person.objects.get(pk=id)
             person.delete()
-            return HttpResponseRedirect(reverse("search", args=("person",)))
+            return HttpResponseRedirect(reverse("search", args=("person", )))
         except Person.DoesNotExist:
             return render(
                 request,
@@ -922,7 +995,7 @@ def remove(request, id, type):
             person_id = request.user.person.id
             person = Person.objects.get(pk=person_id)
             person.friends.remove(friend)
-            return HttpResponseRedirect(reverse("person", args=(person_id,)))
+            return HttpResponseRedirect(reverse("person", args=(person_id, )))
         except Person.DoesNotExist:
             return render(
                 request,
@@ -939,7 +1012,7 @@ def remove(request, id, type):
             person_id = request.user.person.id
             person = Person.objects.get(pk=person_id)
             chats.objects.delete(chat)
-            return HttpResponseRedirect(reverse("person", args=(person_id,)))
+            return HttpResponseRedirect(reverse("person", args=(person_id, )))
         except Chat.DoesNotExist:
             return render(
                 request,
@@ -979,7 +1052,7 @@ def remove(request, id, type):
                 person.save()
                 article.delete()
                 return HttpResponseRedirect(reverse("display", args=()))
-            return HttpResponseRedirect(reverse("search", args=("article",)))
+            return HttpResponseRedirect(reverse("search", args=("article", )))
         except Article.DoesNotExist:
             return render(
                 request,
@@ -1014,14 +1087,15 @@ def addMessage(request, chat_id):
             else:
                 receiver_id = chat.left.id
             receiver = Person.objects.get(pk=receiver_id)
-            text = Message.objects.create(
-                sender=sender, receiver=receiver, text=message
-            )
+            text = Message.objects.create(sender=sender,
+                                          receiver=receiver,
+                                          text=message)
             if text.isValidMessage():
                 try:
                     chat.messages.add(text)
                     chat.save()
-                    return HttpResponseRedirect(reverse("chat", args=(chat_id,)))
+                    return HttpResponseRedirect(
+                        reverse("chat", args=(chat_id, )))
                 except Chat.DoesNotExist:
                     return render(
                         request,
@@ -1040,7 +1114,11 @@ def addMessage(request, chat_id):
         return render(
             request,
             "circle/error.html",
-            context={"message": "Enter text.!!", "type": "Key Error", "link": "search"},
+            context={
+                "message": "Enter text.!!",
+                "type": "Key Error",
+                "link": "search"
+            },
         )
     except ValueError:
         return render(
@@ -1069,7 +1147,12 @@ def chat(request, chat_id):
     try:
         chat = Chat.objects.get(pk=chat_id)
         form = MessageForm()
-        return render(request, "circle/chat.html", context={"chat": chat, "form": form})
+        return render(request,
+                      "circle/chat.html",
+                      context={
+                          "chat": chat,
+                          "form": form
+                      })
     except Chat.DoesNotExist:
         return render(
             request,
@@ -1085,8 +1168,7 @@ def chat(request, chat_id):
 @login_required
 def chats(request):
     chats = Chat.objects.filter(
-        Q(left=request.user.person) | Q(right=request.user.person)
-    )
+        Q(left=request.user.person) | Q(right=request.user.person))
     return render(request, "circle/chats.html", context={"chats": chats})
 
 
@@ -1101,7 +1183,10 @@ def update(request):
             return render(
                 request,
                 "flights/error.html",
-                context={"message": "Enter a First Name!!", "type": "Key Error!!"},
+                context={
+                    "message": "Enter a First Name!!",
+                    "type": "Key Error!!"
+                },
             )
         except ValueError:
             return render(
@@ -1128,7 +1213,10 @@ def update(request):
             return render(
                 request,
                 "flights/error.html",
-                context={"message": "Enter a Last Name!!", "type": "Key Error!!"},
+                context={
+                    "message": "Enter a Last Name!!",
+                    "type": "Key Error!!"
+                },
             )
         except ValueError:
             return render(
@@ -1155,7 +1243,10 @@ def update(request):
             return render(
                 request,
                 "flights/error.html",
-                context={"message": "Enter a e-mail address!!", "type": "KeyError!!"},
+                context={
+                    "message": "Enter a e-mail address!!",
+                    "type": "KeyError!!"
+                },
             )
         except ValueError:
             return render(
@@ -1192,7 +1283,7 @@ def update(request):
                 },
             )
     else:
-        return HttpResponseRedirect(reverse("user", args=(user_id,)))
+        return HttpResponseRedirect(reverse("user", args=(user_id, )))
 
 
 @login_required
