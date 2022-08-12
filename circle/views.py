@@ -168,7 +168,7 @@ def article(request, article_id):
 		return render(request, "circle/error.html", context={"message": "Article does not exist.!!", "type": "Type Error", "link": "search"})
 	tags = article.tags.all()
 	try:
-		not_tagged = Article.objects.exclude(tags=tags)
+		not_tagged = Article.objects.exclude(tags__in=tags)
 	except Tag.DoesNotExist:
 		not_tagged = []
 	return render(request, "circle/article.html", context={"article": article, "not_tagged": not_tagged})
@@ -270,18 +270,14 @@ def result(request, type):
 				return render(request, "circle/error.html", context={"message": "Incompatible DataType.!!", "type": "Type Error", "link": "search"})
 			
 			if type == 'article':
-				display = list(Person.objects.get(pk=request.user.person.id).display.all()) #.values_list('id'))
-				rent = list(Person.objects.get(pk=request.user.person.id).rented.all()) #.values_list('id'))
-				purchased = list(Person.objects.get(pk=request.user.person.id).purchased.all()) #.values_list('id'))
-				sold = list(Person.objects.get(pk=request.user.person.id).sold.all()) #.values_list('id'))
-				# cprint(display, 'green')
-				# cprint(rent, 'red')
-				# cprint(purchased, 'blue')
-				# cprint(sold, 'yellow')
+				display = set(Person.objects.get(pk=request.user.person.id).display.all().values_list('id', flat=True))
+				rent = set(Person.objects.get(pk=request.user.person.id).rented.all().values_list('id', flat=True))
+				purchased = set(Person.objects.get(pk=request.user.person.id).purchased.all().values_list('id', flat=True))
+				sold = set(Person.objects.get(pk=request.user.person.id).sold.all().values_list('id', flat=True))
 
 				articles = Article.objects.filter(Q(title__contains=search) | Q(description__contains=search))
-				# .exclude(display)
-				# .exclude(rent).exclude(purchased).exclude(sold)
+				articles.exclude(id__in=list(display | rent | purchased | sold))
+
 				return render(request, "circle/result.html", context={'articles': articles, 'type': type})
 			elif type == 'person':
 				friends = list(Person.objects.get(pk=request.user.person.id).friends.all())

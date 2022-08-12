@@ -1,7 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from selenium import webdriver
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth.models import User
 from django.core.management import call_command
 
@@ -10,13 +8,6 @@ from . import views
 
 
 # Create your tests here.
-
-
-class BrowserTest(StaticLiveServerTestCase):
-
-	def setUp(self) -> None:
-		super().setUp()
-		self.browser = webdriver.Safari()
 
 
 # Test for models
@@ -330,7 +321,7 @@ class ViewsTestCase(TestCase):
 
 	def test_view_status_code_addFriend(self):
 		self.response = self.client.get(reverse('addFriend', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_addFriend(self):
 	# 	self.response = self.client.get(reverse('addFriend'))
@@ -370,7 +361,7 @@ class ViewsTestCase(TestCase):
 	
 	def test_view_status_code_wishlist(self):
 		self.response = self.client.post(reverse('wishlist', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_wishlist(self):
 	# 	self.response = self.client.post(reverse('wishlist', args=(1, )))
@@ -378,7 +369,7 @@ class ViewsTestCase(TestCase):
 	
 	def test_view_status_code_rent(self):
 		self.response = self.client.post(reverse('rent', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_rent(self):
 	# 	self.response = self.client.post(reverse('rent', args=(1, )))
@@ -386,7 +377,7 @@ class ViewsTestCase(TestCase):
 	
 	def test_view_status_code_retreat(self):
 		self.response = self.client.get(reverse('retreat', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_retreat(self):
 	# 	self.response = self.client.get(reverse('retreat', args=(1, )))
@@ -394,7 +385,7 @@ class ViewsTestCase(TestCase):
 
 	def test_view_status_code_cart(self):
 		self.response = self.client.get(reverse('cart', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_cart(self):
 	# 	self.response = self.client.get(reverse('cart', args=(1, )))
@@ -402,7 +393,7 @@ class ViewsTestCase(TestCase):
 
 	def test_view_status_code_buy(self):
 		self.response = self.client.get(reverse('buy', args=(1, )))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_buy(self):
 	# 	self.response = self.client.get(reverse('buy', args=(1, )))
@@ -458,7 +449,7 @@ class ViewsTestCase(TestCase):
 
 	def test_view_status_code_remove(self):
 		self.response = self.client.get(reverse('remove', args=(1, 'person')))
-		self.assertEquals(self.response.status_code, 302)
+		self.assertEquals(self.response.status_code, 200)
 
 	# def test_view_template_used_remove(self):
 	# 	self.response = self.client.get(reverse('remove', args=(1, 'person')))
