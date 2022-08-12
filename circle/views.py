@@ -1,4 +1,3 @@
-import os
 from django.urls import reverse
 from django.db.models import Q
 from django.shortcuts import render
@@ -54,12 +53,11 @@ def addPerson(request):
 def person(request, person_id):
 	try:
 		person = Person.objects.get(pk=person_id)
-		if  Person.objects.filter(pk=request.user.person.id, friends__pk=person.id).exists():
+		if Person.objects.filter(pk=request.user.person.id, friends__pk=person.id).exists():
 			if Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).exists():
 				chat_id = Chat.objects.filter(Q(left=person_id, right=request.user.person.id) | Q(left=request.user.person.id, right=person_id)).first().id
 				return render(request, "circle/person.html", context={"person": person, "chat_id": chat_id})
-		else:
-			return render(request, "circle/person.html", context={"person": person})
+		return render(request, "circle/person.html", context={"person": person})
 	except Person.DoesNotExist:
 		return render(request, "circle/error.html", context={"message": "Person Does Not Exist.!!", "type": "Data Error.!", "link": "search"})
 	except Chat.DoesNotExist:
@@ -477,7 +475,7 @@ def remove(request, id, type):
 			chat = Chat.objects.get(pk=id)
 			person_id = request.user.person.id
 			person = Person.objects.get(pk=person_id)
-			chats.objects.delete(chat)
+			chat.delete()
 			return HttpResponseRedirect(reverse('person', args=(person_id, )))
 		except Chat.DoesNotExist:
 			return render(request, "circle/error.html", context={"message": "No Person Found.!!", "type": "Data Error", "link": "search"})

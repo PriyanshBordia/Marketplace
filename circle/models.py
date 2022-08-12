@@ -104,7 +104,7 @@ class Person(models.Model):
 	bookmarked = models.ManyToManyField(Article, blank=True, related_name="bookmarked")
 	carted = models.ManyToManyField(Article, blank=True, related_name="carted")
 
-	friends = models.ManyToManyField('self', blank=True, related_name="friends")
+	friends = models.ManyToManyField('self', blank=True)
 
 	allowsMessage = models.BooleanField(blank=False, null=False, default=True)
 
