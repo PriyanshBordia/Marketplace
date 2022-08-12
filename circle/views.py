@@ -594,7 +594,9 @@ def update(request):
 
 		try:
 			user = User.objects.get(pk=user_id)
-			User.objects.update(first_name=first, last_name=last, email=email)
+			user.first_name=first
+			user.last_name=last
+			user.email=email
 			user.save()
 			return render(request, "circle/user.html", context={"user": user})
 		except User.DoesNotExist:
