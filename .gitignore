@@ -33,3 +33,4 @@ venv
 .DS_Store
 .dccache
 .profile
+*.pyc
