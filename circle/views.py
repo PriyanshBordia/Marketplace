@@ -501,10 +501,6 @@ def remove(request, id, type):
 				person.carted.remove(article)
 				person.save()
 				return HttpResponseRedirect(reverse('carted', args=()))
-			# elif type == 'purchased':
-			# 	person.purchased.remove(article)
-			# 	person.save()
-			# 	return HttpResponseRedirect(reverse('purchased', args=()))
 			elif type == 'display':
 				person.display.remove(article)
 				person.save()
