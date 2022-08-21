@@ -568,29 +568,29 @@ def update(request):
 		try:
 			first = str(request.POST.get("first"))
 		except KeyError:
-			return render(request, "flights/error.html", context={"message":  "Enter a First Name!!", "type": "Key Error!!"})
+			return render(request, "circle/error.html", context={"message":  "Enter a First Name!!", "type": "Key Error!!"})
 		except ValueError:
-			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
 		except TypeError:
-			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
 
 		try:
 			last = str(request.POST.get("last"))
 		except KeyError:
-			return render(request, "flights/error.html", context={"message":  "Enter a Last Name!!", "type": "Key Error!!"})
+			return render(request, "circle/error.html", context={"message":  "Enter a Last Name!!", "type": "Key Error!!"})
 		except ValueError:
-			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
 		except TypeError:
-			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
 
 		try:
 			email = str(request.POST.get("email"))
 		except KeyError:
-			return render(request, "flights/error.html", context={"message": "Enter a e-mail address!!", "type": "KeyError!!"})
+			return render(request, "circle/error.html", context={"message": "Enter a e-mail address!!", "type": "KeyError!!"})
 		except ValueError:
-			return render(request, "flights/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
+			return render(request, "circle/error.html", context={"message": "Invalid Value to given field!!", "type": "Value Error!!"})
 		except TypeError:
-			return render(request, "flights/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
+			return render(request, "circle/error.html", context={"message": "Incompatible DataType!!", "type": "Type Error!!", })
 
 		try:
 			user = User.objects.get(pk=user_id)
