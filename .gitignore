@@ -161,8 +161,9 @@ cython_debug/
 #Vscode settings
 .vscode
 
+*.pyc
+
 .DS_Store
 .dccache
-.*
 staticfiles
 *.json
